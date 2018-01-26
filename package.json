@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@nuscout/eslint-config": "^0.1.2",
-    "babel-eslint": "^8.2.1",
+    "@nuscout/eslint-config": "^0.2.0",
     "eslint": "^4.16.0",
     "prettier": "^1.10.2",
     "prismic-javascript": "^1.4.1",

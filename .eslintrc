@@ -1,7 +1,3 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["@nuscout"],
-  "parserOptions": {
-    "sourceType": "module"
-  }
+  "extends": ["@nuscout"]
 }
