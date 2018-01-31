@@ -11,6 +11,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "~4.2.2",
+    "surge": "^0.19.0",
     "whatwg-fetch": "~2.0.3"
   },
   "devDependencies": {
@@ -24,7 +25,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
-    "lint": "eslint *.js"
+    "lint": "eslint *.js",
+    "stage": "react-scripts build && surge build --domain mass-hike-stage.surge.sh"
   },
   "lint-staged": {
     "*.{js,json,css,scss,md}": [
