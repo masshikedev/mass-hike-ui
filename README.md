@@ -1,6 +1,6 @@
 # Mass Hike
 
-This is the repository for the Mass Hike project. This project includes the source for the frontend of the Prismic CMS hosting the Mass Hike marketing site, as well as all of the code for the Mass Hike trip booking platform.
+This is the repository for the UI of the Mass Hike project. This project includes the source for the frontend of the Prismic CMS hosting the Mass Hike marketing site, as well as all of the code for the Mass Hike trip booking platform.
 
 ## Development
 
@@ -13,7 +13,7 @@ Because Prismic only has one environment (no concept of staging), if you're maki
 ## Project Structure
 
 ```
- mass-hike
+ mass-hike-ui
  |
  +--public          # static assets (images, HTML, etc)
     |  index.html

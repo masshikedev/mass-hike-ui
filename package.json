@@ -1,5 +1,5 @@
 {
-  "name": "mass-hike",
+  "name": "mass-hike-ui",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,12 +26,10 @@
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "lint": "eslint *.js",
-    "stage": "react-scripts build && surge build --domain mass-hike-stage.surge.sh"
+    "stage":
+      "react-scripts build && surge build --domain mass-hike-stage.surge.sh"
   },
   "lint-staged": {
-    "*.{js,json,css,scss,md}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{js,json,css,scss,md}": ["prettier --write", "git add"]
   }
 }
