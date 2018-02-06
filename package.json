@@ -6,6 +6,7 @@
     "@nuscout/eslint-config": "^0.2.0",
     "eslint": "^4.16.0",
     "history": "^4.7.2",
+    "node-sass-chokidar": "0.0.3",
     "prettier": "^1.10.2",
     "prismic-javascript": "^1.4.1",
     "prismic-reactjs": "^0.2.0",
@@ -32,7 +33,10 @@
     "precommit": "lint-staged",
     "lint": "eslint *.js",
     "stage":
-      "react-scripts build && surge build --domain mass-hike-stage.surge.sh"
+      "react-scripts build && surge build --domain mass-hike-stage.surge.sh",
+    "build-css": "node-sass-chokidar src/scss/index.scss -o src/",
+    "watch-css":
+      "npm run build-css && node-sass-chokidar src/scss/index.scss -o src/ --watch --recursive"
   },
   "lint-staged": {
     "*.{js,json,css,scss,md}": ["prettier --write", "git add"]
