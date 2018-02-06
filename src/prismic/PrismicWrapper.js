@@ -2,11 +2,11 @@ import React from 'react';
 import 'whatwg-fetch';
 import Prismic from 'prismic-javascript';
 import PrismicConfig from './prismic-configuration';
-import Routes from '../Routes';
+import App from '../containers/App';
 
 export default class MassHike extends React.Component {
   state = {
-    prismicCtx: null
+    prismicCtx: null,
   };
 
   componentWillMount() {
@@ -29,12 +29,12 @@ export default class MassHike extends React.Component {
         endpoint: PrismicConfig.apiEndpoint,
         accessToken,
         linkResolver: PrismicConfig.linkResolver,
-        toolbar: this.refreshToolbar
+        toolbar: this.refreshToolbar,
       })
     );
   }
 
   render() {
-    return <Routes prismicCtx={this.state.prismicCtx} />;
+    return <App prismicCtx={this.state.prismicCtx} />;
   }
 }

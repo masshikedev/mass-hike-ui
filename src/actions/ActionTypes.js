@@ -1,0 +1,3 @@
+export default {
+  DECREMENT_TRIP_SPACES: 'DECREMENT_TRIP_SPACES',
+};
