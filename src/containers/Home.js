@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { RichText } from 'prismic-reactjs';
-import PrismicPage from './prismic/PrismicPage';
+import PrismicPage from '../prismic/PrismicPage';
 
-class Home extends React.Component {
+class Home extends Component {
   static pageType = 'homepage';
 
   render() {
