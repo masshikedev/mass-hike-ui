@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.TripDetail {
+  margin-bottom: 5em;
+}
+
+.TripDetail h1 {
+  color: black;
+  font-size: 120px;
+  font-weight: bold;
+}
+
+.TripDetail h3 {
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+.TripDetail h2 {
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.flex-container {
+  display: flex;
+  width: 75%;
+}
+
+.TripDetail-description {
+  margin-right: 5em;
+  flex: 2;
+}
+
+.TripDetail-details {
+  flex: 1;
+}
