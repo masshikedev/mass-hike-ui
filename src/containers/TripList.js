@@ -1,29 +1,49 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { decrementTripSpaces } from '../actions/ExampleActions';
+import { getTripData } from '../actions/TripActions';
+import TripListItem from '../components/TripListItem';
+import Calendar from '../data/Calendar';
 
 class TripList extends Component {
+  componentWillMount() {
+    const { getTripData } = this.props;
+    getTripData();
+  }
+
   render() {
-    const { ticketsLeft, decrementTripSpaces } = this.props;
+    const { trips } = this.props;
+    const tripComponents = trips.map((trip, i) => {
+      const date = new Date(trip.time.hikeStart * 1000);
+
+      return (
+        <TripListItem
+          key={i}
+          name={trip.name}
+          date={Calendar.dateString(date)}
+          location={trip.location}
+          difficulty={trip.difficulty}
+          spotsRemaining={trip.capacity - trip.ticketsSold}
+        />
+      );
+    });
     return (
       <div>
-        <p>This is the trip list page</p>
-        <p>{`Tickets left: ${ticketsLeft}`}</p>
+        <h1>Upcoming Trips</h1>
+        {tripComponents}
         <br />
-        <button onClick={decrementTripSpaces}>Reserve ticket</button>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  ticketsLeft: state.example.ticketsLeft,
+  trips: state.trips.tripList,
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      decrementTripSpaces,
+      getTripData,
     },
     dispatch
   );
