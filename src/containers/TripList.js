@@ -10,12 +10,13 @@ class TripList extends Component {
     const { getTripData } = this.props;
     getTripData();
   }
-
-  render() {
+  spotsRemaining(trip) {
+    return trip.capacity - trip.ticketsSold;
+  }
+  renderTripComponents() {
     const { trips } = this.props;
     const tripComponents = trips.map((trip, i) => {
       const date = new Date(trip.time.hikeStart * 1000);
-
       return (
         <TripListItem
           key={i}
@@ -23,14 +24,17 @@ class TripList extends Component {
           date={Calendar.dateString(date)}
           location={trip.location}
           difficulty={trip.difficulty}
-          spotsRemaining={trip.capacity - trip.ticketsSold}
+          spotsRemaining={this.spotsRemaining(trip)}
         />
       );
     });
+    return tripComponents;
+  }
+  render() {
     return (
       <div>
         <h1>Upcoming Trips</h1>
-        {tripComponents}
+        {this.renderTripComponents()}
         <br />
       </div>
     );

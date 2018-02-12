@@ -24,7 +24,4 @@ class TripListItem extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(TripListItem);
+export default TripListItem;
