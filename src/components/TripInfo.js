@@ -9,20 +9,20 @@ class TripInfo extends Component {
   render() {
     return (
       <div className="TripDetail-details">
-        <h3>PICKUP</h3>
-        <p>{this.props.props.time.pickupStart}</p>
-        <h3>LOCATION</h3>
-        <p>{this.props.props.location}</p>
-        <h3>DIFFICULTY</h3>
-        <p>{this.props.props.difficulty}</p>
-        <h3>PRICE</h3>
-        <p>${this.props.props.price}</p>
-        <h3>AVAILIBILITY</h3>
+        <h3>pickup</h3>
+        <p>{this.props.time.pickupStart}</p>
+        <h3>location</h3>
+        <p>{this.props.location}</p>
+        <h3>difficulty</h3>
+        <p>{this.props.difficulty}</p>
+        <h3>price</h3>
+        <p>${this.props.price} per person</p>
+        <h3>availibility</h3>
         <p>
-          {this.props.props.capacity - this.props.props.ticketsSold}/{
-            this.props.props.capacity
-          }
+          {this.props.capacity - this.props.ticketsSold}/{this.props.capacity}{' '}
+          Tickets remaining
         </p>
+        <button>Book Now</button>
       </div>
     );
   }
