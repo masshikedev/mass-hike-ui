@@ -1,6 +1,8 @@
 @import 'app';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,800');
-@import './TripList.scss';
+@import 'TripList';
+@import 'typography';
+@import 'checkout';
 
 body {
   margin: 10;
