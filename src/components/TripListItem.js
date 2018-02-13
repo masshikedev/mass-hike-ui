@@ -10,7 +10,7 @@ class TripListItem extends Component {
       <div className="TripList-item-container">
         <img src={previewImage} alt={name} className="TripList-previewImage" />
         <div className="TripList-info">
-          <h2>{`${name}`}</h2>
+          <h2>{name}</h2>
           <p>{`${date} - ${location}`}</p>
           <h4>{`${spotsRemaining} spots remaining`}</h4>
           <br />
