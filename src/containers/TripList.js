@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getTripData } from '../actions/TripActions';
 import TripListItem from '../components/TripListItem';
 import Calendar from '../data/Calendar';
+import H1 from '../style/H1';
 
 class TripList extends Component {
   componentWillMount() {
@@ -33,7 +34,7 @@ class TripList extends Component {
   render() {
     return (
       <div>
-        <h1>Upcoming Trips</h1>
+        <H1>Upcoming Trips</H1>
         {this.renderTripComponents()}
         <br />
       </div>
