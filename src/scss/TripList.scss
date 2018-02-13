@@ -1,0 +1,50 @@
+.TripList-item-container {
+  padding: 50px 0px 50px 0px;
+  display: grid;
+  grid-template-columns: 100px 450px auto;
+}
+
+.TripList-previewImage {
+  margin: auto 0 auto 0;
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+
+.TripList-info {
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+
+.TripList-difficultyHeader {
+  width: 99px;
+  height: 22px;
+  font-family: 'Open Sans';
+  font-size: 16px;
+  font-weight: 800;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  text-align: left;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.TripList-difficultyDescriptor {
+  width: 37px;
+  height: 22px;
+  font-family: 'Open Sans';
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.8px;
+  text-align: left;
+  text-transform: capitalize;
+  color: #000000;
+}

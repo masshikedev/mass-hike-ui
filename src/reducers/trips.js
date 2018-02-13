@@ -1,16 +1,15 @@
 import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
-  ticketsLeft: 15,
+  tripList: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.DECREMENT_TRIP_SPACES:
-      const newTicketsLeft = state.ticketsLeft > 0 ? state.ticketsLeft - 1 : 0;
+    case ActionTypes.GET_TRIP_DATA:
       return {
         ...state,
-        ticketsLeft: newTicketsLeft,
+        tripList: action.payload.tripData,
       };
     default:
       return state;
