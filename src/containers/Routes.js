@@ -4,6 +4,7 @@ import NotFound from '../NotFound';
 import Home from './Home';
 import TripList from './TripList';
 import TripDetail from './TripDetail';
+import Checkout from './Checkout';
 import PrismicRoute from '../prismic/PrismicRoute';
 
 const Routes = props => (
@@ -29,6 +30,7 @@ const Routes = props => (
       componentProps={{ uid: 'tripsdetail' }}
       component={TripDetail}
     />
+    <Route exact path="/trips/:id/checkout" component={Checkout} />
     <Route component={NotFound} />
   </Switch>
 );
