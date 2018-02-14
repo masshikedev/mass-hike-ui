@@ -30,6 +30,7 @@ body {
 
 .TripDetail h3 {
   text-transform: uppercase;
+  font-size: 15px;
   margin: 10px 0;
 }
 
@@ -58,4 +59,8 @@ body {
 
 .TripDetail .flex-container {
   margin-top: 20px;
+}
+
+.TripDetail-details {
+  flex: 1;
 }
