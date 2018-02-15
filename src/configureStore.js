@@ -3,10 +3,11 @@ import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import reducers from './reducers';
+import trips from './data/trips';
 
 export const history = createHistory();
 
-const initialState = {};
+const initialState = { trips };
 const enhancers = [];
 const middleware = [thunk, routerMiddleware(history)];
 

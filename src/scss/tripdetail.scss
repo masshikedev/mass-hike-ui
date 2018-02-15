@@ -8,12 +8,6 @@ body {
   margin-bottom: 72px;
 }
 
-.TripDetail h1 {
-  color: black;
-  font-size: 120px;
-  font-weight: bold;
-}
-
 .TripDetail img {
   width: 55%;
 }
@@ -28,18 +22,7 @@ body {
   background-color: black;
 }
 
-.TripDetail h3 {
-  text-transform: uppercase;
-  font-size: 15px;
-  margin: 10px 0;
-}
-
-.TripDetail h2 {
-  font-weight: bold;
-  font-size: 50px;
-}
-
-.flex-container {
+.TripDetail-information {
   display: flex;
   width: 75%;
 }

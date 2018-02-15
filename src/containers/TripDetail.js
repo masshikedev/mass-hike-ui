@@ -17,7 +17,7 @@ class TripDetail extends Component {
           <h1>{trip.name}</h1>
           <img src={previewImage} className="TripDetail-image" />
         </div>
-        <div className="flex-container">
+        <div className="TripDetail-information">
           <div className="TripDetail-description">
             <h2>{trip.detail.title}</h2>
             <p>{trip.detail.body}</p>
