@@ -1,4 +1,4 @@
-export default [
+const trips = [
   {
     name: 'Blue Hills',
     time: {
@@ -52,3 +52,5 @@ export default [
     },
   },
 ];
+
+export default trips;
