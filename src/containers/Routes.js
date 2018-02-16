@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import NotFound from '../NotFound';
 import Home from './Home';
 import TripList from './TripList';
+import TripDetail from './TripDetail';
 import Checkout from './Checkout';
 import PrismicRoute from '../prismic/PrismicRoute';
 
@@ -21,6 +22,13 @@ const Routes = props => (
       routerProps={props}
       componentProps={{ uid: 'trips' }}
       component={TripList}
+    />
+    <PrismicRoute
+      exact
+      path="/trips/:id"
+      routerProps={props}
+      componentProps={{ uid: 'tripsdetail' }}
+      component={TripDetail}
     />
     <Route exact path="/trips/:id/checkout" component={Checkout} />
     <Route component={NotFound} />
