@@ -15,7 +15,7 @@ class TripList extends Component {
     return trip.capacity - trip.ticketsSold;
   }
   renderTripComponents() {
-    const { trips } = this.props;
+    const { trips = [] } = this.props;
     const tripComponents = trips.map((trip, i) => {
       const date = new Date(trip.time.hikeStart * 1000);
       return (

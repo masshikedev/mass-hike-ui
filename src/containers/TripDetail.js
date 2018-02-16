@@ -1,32 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TripInfo from '../components/TripInfo';
-import { Link } from 'react-router-dom';
 import trips from '../data/trips';
 import previewImage from '../images/square.png';
+import styled from 'styled-components';
+import H1 from '../style/H1';
+import P from '../style/P';
+import H2 from '../style/H2';
 
-class TripDetail extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Wrapper = styled.div`
+  margin-bottom: 72px;
+`;
 
-  render() {
-    const trip = trips[this.props.match.params.id];
-    return (
-      <div className="TripDetail">
-        <div>
-          <h1>{trip.name}</h1>
-          <img src={previewImage} className="TripDetail-image" />
-        </div>
-        <div className="TripDetail-information">
-          <div className="TripDetail-description">
-            <h2>{trip.detail.title}</h2>
-            <p>{trip.detail.body}</p>
-          </div>
-          <TripInfo className="TripDetail-flex-child" {...trip} />
-        </div>
+const DetailWrapper = styled.div`
+  display: flex;
+  width: 75%;
+`;
+
+const DetailDescription = styled.div`
+  margin-right: 60px;
+  width: 75%;
+`;
+
+const Img = styled.img`
+  width: 55%;
+`;
+
+function TripDetail(props) {
+  const trip = trips[props.match.params.id];
+  return (
+    <Wrapper>
+      <div>
+        <H1>{trip.name}</H1>
+        <Img src={previewImage} />
       </div>
-    );
-  }
+      <DetailWrapper>
+        <DetailDescription>
+          <H2>{trip.detail.title}</H2>
+          <P>{trip.detail.body}</P>
+        </DetailDescription>
+        <TripInfo {...trip} />
+      </DetailWrapper>
+    </Wrapper>
+  );
 }
 
 export default TripDetail;

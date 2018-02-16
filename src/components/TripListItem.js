@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import previewImage from '../images/square.png'; // relative path to image
 import Button from '../style/Button';
 import P from '../style/P';
