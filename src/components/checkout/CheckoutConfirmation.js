@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import trips from '../../data/trips';
 import { getDate, getTime } from '../../utils/dateFormats';
+import P from '../../style/P';
+import H6 from '../../style/H6';
 
 const CheckoutConfirmation = props => {
   const { tripId } = props;
@@ -10,38 +12,38 @@ const CheckoutConfirmation = props => {
     <div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
         <div style={{ gridColumn: 'span 1' }}>
-          <h6>Trip Summary</h6>
-          <p>
+          <H6>Trip Summary</H6>
+          <P>
             {trip.name}
             <br />
             {getDate(trip.time.hikeStart)}
             <br />
             {getTime(trip.time.hikeStart)}
             <br />
-          </p>
-          <h6>Contact Info</h6>
-          <p>
+          </P>
+          <H6>Contact Info</H6>
+          <P>
             {props.name}
             <br />
             {props.email}
             <br />
             {props.phone}
-          </p>
-          <h6>Credit Card</h6>
-          <p>
+          </P>
+          <H6>Credit Card</H6>
+          <P>
             Card Type<br />
             {props.cardNumber}
-          </p>
+          </P>
         </div>
         <div style={{ gridColumn: 'span 1' }}>
-          <h6>Pickup</h6>
-          <p>{props.pickupLocation}</p>
-          <h6>Contact Method</h6>
-          <p>{props.preferredContactMethod}</p>
+          <H6>Pickup</H6>
+          <P>{props.pickupLocation}</P>
+          <H6>Contact Method</H6>
+          <P>{props.preferredContactMethod}</P>
         </div>
       </div>
-      <p className="copy-large">{`${props.tickets} Tickets`}</p>
-      <p className="copy-large">{`$${props.tickets * trip.price}`}</p>
+      <P large>{`${props.tickets} Tickets`}</P>
+      <P large>{`$${props.tickets * trip.price}`}</P>
     </div>
   );
 };
