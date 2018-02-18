@@ -14,7 +14,7 @@ const initialState = {
   billingZip: '',
   currentSection: 0,
   highestCompletedSection: 0,
-  paymentType: 'card',
+  paymentType: 'cash',
 };
 
 export default (state = initialState, action) => {

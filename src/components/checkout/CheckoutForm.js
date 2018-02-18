@@ -9,12 +9,14 @@ import CheckoutFormValidator from '../../utils/CheckoutFormValidator';
 import ContactSection from './ContactSection';
 import HikeInfoSection from './HikeInfoSection';
 import PaymentSection from './PaymentSection';
+import PaymentTypeSection from './PaymentTypeSection';
 import CheckoutConfirmation from './CheckoutConfirmation';
 import styled from 'styled-components';
 
 const FORM_SEQUENCE = [
   ContactSection,
   HikeInfoSection,
+  PaymentTypeSection,
   PaymentSection,
   CheckoutConfirmation,
 ];
@@ -25,6 +27,7 @@ const Wrapper = styled.div`
 
 class CheckoutForm extends Component {
   isSectionComplete(fields) {
+    console.log(fields);
     for (const key in fields) {
       if (!CheckoutFormValidator[key](fields[key])) {
         return false;

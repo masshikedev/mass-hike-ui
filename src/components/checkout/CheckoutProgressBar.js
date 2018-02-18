@@ -18,6 +18,7 @@ const Wrapper = styled.div`
 const sectionSequence = [
   'Contact Info',
   'Hike Info',
+  'Payment Type',
   'Payment',
   'Order Summary',
 ];
