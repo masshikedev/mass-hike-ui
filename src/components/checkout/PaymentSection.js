@@ -6,9 +6,17 @@ import styled from 'styled-components';
 class PaymentSection extends Component {
   constructor(props) {
     super(props);
-    const { promoCode, cardNumber, expiration, cvv, billingZip } = props;
+    const {
+      promoCode,
+      paymentType,
+      cardNumber,
+      expiration,
+      cvv,
+      billingZip,
+    } = props;
     this.state = {
       promoCode,
+      paymentType,
       cardNumber,
       expiration,
       cvv,
@@ -26,6 +34,23 @@ class PaymentSection extends Component {
           value={this.state.promoCode}
           onChange={e => this.setState({ promoCode: e.target.value })}
         />
+        <H6>How would you like to pay?</H6>
+        <label>
+          Card
+          <Input
+            type="radio"
+            checked={paymentType === 'card'}
+            onChange={() => this.setState({ paymentType: 'card' })}
+          />
+        </label>
+        <label>
+          Cash
+          <Input
+            type="radio"
+            checked={paymentType !== 'card'}
+            onChange={() => this.setState({ paymentType: 'cash' })}
+          />
+        </label>
         <H3>Enter your credit card information</H3>
         <label>
           <H6>Card Number</H6>
@@ -70,6 +95,7 @@ class PaymentSection extends Component {
 
 const mapStateToProps = state => ({
   promoCode: state.checkout.promoCode,
+  paymentType: state.checkout.paymentType,
   cardNumber: state.checkout.cardNumber,
   expiration: state.checkout.expiration,
   cvv: state.checkout.cvv,

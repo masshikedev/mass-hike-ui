@@ -55,7 +55,7 @@ class ContactSection extends Component {
           />
         </label>
         <label>
-          Phone
+          Text Message
           <Input
             type="radio"
             checked={preferredContactMethod !== 'email'}

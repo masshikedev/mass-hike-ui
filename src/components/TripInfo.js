@@ -9,7 +9,12 @@ import { format } from 'date-fns';
 import { DAY_MONTH_DATE_TIME } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
-  flex: 1;
+  margin: auto 0;
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  padding: 10px;
 `;
 
 function TripInfo(props) {

@@ -3,6 +3,7 @@ export default {
   phone: phone => phone.length > 0,
   email: email => email.length > 0,
   preferredContactMethod: preferredContactMethod => true,
+  paymentType: paymentType => true,
   tickets: tickets => tickets !== '',
   pickupLocation: pickupLocation => pickupLocation.length > 0,
   promoCode: promoCode => true,
