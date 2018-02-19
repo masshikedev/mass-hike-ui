@@ -10,11 +10,13 @@ import { DAY_MONTH_DATE_TIME } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
   margin: auto 0;
-  grid-column-start: 3;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 1;
+  grid-column: 3;
   padding: 10px;
+
+  @media (max-width: 700px) {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
 `;
 
 function TripInfo(props) {

@@ -15,14 +15,31 @@ const Wrapper = styled.div`
 const DetailWrapper = styled.div`
   display: grid;
   grid-template-columns: 100px 650px auto;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 50px 400px auto;
+  }
 `;
 
+//When on mobile, style is switched to that of H2,
+//unsure how to switch between tags based on screen size
 const Title = H1.extend`
   margin: 0;
+
+  @media (max-width: 700px) {
+    font-size: 48px;
+    font-weight: bold;
+    height: auto;
+    width: auto;
+  }
 `;
 
 const Img = styled.img`
   width: 100%;
+
+  @media (max-width: 700px) {
+    width: auto;
+  }
 `;
 
 function TripDetail(props) {

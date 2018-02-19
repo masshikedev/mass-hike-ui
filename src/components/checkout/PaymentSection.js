@@ -19,7 +19,7 @@ class PaymentSection extends Component {
     const { showNextButton, onClickNextButton } = this.props;
     return (
       <div>
-        {this.state.paymentType === 'card' && (
+        {this.props.paymentType === 'card' && (
           <div>
             <H3>Enter your credit card information</H3>
             <label>
@@ -56,12 +56,12 @@ class PaymentSection extends Component {
             </label>
           </div>
         )}
-        {this.state.paymentType === 'cash' && (
+        {this.props.paymentType === 'cash' && (
           <div>
             <H3>You have chosen to pay with cash</H3>
           </div>
         )}
-        {(showNextButton(this.state) || this.state.paymentType === 'cash') && (
+        {(showNextButton(this.state) || this.props.paymentType === 'cash') && (
           <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
         )}
       </div>
@@ -70,6 +70,7 @@ class PaymentSection extends Component {
 }
 
 const mapStateToProps = state => ({
+  paymentType: state.checkout.paymentType,
   cardNumber: state.checkout.cardNumber,
   expiration: state.checkout.expiration,
   cvv: state.checkout.cvv,

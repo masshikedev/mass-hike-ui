@@ -5,6 +5,12 @@ import { getTripData } from '../actions/TripActions';
 import TripListItem from '../components/TripListItem';
 import { H1 } from '../style';
 
+const Title = H1.extend`
+  @media (max-width: 700px) {
+    display: none;
+  }
+`;
+
 class TripList extends Component {
   componentWillMount() {
     const { getTripData } = this.props;
@@ -33,7 +39,7 @@ class TripList extends Component {
   render() {
     return (
       <div>
-        <H1>Upcoming Trips</H1>
+        <Title>Upcoming Trips</Title>
         {this.renderTripComponents()}
         <br />
       </div>

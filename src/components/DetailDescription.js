@@ -6,16 +6,20 @@ import { H2, H6, P } from '../style';
 const Wrapper = styled.div`
   grid-column-start: 1;
   grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 1;
   padding: 10px;
+`;
+
+const Subtitle = H2.extend`
+  @media (max-width: 700px) {
+    font-size: 24px;
+  }
 `;
 
 function DetailDescription(props) {
   const { detail } = props;
   return (
     <Wrapper>
-      <H2>{detail.title}</H2>
+      <Subtitle>{detail.title}</Subtitle>
       <P>{detail.body}</P>
       <H6>pickup</H6>
       <P>pickup time range will go here</P>
