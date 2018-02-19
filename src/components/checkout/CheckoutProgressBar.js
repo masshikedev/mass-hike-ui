@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setCheckoutState } from '../../actions/CheckoutActions';
+import styled from 'styled-components';
+import P from '../../style/P';
+
+const Wrapper = styled.div`
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  height: 50px;
+  bottom: 10px;
+  width: 100%;
+`;
 
 const sectionSequence = [
   'Contact Info',
@@ -25,7 +37,7 @@ class CheckoutProgressBar extends Component {
           }}
           key={i}
         >
-          <p>{sectionSequence[i]}</p>
+          <P>{sectionSequence[i]}</P>
         </div>
       );
     }
@@ -53,17 +65,10 @@ class CheckoutProgressBar extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gridTemplateRows: 'repeat(2, 1fr)',
-          height: 50,
-        }}
-      >
+      <Wrapper>
         {this.renderProgressBarLinks()}
         {this.renderProgressBarSections()}
-      </div>
+      </Wrapper>
     );
   }
 }

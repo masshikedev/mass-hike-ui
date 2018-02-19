@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
-  width: 314px;
+  width: 100%;
+  max-width: 300px;
   height: 56px;
   background-color: #000000;
   font-family: 'Open Sans';

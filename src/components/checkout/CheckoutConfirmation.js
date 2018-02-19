@@ -2,46 +2,58 @@ import React from 'react';
 import { connect } from 'react-redux';
 import trips from '../../data/trips';
 import { getDate, getTime } from '../../utils/dateFormats';
+import P from '../../style/P';
+import H2 from '../../style/H2';
+import H6 from '../../style/H6';
+
+const Info = P.extend`
+  font-size: large;
+`;
+
+const CapitalizeInfo = Info.extend`
+  text-transform: capitalize;
+`;
 
 const CheckoutConfirmation = props => {
   const { tripId } = props;
   const trip = trips[tripId];
   return (
     <div>
+      <H2>Trip Summary</H2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
         <div style={{ gridColumn: 'span 1' }}>
-          <h6>Trip Summary</h6>
-          <p>
+          <Info>
             {trip.name}
             <br />
             {getDate(trip.time.hikeStart)}
             <br />
             {getTime(trip.time.hikeStart)}
             <br />
-          </p>
-          <h6>Contact Info</h6>
-          <p>
+          </Info>
+          <H6>Contact Info</H6>
+          <Info>
             {props.name}
             <br />
             {props.email}
             <br />
             {props.phone}
-          </p>
-          <h6>Credit Card</h6>
-          <p>
-            Card Type<br />
+          </Info>
+          <H6>Credit Card</H6>
+          <Info>
+            Card Type
+            <br />
             {props.cardNumber}
-          </p>
+          </Info>
         </div>
         <div style={{ gridColumn: 'span 1' }}>
-          <h6>Pickup</h6>
-          <p>{props.pickupLocation}</p>
-          <h6>Contact Method</h6>
-          <p>{props.preferredContactMethod}</p>
+          <H6>Pickup</H6>
+          <Info>{props.pickupLocation}</Info>
+          <H6>Contact Method</H6>
+          <CapitalizeInfo>{props.preferredContactMethod}</CapitalizeInfo>
         </div>
       </div>
-      <p className="copy-large">{`${props.tickets} Tickets`}</p>
-      <p className="copy-large">{`$${props.tickets * trip.price}`}</p>
+      <Info className="copy-large">{`${props.tickets} Tickets`}</Info>
+      <Info className="copy-large">{`${props.tickets * trip.price}`}</Info>
     </div>
   );
 };
