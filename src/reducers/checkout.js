@@ -1,17 +1,17 @@
 import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
-  name: '',
-  phone: '',
-  email: '',
+  name: 'Matthew Panzer',
+  phone: '516 987 7843',
+  email: 'panzer.ma',
   preferredContactMethod: 'email',
-  tickets: '',
-  pickupLocation: '',
-  promoCode: '',
-  cardNumber: '',
-  expiration: '',
-  cvv: '',
-  billingZip: '',
+  tickets: '3',
+  pickupLocation: 'Ryder Hall',
+  promoCode: 'please',
+  cardNumber: '0123456789012345',
+  expiration: '3942',
+  cvv: '334',
+  billingZip: '11667',
   currentSection: 0,
   highestCompletedSection: 0,
 };

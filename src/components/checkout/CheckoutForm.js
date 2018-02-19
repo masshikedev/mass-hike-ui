@@ -10,6 +10,7 @@ import ContactSection from './ContactSection';
 import HikeInfoSection from './HikeInfoSection';
 import PaymentSection from './PaymentSection';
 import CheckoutConfirmation from './CheckoutConfirmation';
+import styled from 'styled-components';
 
 const FORM_SEQUENCE = [
   ContactSection,
@@ -17,6 +18,10 @@ const FORM_SEQUENCE = [
   PaymentSection,
   CheckoutConfirmation,
 ];
+
+const Wrapper = styled.div`
+  grid-column: 2 / 8;
+`;
 
 class CheckoutForm extends Component {
   isSectionComplete(fields) {
@@ -38,7 +43,7 @@ class CheckoutForm extends Component {
     const { currentSection, tripId } = this.props;
     const FormSection = FORM_SEQUENCE[currentSection];
     return (
-      <div style={{ gridColumn: 'span 8' }}>
+      <Wrapper>
         <form>
           <FormSection
             showNextButton={this.isSectionComplete}
@@ -46,7 +51,7 @@ class CheckoutForm extends Component {
             tripId={tripId}
           />
         </form>
-      </div>
+      </Wrapper>
     );
   }
 }
