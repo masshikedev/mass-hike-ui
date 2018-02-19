@@ -1,7 +1,4 @@
 import React from 'react';
-import TripInfo from '../components/TripInfo';
-import trips from '../data/trips';
-import previewImage from '../images/square.png';
 import styled from 'styled-components';
 import { getDate, getTime } from '../utils/dateFormats';
 import { H2, H6, P } from '../style';

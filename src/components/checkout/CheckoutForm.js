@@ -27,7 +27,6 @@ const Wrapper = styled.div`
 
 class CheckoutForm extends Component {
   isSectionComplete(fields) {
-    console.log(fields);
     for (const key in fields) {
       if (!CheckoutFormValidator[key](fields[key])) {
         return false;

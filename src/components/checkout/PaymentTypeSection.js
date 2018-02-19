@@ -35,11 +35,11 @@ class PaymentTypeSection extends Component {
           Cash
           <input
             type="radio"
-            checked={paymentType === 'cash'}
+            checked={paymentType !== 'card'}
             onChange={() => this.setState({ paymentType: 'cash' })}
           />
         </label>
-        {(showNextButton(this.state) || paymentType === 'cash') && (
+        {showNextButton(this.state) && (
           <button onClick={() => onClickNextButton(this.state)}>Next</button>
         )}
       </div>
@@ -48,8 +48,8 @@ class PaymentTypeSection extends Component {
 }
 
 const mapStateToProps = state => ({
-  promoCode: state.checkout.promoCode,
   paymentType: state.checkout.paymentType,
+  promoCode: state.checkout.promoCode,
 });
 
 export default connect(mapStateToProps)(PaymentTypeSection);
