@@ -1,4 +1,7 @@
 import React from 'react';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import H3 from '../style/H3';
 import P from '../style/P';
 import Button from '../style/Button';
@@ -23,11 +26,17 @@ function TripInfo(props) {
       <P>
         {props.capacity - props.ticketsSold}/{props.capacity} Tickets remaining
       </P>
-      <form action={`${props.id}/checkout`}>
-        <Button>Book Now</Button>
-      </form>
+      <Button onClick={() => props.toCheckout(props.id)}>Book Now</Button>
     </Wrapper>
   );
 }
 
-export default TripInfo;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      toCheckout: id => push(`${id}/checkout`),
+    },
+    dispatch
+  );
+
+export default connect(null, mapDispatchToProps)(TripInfo);
