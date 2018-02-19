@@ -3,16 +3,21 @@ import H3 from '../style/H3';
 import P from '../style/P';
 import Button from '../style/Button';
 import styled from 'styled-components';
+import { format } from 'date-fns';
 
 const Wrapper = styled.div`
   flex: 1;
 `;
 
 function TripInfo(props) {
+  const pickupString = format(
+    props.time.pickupStart * 1000,
+    'dddd, MMMM do [at] h:mm A'
+  );
   return (
     <Wrapper>
       <H3>pickup</H3>
-      <P>{props.time.pickupStart}</P>
+      <P>{pickupString}</P>
       <H3>location</H3>
       <P>{props.location}</P>
       <H3>difficulty</H3>

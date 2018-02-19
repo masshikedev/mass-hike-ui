@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTripData } from '../actions/TripActions';
 import TripListItem from '../components/TripListItem';
-import Calendar from '../data/Calendar';
 import H1 from '../style/H1';
 
 class TripList extends Component {
@@ -22,7 +21,7 @@ class TripList extends Component {
         <TripListItem
           key={i}
           name={trip.name}
-          date={Calendar.dateString(date)}
+          date={date}
           location={trip.location}
           difficulty={trip.difficulty}
           spotsRemaining={this.spotsRemaining(trip)}

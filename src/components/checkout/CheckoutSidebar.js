@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getDate, getTime } from '../../utils/dateFormats';
 import trips from '../../data/trips';
+import { format } from 'date-fns';
 
 class CheckoutSidebar extends Component {
   render() {
@@ -13,9 +13,9 @@ class CheckoutSidebar extends Component {
         <p>
           {trip.name}
           <br />
-          {getDate(trip.time.hikeStart)}
+          {format(trip.time.hikeStart * 1000, 'MMMM do, YYYY')}
           <br />
-          {getTime(trip.time.hikeStart)}
+          {format(trip.time.hikeStart * 1000, 'h:mm A')}
           <br />
         </p>
         {tickets !== '' && (
