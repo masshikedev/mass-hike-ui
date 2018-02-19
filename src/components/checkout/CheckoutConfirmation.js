@@ -3,47 +3,57 @@ import { connect } from 'react-redux';
 import trips from '../../data/trips';
 import { getDate, getTime } from '../../utils/dateFormats';
 import P from '../../style/P';
+import H2 from '../../style/H2';
 import H6 from '../../style/H6';
+
+const Info = P.extend`
+  font-size: large;
+`;
+
+const CapitalizeInfo = Info.extend`
+  text-transform: capitalize;
+`;
 
 const CheckoutConfirmation = props => {
   const { tripId } = props;
   const trip = trips[tripId];
   return (
     <div>
+      <H2>Trip Summary</H2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
         <div style={{ gridColumn: 'span 1' }}>
-          <H6>Trip Summary</H6>
-          <P>
+          <Info>
             {trip.name}
             <br />
             {getDate(trip.time.hikeStart)}
             <br />
             {getTime(trip.time.hikeStart)}
             <br />
-          </P>
+          </Info>
           <H6>Contact Info</H6>
-          <P>
+          <Info>
             {props.name}
             <br />
             {props.email}
             <br />
             {props.phone}
-          </P>
+          </Info>
           <H6>Credit Card</H6>
-          <P>
-            Card Type<br />
+          <Info>
+            Card Type
+            <br />
             {props.cardNumber}
-          </P>
+          </Info>
         </div>
         <div style={{ gridColumn: 'span 1' }}>
           <H6>Pickup</H6>
-          <P>{props.pickupLocation}</P>
+          <Info>{props.pickupLocation}</Info>
           <H6>Contact Method</H6>
-          <P>{props.preferredContactMethod}</P>
+          <CapitalizeInfo>{props.preferredContactMethod}</CapitalizeInfo>
         </div>
       </div>
-      <P large>{`${props.tickets} Tickets`}</P>
-      <P large>{`$${props.tickets * trip.price}`}</P>
+      <Info className="copy-large">{`${props.tickets} Tickets`}</Info>
+      <Info className="copy-large">{`${props.tickets * trip.price}`}</Info>
     </div>
   );
 };
