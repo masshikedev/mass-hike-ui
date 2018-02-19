@@ -23,7 +23,9 @@ function TripInfo(props) {
       <P>
         {props.capacity - props.ticketsSold}/{props.capacity} Tickets remaining
       </P>
-      <Button>Book Now</Button>
+      <form action={`${props.id}/checkout`}>
+        <Button>Book Now</Button>
+      </form>
     </Wrapper>
   );
 }

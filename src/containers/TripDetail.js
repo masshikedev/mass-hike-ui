@@ -38,7 +38,7 @@ function TripDetail(props) {
           <H2>{trip.detail.title}</H2>
           <P>{trip.detail.body}</P>
         </DetailDescription>
-        <TripInfo {...trip} />
+        <TripInfo {...trip} id={props.match.params.id} />
       </DetailWrapper>
     </Wrapper>
   );

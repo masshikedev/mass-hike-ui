@@ -21,6 +21,7 @@ class TripList extends Component {
       return (
         <TripListItem
           key={i}
+          id={i}
           name={trip.name}
           date={Calendar.dateString(date)}
           location={trip.location}

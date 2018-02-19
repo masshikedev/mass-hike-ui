@@ -40,7 +40,7 @@ const InfoWrapper = styled.div`
 
 class TripListItem extends Component {
   render() {
-    const { name, date, location, spotsRemaining, difficulty } = this.props;
+    const { name, date, location, spotsRemaining, difficulty, id } = this.props;
     return (
       <Wrapper>
         <TripImage src={previewImage} alt={name} />
@@ -52,7 +52,9 @@ class TripListItem extends Component {
           <Header>Difficulty</Header>
           <Description>{`${difficulty}`}</Description>
           <br />
-          <Button> Book Now </Button>
+          <form action={`trips/${id}`}>
+            <Button> Learn More </Button>
+          </form>
         </InfoWrapper>
       </Wrapper>
     );
