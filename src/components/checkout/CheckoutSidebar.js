@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import trips from '../../data/trips';
 import { format } from 'date-fns';
+import dateFormats from '../../data/dateFormats';
 
 class CheckoutSidebar extends Component {
   render() {
@@ -13,9 +14,9 @@ class CheckoutSidebar extends Component {
         <p>
           {trip.name}
           <br />
-          {format(trip.time.hikeStart * 1000, 'MMMM do, YYYY')}
+          {format(trip.time.hikeStart, dateFormats.MONTH_DATE_YEAR)}
           <br />
-          {format(trip.time.hikeStart * 1000, 'h:mm A')}
+          {format(trip.time.hikeStart, dateFormats.TIME)}
           <br />
         </p>
         {tickets !== '' && (

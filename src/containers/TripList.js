@@ -16,12 +16,11 @@ class TripList extends Component {
   renderTripComponents() {
     const { trips = [] } = this.props;
     const tripComponents = trips.map((trip, i) => {
-      const date = new Date(trip.time.hikeStart * 1000);
       return (
         <TripListItem
           key={i}
           name={trip.name}
-          date={date}
+          date={trip.time.hikeStart}
           location={trip.location}
           difficulty={trip.difficulty}
           spotsRemaining={this.spotsRemaining(trip)}

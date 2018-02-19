@@ -6,6 +6,7 @@ import H2 from '../style/H2';
 import H4 from '../style/H4';
 import styled from 'styled-components';
 import { format } from 'date-fns';
+import dateFormats from '../data/dateFormats';
 
 const Wrapper = styled.div`
   padding: 50px 0px 50px 0px;
@@ -42,7 +43,7 @@ const InfoWrapper = styled.div`
 class TripListItem extends Component {
   render() {
     const { name, date, location, spotsRemaining, difficulty } = this.props;
-    const dateString = format(date, 'dddd MMMM do[,] YYYY');
+    const dateString = format(date, dateFormats.DAY_MONTH_DATE_YEAR);
     return (
       <Wrapper>
         <TripImage src={previewImage} alt={name} />

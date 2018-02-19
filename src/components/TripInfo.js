@@ -4,6 +4,7 @@ import P from '../style/P';
 import Button from '../style/Button';
 import styled from 'styled-components';
 import { format } from 'date-fns';
+import dateFormats from '../data/dateFormats';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -11,8 +12,8 @@ const Wrapper = styled.div`
 
 function TripInfo(props) {
   const pickupString = format(
-    props.time.pickupStart * 1000,
-    'dddd, MMMM do [at] h:mm A'
+    props.time.pickupStart,
+    dateFormats.DAY_MONTH_DATE_TIME
   );
   return (
     <Wrapper>
