@@ -24,6 +24,7 @@ const trips = [
       hikeDistance: 2.1,
       elevation: 100,
     },
+    id: 0,
   },
   {
     name: 'Wachusett Mountain',
@@ -50,6 +51,7 @@ const trips = [
       hikeDistance: 3.1,
       elevation: 600,
     },
+    id: 1,
   },
 ];
 

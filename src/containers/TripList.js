@@ -19,6 +19,7 @@ class TripList extends Component {
       return (
         <TripListItem
           key={i}
+          id={trip.id}
           name={trip.name}
           date={trip.time.hikeStart}
           location={trip.location}

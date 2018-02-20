@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import previewImage from '../images/square.png'; // relative path to image
 import Button from '../style/Button';
 import P from '../style/P';
@@ -42,7 +45,7 @@ const InfoWrapper = styled.div`
 
 class TripListItem extends Component {
   render() {
-    const { name, date, location, spotsRemaining, difficulty } = this.props;
+    const { name, date, location, spotsRemaining, difficulty, id } = this.props;
     const dateString = format(date, DAY_MONTH_DATE_YEAR);
     return (
       <Wrapper>
@@ -55,11 +58,19 @@ class TripListItem extends Component {
           <Header> Difficulty </Header>
           <Description>{`${difficulty}`}</Description>
           <br />
-          <Button> Book Now </Button>
+          <Button onClick={() => this.props.toDetail(id)}> Learn More </Button>
         </InfoWrapper>
       </Wrapper>
     );
   }
 }
 
-export default TripListItem;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      toDetail: id => push(`trips/${id}`),
+    },
+    dispatch
+  );
+
+export default connect(null, mapDispatchToProps)(TripListItem);
