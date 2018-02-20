@@ -4,7 +4,7 @@ const initialState = {
   name: '',
   phone: '',
   email: '',
-  preferredContactMethod: '',
+  preferredContactMethod: 'email',
   tickets: '',
   pickupLocation: '',
   promoCode: '',

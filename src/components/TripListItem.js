@@ -1,28 +1,14 @@
 import React, { Component } from 'react';
 import previewImage from '../images/square.png'; // relative path to image
 import Button from '../style/Button';
-import P from '../style/P';
-import H2 from '../style/H2';
-import H3 from '../style/H3';
-import H4 from '../style/H4';
+import { P, H2, H3, H4, H6 } from '../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  padding: 50px 0px 50px 0px;
+  padding: 50px 0;
   display: flex;
-  justify-content: center;
-  flex-flow: row;
-`;
-
-const Header = P.extend`
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 0.7px;
-`;
-
-const Description = P.extend`
-  letter-spacing: 0.8px;
-  text-transform: capitalize;
+  justify-content: left;
+  flex-flow: row wrap;
 `;
 
 const TripImage = styled.img`
@@ -31,6 +17,7 @@ const TripImage = styled.img`
 
 const InfoWrapper = styled.div`
   padding-left: 10px;
+  flex-grow: 1;
 `;
 
 class TripListItem extends Component {
@@ -44,8 +31,8 @@ class TripListItem extends Component {
           <H3>{`${date} - ${location}`}</H3>
           <H4>{`${spotsRemaining} spots remaining`}</H4>
           <br />
-          <Header>Difficulty</Header>
-          <Description>{`${difficulty}`}</Description>
+          <H6>Difficulty</H6>
+          <P capitalize>{`${difficulty}`}</P>
           <br />
           <Button> Book Now </Button>
         </InfoWrapper>

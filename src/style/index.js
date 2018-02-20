@@ -7,5 +7,6 @@ import Input from './Input';
 import Label from './Label';
 import P from './P';
 import Select from './Select';
+import Button from './Button';
 
-export { H1, H2, H3, H4, H6, Input, Label, P, Select };
+export { P, H1, H2, H3, H4, H6, Input, Label, Select, Button };

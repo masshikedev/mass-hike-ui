@@ -2,16 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import trips from '../../data/trips';
 import { getDate, getTime } from '../../utils/dateFormats';
-import P from '../../style/P';
-import H2 from '../../style/H2';
-import H6 from '../../style/H6';
+import { P, H1, H2, H6 } from '../../style';
+import styled from 'styled-components';
 
-const Info = P.extend`
-  font-size: large;
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 `;
 
-const CapitalizeInfo = Info.extend`
-  text-transform: capitalize;
+const Column = styled.div`
+  grid-column: span 1;
 `;
 
 const CheckoutConfirmation = props => {
@@ -20,40 +20,42 @@ const CheckoutConfirmation = props => {
   return (
     <div>
       <H2>Trip Summary</H2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-        <div style={{ gridColumn: 'span 1' }}>
-          <Info>
+      <Wrapper>
+        <Column>
+          <P large>
             {trip.name}
             <br />
             {getDate(trip.time.hikeStart)}
             <br />
             {getTime(trip.time.hikeStart)}
             <br />
-          </Info>
+          </P>
           <H6>Contact Info</H6>
-          <Info>
+          <P large>
             {props.name}
             <br />
             {props.email}
             <br />
             {props.phone}
-          </Info>
+          </P>
           <H6>Credit Card</H6>
-          <Info>
+          <P large>
             Card Type
             <br />
             {props.cardNumber}
-          </Info>
-        </div>
-        <div style={{ gridColumn: 'span 1' }}>
+          </P>
+        </Column>
+        <Column>
           <H6>Pickup</H6>
-          <Info>{props.pickupLocation}</Info>
+          <P large>{props.pickupLocation}</P>
           <H6>Contact Method</H6>
-          <CapitalizeInfo>{props.preferredContactMethod}</CapitalizeInfo>
-        </div>
-      </div>
-      <Info className="copy-large">{`${props.tickets} Tickets`}</Info>
-      <Info className="copy-large">{`${props.tickets * trip.price}`}</Info>
+          <P large capitalize>
+            {props.preferredContactMethod}
+          </P>
+        </Column>
+      </Wrapper>
+      <P large>{`${props.tickets} Tickets`}</P>
+      <P large>{`$${props.tickets * trip.price}`}</P>
     </div>
   );
 };

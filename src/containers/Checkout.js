@@ -12,7 +12,6 @@ const Wrapper = styled.div`
 const CheckoutArea = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  height: 300;
 `;
 
 class Checkout extends Component {

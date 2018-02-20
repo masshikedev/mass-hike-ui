@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import H2 from '../../style/H2';
-import H6 from '../../style/H6';
-import Input from '../../style/Input';
-import Button from '../../style/Button';
+import { P, H2, H6, Input, Button } from '../../style';
 import styled from 'styled-components';
 
 class ContactSection extends Component {

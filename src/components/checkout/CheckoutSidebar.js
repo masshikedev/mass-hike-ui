@@ -2,19 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getDate, getTime } from '../../utils/dateFormats';
 import trips from '../../data/trips';
-import P from '../../style/P';
-import H6 from '../../style/H6';
-
-const Header = H6.extend`
-  font-size: 20px;
-  letter-spacing: 0.9px;
-`;
-
-const Description = P.extend`
-  font-size: large;
-  letter-spacing: 0.6px;
-  text-transform: capitalize;
-`;
+import { P, H6 } from '../../style';
 
 class CheckoutSidebar extends Component {
   render() {
@@ -22,20 +10,20 @@ class CheckoutSidebar extends Component {
     const trip = trips[tripId];
     return (
       <div style={{ gridColumn: '9 / 12' }}>
-        <Header>Trip Summary</Header>
-        <Description>
+        <H6>Trip Summary</H6>
+        <P large capitalize>
           {trip.name}
           <br />
           {getDate(trip.time.hikeStart)}
           <br />
           {getTime(trip.time.hikeStart)}
           <br />
-        </Description>
+        </P>
         {tickets !== '' && (
           <div>
-            <Description>{`${tickets} tickets`}</Description>
-            <Header>Total</Header>
-            <Description>{`$${tickets * trip.price}`}</Description>
+            <P large capitalize>{`${tickets} tickets`}</P>
+            <H6>Total</H6>
+            <P large capitalize>{`$${tickets * trip.price}`}</P>
           </div>
         )}
       </div>

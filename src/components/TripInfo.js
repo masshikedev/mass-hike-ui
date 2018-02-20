@@ -1,6 +1,5 @@
 import React from 'react';
-import H3 from '../style/H3';
-import P from '../style/P';
+import { P, H3, H6 } from '../style';
 import Button from '../style/Button';
 import styled from 'styled-components';
 
@@ -11,15 +10,15 @@ const Wrapper = styled.div`
 function TripInfo(props) {
   return (
     <Wrapper>
-      <H3>pickup</H3>
+      <H6>pickup</H6>
       <P>{props.time.pickupStart}</P>
-      <H3>location</H3>
+      <H6>location</H6>
       <P>{props.location}</P>
-      <H3>difficulty</H3>
+      <H6>difficulty</H6>
       <P>{props.difficulty}</P>
-      <H3>price</H3>
+      <H6>price</H6>
       <P>${props.price} per person</P>
-      <H3>availibility</H3>
+      <H6>availibility</H6>
       <P>
         {props.capacity - props.ticketsSold}/{props.capacity} Tickets remaining
       </P>
