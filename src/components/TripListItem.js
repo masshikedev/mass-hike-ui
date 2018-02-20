@@ -8,6 +8,8 @@ import P from '../style/P';
 import H2 from '../style/H2';
 import H4 from '../style/H4';
 import styled from 'styled-components';
+import { format } from 'date-fns';
+import { DAY_MONTH_DATE_YEAR } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
   padding: 50px 0px 50px 0px;
@@ -44,15 +46,16 @@ const InfoWrapper = styled.div`
 class TripListItem extends Component {
   render() {
     const { name, date, location, spotsRemaining, difficulty, id } = this.props;
+    const dateString = format(date, DAY_MONTH_DATE_YEAR);
     return (
       <Wrapper>
         <TripImage src={previewImage} alt={name} />
         <InfoWrapper>
           <H2>{name}</H2>
-          <P>{`${date} - ${location}`}</P>
+          <P>{`${dateString} - ${location}`}</P>
           <H4>{`${spotsRemaining} spots remaining`}</H4>
           <br />
-          <Header>Difficulty</Header>
+          <Header> Difficulty </Header>
           <Description>{`${difficulty}`}</Description>
           <br />
           <Button onClick={() => this.props.toDetail(id)}> Learn More </Button>

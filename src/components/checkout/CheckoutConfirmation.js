@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import trips from '../../data/trips';
-import { getDate, getTime } from '../../utils/dateFormats';
 import P from '../../style/P';
 import H6 from '../../style/H6';
+import { format } from 'date-fns';
+import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 
 const CheckoutConfirmation = props => {
   const { tripId } = props;
@@ -16,9 +17,9 @@ const CheckoutConfirmation = props => {
           <P>
             {trip.name}
             <br />
-            {getDate(trip.time.hikeStart)}
+            {format(trip.time.hikeStart, MONTH_DATE_YEAR)}
             <br />
-            {getTime(trip.time.hikeStart)}
+            {format(trip.time.hikeStart, TIME)}
             <br />
           </P>
           <H6>Contact Info</H6>

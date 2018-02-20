@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@nuscout/eslint-config": "^0.2.0",
+    "date-fns": "^1.29.0",
     "eslint": "^4.16.0",
     "history": "^4.7.2",
     "prettier": "^1.10.2",
