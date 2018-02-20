@@ -1,17 +1,11 @@
-export const getDate = dateTime => {
-  const date = new Date(dateTime * 1000);
-  const locale = 'en-us';
-  const month = date.toLocaleString(locale, { month: 'long' });
-  return `${month} ${date.getDate()}, ${date.getFullYear()}`;
-};
+// Tuesday January 3rd, 2018
+export const DAY_MONTH_DATE_YEAR = 'dddd MMMM do[,] YYYY';
 
-export const getTime = dateTime => {
-  const time = new Date(dateTime * 1000);
-  const locale = 'en-US';
-  const options = {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-  };
-  return time.toLocaleTimeString(locale, options);
-};
+// Tuesday, January 3rd at 9:45 PM
+export const DAY_MONTH_DATE_TIME = 'dddd, MMMM do [at] h:mm A';
+
+// January 3rd, 2018
+export const MONTH_DATE_YEAR = 'MMMM do, YYYY';
+
+// 9:45 PM
+export const TIME = 'h:mm A';
