@@ -3,13 +3,18 @@ import { connect } from 'react-redux';
 import { getDate, getTime } from '../../utils/dateFormats';
 import trips from '../../data/trips';
 import { P, H6 } from '../../style';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  grid-column: 9 / 12;
+`;
 
 class CheckoutSidebar extends Component {
   render() {
     const { tripId, tickets } = this.props;
     const trip = trips[tripId];
     return (
-      <div style={{ gridColumn: '9 / 12' }}>
+      <Wrapper>
         <H6>Trip Summary</H6>
         <P large capitalize>
           {trip.name}
@@ -26,7 +31,7 @@ class CheckoutSidebar extends Component {
             <P large capitalize>{`$${tickets * trip.price}`}</P>
           </div>
         )}
-      </div>
+      </Wrapper>
     );
   }
 }
