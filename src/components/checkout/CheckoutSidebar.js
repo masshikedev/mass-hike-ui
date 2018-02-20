@@ -1,32 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import trips from '../../data/trips';
+import { P, H6 } from '../../style';
+import styled from 'styled-components';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
+
+const Wrapper = styled.div`
+  grid-column: 9 / 12;
+`;
 
 class CheckoutSidebar extends Component {
   render() {
     const { tripId, tickets } = this.props;
     const trip = trips[tripId];
     return (
-      <div style={{ gridColumn: 'span 4' }}>
-        <h6>Trip Summary</h6>
-        <p>
+      <Wrapper>
+        <H6>Trip Summary</H6>
+        <P large capitalize>
           {trip.name}
           <br />
           {format(trip.time.hikeStart, MONTH_DATE_YEAR)}
           <br />
           {format(trip.time.hikeStart, TIME)}
           <br />
-        </p>
+        </P>
         {tickets !== '' && (
           <div>
-            <p>{`${tickets} tickets`}</p>
-            <h6>Total</h6>
-            <p>{`$${tickets * trip.price}`}</p>
+            <P large capitalize>{`${tickets} tickets`}</P>
+            <H6>Total</H6>
+            <P large capitalize>{`$${tickets * trip.price}`}</P>
           </div>
         )}
-      </div>
+      </Wrapper>
     );
   }
 }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { P, H2, H6, Input, Button } from '../../style';
+import styled from 'styled-components';
 
 class ContactSection extends Component {
   constructor(props) {
@@ -18,35 +20,35 @@ class ContactSection extends Component {
     const { name, email, phone, preferredContactMethod } = this.state;
     return (
       <div>
-        <h3>Enter your contact information</h3>
+        <H2>Enter your contact information</H2>
         <label>
-          <h6>Name</h6>
-          <input
+          <H6>Name</H6>
+          <Input
             type="text"
             value={name}
             onChange={e => this.setState({ name: e.target.value })}
           />
         </label>
         <label>
-          <h6>Email</h6>
-          <input
+          <H6>Email</H6>
+          <Input
             type="text"
             value={email}
             onChange={e => this.setState({ email: e.target.value })}
           />
         </label>
         <label>
-          <h6>Phone</h6>
-          <input
+          <H6>Phone</H6>
+          <Input
             type="text"
             value={phone}
             onChange={e => this.setState({ phone: e.target.value })}
           />
         </label>
-        <h6>How should we contact you?</h6>
+        <H6>How should we contact you?</H6>
         <label>
           Email
-          <input
+          <Input
             type="radio"
             checked={preferredContactMethod === 'email'}
             onChange={() => this.setState({ preferredContactMethod: 'email' })}
@@ -54,14 +56,15 @@ class ContactSection extends Component {
         </label>
         <label>
           Phone
-          <input
+          <Input
             type="radio"
             checked={preferredContactMethod !== 'email'}
             onChange={() => this.setState({ preferredContactMethod: 'phone' })}
           />
         </label>
+        <br />
         {showNextButton(this.state) && (
-          <button onClick={() => onClickNextButton(this.state)}>Next</button>
+          <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
         )}
       </div>
     );

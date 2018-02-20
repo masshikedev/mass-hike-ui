@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { P, H2, H3, H6, Input, Button } from '../../style';
+import styled from 'styled-components';
 
 class PaymentSection extends Component {
   constructor(props) {
@@ -18,47 +20,48 @@ class PaymentSection extends Component {
     const { showNextButton, onClickNextButton } = this.props;
     return (
       <div>
-        <h3>Enter a promo code. (Optional)</h3>
-        <input
+        <H3>Enter a promo code. (Optional)</H3>
+        <Input
           type="text"
           value={this.state.promoCode}
           onChange={e => this.setState({ promoCode: e.target.value })}
         />
-        <h3>Enter your credit card information</h3>
+        <H3>Enter your credit card information</H3>
         <label>
-          <h6>Card Number</h6>
-          <input
+          <H6>Card Number</H6>
+          <Input
             type="text"
             value={this.state.cardNumber}
             onChange={e => this.setState({ cardNumber: e.target.value })}
           />
         </label>
         <label>
-          <h6>Expiration</h6>
-          <input
+          <H6>Expiration</H6>
+          <Input
             type="text"
             value={this.state.expiration}
             onChange={e => this.setState({ expiration: e.target.value })}
           />
         </label>
         <label>
-          <h6>Security Code</h6>
-          <input
+          <H6>Security Code</H6>
+          <Input
             type="text"
             value={this.state.cvv}
             onChange={e => this.setState({ cvv: e.target.value })}
           />
         </label>
         <label>
-          <h6>Billing Zip</h6>
-          <input
+          <H6>Billing Zip</H6>
+          <Input
             type="text"
             value={this.state.billingZip}
             onChange={e => this.setState({ billingZip: e.target.value })}
           />
         </label>
+        <br />
         {showNextButton(this.state) && (
-          <button onClick={() => onClickNextButton(this.state)}>Next</button>
+          <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
         )}
       </div>
     );

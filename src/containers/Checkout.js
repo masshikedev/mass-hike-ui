@@ -6,13 +6,12 @@ import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  padding-top: 50;
+  padding-top: 50px;
 `;
 
 const CheckoutArea = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  height: 300;
 `;
 
 class Checkout extends Component {
