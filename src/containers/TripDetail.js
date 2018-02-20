@@ -3,9 +3,7 @@ import TripInfo from '../components/TripInfo';
 import trips from '../data/trips';
 import previewImage from '../images/square.png';
 import styled from 'styled-components';
-import H1 from '../style/H1';
-import P from '../style/P';
-import H2 from '../style/H2';
+import { P, H1, H2 } from '../style';
 
 const Wrapper = styled.div`
   margin-bottom: 72px;

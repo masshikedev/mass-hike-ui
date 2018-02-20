@@ -4,17 +4,14 @@ import P from '../style/P';
 import Button from '../style/Button';
 import styled from 'styled-components';
 import { format } from 'date-fns';
-import dateFormats from '../data/dateFormats';
+import { DAY_MONTH_DATE_TIME } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
   flex: 1;
 `;
 
 function TripInfo(props) {
-  const pickupString = format(
-    props.time.pickupStart,
-    dateFormats.DAY_MONTH_DATE_TIME
-  );
+  const pickupString = format(props.time.pickupStart, DAY_MONTH_DATE_TIME);
   return (
     <Wrapper>
       <H3>pickup</H3>
