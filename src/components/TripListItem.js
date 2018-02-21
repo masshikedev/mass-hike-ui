@@ -4,25 +4,32 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import previewImage from '../images/square.png'; // relative path to image
 import Button from '../style/Button';
-import { P, H2, H3, H4, H6 } from '../style';
+import { P, H2, H3, H4, H6, GridParent } from '../style';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import { DAY_MONTH_DATE_YEAR } from '../utils/dateFormats';
 
-const Wrapper = styled.div`
-  padding: 50px 0;
-  display: flex;
-  justify-content: left;
-  flex-flow: row wrap;
+const Wrapper = GridParent.extend`
+  margin-bottom: 100px;
 `;
 
 const TripImage = styled.img`
-  margin: auto 0;
+  grid-column: span 5;
+  width: 100%;
+  height: auto;
+
+  @media (max-width: 767px) {
+    grid-column: span 12;
+    margin-bottom: 20px;
+  }
 `;
 
 const InfoWrapper = styled.div`
-  padding-left: 10px;
-  flex-grow: 1;
+  grid-column: span 7;
+
+  @media (max-width: 767px) {
+    grid-column: span 12;
+  }
 `;
 
 class TripListItem extends Component {

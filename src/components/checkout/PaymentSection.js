@@ -16,10 +16,10 @@ class PaymentSection extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton } = this.props;
+    const { showNextButton, onClickNextButton, paymentType } = this.props;
     return (
       <div>
-        {this.props.paymentType === 'card' && (
+        {paymentType === 'card' && (
           <div>
             <H3>Enter your credit card information</H3>
             <label>
@@ -56,7 +56,7 @@ class PaymentSection extends Component {
             </label>
           </div>
         )}
-        {this.props.paymentType === 'cash' && (
+        {paymentType === 'cash' && (
           <div>
             <H3>You have chosen to pay with cash</H3>
           </div>
