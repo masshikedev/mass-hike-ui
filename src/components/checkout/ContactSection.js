@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H2, H6, Input, Button } from '../../style';
-import styled from 'styled-components';
+import { H2, H6, Input, Button } from '../../style';
 
 class ContactSection extends Component {
   constructor(props) {
@@ -55,7 +54,7 @@ class ContactSection extends Component {
           />
         </label>
         <label>
-          Phone
+          Text Message
           <Input
             type="radio"
             checked={preferredContactMethod !== 'email'}

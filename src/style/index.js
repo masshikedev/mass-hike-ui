@@ -8,5 +8,24 @@ import Label from './Label';
 import P from './P';
 import Select from './Select';
 import Button from './Button';
+import Container from './Container';
+import GridParent from './GridParent';
+import Img from './Img';
+import MediaQueries from './MediaQueries';
 
-export { P, H1, H2, H3, H4, H6, Input, Label, Select, Button };
+export {
+  P,
+  H1,
+  H2,
+  H3,
+  H4,
+  H6,
+  Input,
+  Label,
+  Select,
+  Button,
+  Container,
+  GridParent,
+  Img,
+  MediaQueries,
+};

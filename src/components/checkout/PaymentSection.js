@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H2, H3, H6, Input, Button } from '../../style';
-import styled from 'styled-components';
+import { H3, H6, Input, Button } from '../../style';
 
 class PaymentSection extends Component {
   constructor(props) {
     super(props);
-    const { promoCode, cardNumber, expiration, cvv, billingZip } = props;
+    const { cardNumber, expiration, cvv, billingZip } = props;
     this.state = {
-      promoCode,
       cardNumber,
       expiration,
       cvv,
@@ -17,50 +15,52 @@ class PaymentSection extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton } = this.props;
+    const { showNextButton, onClickNextButton, paymentType } = this.props;
     return (
       <div>
-        <H3>Enter a promo code. (Optional)</H3>
-        <Input
-          type="text"
-          value={this.state.promoCode}
-          onChange={e => this.setState({ promoCode: e.target.value })}
-        />
-        <H3>Enter your credit card information</H3>
-        <label>
-          <H6>Card Number</H6>
-          <Input
-            type="text"
-            value={this.state.cardNumber}
-            onChange={e => this.setState({ cardNumber: e.target.value })}
-          />
-        </label>
-        <label>
-          <H6>Expiration</H6>
-          <Input
-            type="text"
-            value={this.state.expiration}
-            onChange={e => this.setState({ expiration: e.target.value })}
-          />
-        </label>
-        <label>
-          <H6>Security Code</H6>
-          <Input
-            type="text"
-            value={this.state.cvv}
-            onChange={e => this.setState({ cvv: e.target.value })}
-          />
-        </label>
-        <label>
-          <H6>Billing Zip</H6>
-          <Input
-            type="text"
-            value={this.state.billingZip}
-            onChange={e => this.setState({ billingZip: e.target.value })}
-          />
-        </label>
-        <br />
-        {showNextButton(this.state) && (
+        {paymentType === 'card' && (
+          <div>
+            <H3>Enter your credit card information</H3>
+            <label>
+              <H6>Card Number</H6>
+              <Input
+                type="text"
+                value={this.state.cardNumber}
+                onChange={e => this.setState({ cardNumber: e.target.value })}
+              />
+            </label>
+            <label>
+              <H6>Expiration</H6>
+              <Input
+                type="text"
+                value={this.state.expiration}
+                onChange={e => this.setState({ expiration: e.target.value })}
+              />
+            </label>
+            <label>
+              <H6>Security Code</H6>
+              <Input
+                type="text"
+                value={this.state.cvv}
+                onChange={e => this.setState({ cvv: e.target.value })}
+              />
+            </label>
+            <label>
+              <H6>Billing Zip</H6>
+              <Input
+                type="text"
+                value={this.state.billingZip}
+                onChange={e => this.setState({ billingZip: e.target.value })}
+              />
+            </label>
+          </div>
+        )}
+        {paymentType === 'cash' && (
+          <div>
+            <H3>You have chosen to pay with cash</H3>
+          </div>
+        )}
+        {(showNextButton(this.state) || this.props.paymentType === 'cash') && (
           <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
         )}
       </div>
@@ -69,7 +69,7 @@ class PaymentSection extends Component {
 }
 
 const mapStateToProps = state => ({
-  promoCode: state.checkout.promoCode,
+  paymentType: state.checkout.paymentType,
   cardNumber: state.checkout.cardNumber,
   expiration: state.checkout.expiration,
   cvv: state.checkout.cvv,

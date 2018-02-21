@@ -1,5 +1,5 @@
 import React from 'react';
-import { P, H3, H6 } from '../style';
+import { P, H6, MediaQueries } from '../style';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,14 +9,28 @@ import { format } from 'date-fns';
 import { DAY_MONTH_DATE_TIME } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
-  flex: 1;
+  grid-column: span 4;
+  padding-bottom: 70px;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
+`;
+
+const BookButton = Button.extend`
+  ${MediaQueries.small} {
+    position: fixed;
+    bottom: 10px;
+    width: 80%;
+    max-width: none;
+  }
 `;
 
 function TripInfo(props) {
   const pickupString = format(props.time.pickupStart, DAY_MONTH_DATE_TIME);
   return (
     <Wrapper>
-      <H6>pickup</H6>
+      <H6>Date</H6>
       <P>{pickupString}</P>
       <H6>location</H6>
       <P>{props.location}</P>
@@ -28,7 +42,9 @@ function TripInfo(props) {
       <P>
         {props.capacity - props.ticketsSold}/{props.capacity} Tickets remaining
       </P>
-      <Button onClick={() => props.toCheckout(props.id)}>Book Now</Button>
+      <BookButton onClick={() => props.toCheckout(props.id)}>
+        Book Now
+      </BookButton>
     </Wrapper>
   );
 }

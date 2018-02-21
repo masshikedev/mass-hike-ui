@@ -9,18 +9,25 @@ import CheckoutFormValidator from '../../utils/CheckoutFormValidator';
 import ContactSection from './ContactSection';
 import HikeInfoSection from './HikeInfoSection';
 import PaymentSection from './PaymentSection';
+import PaymentTypeSection from './PaymentTypeSection';
 import CheckoutConfirmation from './CheckoutConfirmation';
 import styled from 'styled-components';
+import { MediaQueries } from '../../style';
 
 const FORM_SEQUENCE = [
   ContactSection,
   HikeInfoSection,
+  PaymentTypeSection,
   PaymentSection,
   CheckoutConfirmation,
 ];
 
 const Wrapper = styled.div`
-  grid-column: 2 / 8;
+  grid-column: span 8;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
 `;
 
 class CheckoutForm extends Component {

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTripData } from '../actions/TripActions';
 import TripListItem from '../components/TripListItem';
-import { H1 } from '../style';
+import { H1, Container } from '../style';
 
 class TripList extends Component {
   componentWillMount() {
@@ -32,11 +32,11 @@ class TripList extends Component {
   }
   render() {
     return (
-      <div>
+      <Container>
         <H1>Upcoming Trips</H1>
         {this.renderTripComponents()}
         <br />
-      </div>
+      </Container>
     );
   }
 }

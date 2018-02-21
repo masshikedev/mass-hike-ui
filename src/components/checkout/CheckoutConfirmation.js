@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import trips from '../../data/trips';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
-import { P, H1, H2, H6 } from '../../style';
+import { P, H2, H6 } from '../../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -39,6 +39,8 @@ const CheckoutConfirmation = props => {
             <br />
             {props.phone}
           </P>
+          <H6>Payment Type</H6>
+          <P>{props.paymentType}</P>
           <H6>Credit Card</H6>
           <P large>
             Card Type
@@ -66,6 +68,7 @@ const mapStateToProps = state => ({
   email: state.checkout.email,
   phone: state.checkout.phone,
   preferredContactMethod: state.checkout.preferredContactMethod,
+  paymentType: state.checkout.paymentType,
   tickets: state.checkout.tickets,
   pickupLocation: state.checkout.pickupLocation,
   promoCode: state.checkout.promoCode,

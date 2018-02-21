@@ -1,44 +1,47 @@
 import React from 'react';
+import DetailDescription from '../components/DetailDescription';
 import TripInfo from '../components/TripInfo';
 import trips from '../data/trips';
 import previewImage from '../images/square.png';
 import styled from 'styled-components';
-import { P, H1, H2 } from '../style';
+import { H1, H3, Img, Container, GridParent, MediaQueries } from '../style';
+import { format } from 'date-fns';
+import { MONTH_DATE_YEAR } from '../utils/dateFormats';
 
-const Wrapper = styled.div`
-  margin-bottom: 72px;
+const Title = H1.extend`
+  margin-bottom: 10px;
 `;
 
-const DetailWrapper = styled.div`
-  display: flex;
-  width: 75%;
+const DetailSection = GridParent.extend`
+  margin-top: 30px;
 `;
 
-const DetailDescription = styled.div`
-  margin-right: 60px;
-  width: 75%;
-`;
+const Divider = styled.div`
+  grid-column: span 1;
+  border-right: 3px solid #000;
 
-const Img = styled.img`
-  width: 55%;
+  ${MediaQueries} {
+    grid-column: 0;
+    display: none;
+  }
 `;
 
 function TripDetail(props) {
   const trip = trips[props.match.params.id];
+  const dateString = format(trip.time.hikeStart, MONTH_DATE_YEAR);
   return (
-    <Wrapper>
+    <Container>
       <div>
-        <H1>{trip.name}</H1>
+        <Title>{trip.name}</Title>
+        <H3>{`${dateString} - ${trip.location}`}</H3>
         <Img src={previewImage} />
       </div>
-      <DetailWrapper>
-        <DetailDescription>
-          <H2>{trip.detail.title}</H2>
-          <P>{trip.detail.body}</P>
-        </DetailDescription>
+      <DetailSection>
+        <DetailDescription {...trip} />
+        <Divider />
         <TripInfo {...trip} id={props.match.params.id} />
-      </DetailWrapper>
-    </Wrapper>
+      </DetailSection>
+    </Container>
   );
 }
 

@@ -3,21 +3,27 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setCheckoutState } from '../../actions/CheckoutActions';
 import styled from 'styled-components';
-import P from '../../style/P';
+import { P, MediaQueries } from '../../style';
 
 const Wrapper = styled.div`
   position: absolute;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
   height: 50px;
   bottom: 10px;
-  width: 100%;
+  width: 80%;
+
+  ${MediaQueries.small} {
+    display: none;
+    grid-column: 0;
+  }
 `;
 
 const sectionSequence = [
   'Contact Info',
   'Hike Info',
+  'Payment Type',
   'Payment',
   'Order Summary',
 ];
