@@ -4,13 +4,13 @@ import CheckoutForm from '../components/checkout/CheckoutForm';
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar';
 import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
 import styled from 'styled-components';
-import { Container, GridParent } from '../style';
+import { Container, GridParent, MediaQueries } from '../style';
 
 const Divider = styled.div`
   grid-column: span 1;
   border-right: 3px solid #000;
 
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     grid-column: 0;
     display: none;
   }

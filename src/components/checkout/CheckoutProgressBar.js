@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setCheckoutState } from '../../actions/CheckoutActions';
 import styled from 'styled-components';
-import P from '../../style/P';
+import { P, MediaQueries } from '../../style';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   bottom: 10px;
   width: 80%;
 
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     display: none;
     grid-column: 0;
   }

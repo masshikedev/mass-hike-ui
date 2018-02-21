@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import trips from '../../data/trips';
-import { P, H6 } from '../../style';
+import { P, H6, MediaQueries } from '../../style';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
@@ -9,7 +9,7 @@ import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 const Wrapper = styled.div`
   grid-column: span 3;
 
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     display: none;
     grid-column: 0;
   }

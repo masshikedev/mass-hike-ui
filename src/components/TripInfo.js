@@ -1,5 +1,5 @@
 import React from 'react';
-import { P, H6 } from '../style';
+import { P, H6, MediaQueries } from '../style';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,13 +12,13 @@ const Wrapper = styled.div`
   grid-column: span 4;
   padding-bottom: 70px;
 
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     grid-column: span 12;
   }
 `;
 
 const BookButton = Button.extend`
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     position: fixed;
     bottom: 10px;
     width: 80%;

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import previewImage from '../images/square.png'; // relative path to image
 import Button from '../style/Button';
-import { P, H2, H3, H4, H6, Img, GridParent } from '../style';
+import { P, H2, H3, H4, H6, Img, GridParent, MediaQueries } from '../style';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import { DAY_MONTH_DATE_YEAR } from '../utils/dateFormats';
@@ -16,7 +16,7 @@ const Wrapper = GridParent.extend`
 const TripImage = Img.extend`
   grid-column: span 5;
 
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     grid-column: span 12;
     margin-bottom: 20px;
   }
@@ -25,7 +25,7 @@ const TripImage = Img.extend`
 const InfoWrapper = styled.div`
   grid-column: span 7;
 
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     grid-column: span 12;
   }
 `;

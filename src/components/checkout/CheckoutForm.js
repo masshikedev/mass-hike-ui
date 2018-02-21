@@ -12,6 +12,7 @@ import PaymentSection from './PaymentSection';
 import PaymentTypeSection from './PaymentTypeSection';
 import CheckoutConfirmation from './CheckoutConfirmation';
 import styled from 'styled-components';
+import { MediaQueries } from '../../style';
 
 const FORM_SEQUENCE = [
   ContactSection,
@@ -24,7 +25,7 @@ const FORM_SEQUENCE = [
 const Wrapper = styled.div`
   grid-column: span 8;
 
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     grid-column: span 12;
   }
 `;

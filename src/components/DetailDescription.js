@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H6, P } from '../style';
+import { H2, H6, P, MediaQueries } from '../style';
 import { format } from 'date-fns';
 import { TIME } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
   grid-column: span 7;
 
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     grid-column: span 12;
   }
 `;

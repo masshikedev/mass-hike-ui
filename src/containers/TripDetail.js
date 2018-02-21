@@ -4,7 +4,7 @@ import TripInfo from '../components/TripInfo';
 import trips from '../data/trips';
 import previewImage from '../images/square.png';
 import styled from 'styled-components';
-import { H1, H3, Img, Container, GridParent } from '../style';
+import { H1, H3, Img, Container, GridParent, MediaQueries } from '../style';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR } from '../utils/dateFormats';
 
@@ -20,7 +20,7 @@ const Divider = styled.div`
   grid-column: span 1;
   border-right: 3px solid #000;
 
-  @media (max-width: 767px) {
+  ${MediaQueries} {
     grid-column: 0;
     display: none;
   }
@@ -28,7 +28,7 @@ const Divider = styled.div`
 
 function TripDetail(props) {
   const trip = trips[props.match.params.id];
-  const dateString = format(trip.time.hikeStart * 1000, MONTH_DATE_YEAR);
+  const dateString = format(trip.time.hikeStart, MONTH_DATE_YEAR);
   return (
     <Container>
       <div>

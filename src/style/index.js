@@ -11,6 +11,7 @@ import Button from './Button';
 import Container from './Container';
 import GridParent from './GridParent';
 import Img from './Img';
+import MediaQueries from './MediaQueries';
 
 export {
   P,
@@ -26,4 +27,5 @@ export {
   Container,
   GridParent,
   Img,
+  MediaQueries,
 };

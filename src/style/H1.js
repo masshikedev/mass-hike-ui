@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import MediaQueries from './MediaQueries';
 
 const H1 = styled.h1`
   font-weight: bold;
@@ -7,7 +8,7 @@ const H1 = styled.h1`
   font-weight: bold;
   color: #000;
 
-  @media (max-width: 767px) {
+  ${MediaQueries.small} {
     font-size: 50px;
   }
 `;
