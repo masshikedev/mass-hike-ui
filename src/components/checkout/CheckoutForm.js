@@ -22,7 +22,11 @@ const FORM_SEQUENCE = [
 ];
 
 const Wrapper = styled.div`
-  grid-column: 2 / 8;
+  grid-column: span 8;
+
+  @media (max-width: 767px) {
+    grid-column: span 12;
+  }
 `;
 
 class CheckoutForm extends Component {

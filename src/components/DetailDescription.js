@@ -4,14 +4,10 @@ import { getDate, getTime } from '../utils/dateFormats';
 import { H2, H6, P } from '../style';
 
 const Wrapper = styled.div`
-  grid-column-start: 1;
-  grid-column-end: 3;
-  padding: 10px;
-`;
+  grid-column: span 7;
 
-const Subtitle = H2.extend`
-  @media (max-width: 700px) {
-    font-size: 24px;
+  @media (max-width: 767px) {
+    grid-column: span 12;
   }
 `;
 
@@ -19,7 +15,7 @@ function DetailDescription(props) {
   const { detail } = props;
   return (
     <Wrapper>
-      <Subtitle>{detail.title}</Subtitle>
+      <H2>{detail.title}</H2>
       <P>{detail.body}</P>
       <H6>pickup</H6>
       <P>pickup time range will go here</P>

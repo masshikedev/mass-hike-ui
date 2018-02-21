@@ -9,13 +9,20 @@ import { format } from 'date-fns';
 import { DAY_MONTH_DATE_TIME } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
-  margin: auto 0;
-  grid-column: 3;
-  padding: 10px;
+  grid-column: span 4;
+  padding-bottom: 70px;
 
-  @media (max-width: 700px) {
-    grid-column-start: 1;
-    grid-column-end: 3;
+  @media (max-width: 767px) {
+    grid-column: span 12;
+  }
+`;
+
+const BookButton = Button.extend`
+  @media (max-width: 767px) {
+    position: fixed;
+    bottom: 10px;
+    width: 80%;
+    max-width: none;
   }
 `;
 
@@ -35,7 +42,9 @@ function TripInfo(props) {
       <P>
         {props.capacity - props.ticketsSold}/{props.capacity} Tickets remaining
       </P>
-      <Button onClick={() => props.toCheckout(props.id)}>Book Now</Button>
+      <BookButton onClick={() => props.toCheckout(props.id)}>
+        Book Now
+      </BookButton>
     </Wrapper>
   );
 }

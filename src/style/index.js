@@ -10,6 +10,7 @@ import Select from './Select';
 import Button from './Button';
 import Container from './Container';
 import GridParent from './GridParent';
+import Img from './Img';
 
 export {
   P,
@@ -24,4 +25,5 @@ export {
   Button,
   Container,
   GridParent,
+  Img,
 };

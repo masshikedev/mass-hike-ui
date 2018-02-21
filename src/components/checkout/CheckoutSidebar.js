@@ -7,7 +7,12 @@ import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 
 const Wrapper = styled.div`
-  grid-column: 9 / 12;
+  grid-column: span 3;
+
+  @media (max-width: 767px) {
+    display: none;
+    grid-column: 0;
+  }
 `;
 
 class CheckoutSidebar extends Component {
