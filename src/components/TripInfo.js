@@ -1,5 +1,5 @@
 import React from 'react';
-import { P, H3, H6 } from '../style';
+import { P, H6 } from '../style';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

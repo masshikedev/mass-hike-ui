@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { getDate, getTime } from '../utils/dateFormats';
 import { H2, H6, P } from '../style';
 
 const Wrapper = styled.div`

@@ -4,7 +4,7 @@ import TripInfo from '../components/TripInfo';
 import trips from '../data/trips';
 import previewImage from '../images/square.png';
 import styled from 'styled-components';
-import { P, H1, H3, Img, Container, GridParent } from '../style';
+import { H1, H3, Img, Container, GridParent } from '../style';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR } from '../utils/dateFormats';
 

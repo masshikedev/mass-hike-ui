@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H2, H3, H6, Input, Button } from '../../style';
-import styled from 'styled-components';
+import { H3, H6, Input, Button } from '../../style';
 
 class PaymentSection extends Component {
   constructor(props) {

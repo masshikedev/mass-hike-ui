@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import trips from '../../data/trips';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
-import { P, H1, H2, H6 } from '../../style';
+import { P, H2, H6 } from '../../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`

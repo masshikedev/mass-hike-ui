@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTripData } from '../actions/TripActions';
 import TripListItem from '../components/TripListItem';
-import styled from 'styled-components';
 import { H1, Container } from '../style';
 
 class TripList extends Component {
