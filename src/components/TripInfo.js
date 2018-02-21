@@ -30,7 +30,7 @@ function TripInfo(props) {
   const pickupString = format(props.time.pickupStart, DAY_MONTH_DATE_TIME);
   return (
     <Wrapper>
-      <H6>pickup</H6>
+      <H6>Date</H6>
       <P>{pickupString}</P>
       <H6>location</H6>
       <P>{props.location}</P>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { H3, H6, Input } from '../../style';
 
 class PaymentTypeSection extends Component {
   constructor(props) {
@@ -16,16 +17,16 @@ class PaymentTypeSection extends Component {
     const { paymentType } = this.state;
     return (
       <div>
-        <h3>Enter a promo code. (Optional)</h3>
-        <input
+        <H3>Enter a promo code. (Optional)</H3>
+        <Input
           type="text"
           value={this.state.promoCode}
           onChange={e => this.setState({ promoCode: e.target.value })}
         />
-        <h6>How would you like to pay?</h6>
+        <H6>How would you like to pay?</H6>
         <label>
           Credit/Debit
-          <input
+          <Input
             type="radio"
             checked={paymentType === 'card'}
             onChange={() => this.setState({ paymentType: 'card' })}
@@ -33,7 +34,7 @@ class PaymentTypeSection extends Component {
         </label>
         <label>
           Cash
-          <input
+          <Input
             type="radio"
             checked={paymentType !== 'card'}
             onChange={() => this.setState({ paymentType: 'cash' })}
