@@ -6,7 +6,7 @@ import previewImage from '../images/square.png';
 import styled from 'styled-components';
 import { H1, H3, Img, Container, GridParent, MediaQueries } from '../style';
 import { format } from 'date-fns';
-import { MONTH_DATE_YEAR } from '../utils/dateFormats';
+import { DAY_MONTH_DATE_YEAR } from '../utils/dateFormats';
 
 const Title = H1.extend`
   margin-bottom: 10px;
@@ -28,7 +28,7 @@ const Divider = styled.div`
 
 function TripDetail(props) {
   const trip = trips[props.match.params.id];
-  const dateString = format(trip.time.hikeStart, MONTH_DATE_YEAR);
+  const dateString = format(trip.time.hikeStart, DAY_MONTH_DATE_YEAR);
   return (
     <Container>
       <div>
