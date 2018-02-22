@@ -2,7 +2,8 @@ export default {
   name: name => name.length > 0,
   phone: phone => phone.length > 0,
   email: email => email.length > 0,
-  preferredContactMethod: preferredContactMethod => true,
+  preferredContactMethods: preferredContactMethods =>
+    preferredContactMethods.length > 0,
   paymentType: paymentType => true,
   tickets: tickets => tickets !== '',
   pickupLocation: pickupLocation => pickupLocation.length > 0,

@@ -53,7 +53,7 @@ const CheckoutConfirmation = props => {
           <P large>{props.pickupLocation}</P>
           <H6>Contact Method</H6>
           <P large capitalize>
-            {props.preferredContactMethod}
+            {props.preferredContactMethods.join(', ')}
           </P>
         </Column>
       </Wrapper>
@@ -67,7 +67,7 @@ const mapStateToProps = state => ({
   name: state.checkout.name,
   email: state.checkout.email,
   phone: state.checkout.phone,
-  preferredContactMethod: state.checkout.preferredContactMethod,
+  preferredContactMethods: state.checkout.preferredContactMethods,
   paymentType: state.checkout.paymentType,
   tickets: state.checkout.tickets,
   pickupLocation: state.checkout.pickupLocation,

@@ -5,18 +5,18 @@ import { H2, H6, Input, Button } from '../../style';
 class ContactSection extends Component {
   constructor(props) {
     super(props);
-    const { name, email, phone, preferredContactMethod } = props;
+    const { name, email, phone, preferredContactMethods } = props;
     this.state = {
       name,
       email,
       phone,
-      preferredContactMethod,
+      preferredContactMethods,
     };
   }
 
   render() {
     const { showNextButton, onClickNextButton } = this.props;
-    const { name, email, phone, preferredContactMethod } = this.state;
+    const { name, email, phone, preferredContactMethods } = this.state;
     return (
       <div>
         <H2>Enter your contact information</H2>
@@ -48,17 +48,29 @@ class ContactSection extends Component {
         <label>
           Email
           <Input
-            type="radio"
-            checked={preferredContactMethod === 'email'}
-            onChange={() => this.setState({ preferredContactMethod: 'email' })}
+            type="checkbox"
+            checked={preferredContactMethods.includes('email')}
+            onChange={e =>
+              this.setState({
+                preferredContactMethods: e.target.checked
+                  ? preferredContactMethods.concat('email')
+                  : preferredContactMethods.filter(i => i != 'email'),
+              })
+            }
           />
         </label>
         <label>
           Text Message
           <Input
-            type="radio"
-            checked={preferredContactMethod !== 'email'}
-            onChange={() => this.setState({ preferredContactMethod: 'phone' })}
+            type="checkbox"
+            checked={preferredContactMethods.includes('phone')}
+            onChange={e =>
+              this.setState({
+                preferredContactMethods: e.target.checked
+                  ? preferredContactMethods.concat('phone')
+                  : preferredContactMethods.filter(i => i != 'phone'),
+              })
+            }
           />
         </label>
         <br />
@@ -74,7 +86,7 @@ const mapStateToProps = state => ({
   name: state.checkout.name,
   email: state.checkout.email,
   phone: state.checkout.phone,
-  preferredContactMethod: state.checkout.preferredContactMethod,
+  preferredContactMethods: state.checkout.preferredContactMethods,
 });
 
 export default connect(mapStateToProps)(ContactSection);
