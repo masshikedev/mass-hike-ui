@@ -1,0 +1,6 @@
+export default {
+  UNITIALIZED: 'UNITIALIZED',
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  ERROR: 'ERROR',
+};
