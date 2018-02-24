@@ -14,14 +14,27 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <HomeMain />
-        <HomeSummary />
-        <HomeDetails />
-        <HomeNext />
-        <ContactFooter />
+        <HomeMain {...this.props} />
+        <HomeSummary {...this.props} />
+        <HomeDetails {...this.props} />
+        <HomeNext {...this.props} />
+        <ContactFooter {...this.props} />
       </Container>
     );
   }
 }
 
+/*
+<div>
+        <h1>{RichText.asText(this.props.doc.data.page_title)}</h1>
+        <article>{RichText.render(this.props.doc.data.content)}</article>
+      </div>
+      <Container>
+        <HomeMain {this.props}/>
+        <HomeSummary />
+        <HomeDetails />
+        <HomeNext />
+        <ContactFooter />
+      </Container>
+*/
 export default PrismicPage(Home);

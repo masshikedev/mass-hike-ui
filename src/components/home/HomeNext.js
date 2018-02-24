@@ -19,7 +19,6 @@ const Circle = styled.div`
 `;
 
 function HomeNext(props) {
-  const { detail, time } = props;
   return (
     <Wrapper>
       <div>
