@@ -8,7 +8,7 @@ const initialState = {
   preferredContactMethods: ['email', 'phone'],
 
   // Tickets
-  tickets: '',
+  tickets: '2',
   pickupLocation: '11111',
 
   // Payment amount & type
@@ -25,7 +25,7 @@ const initialState = {
   // Pay cash
   selectedLocation: -1,
   showMoreLocations: false,
-  meetingDate: undefined,
+  meetingDate: '',
 
   currentSection: 0,
   highestCompletedSection: 0,

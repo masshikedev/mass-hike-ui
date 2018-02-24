@@ -15,5 +15,5 @@ export default {
   billingZip: billingZip => billingZip.length === 5,
   selectedLocation: selectedLocation => selectedLocation >= 0,
   showMoreLocations: showMoreLocations => true,
-  meetingDate: meetingDate => true,
+  meetingDate: meetingDate => meetingDate !== '',
 };
