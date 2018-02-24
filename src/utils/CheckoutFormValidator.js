@@ -8,8 +8,12 @@ export default {
   tickets: tickets => tickets !== '',
   pickupLocation: pickupLocation => pickupLocation.length > 0,
   promoCode: promoCode => true,
+  price: price => 2 <= price && price <= 50,
   cardNumber: cardNumber => cardNumber.length === 16,
   expiration: expiration => expiration.length > 0,
   cvv: cvv => cvv.length === 3,
   billingZip: billingZip => billingZip.length === 5,
+  selectedLocation: selectedLocation => selectedLocation >= 0,
+  showMoreLocations: showMoreLocations => true,
+  meetingDate: meetingDate => true,
 };

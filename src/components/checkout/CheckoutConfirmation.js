@@ -18,6 +18,7 @@ const Column = styled.div`
 const CheckoutConfirmation = props => {
   const { tripId } = props;
   const trip = trips[tripId];
+  const cashLoc = trip.cashLocations[props.selectedLocation];
   return (
     <div>
       <H2>Trip Summary</H2>
@@ -41,12 +42,22 @@ const CheckoutConfirmation = props => {
           </P>
           <H6>Payment Type</H6>
           <P>{props.paymentType}</P>
-          <H6>Credit Card</H6>
-          <P large>
-            Card Type
-            <br />
-            {props.cardNumber}
-          </P>
+          {props.paymentType === 'card' && (
+            <div>
+              <H6>Credit Card</H6>
+              <P large>
+                Card Type
+                <br />
+                {props.cardNumber}
+              </P>
+            </div>
+          )}
+          {props.paymentType === 'cash' && (
+            <div>
+              <P large>{props.meetingDate}</P>
+              <P large>{cashLoc.name}</P>
+            </div>
+          )}
         </Column>
         <Column>
           <H6>Pickup</H6>
@@ -57,8 +68,8 @@ const CheckoutConfirmation = props => {
           </P>
         </Column>
       </Wrapper>
-      <P large>{`${props.tickets} Tickets`}</P>
-      <P large>{`$${props.tickets * trip.price}`}</P>
+      <P large>{`${props.tickets} tickets x $${props.price} each`}</P>
+      <P large>{`$${props.tickets * props.price}`}</P>
     </div>
   );
 };
@@ -76,6 +87,9 @@ const mapStateToProps = state => ({
   expiration: state.checkout.expiration,
   cvv: state.checkout.cvv,
   billingZip: state.checkout.billingZip,
+  price: state.checkout.price,
+  selectedLocation: state.checkout.selectedLocation,
+  meetingDate: state.checkout.meetingDate,
 });
 
 export default connect(mapStateToProps)(CheckoutConfirmation);

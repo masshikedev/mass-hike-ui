@@ -1,20 +1,34 @@
 import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
-  name: '',
-  phone: '',
-  email: '',
+  // Contact
+  name: 'Matt',
+  phone: '987',
+  email: 'panzer',
   preferredContactMethods: ['email', 'phone'],
+
+  // Tickets
   tickets: '',
-  pickupLocation: '',
+  pickupLocation: '11111',
+
+  // Payment amount & type
   promoCode: '',
-  cardNumber: '',
-  expiration: '',
-  cvv: '',
-  billingZip: '',
+  price: '',
+  paymentType: 'card',
+
+  // Pay card
+  cardNumber: '0123456789012345',
+  expiration: '0123',
+  cvv: '012',
+  billingZip: '12345',
+
+  // Pay cash
+  selectedLocation: -1,
+  showMoreLocations: false,
+  meetingDate: undefined,
+
   currentSection: 0,
   highestCompletedSection: 0,
-  paymentType: 'card',
 };
 
 export default (state = initialState, action) => {
