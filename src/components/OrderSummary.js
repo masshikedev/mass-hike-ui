@@ -20,7 +20,7 @@ function OrderSummary(props) {
   const trip = trips[tripId];
   return (
     <div>
-      <H2>Trip Summary</H2>
+      <H2>Order Summary</H2>
       <Wrapper>
         <Column>
           <P large>

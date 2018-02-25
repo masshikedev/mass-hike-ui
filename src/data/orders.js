@@ -5,7 +5,7 @@ const orders = {
     email: 'panzer.ma@husky.neu.edu',
     preferredContactMethods: ['email', 'phone'],
     tickets: '2',
-    pickupLocation: '',
+    pickupLocation: 'Ryder Hall',
     promoCode: '',
     cardNumber: '0123456789012345',
     expiration: '0123',

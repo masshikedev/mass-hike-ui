@@ -7,16 +7,11 @@ import { bindActionCreators } from 'redux';
 
 function CheckoutConfirmation(props) {
   const id = 'dummy1';
+  const { toOrderConfirmation } = props;
   return (
     <div>
       <OrderSummary {...props} />
-      <Button
-        onClick={e => {
-          this.props.toOrderConfirmation(id);
-        }}
-      >
-        Confirm Order
-      </Button>
+      <Button onClick={() => toOrderConfirmation(id)}>Confirm Order</Button>
     </div>
   );
 }
@@ -39,7 +34,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      toOrderConfirmation: id => push(`/orders/${id}`),
+      toOrderConfirmation: id => push(`/order/${id}`),
     },
     dispatch
   );
