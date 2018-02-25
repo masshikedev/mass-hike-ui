@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CheckoutForm from '../components/checkout/CheckoutForm';
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar';
 import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
+import { getTripById } from '../actions/CurrentTripActions';
 import styled from 'styled-components';
 import { Container, GridParent, MediaQueries } from '../style';
+import RequestStatus from '../RequestStatus';
 
 const Divider = styled.div`
   grid-column: span 1;
@@ -17,15 +20,22 @@ const Divider = styled.div`
 `;
 
 class Checkout extends Component {
+  componentWillMount() {
+    const { getTripById } = this.props;
+    getTripById(this.props.match.params.id);
+  }
+
   render() {
-    const tripId = this.props.match.params.id;
-    const { currentSection } = this.props;
+    const { currentSection, trip, status } = this.props;
+    if (status !== RequestStatus.SUCCESS) {
+      return null;
+    }
     return (
       <Container>
         <GridParent>
-          <CheckoutForm tripId={tripId} />
+          <CheckoutForm tripId={trip.tripId} />
           {currentSection !== 4 && <Divider />}
-          {currentSection !== 4 && <CheckoutSidebar tripId={tripId} />}
+          {currentSection !== 4 && <CheckoutSidebar tripId={trip.tripId} />}
         </GridParent>
         <CheckoutProgressBar />
       </Container>
@@ -35,6 +45,16 @@ class Checkout extends Component {
 
 const mapStateToProps = state => ({
   currentSection: state.checkout.currentSection,
+  tripId: state.currentTrip.trip,
+  status: state.currentTrip.status,
 });
 
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getTripById,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

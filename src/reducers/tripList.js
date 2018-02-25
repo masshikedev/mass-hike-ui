@@ -3,22 +3,23 @@ import RequestStatus from '../RequestStatus';
 
 const initialState = {
   status: RequestStatus.UNITIALIZED,
-  tripList: [],
+  trips: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.GET_TRIP_DATA_ATTEMPT:
+    case ActionTypes.GET_TRIP_LIST_ATTEMPT:
       return {
         ...state,
         status: RequestStatus.PENDING,
       };
-    case ActionTypes.GET_TRIP_DATA_SUCCESS:
+    case ActionTypes.GET_TRIP_LIST_SUCCESS:
       return {
+        ...state,
         status: RequestStatus.SUCCESS,
-        tripList: action.payload.trips,
+        trips: action.payload.trips,
       };
-    case ActionTypes.GET_TRIP_DATA_ERROR:
+    case ActionTypes.GET_TRIP_LIST_ERROR:
       return {
         ...state,
         status: RequestStatus.ERROR,

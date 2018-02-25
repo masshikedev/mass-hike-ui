@@ -32,7 +32,14 @@ const InfoWrapper = styled.div`
 
 class TripListItem extends Component {
   render() {
-    const { name, date, location, spotsRemaining, difficulty, id } = this.props;
+    const {
+      name,
+      date,
+      location,
+      spotsRemaining,
+      difficulty,
+      tripId,
+    } = this.props;
     const dateString = format(date, DAY_MONTH_DATE_YEAR);
     return (
       <Wrapper>
@@ -45,7 +52,10 @@ class TripListItem extends Component {
           <H6>Difficulty</H6>
           <P capitalize>{`${difficulty}`}</P>
           <br />
-          <Button onClick={() => this.props.toDetail(id)}> Learn More </Button>
+          <Button onClick={() => this.props.toDetail(tripId)}>
+            {' '}
+            Learn More{' '}
+          </Button>
         </InfoWrapper>
       </Wrapper>
     );
@@ -55,7 +65,7 @@ class TripListItem extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      toDetail: id => push(`trips/${id}`),
+      toDetail: tripId => push(`trips/${tripId}`),
     },
     dispatch
   );

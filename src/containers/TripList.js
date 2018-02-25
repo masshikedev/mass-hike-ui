@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getTripData } from '../actions/TripActions';
+import { getTripList } from '../actions/TripListActions';
 import TripListItem from '../components/TripListItem';
 import { H1, Container } from '../style';
 
 class TripList extends Component {
   componentWillMount() {
-    const { getTripData } = this.props;
-    getTripData();
+    const { getTripList } = this.props;
+    getTripList();
   }
   spotsRemaining(trip) {
     return trip.capacity - trip.ticketsSold;
@@ -19,7 +19,7 @@ class TripList extends Component {
       return (
         <TripListItem
           key={i}
-          id={trip.id}
+          tripId={trip.tripId}
           name={trip.name}
           date={trip.time.hikeStart}
           location={trip.location}
@@ -42,12 +42,13 @@ class TripList extends Component {
 }
 
 const mapStateToProps = state => ({
-  trips: state.trips.tripList,
+  trips: state.tripList.trips,
 });
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getTripData,
+      getTripList,
     },
     dispatch
   );
