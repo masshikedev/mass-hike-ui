@@ -47,7 +47,7 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    const { currentSection, tripId } = this.props;
+    const { currentSection } = this.props;
     const FormSection = FORM_SEQUENCE[currentSection];
     return (
       <Wrapper>
@@ -55,7 +55,6 @@ class CheckoutForm extends Component {
           <FormSection
             showNextButton={this.isSectionComplete}
             onClickNextButton={fields => this.completeSection(fields)}
-            tripId={tripId}
           />
         </form>
       </Wrapper>

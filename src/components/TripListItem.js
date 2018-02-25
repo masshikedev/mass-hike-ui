@@ -53,8 +53,7 @@ class TripListItem extends Component {
           <P capitalize>{`${difficulty}`}</P>
           <br />
           <Button onClick={() => this.props.toDetail(tripId)}>
-            {' '}
-            Learn More{' '}
+            Learn More
           </Button>
         </InfoWrapper>
       </Wrapper>

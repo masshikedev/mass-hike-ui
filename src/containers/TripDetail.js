@@ -32,7 +32,7 @@ const Divider = styled.div`
 class TripDetail extends Component {
   componentWillMount() {
     const { getTripById } = this.props;
-    getTripById(this.props.match.params.id);
+    getTripById(this.props.match.params.tripId);
   }
 
   renderLoading() {

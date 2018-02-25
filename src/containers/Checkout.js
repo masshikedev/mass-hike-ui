@@ -22,7 +22,7 @@ const Divider = styled.div`
 class Checkout extends Component {
   componentWillMount() {
     const { getTripById } = this.props;
-    getTripById(this.props.match.params.id);
+    getTripById(this.props.match.params.tripId);
   }
 
   renderLoading() {
@@ -38,7 +38,7 @@ class Checkout extends Component {
     return (
       <div>
         <GridParent>
-          <CheckoutForm tripId={trip.tripId} />
+          <CheckoutForm />
           {currentSection !== 4 && <Divider />}
           {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
         </GridParent>
