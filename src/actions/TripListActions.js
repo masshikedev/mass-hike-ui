@@ -1,5 +1,4 @@
 import ActionTypes from './ActionTypes';
-import tripData from '../data/trips';
 import { fetchAllTrips } from '../api/trips';
 
 const getAllTripsSuccess = dispatch => {

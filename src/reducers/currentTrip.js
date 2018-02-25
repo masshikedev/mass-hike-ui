@@ -1,5 +1,5 @@
 import ActionTypes from '../actions/ActionTypes';
-import RequestStatus from '../RequestStatus';
+import { RequestStatus } from '../constants';
 
 const initialState = {
   status: RequestStatus.UNITIALIZED,

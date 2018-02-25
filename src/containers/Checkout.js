@@ -5,9 +5,9 @@ import CheckoutForm from '../components/checkout/CheckoutForm';
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar';
 import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
 import { getTripById } from '../actions/CurrentTripActions';
+import renderByStatus from '../utils/renderByStatus';
 import styled from 'styled-components';
-import { Container, GridParent, MediaQueries } from '../style';
-import RequestStatus from '../RequestStatus';
+import { H3, Container, GridParent, MediaQueries } from '../style';
 
 const Divider = styled.div`
   grid-column: span 1;
@@ -25,19 +25,38 @@ class Checkout extends Component {
     getTripById(this.props.match.params.id);
   }
 
-  render() {
-    const { currentSection, trip, status } = this.props;
-    if (status !== RequestStatus.SUCCESS) {
-      return null;
-    }
+  renderLoading() {
+    return <H3>Loading...</H3>;
+  }
+
+  renderError() {
+    return <H3>An error has occured.</H3>;
+  }
+
+  renderSuccess() {
+    const { currentSection, trip } = this.props;
     return (
-      <Container>
+      <div>
         <GridParent>
           <CheckoutForm tripId={trip.tripId} />
           {currentSection !== 4 && <Divider />}
-          {currentSection !== 4 && <CheckoutSidebar tripId={trip.tripId} />}
+          {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
         </GridParent>
         <CheckoutProgressBar />
+      </div>
+    );
+  }
+
+  render() {
+    const { status } = this.props;
+    return (
+      <Container>
+        {renderByStatus(
+          status,
+          () => this.renderLoading(),
+          () => this.renderSuccess(),
+          () => this.renderError()
+        )}
       </Container>
     );
   }
@@ -45,7 +64,7 @@ class Checkout extends Component {
 
 const mapStateToProps = state => ({
   currentSection: state.checkout.currentSection,
-  tripId: state.currentTrip.trip,
+  trip: state.currentTrip.trip,
   status: state.currentTrip.status,
 });
 

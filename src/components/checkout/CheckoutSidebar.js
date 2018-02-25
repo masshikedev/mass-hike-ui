@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import trips from '../../data/trips';
 import { P, H6, MediaQueries } from '../../style';
 import styled from 'styled-components';
 import { format } from 'date-fns';
@@ -17,8 +16,7 @@ const Wrapper = styled.div`
 
 class CheckoutSidebar extends Component {
   render() {
-    const { tripId, tickets, price } = this.props;
-    const trip = trips[tripId];
+    const { trip, tickets, price } = this.props;
     return (
       <Wrapper>
         <H6>Trip Summary</H6>
