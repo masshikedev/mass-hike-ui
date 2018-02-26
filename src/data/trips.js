@@ -24,6 +24,24 @@ const trips = [
       hikeDistance: 2.1,
       elevation: 100,
     },
+    pickupZipcodes: [
+      {
+        zip: '02115',
+        desc: 'Fenway, Boston',
+      },
+      {
+        zip: '02120',
+        desc: 'Roxbury, Boston',
+      },
+      {
+        zip: '02130',
+        desc: 'Jamaica Plain, Boston',
+      },
+      {
+        zip: '02140',
+        desc: 'Narnia, Boston',
+      },
+    ],
     id: 0,
   },
   {
@@ -51,6 +69,24 @@ const trips = [
       hikeDistance: 3.1,
       elevation: 600,
     },
+    pickupZipcodes: [
+      {
+        zip: '02115',
+        desc: 'Fenway, Boston',
+      },
+      {
+        zip: '02120',
+        desc: 'Roxbury, Boston',
+      },
+      {
+        zip: '02130',
+        desc: 'Jamaica Plain, Boston',
+      },
+      {
+        zip: '02140',
+        desc: 'Narnia, Boston',
+      },
+    ],
     id: 1,
   },
 ];
