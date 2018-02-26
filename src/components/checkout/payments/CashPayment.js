@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H3, H6, Input, Button } from '../../../style';
+import { P, H3, Button } from '../../../style';
 import trips from '../../../data/trips';
 
 class CashPayment extends Component {
   constructor(props) {
     super(props);
-    const { selectedLocation, showMoreLocations, meetingDate } = props;
+    const { selectedLocation, meetingDate } = props;
     this.state = {
       selectedLocation,
-      showMoreLocations,
+      showMoreLocations: false,
       meetingDate,
     };
-
-    // This binding is necessary to make `this` work in the callback
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleChooseDate = this.handleChooseDate.bind(this);
   }
 
   handleToggle(e) {
@@ -98,7 +94,6 @@ class CashPayment extends Component {
 
 const mapStateToProps = state => ({
   selectedLocation: state.checkout.selectedLocation,
-  showMoreLocations: state.checkout.showMoreLocations,
   meetingDate: state.checkout.meetingDate,
 });
 

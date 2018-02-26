@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H3, H6, Input, Button } from '../../../style';
-import trips from '../../../data/trips';
+import { H3, H6, Input, Button } from '../../../style';
 
 class CardPayment extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class CardPayment extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton, tripId } = this.props;
+    const { showNextButton, onClickNextButton } = this.props;
     return (
       <div>
         <H3>Enter your credit card information</H3>

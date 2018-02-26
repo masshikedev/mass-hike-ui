@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { H2, H3, H4, H6, Input } from '../../style';
+import { H2, H4, Input } from '../../style';
 
 class PaymentTypeSection extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class PaymentTypeSection extends Component {
             checked={price === p}
             onChange={() => this.setState({ price: p })}
           />
-          {`\$${p}`}
+          {`$${p}`}
         </label>
       );
     });
@@ -53,11 +53,20 @@ class PaymentTypeSection extends Component {
 
         <br />
         <Input
+          type="radio"
+          checked={!prices.includes(price)}
+          onChange={() => {
+            document.getElementById('customPrice').focus();
+            document.getElementById('customPrice').select();
+          }}
+        />
+        <Input
           type="number"
           id="customPrice"
           placeholder="Other amount"
           value={!prices.includes(price) ? price : ''}
           onChange={e => this.setState({ price: e.target.value })}
+          onClick={e => this.setState({ price: e.target.value })}
         />
 
         <H2>How would you like to pay?</H2>

@@ -2,14 +2,14 @@ import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
   // Contact
-  name: 'Matt',
-  phone: '987',
-  email: 'panzer',
+  name: '',
+  phone: '',
+  email: '',
   preferredContactMethods: ['email', 'phone'],
 
   // Tickets
-  tickets: '2',
-  pickupLocation: '11111',
+  tickets: '',
+  pickupLocation: '',
 
   // Payment amount & type
   promoCode: '',
@@ -17,14 +17,13 @@ const initialState = {
   paymentType: 'card',
 
   // Pay card
-  cardNumber: '0123456789012345',
-  expiration: '0123',
-  cvv: '012',
-  billingZip: '12345',
+  cardNumber: '',
+  expiration: '',
+  cvv: '',
+  billingZip: '',
 
   // Pay cash
   selectedLocation: -1,
-  showMoreLocations: false,
   meetingDate: '',
 
   currentSection: 0,

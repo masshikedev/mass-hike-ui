@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H3, H6, Input, Button } from '../../style';
-import trips from '../../data/trips';
 import CashPayment from './payments/CashPayment';
 import CardPayment from './payments/CardPayment';
 
