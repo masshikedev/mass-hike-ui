@@ -1,9 +1,9 @@
 import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
-  name: 'm',
-  phone: '0',
-  email: 'p',
+  name: '',
+  phone: '',
+  email: '',
   preferredContactMethods: ['email', 'phone'],
   tickets: '',
   pickupLocation: '',

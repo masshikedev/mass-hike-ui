@@ -6,10 +6,11 @@ export default {
     preferredContactMethods.length > 0,
   paymentType: paymentType => true,
   tickets: tickets => tickets !== '',
-  pickupLocation: pickupLocation => pickupLocation.length > 0,
+  pickupLocation: pickupLocation => pickupLocation.length === 5,
   promoCode: promoCode => true,
   cardNumber: cardNumber => cardNumber.length === 16,
   expiration: expiration => expiration.length > 0,
   cvv: cvv => cvv.length === 3,
   billingZip: billingZip => billingZip.length === 5,
+  showMoreZips: showMoreZips => true,
 };
