@@ -66,6 +66,7 @@ class HikeInfoSection extends Component {
   render() {
     const { showNextButton, onClickNextButton, tripId } = this.props;
     const trip = trips[tripId];
+    const zipLength = this.state.pickupLocation.length;
     return (
       <div>
         <H3>How many tickets would you like to purchase?</H3>
@@ -80,7 +81,7 @@ class HikeInfoSection extends Component {
           onChange={e => this.setState({ pickupLocation: e.target.value })}
         />
         <br />
-        {this.state.pickupLocation.length < 5 ? (
+        {zipLength > 0 && zipLength < 5 ? (
           <P small>
             Pickup for this trip is not available in this zipcode. Please choose
             a zipcode within Mass Hike’s pickup radius, where pickup will be
