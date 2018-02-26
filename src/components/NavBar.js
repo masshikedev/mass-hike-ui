@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { H2, H3, P, Img } from '../style';
+import { H2, H3, P, Img, MediaQueries } from '../style';
 
 const Nav = styled.div`
   display: flex;
@@ -10,6 +10,9 @@ const Nav = styled.div`
   top: 0;
   position: fixed;
   background: white;
+  ${MediaQueries.small} {
+    display: none;
+  }
 `;
 
 const NavItem = styled.div`

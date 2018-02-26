@@ -1,9 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H3, P, Img } from '../../style';
+import { H2, H3, P, Img, MediaQueries } from '../../style';
+import { RichText } from 'prismic-reactjs';
 
 const Details = styled.div`
   display: flex;
+
+  ${MediaQueries.small} {
+    flex-direction: column;
+  }
 `;
 
 const DetailItem = styled.div``;
@@ -12,7 +17,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 500px;
+  height: 70vh;
 `;
 
 const Circle = styled.div`
@@ -21,26 +26,16 @@ const Circle = styled.div`
   height: 100%;
   border-radius: 50%;
 `;
+
 function HomeDetails(props) {
   return (
     <Wrapper>
-      <div>
-        <H2>Here's how we can help.</H2>
-        <Details>
-          <DetailItem>
-            <H3>Bus</H3>
-            <P>Lorum ipsum blah blah hike bus good etc</P>
-          </DetailItem>
-          <DetailItem>
-            <H3>Woods</H3>
-            <P>Lorum ipsum blah blah hike bus good etc</P>
-          </DetailItem>
-          <DetailItem>
-            <H3>Friends</H3>
-            <P>Lorum ipsum blah blah hike bus good etc</P>
-          </DetailItem>
-        </Details>
-      </div>
+      <H2>{RichText.asText(props.doc.data.detail_main_title)}</H2>
+      <Details>
+        <DetailItem>{RichText.render(props.doc.data.detail1)}</DetailItem>
+        <DetailItem>{RichText.render(props.doc.data.detail2)}</DetailItem>
+        <DetailItem>{RichText.render(props.doc.data.detail3)}</DetailItem>
+      </Details>
     </Wrapper>
   );
 }

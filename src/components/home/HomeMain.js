@@ -8,14 +8,14 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 700px;
+  height: 90vh;
 `;
 
 function HomeMain(props) {
   return (
     <Wrapper>
       <div>
-        <H1>{RichText.asText(props.doc.data.page_title)}</H1>
+        <H1>{RichText.asText(props.doc.data.top_title)}</H1>
         <Button>
           <Link to="/trips">{RichText.asText(props.doc.data.main_cta)}</Link>
         </Button>
