@@ -8,10 +8,14 @@ const Column = styled.div`
 `;
 
 function HomeNext(props) {
+  console.log(props);
   return (
     <GridParent>
       <Column>
         <H2>Next Trip</H2>
+      </Column>
+      <Column>
+        <Img src={props.doc.data.next_trip_image.url} />
       </Column>
       <Column>{RichText.render(props.doc.data.next_trip)}</Column>
       <Column>
