@@ -31,7 +31,7 @@ const NavRight = styled.div`
   flex: 3;
 `;
 
-const NavBar = props => {
+function NavBar(props) {
   return (
     <Nav>
       <NavLeft>
@@ -55,6 +55,6 @@ const NavBar = props => {
       </NavRight>
     </Nav>
   );
-};
+}
 
 export default NavBar;

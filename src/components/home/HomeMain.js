@@ -5,10 +5,7 @@ import { H1, Button } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 90vh;
+  display: grid;
 `;
 
 function HomeMain(props) {

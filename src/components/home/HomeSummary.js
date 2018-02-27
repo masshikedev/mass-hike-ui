@@ -1,27 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, P, Img } from '../../style';
+import { H2, P, Img, MediaQueries } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 70vh;
+  display: grid;
+  grid-row-gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  ${MediaQueries.small} {
+    grid-template-columns: 1fr;
+  }
 `;
 
-const Content = styled.div`
-  display: flex;
-  height: 500px;
+const Top = styled.div`
+  ${MediaQueries.small} {
+    order: -1;
+  }
+`;
+
+const Title = styled.div`
+  grid-column: span 2;
+
+  ${MediaQueries.small} {
+    grid-column: span 1;
+  }
 `;
 
 function HomeSummary(props) {
   return (
     <Wrapper>
-      <div>
+      <Title>
         <H2>{RichText.asText(props.doc.data.about_title)}</H2>
-        <Content>{RichText.asText(props.doc.data.about_content)}</Content>
-      </div>
+      </Title>
+      <div>{RichText.asText(props.doc.data.about_content)}</div>
+      <Top>
+        <Img src={props.doc.data.about_image.url} />
+      </Top>
     </Wrapper>
   );
 }

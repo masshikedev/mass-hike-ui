@@ -4,20 +4,12 @@ import { H2, H3, P, Button, Img } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 70vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
 `;
 
 const Content = styled.div``;
-
-const Circle = styled.div`
-  border: solid;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-`;
 
 function HomeNext(props) {
   return (
