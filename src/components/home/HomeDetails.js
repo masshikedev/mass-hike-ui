@@ -1,22 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H3, P, Img, MediaQueries } from '../../style';
+import { H2, H3, P, Img, MediaQueries, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
-const Details = styled.div`
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
+const DetailItem = styled.div`
+  grid-column: span 4;
 
   ${MediaQueries.small} {
-    grid-template-columns: 1fr;
+    grid-column: span 12;
   }
-`;
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-row-gap: 20px;
 `;
 
 const Content = styled.div`
@@ -27,20 +19,16 @@ const Title = styled.div`
   grid-column: span 12;
 `;
 
-const DetailItem = styled.div``;
-
 function HomeDetails(props) {
   return (
-    <Wrapper>
+    <GridParent>
       <Title>
         <H2>{RichText.asText(props.doc.data.detail_main_title)}</H2>
       </Title>
-      <Details>
-        <DetailItem>{RichText.render(props.doc.data.detail1)}</DetailItem>
-        <DetailItem>{RichText.render(props.doc.data.detail2)}</DetailItem>
-        <DetailItem>{RichText.render(props.doc.data.detail3)}</DetailItem>
-      </Details>
-    </Wrapper>
+      <DetailItem>{RichText.render(props.doc.data.detail1)}</DetailItem>
+      <DetailItem>{RichText.render(props.doc.data.detail2)}</DetailItem>
+      <DetailItem>{RichText.render(props.doc.data.detail3)}</DetailItem>
+    </GridParent>
   );
 }
 

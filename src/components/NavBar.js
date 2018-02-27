@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import hamburger from '../images/hamburger.png';
 import { H2, H3, P, Img, MediaQueries } from '../style';
 
 const Nav = styled.div`
@@ -9,10 +10,8 @@ const Nav = styled.div`
   width: 100%;
   top: 0;
   position: fixed;
+  border-bottom: solid;
   background: white;
-  ${MediaQueries.small} {
-    display: none;
-  }
 `;
 
 const NavItem = styled.div`
@@ -29,6 +28,20 @@ const NavRight = styled.div`
   display: flex;
   flex-direction: row-reverse;
   flex: 3;
+  ${MediaQueries.small} {
+    display: none;
+  }
+`;
+
+const Hamburger = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  flex: 0.5;
+  display: none;
+
+  ${MediaQueries.small} {
+    display: block;
+  }
 `;
 
 function NavBar(props) {
@@ -53,6 +66,9 @@ function NavBar(props) {
           </H3>
         </NavItem>
       </NavRight>
+      <Hamburger>
+        <Img src={hamburger} />
+      </Hamburger>
     </Nav>
   );
 }
