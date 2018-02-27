@@ -53,9 +53,9 @@ class Checkout extends Component {
       <Container>
         {renderByStatus(
           status,
-          () => this.renderLoading(),
+          this.renderLoading,
           () => this.renderSuccess(),
-          () => this.renderError()
+          this.renderError
         )}
       </Container>
     );
