@@ -12,5 +12,4 @@ export default {
   expiration: expiration => expiration.length > 0,
   cvv: cvv => cvv.length === 3,
   billingZip: billingZip => billingZip.length === 5,
-  showMoreZips: showMoreZips => true,
 };
