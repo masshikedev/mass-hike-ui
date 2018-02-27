@@ -24,6 +24,33 @@ const trips = [
       hikeDistance: 2.1,
       elevation: 100,
     },
+    cashLocations: [
+      {
+        name: 'Blackstone',
+        location: 'South End, Boston',
+        link: 'http://maps.google.com',
+      },
+      {
+        name: 'Shelburne',
+        location: 'Roxbury, Boston',
+        link: 'http://maps.google.com',
+      },
+      {
+        name: 'Hennigan',
+        location: 'Jamaica Plain, Boston',
+        link: 'http://maps.google.com',
+      },
+      {
+        name: 'Charlestown',
+        location: 'Charlestown, Boston',
+        link: 'http://maps.google.com',
+      },
+      {
+        name: 'Hyde Park',
+        location: 'Hyde Park, Boston',
+        link: 'http://maps.google.com',
+      },
+    ],
     pickupZipcodes: [
       {
         zip: '02115',

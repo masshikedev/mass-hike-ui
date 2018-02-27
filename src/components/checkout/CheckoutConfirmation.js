@@ -29,6 +29,9 @@ const mapStateToProps = state => ({
   expiration: state.checkout.expiration,
   cvv: state.checkout.cvv,
   billingZip: state.checkout.billingZip,
+  price: state.checkout.price,
+  selectedLocation: state.checkout.selectedLocation,
+  meetingDate: state.checkout.meetingDate,
 });
 
 const mapDispatchToProps = dispatch =>

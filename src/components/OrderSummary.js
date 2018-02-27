@@ -18,6 +18,7 @@ const Column = styled.div`
 function OrderSummary(props) {
   const { tripId } = props;
   const trip = trips[tripId];
+  const cashLoc = trip.cashLocations[props.selectedLocation];
   return (
     <div>
       <H2>Order Summary</H2>
@@ -41,12 +42,22 @@ function OrderSummary(props) {
           </P>
           <H6>Payment Type</H6>
           <P>{props.paymentType}</P>
-          <H6>Credit Card</H6>
-          <P large>
-            Card Type
-            <br />
-            {props.cardNumber}
-          </P>
+          {props.paymentType === 'card' && (
+            <div>
+              <H6>Credit Card</H6>
+              <P large>
+                Card Type
+                <br />
+                {props.cardNumber}
+              </P>
+            </div>
+          )}
+          {props.paymentType === 'cash' && (
+            <div>
+              <P large>{props.meetingDate}</P>
+              <P large>{cashLoc.name}</P>
+            </div>
+          )}
         </Column>
         <Column>
           <H6>Pickup</H6>

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 const Button = styled.button`
   width: 100%;
   max-width: 300px;
-  height: 56px;
+  height: ${({ small }) => (small ? '40px' : '56px')};
   background-color: #000000;
   font-family: 'Open Sans';
-  font-size: 21px;
+  font-size: ${({ small }) => (small ? '18px' : '21px')};
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;

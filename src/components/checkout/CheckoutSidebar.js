@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 
 class CheckoutSidebar extends Component {
   render() {
-    const { tripId, tickets } = this.props;
+    const { tripId, tickets, price } = this.props;
     const trip = trips[tripId];
     return (
       <Wrapper>
@@ -32,9 +32,15 @@ class CheckoutSidebar extends Component {
         </P>
         {tickets !== '' && (
           <div>
-            <P large capitalize>{`${tickets} tickets`}</P>
-            <H6>Total</H6>
-            <P large capitalize>{`$${tickets * trip.price}`}</P>
+            {price ? (
+              <div>
+                <P large>{`${tickets} tickets x $${price} each`}</P>
+                <H6>Total</H6>
+                <P large capitalize>{`$${tickets * price}`}</P>
+              </div>
+            ) : (
+              <P large capitalize>{`${tickets} tickets`}</P>
+            )}
           </div>
         )}
       </Wrapper>
@@ -44,6 +50,7 @@ class CheckoutSidebar extends Component {
 
 const mapStateToProps = state => ({
   tickets: state.checkout.tickets,
+  price: state.checkout.price,
 });
 
 export default connect(mapStateToProps)(CheckoutSidebar);
