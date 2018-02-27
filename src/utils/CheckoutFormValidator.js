@@ -6,7 +6,7 @@ export default {
     preferredContactMethods.length > 0,
   paymentType: paymentType => true,
   tickets: tickets => tickets !== '',
-  pickupLocation: pickupLocation => pickupLocation.length > 0,
+  pickupLocation: pickupLocation => pickupLocation.length === 5,
   promoCode: promoCode => true,
   price: price => 2 <= price && price <= 50,
   cardNumber: cardNumber => cardNumber.length === 16,
