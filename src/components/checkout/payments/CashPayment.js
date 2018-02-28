@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { P, H3, Button } from '../../../style';
-import trips from '../../../data/trips';
 
 class CashPayment extends Component {
   constructor(props) {
@@ -27,8 +26,8 @@ class CashPayment extends Component {
   }
 
   renderCashLocations(maxLoc) {
-    const tripId = this.props.tripId;
-    const cashLocations = trips[tripId]['cashLocations'];
+    const { trip } = this.props;
+    const cashLocations = trip.cashLocations;
     let locList = [];
     for (let i = 0; i < maxLoc && i < cashLocations.length; i++) {
       let loc = cashLocations[i];
@@ -56,9 +55,9 @@ class CashPayment extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton, tripId } = this.props;
+    const { showNextButton, onClickNextButton, trip } = this.props;
     const { showMoreLocations, selectedLocation } = this.state;
-    const cashLocations = trips[tripId]['cashLocations'];
+    const cashLocations = trip.cashLocations;
 
     return (
       <div>
@@ -95,6 +94,7 @@ class CashPayment extends Component {
 const mapStateToProps = state => ({
   selectedLocation: state.checkout.selectedLocation,
   meetingDate: state.checkout.meetingDate,
+  trip: state.currentTrip.trip,
 });
 
 export default connect(mapStateToProps)(CashPayment);

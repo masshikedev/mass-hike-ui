@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import DetailDescription from '../components/DetailDescription';
 import TripInfo from '../components/TripInfo';
-import trips from '../data/trips';
+import { getTripById } from '../actions/CurrentTripActions';
 import previewImage from '../images/square.png';
 import styled from 'styled-components';
+import renderByStatus from '../utils/renderByStatus';
 import { H1, H3, Img, Container, GridParent, MediaQueries } from '../style';
 import { format } from 'date-fns';
-import { DAY_MONTH_DATE_YEAR } from '../utils/dateFormats';
+import { MONTH_DATE_YEAR } from '../utils/dateFormats';
 
 const Title = H1.extend`
   margin-bottom: 10px;
@@ -26,23 +29,65 @@ const Divider = styled.div`
   }
 `;
 
-function TripDetail(props) {
-  const trip = trips[props.match.params.id];
-  const dateString = format(trip.time.hikeStart, DAY_MONTH_DATE_YEAR);
-  return (
-    <Container>
+class TripDetail extends Component {
+  componentWillMount() {
+    const { getTripById } = this.props;
+    getTripById(this.props.match.params.tripId);
+  }
+
+  renderLoading() {
+    return <H3>Loading...</H3>;
+  }
+
+  renderError() {
+    return <H3>An error has occured.</H3>;
+  }
+
+  renderSuccess() {
+    const { trip } = this.props;
+    const dateString = format(trip.time.hikeStart, MONTH_DATE_YEAR);
+    return (
       <div>
-        <Title>{trip.name}</Title>
-        <H3>{`${dateString} - ${trip.location}`}</H3>
-        <Img src={previewImage} />
+        <div>
+          <Title>{trip.name}</Title>
+          <H3>{`${dateString} - ${trip.location}`}</H3>
+          <Img src={previewImage} />
+        </div>
+        <DetailSection>
+          <DetailDescription {...trip} />
+          <Divider />
+          <TripInfo {...trip} />
+        </DetailSection>
       </div>
-      <DetailSection>
-        <DetailDescription {...trip} />
-        <Divider />
-        <TripInfo {...trip} id={props.match.params.id} />
-      </DetailSection>
-    </Container>
-  );
+    );
+  }
+
+  render() {
+    const { status } = this.props;
+    return (
+      <Container>
+        {renderByStatus(
+          status,
+          this.renderLoading,
+          () => this.renderSuccess(),
+          this.renderError
+        )}
+      </Container>
+    );
+  }
 }
 
-export default TripDetail;
+const mapStateToProps = state => ({
+  trip: state.currentTrip.trip,
+  status: state.currentTrip.status,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getTripById,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(TripDetail);

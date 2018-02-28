@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, P, Img, MediaQueries, GridParent } from '../../style';
+import { H2, Img, MediaQueries, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Top = styled.div`

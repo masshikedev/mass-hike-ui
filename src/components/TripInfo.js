@@ -42,7 +42,7 @@ function TripInfo(props) {
       <P>
         {props.capacity - props.ticketsSold}/{props.capacity} Tickets remaining
       </P>
-      <BookButton onClick={() => props.toCheckout(props.id)}>
+      <BookButton onClick={() => props.toCheckout(props.tripId)}>
         Book Now
       </BookButton>
     </Wrapper>

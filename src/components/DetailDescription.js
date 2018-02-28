@@ -24,19 +24,12 @@ function DetailDescription(props) {
         TIME
       )}`}</P>
       <H6>hike time</H6>
-      <P>
-        <P>{`${format(time.hikeStart, TIME)} - ${format(
-          time.hikeEnd,
-          TIME
-        )}`}</P>
-      </P>
+      <P>{`${format(time.hikeStart, TIME)} - ${format(time.hikeEnd, TIME)}`}</P>
       <H6>dropoff</H6>
-      <P>
-        <P>{`${format(time.dropoffStart, TIME)} - ${format(
-          time.dropoffEnd,
-          TIME
-        )}`}</P>
-      </P>
+      <P>{`${format(time.dropoffStart, TIME)} - ${format(
+        time.dropoffEnd,
+        TIME
+      )}`}</P>
     </Wrapper>
   );
 }

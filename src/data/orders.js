@@ -13,6 +13,38 @@ const orders = {
     billingZip: '01234',
     paymentType: 'card',
     tripId: 0,
+    trip: {
+      name: 'Blue Hills',
+      time: { hikeStart: 1520683200000 },
+      price: 15,
+      cashLocations: [
+        {
+          name: 'Blackstone',
+          location: 'South End, Boston',
+          link: 'http://maps.google.com',
+        },
+        {
+          name: 'Shelburne',
+          location: 'Roxbury, Boston',
+          link: 'http://maps.google.com',
+        },
+        {
+          name: 'Hennigan',
+          location: 'Jamaica Plain, Boston',
+          link: 'http://maps.google.com',
+        },
+        {
+          name: 'Charlestown',
+          location: 'Charlestown, Boston',
+          link: 'http://maps.google.com',
+        },
+        {
+          name: 'Hyde Park',
+          location: 'Hyde Park, Boston',
+          link: 'http://maps.google.com',
+        },
+      ],
+    },
   },
 };
 

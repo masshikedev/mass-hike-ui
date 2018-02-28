@@ -32,6 +32,7 @@ const mapStateToProps = state => ({
   price: state.checkout.price,
   selectedLocation: state.checkout.selectedLocation,
   meetingDate: state.checkout.meetingDate,
+  trip: state.currentTrip.trip,
 });
 
 const mapDispatchToProps = dispatch =>

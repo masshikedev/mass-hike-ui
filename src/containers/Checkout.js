@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CheckoutForm from '../components/checkout/CheckoutForm';
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar';
 import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
+import { getTripById } from '../actions/CurrentTripActions';
+import renderByStatus from '../utils/renderByStatus';
 import styled from 'styled-components';
-import { Container, GridParent, MediaQueries } from '../style';
+import { H3, Container, GridParent, MediaQueries } from '../style';
 
 const Divider = styled.div`
   grid-column: span 1;
@@ -17,17 +20,43 @@ const Divider = styled.div`
 `;
 
 class Checkout extends Component {
-  render() {
-    const tripId = this.props.match.params.id;
-    const { currentSection } = this.props;
+  componentWillMount() {
+    const { getTripById } = this.props;
+    getTripById(this.props.match.params.tripId);
+  }
+
+  renderLoading() {
+    return <H3>Loading...</H3>;
+  }
+
+  renderError() {
+    return <H3>An error has occured.</H3>;
+  }
+
+  renderSuccess() {
+    const { currentSection, trip } = this.props;
     return (
-      <Container>
+      <div>
         <GridParent>
-          <CheckoutForm tripId={tripId} />
+          <CheckoutForm />
           {currentSection !== 4 && <Divider />}
-          {currentSection !== 4 && <CheckoutSidebar tripId={tripId} />}
+          {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
         </GridParent>
         <CheckoutProgressBar />
+      </div>
+    );
+  }
+
+  render() {
+    const { status } = this.props;
+    return (
+      <Container>
+        {renderByStatus(
+          status,
+          this.renderLoading,
+          () => this.renderSuccess(),
+          this.renderError
+        )}
       </Container>
     );
   }
@@ -35,6 +64,16 @@ class Checkout extends Component {
 
 const mapStateToProps = state => ({
   currentSection: state.checkout.currentSection,
+  trip: state.currentTrip.trip,
+  status: state.currentTrip.status,
 });
 
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getTripById,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

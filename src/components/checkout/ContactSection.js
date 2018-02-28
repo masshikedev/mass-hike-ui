@@ -54,7 +54,7 @@ class ContactSection extends Component {
               this.setState({
                 preferredContactMethods: e.target.checked
                   ? preferredContactMethods.concat('email')
-                  : preferredContactMethods.filter(i => i != 'email'),
+                  : preferredContactMethods.filter(i => i !== 'email'),
               })
             }
           />
@@ -68,7 +68,7 @@ class ContactSection extends Component {
               this.setState({
                 preferredContactMethods: e.target.checked
                   ? preferredContactMethods.concat('phone')
-                  : preferredContactMethods.filter(i => i != 'phone'),
+                  : preferredContactMethods.filter(i => i !== 'phone'),
               })
             }
           />

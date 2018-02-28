@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import trips from '../data/trips';
+import React from 'react';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
 import { P, H2, H6 } from '../style';
@@ -16,8 +14,7 @@ const Column = styled.div`
 `;
 
 function OrderSummary(props) {
-  const { tripId } = props;
-  const trip = trips[tripId];
+  const { trip } = props;
   const cashLoc = trip.cashLocations[props.selectedLocation];
   return (
     <div>

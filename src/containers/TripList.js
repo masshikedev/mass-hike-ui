@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getTripData } from '../actions/TripActions';
+import { getTripList } from '../actions/TripListActions';
 import TripListItem from '../components/TripListItem';
-import { H1, Container } from '../style';
+import renderByStatus from '../utils/renderByStatus';
+import { H1, H3, Container } from '../style';
 
 class TripList extends Component {
   componentWillMount() {
-    const { getTripData } = this.props;
-    getTripData();
+    const { getTripList } = this.props;
+    getTripList();
   }
+
   spotsRemaining(trip) {
     return trip.capacity - trip.ticketsSold;
   }
-  renderTripComponents() {
+
+  renderLoading() {
+    return <H3>Loading...</H3>;
+  }
+
+  renderError() {
+    return <H3>An error has occured.</H3>;
+  }
+
+  renderSuccess() {
     const { trips = [] } = this.props;
     const tripComponents = trips.map((trip, i) => {
       return (
         <TripListItem
           key={i}
-          id={trip.id}
+          tripId={trip.tripId}
           name={trip.name}
           date={trip.time.hikeStart}
           location={trip.location}
@@ -28,26 +39,38 @@ class TripList extends Component {
         />
       );
     });
-    return tripComponents;
+    return (
+      <div>
+        <H1>Upcoming Trips</H1>
+        {tripComponents}
+      </div>
+    );
   }
+
   render() {
+    const { status } = this.props;
     return (
       <Container>
-        <H1>Upcoming Trips</H1>
-        {this.renderTripComponents()}
-        <br />
+        {renderByStatus(
+          status,
+          this.renderLoading,
+          () => this.renderSuccess(),
+          this.renderError
+        )}
       </Container>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  trips: state.trips.tripList,
+  trips: state.tripList.trips,
+  status: state.tripList.status,
 });
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getTripData,
+      getTripList,
     },
     dispatch
   );
