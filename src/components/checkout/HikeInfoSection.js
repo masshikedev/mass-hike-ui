@@ -76,7 +76,7 @@ class HikeInfoSection extends Component {
           onChange={e => this.setState({ pickupLocation: e.target.value })}
         />
         <br />
-        {!this.validZipcode() && this.state.pickupLocation.length == 5 ? (
+        {!this.validZipcode() && this.state.pickupLocation.length === 5 ? (
           <div>
             <P small>
               Pickup for this trip is not available in this zipcode. Please

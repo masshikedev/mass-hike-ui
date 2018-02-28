@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import hamburger from '../images/hamburger.png';
-import { H2, H3, P, Img, MediaQueries } from '../style';
+import { H3, Img, MediaQueries } from '../style';
 
 const Nav = styled.div`
   display: flex;

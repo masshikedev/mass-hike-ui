@@ -1,15 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  H3,
-  H6,
-  Input,
-  P,
-  Button,
-  Img,
-  MediaQueries,
-  GridParent,
-} from '../../style';
+import { Input, P, Button, Img, MediaQueries, GridParent } from '../../style';
 
 const Contact = styled.div`
   grid-column: span 4;

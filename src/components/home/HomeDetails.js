@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H3, P, Img, MediaQueries, GridParent } from '../../style';
+import { H2, MediaQueries, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const DetailItem = styled.div`
@@ -9,10 +9,6 @@ const DetailItem = styled.div`
   ${MediaQueries.small} {
     grid-column: span 12;
   }
-`;
-
-const Content = styled.div`
-  grid-column: span 12;
 `;
 
 const Title = styled.div`

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
 import { P, H2, H6 } from '../style';
