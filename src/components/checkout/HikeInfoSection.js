@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { P, H3, H6, Input, Button } from '../../style';
-import trips from '../../data/trips';
 
 class HikeInfoSection extends Component {
   constructor(props) {
@@ -20,23 +19,20 @@ class HikeInfoSection extends Component {
   }
 
   validZipcode() {
-    const { tripId } = this.props;
-    const trip = trips[tripId];
+    const { trip } = this.props;
     const zipList = trip.pickupZipcodes.map(el => el.zip);
     return zipList.includes(this.state.pickupLocation);
   }
 
   validTixNumber() {
-    const { tripId } = this.props;
-    const trip = trips[tripId];
+    const { trip } = this.props;
     const available = trip.capacity - trip.ticketsSold;
     return 0 < this.state.tickets && this.state.tickets <= available;
   }
 
   renderZipcodeOptions() {
-    const { tripId } = this.props;
+    const { trip } = this.props;
     const { showMoreZips } = this.state;
-    const trip = trips[tripId];
     const max = showMoreZips ? trip.pickupZipcodes.length : 3;
     let zips = [];
     for (let i = 0; i < trip.pickupZipcodes.length && i < max; i++) {
@@ -59,8 +55,7 @@ class HikeInfoSection extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton, tripId } = this.props;
-    const trip = trips[tripId];
+    const { showNextButton, onClickNextButton, trip } = this.props;
     return (
       <div>
         <H3>How many tickets would you like to purchase?</H3>
@@ -109,6 +104,7 @@ class HikeInfoSection extends Component {
 const mapStateToProps = state => ({
   tickets: state.checkout.tickets,
   pickupLocation: state.checkout.pickupLocation,
+  trip: state.currentTrip.trip,
 });
 
 export default connect(mapStateToProps)(HikeInfoSection);

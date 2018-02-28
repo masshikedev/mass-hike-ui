@@ -56,7 +56,7 @@ class TripDetail extends Component {
         <DetailSection>
           <DetailDescription {...trip} />
           <Divider />
-          <TripInfo {...trip} id={this.props.match.params.id} />
+          <TripInfo {...trip} />
         </DetailSection>
       </div>
     );
@@ -68,9 +68,9 @@ class TripDetail extends Component {
       <Container>
         {renderByStatus(
           status,
-          () => this.renderLoading(),
+          this.renderLoading,
           () => this.renderSuccess(),
-          () => this.renderError()
+          this.renderError
         )}
       </Container>
     );

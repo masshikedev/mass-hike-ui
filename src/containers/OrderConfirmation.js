@@ -1,5 +1,4 @@
 import React from 'react';
-import trips from '../data/trips';
 import OrderSummary from '../components/OrderSummary';
 import orders from '../data/orders.js';
 import { P, H2, MediaQueries, Container, GridParent } from '../style';
