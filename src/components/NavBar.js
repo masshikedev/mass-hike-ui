@@ -21,13 +21,13 @@ const NavItem = styled.div`
 
 const NavLeft = styled.div`
   display: flex;
-  flex: 7;
+  flex: 6;
 `;
 
 const NavRight = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  flex: 3;
+  flex: 4;
   ${MediaQueries.small} {
     display: none;
   }
@@ -62,7 +62,12 @@ function NavBar(props) {
         </NavItem>
         <NavItem>
           <H3>
-            <Link to="/">About</Link>
+            <Link to="/impact">Impact</Link>
+          </H3>
+        </NavItem>
+        <NavItem>
+          <H3>
+            <Link to="/about">About</Link>
           </H3>
         </NavItem>
       </NavRight>

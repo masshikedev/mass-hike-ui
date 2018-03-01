@@ -15,23 +15,18 @@ const Wrapper = styled.div`
   grid-gap: 140px;
 `;
 
-class Home extends Component {
-  static pageType = 'homepage';
+class About extends Component {
+  static pageType = 'about';
 
   render() {
-    console.log('Home page...');
     return (
       <Container>
         <Wrapper>
-          <HomeMain {...this.props} />
-          <HomeSummary {...this.props} />
-          <HomeDetails {...this.props} />
-          <HomeNext {...this.props} />
-          <ContactFooter {...this.props} />
+          <div>this is the about page</div>
         </Wrapper>
       </Container>
     );
   }
 }
 
-export default PrismicPage(Home);
+export default PrismicPage(About);
