@@ -8,6 +8,7 @@ const P = styled.p`
 
   margin-bottom: 10px;
   line-height: 1.44;
+  color: ${({ error }) => (error ? 'red' : 'inherit')};
 `;
 
 export default P;
