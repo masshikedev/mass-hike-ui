@@ -4,6 +4,7 @@ import { H2, H6, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { contactConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
+import formatPhoneNumber from '../../utils/phoneFormatter';
 
 class ContactSection extends Component {
   constructor(props) {
@@ -15,33 +16,6 @@ class ContactSection extends Component {
       phone,
       preferredContactMethods,
     };
-  }
-
-  formatPhoneNumber(input) {
-    // Strip all characters from the input except digits
-    input = input.replace(/\D/g, '');
-
-    // Trim the remaining input to ten characters, to preserve phone number format
-    input = input.substring(0, 10);
-
-    // Based upon the length of the string, we add formatting as necessary
-    let size = input.length;
-    if (size == 0) {
-      input = input;
-    } else if (size < 4) {
-      input = '(' + input;
-    } else if (size < 7) {
-      input = '(' + input.substring(0, 3) + ') ' + input.substring(3, 6);
-    } else {
-      input =
-        '(' +
-        input.substring(0, 3) +
-        ') ' +
-        input.substring(3, 6) +
-        ' - ' +
-        input.substring(6, 10);
-    }
-    return input;
   }
 
   render() {
@@ -68,7 +42,7 @@ class ContactSection extends Component {
           title="Phone"
           value={phone}
           onChange={e =>
-            this.setState({ phone: this.formatPhoneNumber(e.target.value) })
+            this.setState({ phone: formatPhoneNumber(e.target.value) })
           }
           error={messages['phone']}
           placeholder="(000) 000 - 0000"

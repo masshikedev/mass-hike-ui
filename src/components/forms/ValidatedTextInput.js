@@ -5,12 +5,12 @@ import styled from 'styled-components';
 class ValidatedTextInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { init: true };
+    this.state = { editing: true };
   }
 
   render() {
     const { title, onChange, error, value } = this.props;
-    const { init } = this.state;
+    const { editing } = this.state;
     const transform = this.props.transform || (v => v);
     const placeholder = this.props.placeholder || '';
     return (
@@ -23,12 +23,15 @@ class ValidatedTextInput extends Component {
           onChange={e => {
             onChange(e);
           }}
-          onBlur={e => {
-            this.setState({ init: false });
+          onBlur={() => {
+            this.setState({ editing: false });
           }}
-          invalid={!init ? error : false}
+          onFocus={() => {
+            this.setState({ editing: true });
+          }}
+          invalid={!editing && error}
         />
-        {!init && error ? (
+        {!editing && error ? (
           <P small error>
             {error[0]}
           </P>
