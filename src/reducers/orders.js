@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentOrderStatus: RequestStatus.SUCCESS,
-        currentOrder: action.payload.trip,
+        currentOrder: action.payload.order,
       };
     case ActionTypes.GET_ORDER_BY_ID_ERROR:
       return {

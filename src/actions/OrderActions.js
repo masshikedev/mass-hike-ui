@@ -37,7 +37,7 @@ const confirmOrderSuccess = dispatch => {
       },
     });
     const id = response.data._id;
-    dispatch(push(`/orders/${id}`));
+    dispatch(push(`/order/${id}`));
   };
 };
 

@@ -37,8 +37,8 @@ const mapStateToProps = state => ({
     selectedLocation: state.checkout.selectedLocation,
     meetingDate: state.checkout.meetingDate,
     tripId: state.currentTrip.trip.tripId,
+    trip: state.currentTrip.trip,
   },
-  trip: state.currentTrip.trip,
 });
 
 const mapDispatchToProps = dispatch =>

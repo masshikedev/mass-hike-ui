@@ -14,7 +14,8 @@ const Column = styled.div`
 `;
 
 function OrderSummary(props) {
-  const { trip, order } = props;
+  const { order } = props;
+  const trip = order.trip;
   const cashLoc = trip.cashLocations[props.selectedLocation];
   return (
     <div>
