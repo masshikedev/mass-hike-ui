@@ -1,5 +1,6 @@
 import ActionTypes from './ActionTypes';
 import { fetchOrderById, createOrder } from '../api/orders';
+import { push } from 'react-router-redux';
 
 const getOrderByIdSuccess = dispatch => {
   return response => {
@@ -27,28 +28,30 @@ export const getOrderById = orderId => {
   };
 };
 
-const createOrderSuccess = dispatch => {
+const confirmOrderSuccess = dispatch => {
   return response => {
     dispatch({
-      type: ActionTypes.CREATE_ORDER_SUCCESS,
+      type: ActionTypes.CONFIRM_ORDER_SUCCESS,
       payload: {
         order: response.data,
       },
     });
+    const id = response.data._id;
+    dispatch(push(`/orders/${id}`));
   };
 };
 
-const createOrderFailure = dispatch => {
-  return () => {
-    dispatch({ type: ActionTypes.CREATE_ORDER_ERROR });
+const confirmOrderFailure = dispatch => {
+  return response => {
+    dispatch({ type: ActionTypes.CONFIRM_ORDER_ERROR });
   };
 };
 
-export const createOrder = order => {
+export const confirmOrder = order => {
   return dispatch => {
-    dispatch({ type: ActionTypes.CREATE_ORDER_ATTEMPT });
+    dispatch({ type: ActionTypes.CONFIRM_ORDER_ATTEMPT });
     createOrder(order)
-      .then(createOrderSuccess(dispatch))
-      .catch(createOrderFailure(dispatch));
+      .then(confirmOrderSuccess(dispatch))
+      .catch(confirmOrderFailure(dispatch));
   };
 };

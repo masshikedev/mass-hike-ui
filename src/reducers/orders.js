@@ -3,7 +3,7 @@ import { RequestStatus } from '../constants';
 
 const initialState = {
   currentOrderStatus: RequestStatus.UNITIALIZED,
-  createOrderStatus: RequestStatus.UNITIALIZED,
+  confirmOrderStatus: RequestStatus.UNITIALIZED,
   currentOrder: null,
 };
 
@@ -25,20 +25,20 @@ export default (state = initialState, action) => {
         ...state,
         currentOrderStatus: RequestStatus.ERROR,
       };
-    case ActionTypes.CREATE_ORDER_ATTEMPT:
+    case ActionTypes.CONFIRM_ORDER_ATTEMPT:
       return {
         ...state,
-        createOrderStatus: RequestStatus.PENDING,
+        confirmOrderStatus: RequestStatus.PENDING,
       };
-    case ActionTypes.CREATE_ORDER_SUCCESS:
+    case ActionTypes.CONFIRM_ORDER_SUCCESS:
       return {
         ...state,
-        createOrderStatus: RequestStatus.SUCCESS,
+        confirmOrderStatus: RequestStatus.SUCCESS,
       };
-    case ActionTypes.CREATE_ORDER_ERROR:
+    case ActionTypes.CONFIRM_ORDER_ERROR:
       return {
         ...state,
-        createOrderStatus: RequestStatus.ERROR,
+        confirmOrderStatus: RequestStatus.ERROR,
       };
     default:
       return state;

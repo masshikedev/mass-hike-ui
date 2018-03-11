@@ -14,7 +14,7 @@ const Column = styled.div`
 `;
 
 function OrderSummary(props) {
-  const { trip } = props;
+  const { trip, order } = props;
   const cashLoc = trip.cashLocations[props.selectedLocation];
   return (
     <div>
@@ -31,42 +31,42 @@ function OrderSummary(props) {
           </P>
           <H6>Contact Info</H6>
           <P large>
-            {props.name}
+            {order.name}
             <br />
-            {props.email}
+            {order.email}
             <br />
-            {props.phone}
+            {order.phone}
           </P>
           <H6>Payment Type</H6>
-          <P>{props.paymentType}</P>
-          {props.paymentType === 'card' && (
+          <P>{order.paymentType}</P>
+          {order.paymentType === 'card' && (
             <div>
               <H6>Credit Card</H6>
               <P large>
                 Card Type
                 <br />
-                {props.cardNumber}
+                {order.cardNumber}
               </P>
             </div>
           )}
-          {props.paymentType === 'cash' && (
+          {order.paymentType === 'cash' && (
             <div>
-              <P large>{props.meetingDate}</P>
+              <P large>{order.meetingDate}</P>
               <P large>{cashLoc.name}</P>
             </div>
           )}
         </Column>
         <Column>
           <H6>Pickup</H6>
-          <P large>{props.pickupLocation}</P>
+          <P large>{order.pickupLocation}</P>
           <H6>Contact Method</H6>
           <P large capitalize>
-            {props.preferredContactMethods.join(', ')}
+            {order.preferredContactMethods.join(', ')}
           </P>
         </Column>
       </Wrapper>
-      <P large>{`${props.tickets} Tickets`}</P>
-      <P large>{`$${props.tickets * trip.price}`}</P>
+      <P large>{`${order.tickets} Tickets`}</P>
+      <P large>{`$${order.tickets * trip.price}`}</P>
     </div>
   );
 }

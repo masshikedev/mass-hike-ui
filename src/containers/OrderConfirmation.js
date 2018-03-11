@@ -24,7 +24,7 @@ function OrderConfirmation(props) {
             take a look at our suggested packing list and our FAQs. We’ll see
             you soon!
           </P>
-          <OrderSummary {...orders[id]} />
+          <OrderSummary order={orders[id]} />
         </Wrapper>
       </GridParent>
     </Container>

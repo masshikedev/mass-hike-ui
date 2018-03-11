@@ -1,44 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import OrderSummary from '../OrderSummary';
 import { Button } from '../../style';
-import { push } from 'react-router-redux';
+import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
 
-function CheckoutConfirmation(props) {
-  const id = 'dummy1';
-  const { toOrderConfirmation } = props;
-  return (
-    <div>
-      <OrderSummary {...props} />
-      <Button onClick={() => toOrderConfirmation(id)}>Confirm Order</Button>
-    </div>
-  );
+class CheckoutConfirmation extends Component {
+  handleConfirmOrder = e => {
+    const { order, confirmOrder } = this.props;
+    e.preventDefault();
+    confirmOrder(order);
+  };
+
+  render() {
+    const { order, trip } = this.props;
+    return (
+      <div>
+        <OrderSummary order={order} trip={trip} />
+        <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => ({
-  name: state.checkout.name,
-  email: state.checkout.email,
-  phone: state.checkout.phone,
-  preferredContactMethods: state.checkout.preferredContactMethods,
-  paymentType: state.checkout.paymentType,
-  tickets: state.checkout.tickets,
-  pickupLocation: state.checkout.pickupLocation,
-  promoCode: state.checkout.promoCode,
-  cardNumber: state.checkout.cardNumber,
-  expiration: state.checkout.expiration,
-  cvv: state.checkout.cvv,
-  billingZip: state.checkout.billingZip,
-  price: state.checkout.price,
-  selectedLocation: state.checkout.selectedLocation,
-  meetingDate: state.checkout.meetingDate,
+  order: {
+    name: state.checkout.name,
+    email: state.checkout.email,
+    phone: state.checkout.phone,
+    preferredContactMethods: state.checkout.preferredContactMethods,
+    paymentType: state.checkout.paymentType,
+    tickets: state.checkout.tickets,
+    pickupLocation: state.checkout.pickupLocation,
+    cardNumber: state.checkout.cardNumber,
+    price: state.checkout.price,
+    selectedLocation: state.checkout.selectedLocation,
+    meetingDate: state.checkout.meetingDate,
+    tripId: state.currentTrip.trip.tripId,
+  },
   trip: state.currentTrip.trip,
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      toOrderConfirmation: id => push(`/order/${id}`),
+      confirmOrder,
     },
     dispatch
   );
