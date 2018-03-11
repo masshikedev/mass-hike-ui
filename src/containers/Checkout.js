@@ -33,7 +33,7 @@ class Checkout extends Component {
     return <H3>An error has occured.</H3>;
   }
 
-  renderSuccess() {
+  renderSuccess = () => {
     const { currentSection, trip } = this.props;
     return (
       <div>
@@ -45,7 +45,7 @@ class Checkout extends Component {
         <CheckoutProgressBar />
       </div>
     );
-  }
+  };
 
   render() {
     const { status } = this.props;
@@ -54,7 +54,7 @@ class Checkout extends Component {
         {renderByStatus(
           status,
           this.renderLoading,
-          () => this.renderSuccess(),
+          this.renderSuccess,
           this.renderError
         )}
       </Container>

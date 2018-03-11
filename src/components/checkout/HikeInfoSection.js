@@ -55,7 +55,7 @@ class HikeInfoSection extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton, trip } = this.props;
+    const { onClickNextButton, trip } = this.props;
     return (
       <div>
         <H3>How many tickets would you like to purchase?</H3>

@@ -43,7 +43,7 @@ class TripDetail extends Component {
     return <H3>An error has occured.</H3>;
   }
 
-  renderSuccess() {
+  renderSuccess = () => {
     const { trip } = this.props;
     const dateString = format(trip.time.hikeStart, MONTH_DATE_YEAR);
     return (
@@ -60,7 +60,7 @@ class TripDetail extends Component {
         </DetailSection>
       </div>
     );
-  }
+  };
 
   render() {
     const { status } = this.props;
@@ -69,7 +69,7 @@ class TripDetail extends Component {
         {renderByStatus(
           status,
           this.renderLoading,
-          () => this.renderSuccess(),
+          this.renderSuccess,
           this.renderError
         )}
       </Container>
