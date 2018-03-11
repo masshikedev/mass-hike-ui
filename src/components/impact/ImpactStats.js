@@ -12,15 +12,15 @@ function ImpactStats(props) {
   return (
     <GridParent>
       <StatItem>
-        <Img src={props.doc.data.impact_image1.url} />
+        <Img src={props.doc.data.stat_image1.url} />
       </StatItem>
       <StatItem>{RichText.render(props.doc.data.stat_text1)}</StatItem>
       <StatItem>
-        <Img src={props.doc.data.impact_image1.url} />
+        <Img src={props.doc.data.stat_image2.url} />
       </StatItem>
       <StatItem>{RichText.render(props.doc.data.stat_text2)}</StatItem>
       <StatItem>
-        <Img src={props.doc.data.impact_image1.url} />
+        <Img src={props.doc.data.stat_image3.url} />
       </StatItem>
       <StatItem>{RichText.render(props.doc.data.stat_text3)}</StatItem>
     </GridParent>

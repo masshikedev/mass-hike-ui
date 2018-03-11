@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { RichText } from 'prismic-reactjs';
 import PrismicPage from '../prismic/PrismicPage';
-import ImpactMain from '../components/impact/ImpactMain';
-import ImpactHero from '../components/impact/ImpactHero';
-import ImpactStats from '../components/impact/ImpactStats';
+import ContactMain from '../components/contact/ContactMain';
+import ContactInput from '../components/contact/ContactInput';
 import ContactFooter from '../components/home/ContactFooter';
 import { Container } from '../style';
 import styled from 'styled-components';
@@ -14,20 +13,19 @@ const Wrapper = styled.div`
   grid-gap: 140px;
 `;
 
-class Impact extends Component {
-  static pageType = 'impact';
+class Contact extends Component {
+  static pageType = 'contact';
 
   render() {
     return (
       <Container>
         <Wrapper>
-          <ImpactMain {...this.props} />
-          <ImpactHero {...this.props} />
-          <ImpactStats {...this.props} />
+          <ContactMain {...this.props} />
+          <ContactInput {...this.props} />
         </Wrapper>
       </Container>
     );
   }
 }
 
-export default PrismicPage(Impact);
+export default PrismicPage(Contact);

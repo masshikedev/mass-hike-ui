@@ -5,7 +5,6 @@ import HomeMain from '../components/home/HomeMain';
 import HomeSummary from '../components/home/HomeSummary';
 import HomeDetails from '../components/home/HomeDetails';
 import HomeNext from '../components/home/HomeNext';
-import ContactFooter from '../components/home/ContactFooter';
 import { Container } from '../style';
 import styled from 'styled-components';
 
@@ -19,7 +18,6 @@ class Home extends Component {
   static pageType = 'homepage';
 
   render() {
-    console.log('Home page...');
     return (
       <Container>
         <Wrapper>
@@ -27,7 +25,6 @@ class Home extends Component {
           <HomeSummary {...this.props} />
           <HomeDetails {...this.props} />
           <HomeNext {...this.props} />
-          <ContactFooter {...this.props} />
         </Wrapper>
       </Container>
     );

@@ -8,15 +8,15 @@ const Column = styled.div`
   grid-column: span 12;
 `;
 
-function AboutMain(props) {
+function ContactMain(props) {
   return (
     <GridParent>
       <Column>
         <H1>{RichText.asText(props.doc.data.title)}</H1>
-        <P>{RichText.asText(props.doc.data.main_content)}</P>
+        <div>{RichText.render(props.doc.data.contact_content)}</div>
       </Column>
     </GridParent>
   );
 }
 
-export default AboutMain;
+export default ContactMain;

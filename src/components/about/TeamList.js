@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TeamMember from './TeamMember';
-import { H1, GridParent, Container } from '../../style';
+import { GridParent } from '../../style';
 
 function TeamList(props) {
   return <GridParent>{renderTeamMembers(props)}</GridParent>;
@@ -16,6 +16,7 @@ function renderTeamMembers(props) {
           key={i}
           name={member.primary.name}
           desc={member.primary.description}
+          position={member.primary.title}
           headshot={member.primary.headshot}
         />
       );

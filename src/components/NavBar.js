@@ -62,6 +62,11 @@ function NavBar(props) {
         </NavItem>
         <NavItem>
           <H3>
+            <Link to="/blog">Blog</Link>
+          </H3>
+        </NavItem>
+        <NavItem>
+          <H3>
             <Link to="/impact">Impact</Link>
           </H3>
         </NavItem>
