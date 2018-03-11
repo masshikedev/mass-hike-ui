@@ -94,7 +94,9 @@ class HikeInfoSection extends Component {
 
         {this.validTixNumber() &&
           this.validZipcode() && (
-            <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
+            <Button onClick={e => onClickNextButton(this.state, e)}>
+              Next
+            </Button>
           )}
       </div>
     );

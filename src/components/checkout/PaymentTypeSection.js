@@ -87,7 +87,7 @@ class PaymentTypeSection extends Component {
           />
         </label>
         {showNextButton(this.state) && (
-          <button onClick={() => onClickNextButton(this.state)}>Next</button>
+          <button onClick={e => onClickNextButton(this.state, e)}>Next</button>
         )}
       </div>
     );

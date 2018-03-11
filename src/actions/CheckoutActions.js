@@ -6,6 +6,12 @@ export const nextCheckoutSection = () => {
   };
 };
 
+export const prevCheckoutSection = () => {
+  return {
+    type: ActionTypes.PREV_CHECKOUT_SECTION,
+  };
+};
+
 export const setCheckoutState = checkoutState => {
   return {
     type: ActionTypes.SET_CHECKOUT_STATE,
