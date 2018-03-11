@@ -23,7 +23,6 @@ const SectionWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 5px 0px;
-  background-color: lightpink;
 `;
 
 class MobileCheckoutForm extends Component {
