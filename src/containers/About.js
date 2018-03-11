@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { RichText } from 'prismic-reactjs';
 import PrismicPage from '../prismic/PrismicPage';
-import HomeMain from '../components/home/HomeMain';
-import HomeSummary from '../components/home/HomeSummary';
-import HomeDetails from '../components/home/HomeDetails';
-import HomeNext from '../components/home/HomeNext';
+import TeamList from '../components/about/TeamList';
+import AboutMain from '../components/about/AboutMain';
 import ContactFooter from '../components/home/ContactFooter';
 import { Container } from '../style';
 import styled from 'styled-components';
@@ -22,7 +20,8 @@ class About extends Component {
     return (
       <Container>
         <Wrapper>
-          <div>this is the about page</div>
+          <AboutMain {...this.props} />
+          <TeamList {...this.props.doc.data} />
         </Wrapper>
       </Container>
     );
