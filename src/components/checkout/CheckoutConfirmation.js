@@ -4,18 +4,23 @@ import OrderSummary from '../OrderSummary';
 import { Button } from '../../style';
 import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
+import { H3 } from '../../style';
+import { RequestStatus } from '../../constants';
 
 class CheckoutConfirmation extends Component {
   handleConfirmOrder = e => {
-    const { order, confirmOrder } = this.props;
+    const { order, confirmOrder, status } = this.props;
     e.preventDefault();
-    confirmOrder(order);
+    if (status === RequestStatus.UNITIALIZED) {
+      confirmOrder(order);
+    }
   };
 
   render() {
-    const { order, trip } = this.props;
+    const { order, trip, status } = this.props;
     return (
       <div>
+        {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
         <OrderSummary order={order} trip={trip} />
         <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
       </div>
@@ -39,6 +44,7 @@ const mapStateToProps = state => ({
     tripId: state.currentTrip.trip.tripId,
     trip: state.currentTrip.trip,
   },
+  status: state.orders.confirmOrderStatus,
 });
 
 const mapDispatchToProps = dispatch =>
