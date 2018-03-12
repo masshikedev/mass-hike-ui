@@ -44,7 +44,7 @@ class MobileCheckout extends Component {
     );
   }
 
-  renderSuccess() {
+  renderSuccess = () => {
     const { currentSection, trip } = this.props;
     return (
       <div>
@@ -58,7 +58,7 @@ class MobileCheckout extends Component {
         <BottomNav names={FORM_SEQUENCE.map(s => s.name)} />
       </div>
     );
-  }
+  };
 
   render() {
     const { status } = this.props;
@@ -67,7 +67,7 @@ class MobileCheckout extends Component {
         {renderByStatus(
           status,
           this.renderLoading,
-          () => this.renderSuccess(),
+          this.renderSuccess,
           this.renderError
         )}
       </div>
