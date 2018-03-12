@@ -23,7 +23,7 @@ const initialState = {
   billingZip: '',
 
   // Pay cash
-  selectedLocation: -1,
+  selectedLocationIndex: -1,
   meetingDate: '',
 
   currentSection: 0,

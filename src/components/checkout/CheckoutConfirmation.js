@@ -28,24 +28,28 @@ class CheckoutConfirmation extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  order: {
-    name: state.checkout.name,
-    email: state.checkout.email,
-    phone: state.checkout.phone,
-    preferredContactMethods: state.checkout.preferredContactMethods,
-    paymentType: state.checkout.paymentType,
-    tickets: state.checkout.tickets,
-    pickupLocation: state.checkout.pickupLocation,
-    cardNumber: state.checkout.cardNumber,
-    price: state.checkout.price,
-    selectedLocation: state.checkout.selectedLocation,
-    meetingDate: state.checkout.meetingDate,
-    tripId: state.currentTrip.trip.tripId,
-    trip: state.currentTrip.trip,
-  },
-  status: state.orders.confirmOrderStatus,
-});
+const mapStateToProps = state => {
+  const { checkout, orders, currentTrip } = state;
+  return {
+    order: {
+      name: checkout.name,
+      email: checkout.email,
+      phone: checkout.phone,
+      preferredContactMethods: checkout.preferredContactMethods,
+      paymentType: checkout.paymentType,
+      tickets: checkout.tickets,
+      pickupLocation: checkout.pickupLocation,
+      cardNumber: checkout.cardNumber,
+      price: checkout.price,
+      meetingLocation:
+        currentTrip.trip.cashLocations[checkout.selectedLocationIndex],
+      meetingDate: checkout.meetingDate,
+      tripId: currentTrip.trip.tripId,
+      trip: currentTrip.trip,
+    },
+    status: orders.confirmOrderStatus,
+  };
+};
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(

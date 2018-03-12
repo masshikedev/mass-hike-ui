@@ -13,7 +13,7 @@ export default {
   expiration: expiration => expiration.length > 0,
   cvv: cvv => cvv.length === 3,
   billingZip: billingZip => billingZip.length === 5,
-  selectedLocation: selectedLocation => selectedLocation >= 0,
+  selectedLocationIndex: selectedLocationIndex => selectedLocationIndex >= 0,
   showMoreLocations: showMoreLocations => true,
   meetingDate: meetingDate => meetingDate !== '',
 };

@@ -16,7 +16,6 @@ const Column = styled.div`
 function OrderSummary(props) {
   const { order } = props;
   const trip = order.trip;
-  const cashLoc = trip.cashLocations[props.selectedLocation];
   return (
     <div>
       <H2>Order Summary</H2>
@@ -53,7 +52,7 @@ function OrderSummary(props) {
           {order.paymentType === 'cash' && (
             <div>
               <P large>{order.meetingDate}</P>
-              <P large>{cashLoc.name}</P>
+              <P large>{order.meetingLocation.name}</P>
             </div>
           )}
         </Column>
