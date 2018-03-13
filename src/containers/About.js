@@ -6,14 +6,8 @@ import AboutMain from '../components/about/AboutMain';
 import AboutStory from '../components/about/AboutStory';
 import WhatWeDo from '../components/about/WhatWeDo';
 import ContactFooter from '../components/home/ContactFooter';
-import { Container } from '../style';
+import { Container, NavMargin } from '../style';
 import styled from 'styled-components';
-
-const Wrapper = styled.div`
-  display: grid;
-  margin-top: 140px;
-  grid-gap: 140px;
-`;
 
 class About extends Component {
   static pageType = 'about';
@@ -21,12 +15,12 @@ class About extends Component {
   render() {
     return (
       <Container>
-        <Wrapper>
+        <NavMargin>
           <AboutMain {...this.props} />
           <AboutStory {...this.props} />
           <WhatWeDo {...this.props} />
           <TeamList {...this.props.doc.data} />
-        </Wrapper>
+        </NavMargin>
       </Container>
     );
   }

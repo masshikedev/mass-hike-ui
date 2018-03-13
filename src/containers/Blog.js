@@ -3,14 +3,8 @@ import { RichText } from 'prismic-reactjs';
 import PrismicPage from '../prismic/PrismicPage';
 import BlogPreview from '../components/blog/BlogPreview';
 import ContactFooter from '../components/home/ContactFooter';
-import { H1, Container } from '../style';
+import { H1, Container, NavMargin } from '../style';
 import styled from 'styled-components';
-
-const Wrapper = styled.div`
-  display: grid;
-  margin-top: 140px;
-  grid-gap: 140px;
-`;
 
 class Blog extends Component {
   static pageType = 'blog';
@@ -18,7 +12,7 @@ class Blog extends Component {
   render() {
     return (
       <Container>
-        <Wrapper>
+        <NavMargin>
           <H1>Blog</H1>
           <BlogPreview
             title="Benefits of Taking a Hike"
@@ -36,7 +30,7 @@ class Blog extends Component {
             order="right"
             img={this.props.doc.data.blog_image.url}
           />
-        </Wrapper>
+        </NavMargin>
       </Container>
     );
   }

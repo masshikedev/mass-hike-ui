@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { H1, P, Img, GridParent } from '../../style';
+import { H1, P, MediaQueries, Img, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Column = styled.div`
@@ -10,6 +10,10 @@ const Column = styled.div`
 
 const ImpactImg = styled.div`
   grid-column: span 4;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
 `;
 
 function ImpactMain(props) {

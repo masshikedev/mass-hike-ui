@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { H1, P, Img, GridParent } from '../../style';
+import { H1, P, MediaQueries, Img, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const StatItem = styled.div`
   grid-column: span 6;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
 `;
 
 function ImpactStats(props) {
