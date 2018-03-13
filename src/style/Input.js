@@ -8,7 +8,7 @@ const Input = styled.input`
   &[type='text'] {
     width: 100%;
     max-width: 500px;
-    border: 3px solid black;
+    border: 3px solid ${props => (props.invalid ? 'red' : 'black')};
   }
 `;
 
