@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { P, H3, H6, Input, Button } from '../../style';
+import { validate } from 'validate.js';
+import { hikeConstraints } from '../../utils/validationConstraints';
+import ValidatedTextInput from '../forms/ValidatedTextInput';
 
 class HikeInfoSection extends Component {
   constructor(props) {
@@ -16,18 +19,6 @@ class HikeInfoSection extends Component {
   toggleShowMore(e) {
     e.preventDefault();
     this.setState({ showMoreZips: !this.state.showMoreZips });
-  }
-
-  validZipcode() {
-    const { trip } = this.props;
-    const zipList = trip.pickupZipcodes.map(el => el.zip);
-    return zipList.includes(this.state.pickupLocation);
-  }
-
-  validTixNumber() {
-    const { trip } = this.props;
-    const available = trip.capacity - trip.ticketsSold;
-    return 0 < this.state.tickets && this.state.tickets <= available;
   }
 
   renderZipcodeOptions() {
@@ -56,33 +47,32 @@ class HikeInfoSection extends Component {
 
   render() {
     const { showNextButton, onClickNextButton, trip } = this.props;
+    const messages = validate(this.state, hikeConstraints(trip)) || 'valid';
     return (
       <div>
         <H3>How many tickets would you like to purchase?</H3>
         <P small>{trip.capacity - trip.ticketsSold} available</P>
-        <Input
-          type="text"
+        <ValidatedTextInput
+          title=""
           value={this.state.tickets}
           onChange={e => this.setState({ tickets: e.target.value })}
+          error={messages['tickets']}
         />
 
         <H3>In what zipcode would you liked to be picked up?</H3>
         <P small>
           Your final pickup location will be sent to you a week before your hike
         </P>
-        <Input
-          type="text"
+        <ValidatedTextInput
+          title=""
           value={this.state.pickupLocation}
           onChange={e => this.setState({ pickupLocation: e.target.value })}
+          error={messages['pickupLocation']}
         />
         <br />
-        {!this.validZipcode() && this.state.pickupLocation.length === 5 ? (
+        {messages['pickupLocation'] &&
+        this.state.pickupLocation.length === 5 ? (
           <div>
-            <P small>
-              Pickup for this trip is not available in this zipcode. Please
-              choose a zipcode within Mass Hike’s pickup radius, where pickup
-              will be available in an area accessible by public transporation.
-            </P>
             <H6>Nearby Areas</H6>
             {this.renderZipcodeOptions()}
             <br />
@@ -92,10 +82,9 @@ class HikeInfoSection extends Component {
           </div>
         ) : null}
 
-        {this.validTixNumber() &&
-          this.validZipcode() && (
-            <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
-          )}
+        {messages === 'valid' && (
+          <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
+        )}
       </div>
     );
   }

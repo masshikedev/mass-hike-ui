@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { H2, H6, Input, Button } from '../../style';
+import { validate } from 'validate.js';
+import { contactConstraints } from '../../utils/validationConstraints';
+import ValidatedTextInput from '../forms/ValidatedTextInput';
+import formatPhoneNumber from '../../utils/phoneFormatter';
 
 class ContactSection extends Component {
   constructor(props) {
@@ -17,33 +21,32 @@ class ContactSection extends Component {
   render() {
     const { showNextButton, onClickNextButton } = this.props;
     const { name, email, phone, preferredContactMethods } = this.state;
+    const messages = validate(this.state, contactConstraints()) || 'valid';
     return (
       <div>
         <H2>Enter your contact information</H2>
-        <label>
-          <H6>Name</H6>
-          <Input
-            type="text"
-            value={name}
-            onChange={e => this.setState({ name: e.target.value })}
-          />
-        </label>
-        <label>
-          <H6>Email</H6>
-          <Input
-            type="text"
-            value={email}
-            onChange={e => this.setState({ email: e.target.value })}
-          />
-        </label>
-        <label>
-          <H6>Phone</H6>
-          <Input
-            type="text"
-            value={phone}
-            onChange={e => this.setState({ phone: e.target.value })}
-          />
-        </label>
+
+        <ValidatedTextInput
+          title="Name"
+          value={name}
+          onChange={e => this.setState({ name: e.target.value })}
+          error={messages['name']}
+        />
+        <ValidatedTextInput
+          title="Email"
+          value={email}
+          onChange={e => this.setState({ email: e.target.value })}
+          error={messages['email']}
+        />
+        <ValidatedTextInput
+          title="Phone"
+          value={phone}
+          onChange={e =>
+            this.setState({ phone: formatPhoneNumber(e.target.value) })
+          }
+          error={messages['phone']}
+          placeholder="(000) 000 - 0000"
+        />
         <H6>How should we contact you?</H6>
         <label>
           Email
@@ -74,7 +77,7 @@ class ContactSection extends Component {
           />
         </label>
         <br />
-        {showNextButton(this.state) && (
+        {messages === 'valid' && (
           <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
         )}
       </div>
