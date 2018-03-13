@@ -26,14 +26,6 @@ const SectionWrapper = styled.div`
 `;
 
 class MobileCheckoutForm extends Component {
-  constructor(props) {
-    super(props);
-    const { currentSection } = props;
-    this.state = {
-      currentSection,
-    };
-  }
-
   isSectionComplete(fields) {
     for (const key in fields) {
       if (!CheckoutFormValidator[key](fields[key])) {
@@ -89,7 +81,6 @@ class MobileCheckoutForm extends Component {
   render() {
     const { currentSection, components } = this.props;
     const FormSection = components[currentSection];
-    console.log(currentSection);
     return (
       <Wrapper>
         <form>{this.renderSections()}</form>

@@ -19,7 +19,6 @@ const FORM_SEQUENCE = [
   { name: 'Hike Info', component: HikeInfoSection },
   { name: 'Payment', component: PaymentTypeSection },
   { name: 'Payment', component: PaymentSection },
-  { name: 'Confirmation', component: CheckoutConfirmation },
 ];
 
 class MobileCheckout extends Component {
@@ -45,7 +44,14 @@ class MobileCheckout extends Component {
   }
 
   renderSuccess = () => {
-    const { currentSection, trip } = this.props;
+    const { currentSection } = this.props;
+    const num_sections = FORM_SEQUENCE.length;
+    return currentSection < num_sections
+      ? this.renderSections()
+      : this.renderSummary();
+  };
+
+  renderSections() {
     return (
       <div>
         <Container>
@@ -58,7 +64,19 @@ class MobileCheckout extends Component {
         <BottomNav names={FORM_SEQUENCE.map(s => s.name)} />
       </div>
     );
-  };
+  }
+
+  renderSummary() {
+    return (
+      <Container>
+        <GridParent>
+          <form>
+            <CheckoutConfirmation />
+          </form>
+        </GridParent>
+      </Container>
+    );
+  }
 
   render() {
     const { status } = this.props;

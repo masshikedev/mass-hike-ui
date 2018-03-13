@@ -48,14 +48,6 @@ const DownButton = styled(ButtonItem)`
 `;
 
 class BottomNav extends Component {
-  constructor(props) {
-    super(props);
-    const { currentSection } = props;
-    this.state = {
-      currentSection,
-    };
-  }
-
   canGoNext() {
     const { highestCompletedSection, currentSection } = this.props;
     return highestCompletedSection > currentSection;
@@ -69,14 +61,12 @@ class BottomNav extends Component {
   scrollNext() {
     const { currentSection } = this.props;
     const newSection = document.getElementById(`section ${currentSection + 1}`);
-    console.log(newSection);
     newSection.scrollIntoView(true);
   }
 
   scrollPrev() {
     const { currentSection } = this.props;
     const newSection = document.getElementById(`section ${currentSection - 1}`);
-    console.log(newSection);
     newSection.scrollIntoView(true);
   }
 

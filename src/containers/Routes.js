@@ -33,7 +33,11 @@ const Routes = props => (
       component={TripDetail}
     />
     <Route exact path="/trips/:tripId/checkout" component={Checkout} />
-    <Route exact path="/trips/:tripId/checkout/m" component={MobileCheckout} />
+    <Route
+      exact
+      path="/trips/:tripId/checkout-mobile"
+      component={MobileCheckout}
+    />
     <Route exact path="/order/:id" component={OrderConfirmation} />
     <Route component={NotFound} />
   </Switch>
