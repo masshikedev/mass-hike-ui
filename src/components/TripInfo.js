@@ -26,6 +26,11 @@ const BookButton = Button.extend`
   }
 `;
 
+const toCheckoutPage = id => {
+  let mq = window.matchMedia(MediaQueries.small.replace('@media ', ''));
+  return push(`${id}/checkout${mq.matches ? '-mobile' : ''}`);
+};
+
 function TripInfo(props) {
   const pickupString = format(props.time.pickupStart, DAY_MONTH_DATE_TIME);
   return (
@@ -52,7 +57,7 @@ function TripInfo(props) {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      toCheckout: id => push(`${id}/checkout`),
+      toCheckout: toCheckoutPage,
     },
     dispatch
   );

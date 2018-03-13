@@ -5,6 +5,7 @@ import Home from './Home';
 import TripList from './TripList';
 import TripDetail from './TripDetail';
 import Checkout from './Checkout';
+import MobileCheckout from './MobileCheckout';
 import OrderConfirmation from './OrderConfirmation';
 import PrismicRoute from '../prismic/PrismicRoute';
 
@@ -32,6 +33,11 @@ const Routes = props => (
       component={TripDetail}
     />
     <Route exact path="/trips/:tripId/checkout" component={Checkout} />
+    <Route
+      exact
+      path="/trips/:tripId/checkout-mobile"
+      component={MobileCheckout}
+    />
     <Route exact path="/order/:id" component={OrderConfirmation} />
     <Route component={NotFound} />
   </Switch>
