@@ -4,15 +4,8 @@ import HomeMain from '../components/home/HomeMain';
 import HomeSummary from '../components/home/HomeSummary';
 import HomeDetails from '../components/home/HomeDetails';
 import HomeNext from '../components/home/HomeNext';
-import ContactFooter from '../components/home/ContactFooter';
-import { Container } from '../style';
+import { NavMargin, Container } from '../style';
 import styled from 'styled-components';
-
-const Wrapper = styled.div`
-  display: grid;
-  margin-top: 140px;
-  grid-gap: 140px;
-`;
 
 class Home extends Component {
   static pageType = 'homepage';
@@ -20,13 +13,12 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <Wrapper>
+        <NavMargin>
           <HomeMain {...this.props} />
           <HomeSummary {...this.props} />
           <HomeDetails {...this.props} />
           <HomeNext {...this.props} />
-          <ContactFooter {...this.props} />
-        </Wrapper>
+        </NavMargin>
       </Container>
     );
   }

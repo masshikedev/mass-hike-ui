@@ -8,7 +8,6 @@ const Column = styled.div`
 `;
 
 function HomeNext(props) {
-  console.log(props);
   return (
     <GridParent>
       <Column>
