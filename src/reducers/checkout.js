@@ -43,6 +43,12 @@ export default (state = initialState, action) => {
         currentSection: nextSection,
         highestCompletedSection: nextHighestCompletedSection,
       };
+    case ActionTypes.PREV_CHECKOUT_SECTION:
+      const prevSection = state.currentSection - 1;
+      return {
+        ...state,
+        currentSection: prevSection >= 0 ? prevSection : 0,
+      };
     case ActionTypes.SET_CHECKOUT_STATE:
       return {
         ...state,

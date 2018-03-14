@@ -84,7 +84,7 @@ class CashPayment extends Component {
           </div>
         )}
         {showNextButton(this.state) && (
-          <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
+          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
         )}
       </div>
     );
