@@ -8,6 +8,7 @@ const Column = styled.div`
   grid-column: span 6;
 
   ${MediaQueries.small} {
+    order: 2;
     grid-column: span 12;
   }
 `;
@@ -16,14 +17,14 @@ const ImgColumn = Img.extend`
   grid-column: span 6;
 
   ${MediaQueries.small} {
-    order: -1;
+    order: 1;
     grid-column: span 12;
   }
 `;
 
 const Title = styled.div`
   grid-column: span 12;
-  order: -2;
+  order: 0;
 `;
 function AboutStory(props) {
   return (
