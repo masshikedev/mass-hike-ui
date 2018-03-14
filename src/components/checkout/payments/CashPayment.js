@@ -5,9 +5,9 @@ import { P, H3, Button } from '../../../style';
 class CashPayment extends Component {
   constructor(props) {
     super(props);
-    const { selectedLocation, meetingDate } = props;
+    const { selectedLocationIndex, meetingDate } = props;
     this.state = {
-      selectedLocation,
+      selectedLocationIndex,
       showMoreLocations: false,
       meetingDate,
     };
@@ -36,8 +36,8 @@ class CashPayment extends Component {
           <input
             type="radio"
             id={loc.name}
-            checked={this.state.selectedLocation === i}
-            onChange={e => this.setState({ selectedLocation: i })}
+            checked={this.state.selectedLocationIndex === i}
+            onChange={e => this.setState({ selectedLocationIndex: i })}
           />
           {'  '}
           {loc.name}
@@ -56,7 +56,7 @@ class CashPayment extends Component {
 
   render() {
     const { showNextButton, onClickNextButton, trip } = this.props;
-    const { showMoreLocations, selectedLocation } = this.state;
+    const { showMoreLocations, selectedLocationIndex } = this.state;
     const cashLocations = trip.cashLocations;
 
     return (
@@ -76,7 +76,7 @@ class CashPayment extends Component {
           {showMoreLocations ? 'Show Less' : 'Show More'}
         </Button>
 
-        {selectedLocation >= 0 && (
+        {selectedLocationIndex >= 0 && (
           <div>
             <Button onClick={e => this.handleChooseDate(e, 'March 2nd')}>
               Choose March 2nd
@@ -92,7 +92,7 @@ class CashPayment extends Component {
 }
 
 const mapStateToProps = state => ({
-  selectedLocation: state.checkout.selectedLocation,
+  selectedLocationIndex: state.checkout.selectedLocationIndex,
   meetingDate: state.checkout.meetingDate,
   trip: state.currentTrip.trip,
 });

@@ -5,7 +5,7 @@ const initialState = {
   name: '',
   phone: '',
   email: '',
-  preferredContactMethods: ['email', 'phone'],
+  preferredContactMethods: [],
 
   // Tickets
   tickets: '',
@@ -13,7 +13,7 @@ const initialState = {
 
   // Payment amount & type
   promoCode: '',
-  price: '',
+  selectedPrice: '',
   paymentType: 'card',
 
   // Pay card
@@ -23,7 +23,7 @@ const initialState = {
   billingZip: '',
 
   // Pay cash
-  selectedLocation: -1,
+  selectedLocationIndex: -1,
   meetingDate: '',
 
   currentSection: 0,

@@ -1,11 +1,11 @@
-import { formatResponse } from '../utils/api';
+import { get } from '../utils/api';
 
-const BASE_URL = 'https://shielded-cove-82777.herokuapp.com/trips';
+const BASE_URL = '/trips';
 
 export const fetchAllTrips = () => {
-  return fetch(`${BASE_URL}`, { method: 'get' }).then(formatResponse);
+  return get(BASE_URL);
 };
 
 export const fetchTripById = tripId => {
-  return fetch(`${BASE_URL}/${tripId}`, { method: 'get' }).then(formatResponse);
+  return get(`${BASE_URL}/${tripId}`);
 };

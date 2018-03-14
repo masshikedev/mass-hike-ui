@@ -24,7 +24,7 @@ class TripList extends Component {
     return <H3>An error has occured.</H3>;
   }
 
-  renderSuccess() {
+  renderSuccess = () => {
     const { trips = [] } = this.props;
     const tripComponents = trips.map((trip, i) => {
       return (
@@ -45,7 +45,7 @@ class TripList extends Component {
         {tripComponents}
       </div>
     );
-  }
+  };
 
   render() {
     const { status } = this.props;
@@ -54,7 +54,7 @@ class TripList extends Component {
         {renderByStatus(
           status,
           this.renderLoading,
-          () => this.renderSuccess(),
+          this.renderSuccess,
           this.renderError
         )}
       </Container>
