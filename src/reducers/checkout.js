@@ -13,7 +13,7 @@ const initialState = {
 
   // Payment amount & type
   promoCode: '',
-  price: '',
+  selectedPrice: '',
   paymentType: 'card',
 
   // Pay card

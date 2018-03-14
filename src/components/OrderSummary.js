@@ -66,7 +66,7 @@ function OrderSummary(props) {
         </Column>
       </Wrapper>
       <P large>{`${order.tickets} Tickets`}</P>
-      <P large>{`$${order.tickets * trip.price}`}</P>
+      <P large>{`$${order.tickets * order.selectedPrice}`}</P>
     </div>
   );
 }

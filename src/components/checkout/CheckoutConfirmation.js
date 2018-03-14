@@ -40,7 +40,7 @@ const mapStateToProps = state => {
       tickets: checkout.tickets,
       pickupLocation: checkout.pickupLocation,
       cardNumber: checkout.cardNumber,
-      price: checkout.price,
+      selectedPrice: checkout.selectedPrice,
       meetingLocation:
         currentTrip.trip.cashLocations[checkout.selectedLocationIndex],
       meetingDate: checkout.meetingDate,

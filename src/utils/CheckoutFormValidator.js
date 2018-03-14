@@ -8,7 +8,7 @@ export default {
   tickets: tickets => tickets !== '',
   pickupLocation: pickupLocation => pickupLocation.length === 5,
   promoCode: promoCode => true,
-  price: price => 2 <= price && price <= 50,
+  selectedPrice: price => 2 <= price && price <= 50,
   cardNumber: cardNumber => cardNumber.length === 16,
   expiration: expiration => expiration.length > 0,
   cvv: cvv => cvv.length === 3,

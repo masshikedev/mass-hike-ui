@@ -8,23 +8,23 @@ import ValidatedTextInput from '../forms/ValidatedTextInput';
 class PaymentTypeSection extends Component {
   constructor(props) {
     super(props);
-    const { promoCode, paymentType, price } = props;
+    const { promoCode, paymentType, selectedPrice } = props;
     this.state = {
       promoCode,
       paymentType,
-      price,
+      selectedPrice,
     };
   }
 
   renderPrices(prices) {
-    const { price } = this.state;
+    const { selectedPrice } = this.state;
     return prices.map((p, i) => {
       return (
         <label key={i}>
           <Input
             type="radio"
-            checked={price === p}
-            onChange={() => this.setState({ price: p })}
+            checked={selectedPrice === p}
+            onChange={() => this.setState({ selectedPrice: p })}
           />
           {`$${p}`}
         </label>
@@ -33,16 +33,10 @@ class PaymentTypeSection extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton } = this.props;
-    const { promoCode, paymentType, price } = this.state;
+    const { showNextButton, onClickNextButton, trip } = this.props;
+    const { promoCode, paymentType, selectedPrice } = this.state;
     const messages = 0;
-    // TODO: pricing should be part of the trip object
-    const pricing = {
-      promoCodes: { please: 'reduced', hike: 'standard', subway: 'half' },
-      reduced: { min: 2, max: 30, options: [2, 5, 8] },
-      half: { min: 7.5, max: 30, options: [7.5, 10, 15] },
-      standard: { min: 15, max: 30, options: [15, 20, 30] },
-    };
+    const pricing = trip.pricing;
     const priceData =
       pricing[pricing.promoCodes[promoCode]] || pricing.standard;
     const prices = priceData.options;
@@ -64,7 +58,7 @@ class PaymentTypeSection extends Component {
         <br />
         <Input
           type="radio"
-          checked={!prices.includes(price)}
+          checked={!prices.includes(selectedPrice)}
           onChange={() => {
             document.getElementById('customPrice').focus();
             document.getElementById('customPrice').select();
@@ -74,9 +68,9 @@ class PaymentTypeSection extends Component {
           type="number"
           id="customPrice"
           placeholder="Other amount"
-          value={!prices.includes(price) ? price : ''}
-          onChange={e => this.setState({ price: e.target.value })}
-          onClick={e => this.setState({ price: e.target.value })}
+          value={!prices.includes(selectedPrice) ? selectedPrice : ''}
+          onChange={e => this.setState({ selectedPrice: e.target.value })}
+          onClick={e => this.setState({ selectedPrice: e.target.value })}
         />
 
         <H2>How would you like to pay?</H2>
@@ -107,7 +101,8 @@ class PaymentTypeSection extends Component {
 const mapStateToProps = state => ({
   paymentType: state.checkout.paymentType,
   promoCode: state.checkout.promoCode,
-  price: state.checkout.price,
+  selectedPrice: state.checkout.selectedPrice,
+  trip: state.currentTrip.trip,
 });
 
 export default connect(mapStateToProps)(PaymentTypeSection);
