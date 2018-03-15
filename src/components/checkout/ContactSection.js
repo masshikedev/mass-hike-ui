@@ -79,7 +79,7 @@ class ContactSection extends Component {
         <br />
 
         {messages === 'valid' && (
-          <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
+          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
         )}
       </div>
     );
