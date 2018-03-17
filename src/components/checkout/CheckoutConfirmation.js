@@ -10,7 +10,7 @@ function CheckoutConfirmation(props) {
   const { toOrderConfirmation } = props;
   return (
     <div>
-      <OrderSummary {...props} />
+      <OrderSummary {...props} showEditButtons />
       <Button onClick={() => toOrderConfirmation(id)}>Confirm Order</Button>
     </div>
   );
@@ -33,6 +33,7 @@ const mapStateToProps = state => ({
   selectedLocation: state.checkout.selectedLocation,
   meetingDate: state.checkout.meetingDate,
   trip: state.currentTrip.trip,
+  currentSection: state.checkout.currentSection,
 });
 
 const mapDispatchToProps = dispatch =>
