@@ -44,43 +44,74 @@ const Hamburger = styled.div`
   }
 `;
 
-function NavBar(props) {
-  return (
-    <Nav>
-      <NavLeft>
-        <NavItem>
-          <H3>
-            <Link to="/">Mass Hike</Link>
-          </H3>
-        </NavItem>
-      </NavLeft>
-      <NavRight>
-        <NavItem>
-          <H3>
-            <Link to="/trips">Book a trip</Link>
-          </H3>
-        </NavItem>
-        <NavItem>
-          <H3>
-            <Link to="/blog">Blog</Link>
-          </H3>
-        </NavItem>
-        <NavItem>
-          <H3>
-            <Link to="/impact">Impact</Link>
-          </H3>
-        </NavItem>
-        <NavItem>
-          <H3>
-            <Link to="/about">About</Link>
-          </H3>
-        </NavItem>
-      </NavRight>
-      <Hamburger>
-        <Img src={hamburger} />
-      </Hamburger>
-    </Nav>
-  );
+class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      navitems: null,
+    };
+  }
+
+  componentWillMount() {
+    this.fetchNav(this.props);
+  }
+
+  componentWillReceiveProps(props) {
+    this.fetchNav(props);
+  }
+
+  fetchNav = props => {
+    if (props.prismicCtx) {
+      console.log(props);
+      var navitems;
+      props.prismicCtx.api.getByID('WnyfgSQAADbPJVmf').then(function(e) {
+        console.log(e.data.body);
+        if (e.data.body) {
+          navitems = e.data.body;
+        }
+      });
+      console.log(navitems);
+    }
+  };
+
+  render() {
+    return (
+      <Nav>
+        <NavLeft>
+          <NavItem>
+            <H3>
+              <Link to="/">Mass Hike</Link>
+            </H3>
+          </NavItem>
+        </NavLeft>
+        <NavRight>
+          <NavItem>
+            <H3>
+              <Link to="/trips">Book a trip</Link>
+            </H3>
+          </NavItem>
+          <NavItem>
+            <H3>
+              <Link to="/blog">Blog</Link>
+            </H3>
+          </NavItem>
+          <NavItem>
+            <H3>
+              <Link to="/impact">Impact</Link>
+            </H3>
+          </NavItem>
+          <NavItem>
+            <H3>
+              <Link to="/about">About</Link>
+            </H3>
+          </NavItem>
+        </NavRight>
+        <Hamburger>
+          <Img src={hamburger} />
+        </Hamburger>
+      </Nav>
+    );
+  }
 }
 
 export default NavBar;

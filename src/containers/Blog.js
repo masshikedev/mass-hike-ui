@@ -6,10 +6,12 @@ import ContactFooter from '../components/home/ContactFooter';
 import { H1, Container, NavMargin } from '../style';
 import styled from 'styled-components';
 
-class Blog extends Component {
+class Blog extends React.Component {
   static pageType = 'blog';
+
   //TODO: Return blogposts from Prismic dynamically.  Using static data for now.
   render() {
+    console.log(this.props.prismicCtx);
     return (
       <Container>
         <NavMargin>
@@ -20,7 +22,6 @@ class Blog extends Component {
             author="Camden Phalen"
             content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod facere nam, sunt minus eveniet, perferendis dicta! Illum, alias, modi. Placeat!"
             order="left"
-            img={this.props.doc.data.blog_image.url}
           />
           <BlogPreview
             title="Trip Journal: Middlesex Fells Reservation"
@@ -28,7 +29,6 @@ class Blog extends Component {
             author="Camden Phalen"
             content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod facere nam, sunt minus eveniet, perferendis dicta! Illum, alias, modi. Placeat!"
             order="right"
-            img={this.props.doc.data.blog_image.url}
           />
         </NavMargin>
       </Container>
@@ -36,4 +36,4 @@ class Blog extends Component {
   }
 }
 
-export default PrismicPage(Blog);
+export default Blog;
