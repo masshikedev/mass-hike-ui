@@ -27,6 +27,8 @@ const Divider = styled.div`
 `;
 
 function TripDetail(props) {
+  console.log(props);
+  console.log(trips);
   const trip = trips[props.match.params.id];
   const dateString = format(trip.time.hikeStart, DAY_MONTH_DATE_YEAR);
   return (
