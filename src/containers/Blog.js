@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
 import { RichText } from 'prismic-reactjs';
-import PrismicPage from '../prismic/PrismicPage';
+import PrismicRepeatable from '../prismic/PrismicRepeatable';
 import BlogPreview from '../components/blog/BlogPreview';
-import ContactFooter from '../components/home/ContactFooter';
 import { H1, Container, NavMargin } from '../style';
 import styled from 'styled-components';
 
-class Blog extends React.Component {
-  static pageType = 'blog';
+class Blog extends Component {
+  static pageType = 'blogpost';
 
-  //TODO: Return blogposts from Prismic dynamically.  Using static data for now.
   render() {
-    console.log(this.props.prismicCtx);
     return (
       <Container>
         <NavMargin>
           <H1>Blog</H1>
-          <BlogPreview
-            title="Benefits of Taking a Hike"
-            date="February 10, 2018"
-            author="Camden Phalen"
-            content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod facere nam, sunt minus eveniet, perferendis dicta! Illum, alias, modi. Placeat!"
-            order="left"
-          />
-          <BlogPreview
-            title="Trip Journal: Middlesex Fells Reservation"
-            date="February 10, 2018"
-            author="Camden Phalen"
-            content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod facere nam, sunt minus eveniet, perferendis dicta! Illum, alias, modi. Placeat!"
-            order="right"
-          />
+          {this.renderBlogPreviews()}
         </NavMargin>
       </Container>
     );
   }
+
+  renderBlogPreviews() {
+    const results = this.props.doc.results;
+
+    const blogs = results.map(blog => {
+      return (
+        <BlogPreview
+          id={blog.id}
+          title={RichText.asText(blog.data.blog_title)}
+          date={blog.data.blog_date}
+          image={blog.data.blog_image.url}
+          author={RichText.asText(blog.data.blog_author)}
+          content={RichText.asText(blog.data.blog_content)}
+          order="right"
+        />
+      );
+    });
+    return blogs;
+  }
 }
 
-export default Blog;
+export default PrismicRepeatable(Blog);

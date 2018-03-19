@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
 import hamburger from '../images/hamburger.png';
+import { RichText } from 'prismic-reactjs';
 import { H2, H3, P, Img, MediaQueries } from '../style';
 
 const Nav = styled.div`
@@ -27,8 +28,7 @@ const NavLeft = styled.div`
 
 const NavRight = styled.div`
   display: flex;
-  flex-direction: row-reverse;
-  flex: 4;
+  flex-direction: row;
   ${MediaQueries.small} {
     display: none;
   }
@@ -46,7 +46,7 @@ const Hamburger = styled.div`
 `;
 
 class NavBar extends Component {
-  static pageType = 'nav';
+  static pageType = 'header';
 
   render() {
     return (
@@ -58,33 +58,43 @@ class NavBar extends Component {
             </H3>
           </NavItem>
         </NavLeft>
-        <NavRight>
-          <NavItem>
-            <H3>
-              <Link to="/trips">Book a trip</Link>
-            </H3>
-          </NavItem>
-          <NavItem>
-            <H3>
-              <Link to="/blog">Blog</Link>
-            </H3>
-          </NavItem>
-          <NavItem>
-            <H3>
-              <Link to="/impact">Impact</Link>
-            </H3>
-          </NavItem>
-          <NavItem>
-            <H3>
-              <Link to="/about">About</Link>
-            </H3>
-          </NavItem>
-        </NavRight>
+        <NavRight>{this.renderNavLinks()}</NavRight>
         <Hamburger>
           <Img src={hamburger} />
         </Hamburger>
       </Nav>
     );
+  }
+
+  renderNavLinks() {
+    const body = this.props.doc.data.body;
+    const navLinks = body.map(link => {
+      if (link.slice_type === 'nav_link') {
+        if (link.primary.destination.uid) {
+          const destination = '/' + link.primary.destination.uid;
+          return (
+            <NavItem>
+              <H3>
+                <Link to={destination}>
+                  {RichText.asText(link.primary.label)}
+                </Link>
+              </H3>
+            </NavItem>
+          );
+        } else {
+          return (
+            <NavItem>
+              <H3>
+                <a href={link.primary.destination.url}>
+                  {RichText.asText(link.primary.label)}
+                </a>
+              </H3>
+            </NavItem>
+          );
+        }
+      }
+    });
+    return navLinks;
   }
 }
 

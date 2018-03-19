@@ -1,6 +1,7 @@
 import React from 'react';
 import Routes from './Routes';
 import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 import ContactFooter from '../components/home/ContactFooter';
 
 const App = props => {
@@ -10,6 +11,7 @@ const App = props => {
       <main>
         <Routes prismicCtx={props.prismicCtx} />
       </main>
+      <Footer prismicCtx={props.prismicCtx} uid="footer" />
     </div>
   );
 };
