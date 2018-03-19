@@ -24,7 +24,7 @@ const contactConstraints = () => {
       },
       format: {
         pattern: /[(]\d{3}[)] \d{3} [-] \d{4}/,
-        message: '^Formatting error',
+        message: '^Formatting error, please try again',
       },
     },
     preferredContactMethods: {
@@ -64,13 +64,7 @@ const hikeConstraints = trip => {
   };
 };
 const paymentTypeConstraints = trip => {
-  // TODO: pricing should be part of the trip object
-  const pricing = {
-    promoCodes: { please: 'reduced', hike: 'standard', subway: 'half' },
-    reduced: { min: 2, max: 30, options: [2, 5, 8] },
-    half: { min: 7.5, max: 30, options: [7.5, 10, 15] },
-    standard: { min: 15, max: 30, options: [15, 20, 30] },
-  };
+  const { pricing } = trip;
   return {
     promoCode: {
       inclusion: {
@@ -82,4 +76,4 @@ const paymentTypeConstraints = trip => {
   //promoCode.length > 0 ? [2, 5, 10] : [15, 20, 30];
 };
 
-export { contactConstraints, hikeConstraints };
+export { contactConstraints, hikeConstraints, paymentTypeConstraints };

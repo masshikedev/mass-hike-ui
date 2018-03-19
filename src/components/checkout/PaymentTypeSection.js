@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { H2, H4, Input } from '../../style';
 import { validate } from 'validate.js';
-import { hikeConstraints } from '../../utils/validationConstraints';
+import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 
 class PaymentTypeSection extends Component {
@@ -33,26 +33,22 @@ class PaymentTypeSection extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton } = this.props;
+    const { showNextButton, onClickNextButton, trip } = this.props;
     const { promoCode, paymentType, price } = this.state;
-    const messages = 0;
-    // TODO: pricing should be part of the trip object
-    const pricing = {
-      promoCodes: { please: 'reduced', hike: 'standard', subway: 'half' },
-      reduced: { min: 2, max: 30, options: [2, 5, 8] },
-      half: { min: 7.5, max: 30, options: [7.5, 10, 15] },
-      standard: { min: 15, max: 30, options: [15, 20, 30] },
-    };
+    const { pricing } = trip;
     const priceData =
       pricing[pricing.promoCodes[promoCode]] || pricing.standard;
+    const messages =
+      validate(this.state, paymentTypeConstraints(trip, priceData)) || 'valid';
     const prices = priceData.options;
     return (
       <div>
         <H2>Enter a promo code. (Optional)</H2>
-        <Input
-          type="text"
+        <ValidatedTextInput
+          title=""
           value={this.state.promoCode}
           onChange={e => this.setState({ promoCode: e.target.value })}
+          error={messages['promoCode']}
         />
         <H2>Choose your ticket price.</H2>
         <H4>
@@ -108,6 +104,7 @@ const mapStateToProps = state => ({
   paymentType: state.checkout.paymentType,
   promoCode: state.checkout.promoCode,
   price: state.checkout.price,
+  trip: state.currentTrip.trip,
 });
 
 export default connect(mapStateToProps)(PaymentTypeSection);
