@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import { push } from 'react-router-redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   H2,
   H3,
@@ -20,22 +23,34 @@ const Column = styled.div`
   }
 `;
 
-function BlogPreview(props) {
-  return (
-    <GridParent>
-      <Column>
-        <Img src={props.image} />
-      </Column>
-      <Column>
-        <H2>{props.title}</H2>
-        <H4>
-          {props.date} - by {props.author}
-        </H4>
-        <P>{props.content}</P>
-        <Button>Read More</Button>
-      </Column>
-    </GridParent>
-  );
+class BlogPreview extends Component {
+  render() {
+    return (
+      <GridParent>
+        <Column>
+          <Img src={this.props.image} />
+        </Column>
+        <Column>
+          <H2>{this.props.title}</H2>
+          <H4>
+            {this.props.date} - by {this.props.author}
+          </H4>
+          <P>{this.props.content}</P>
+          <Button onClick={() => this.props.toFull(this.props.id)}>
+            Read More
+          </Button>
+        </Column>
+      </GridParent>
+    );
+  }
 }
 
-export default BlogPreview;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      toFull: id => push(`blog/${id}`),
+    },
+    dispatch
+  );
+
+export default connect(this.props, mapDispatchToProps)(BlogPreview);
