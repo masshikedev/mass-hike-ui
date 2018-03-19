@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   nextCheckoutSection,
+  prevCheckoutSection,
   setCheckoutState,
 } from '../../actions/CheckoutActions';
 import CheckoutFormValidator from '../../utils/CheckoutFormValidator';
@@ -46,6 +47,20 @@ class CheckoutForm extends Component {
     nextCheckoutSection();
   }
 
+  backButtonEvent(e) {
+    e.preventDefault();
+    prevCheckoutSection();
+  }
+
+  confirmExit() {
+    return 'You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?';
+  }
+
+  componentDidMount() {
+    window.onpopstate = this.backButtonEvent;
+    //window.onbeforeunload = this.confirmExit;
+  }
+
   render() {
     const { currentSection } = this.props;
     const FormSection = FORM_SEQUENCE[currentSection];
@@ -70,6 +85,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       nextCheckoutSection,
+      prevCheckoutSection,
       setCheckoutState,
     },
     dispatch

@@ -13,6 +13,7 @@ import CheckoutConfirmation from '../components/checkout/CheckoutConfirmation';
 import MobileCheckoutForm from '../components/checkout/MobileCheckoutForm';
 import styled from 'styled-components';
 import { H3, Container, GridParent, MediaQueries } from '../style';
+import { setCheckoutState } from '../actions/CheckoutActions';
 
 const FORM_SEQUENCE = [
   { name: 'Contact', component: ContactSection },
@@ -44,6 +45,9 @@ class MobileCheckout extends Component {
   }
 
   renderSuccess = () => {
+    const { setCurrentSection } = this.props;
+    //const currentSection = this.props.match.params.section;
+    //setCurrentSection(currentSection);
     const { currentSection } = this.props;
     const num_sections = FORM_SEQUENCE.length;
     return currentSection < num_sections
@@ -103,6 +107,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getTripById,
+      setCurrentSection: section =>
+        setCheckoutState({ currentSection: section }),
     },
     dispatch
   );

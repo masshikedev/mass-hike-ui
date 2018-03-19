@@ -21,7 +21,7 @@ class CheckoutConfirmation extends Component {
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
-        <OrderSummary order={order} trip={trip} />
+        <OrderSummary order={order} trip={trip} showEditButtons />
         <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
       </div>
     );

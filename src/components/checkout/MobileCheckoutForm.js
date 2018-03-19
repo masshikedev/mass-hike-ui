@@ -26,6 +26,59 @@ const SectionWrapper = styled.div`
 `;
 
 class MobileCheckoutForm extends Component {
+  componentWillMount() {
+    const { currentSection } = this.props;
+
+    // Setup isScrolling variable
+    let isScrolling;
+
+    const scrollListener = event => {
+      // Clear our timeout throughout the scroll
+      window.clearTimeout(isScrolling);
+
+      // Set a timeout to run after scrolling ends
+      isScrolling = setTimeout(() => this.handleScroll(), 66);
+    };
+
+    // Listen for scroll events
+    this.setState({ scrollListener });
+    window.addEventListener('scroll', scrollListener);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.state.scrollListener);
+  }
+
+  componentDidMount() {
+    this.scrollToCurrentSection();
+  }
+
+  handleScroll() {
+    const {
+      currentSection,
+      highestCompletedSection,
+      setCurrentSection,
+      components,
+    } = this.props;
+    const scroll = window.scrollY;
+    const scrollBottom = scroll + window.innerHeight;
+    const scrollCenter = (scroll + scrollBottom) / 2;
+    const bottom = document.documentElement.scrollHeight;
+
+    let y = 0;
+    for (
+      let i = 0;
+      i <= highestCompletedSection && i < components.length;
+      i++
+    ) {
+      let newY = y + document.getElementById(`section ${i}`).clientHeight;
+      if (y < scrollCenter && scrollCenter < newY) {
+        setCurrentSection(i);
+      }
+      y = newY;
+    }
+  }
+
   isSectionComplete(fields) {
     for (const key in fields) {
       if (!CheckoutFormValidator[key](fields[key])) {
@@ -46,29 +99,39 @@ class MobileCheckoutForm extends Component {
   }
 
   componentDidUpdate() {
+    this.scrollToCurrentSection();
+  }
+
+  scrollToCurrentSection() {
     const { currentSection } = this.props;
     const newSection = document.getElementById(`section ${currentSection}`);
-    newSection.scrollIntoView({
-      block: 'center',
-      inline: 'center',
-      behavior: 'smooth',
-    });
+    if (newSection)
+      newSection.scrollIntoView({
+        block: 'center',
+        inline: 'center',
+        behavior: 'smooth',
+      });
   }
 
   renderSections() {
     const { highestCompletedSection, components } = this.props;
     let sections = [];
-    for (let i = 0; i < highestCompletedSection + 1; i++) {
+    for (
+      let i = 0;
+      i < highestCompletedSection + 1 && i < components.length;
+      i++
+    ) {
       const FormSection = components[i];
       sections.push(
         <SectionWrapper key={i} id={`section ${i}`}>
           <FormSection
-            showNextButton={() =>
-              this.isSectionComplete() && i === highestCompletedSection
+            showNextButton={fields =>
+              this.isSectionComplete(fields) && i === highestCompletedSection
             }
             onClickNextButton={(fields, e) => {
-              this.completeSection(fields);
               e.preventDefault();
+              console.log(fields);
+              this.completeSection(fields);
             }}
           />
         </SectionWrapper>
@@ -99,6 +162,8 @@ const mapDispatchToProps = dispatch =>
     {
       nextCheckoutSection,
       setCheckoutState,
+      setCurrentSection: section =>
+        setCheckoutState({ currentSection: section }),
     },
     dispatch
   );
