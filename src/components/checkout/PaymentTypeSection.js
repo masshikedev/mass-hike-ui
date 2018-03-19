@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { H2, H4, Input } from '../../style';
 import { validate } from 'validate.js';
-import { hikeConstraints } from '../../utils/validationConstraints';
+import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 
 class PaymentTypeSection extends Component {
@@ -35,18 +35,20 @@ class PaymentTypeSection extends Component {
   render() {
     const { showNextButton, onClickNextButton, trip } = this.props;
     const { promoCode, paymentType, selectedPrice } = this.state;
-    const messages = 0;
     const pricing = trip.pricing;
     const priceData =
       pricing[pricing.promoCodes[promoCode]] || pricing.standard;
+    const messages =
+      validate(this.state, paymentTypeConstraints(trip, priceData)) || 'valid';
     const prices = priceData.options;
     return (
       <div>
         <H2>Enter a promo code. (Optional)</H2>
-        <Input
-          type="text"
+        <ValidatedTextInput
+          title=""
           value={this.state.promoCode}
           onChange={e => this.setState({ promoCode: e.target.value })}
+          error={messages['promoCode']}
         />
         <H2>Choose your ticket price.</H2>
         <H4>

@@ -45,9 +45,6 @@ class MobileCheckout extends Component {
   }
 
   renderSuccess = () => {
-    const { setCurrentSection } = this.props;
-    //const currentSection = this.props.match.params.section;
-    //setCurrentSection(currentSection);
     const { currentSection } = this.props;
     const num_sections = FORM_SEQUENCE.length;
     return currentSection < num_sections
