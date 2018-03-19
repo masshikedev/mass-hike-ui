@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import PrismicPage from '../prismic/PrismicPage';
 import hamburger from '../images/hamburger.png';
 import { H2, H3, P, Img, MediaQueries } from '../style';
 
@@ -44,35 +45,8 @@ const Hamburger = styled.div`
   }
 `;
 
-class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      navitems: null,
-    };
-  }
-
-  componentWillMount() {
-    this.fetchNav(this.props);
-  }
-
-  componentWillReceiveProps(props) {
-    this.fetchNav(props);
-  }
-
-  fetchNav = props => {
-    if (props.prismicCtx) {
-      console.log(props);
-      var navitems;
-      props.prismicCtx.api.getByID('WnyfgSQAADbPJVmf').then(function(e) {
-        console.log(e.data.body);
-        if (e.data.body) {
-          navitems = e.data.body;
-        }
-      });
-      console.log(navitems);
-    }
-  };
+class NavBar extends Component {
+  static pageType = 'nav';
 
   render() {
     return (
@@ -114,4 +88,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+export default PrismicPage(NavBar);
