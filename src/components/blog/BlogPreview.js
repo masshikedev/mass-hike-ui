@@ -24,7 +24,7 @@ function BlogPreview(props) {
   return (
     <GridParent>
       <Column>
-        <Img src={props.img} />
+        <Img src={props.image} />
       </Column>
       <Column>
         <H2>{props.title}</H2>
