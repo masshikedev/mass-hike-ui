@@ -6,7 +6,7 @@ import ContactFooter from '../components/home/ContactFooter';
 const App = props => {
   return (
     <div>
-      <NavBar {...props} />
+      <NavBar prismicCtx={props.prismicCtx} uid="nav" />
       <main>
         <Routes prismicCtx={props.prismicCtx} />
       </main>
