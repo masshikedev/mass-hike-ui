@@ -55,7 +55,6 @@ const Routes = props => (
       exact
       path="/blog/:uid"
       routerProps={props}
-      componentProps={{ uid: 'bloginfo' }}
       component={BlogInfo}
     />
     <PrismicRoute

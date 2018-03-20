@@ -21,11 +21,11 @@ class Blog extends Component {
 
   renderBlogPreviews() {
     const results = this.props.doc.results;
-
+    console.log(results);
     const blogs = results.map(blog => {
       return (
         <BlogPreview
-          id={blog.id}
+          uid={blog.uid}
           title={RichText.asText(blog.data.blog_title)}
           date={blog.data.blog_date}
           image={blog.data.blog_image.url}
