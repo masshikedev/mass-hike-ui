@@ -13,6 +13,7 @@ import CheckoutConfirmation from '../components/checkout/CheckoutConfirmation';
 import MobileCheckoutForm from '../components/checkout/MobileCheckoutForm';
 import styled from 'styled-components';
 import { H3, Container, GridParent, MediaQueries } from '../style';
+import { setCheckoutState } from '../actions/CheckoutActions';
 
 const FORM_SEQUENCE = [
   { name: 'Contact', component: ContactSection },
@@ -103,6 +104,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getTripById,
+      setCurrentSection: section =>
+        setCheckoutState({ currentSection: section }),
     },
     dispatch
   );

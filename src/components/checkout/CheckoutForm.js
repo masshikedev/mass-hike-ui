@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   nextCheckoutSection,
+  prevCheckoutSection,
   setCheckoutState,
 } from '../../actions/CheckoutActions';
 import CheckoutFormValidator from '../../utils/CheckoutFormValidator';
@@ -70,6 +71,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       nextCheckoutSection,
+      prevCheckoutSection,
       setCheckoutState,
     },
     dispatch

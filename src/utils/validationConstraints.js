@@ -24,7 +24,7 @@ const contactConstraints = () => {
       },
       format: {
         pattern: /[(]\d{3}[)] \d{3} [-] \d{4}/,
-        message: '^Formatting error',
+        message: '^Formatting error, please try again',
       },
     },
     preferredContactMethods: {
@@ -56,21 +56,12 @@ const hikeConstraints = trip => {
         allowEmpty: false,
         message: '^Please enter your address',
       },
-      inclusion: {
-        within: zips,
-        message: '^Please select a zipcode.',
-      },
     },
   };
 };
-const paymentTypeConstraints = trip => {
-  // TODO: pricing should be part of the trip object
-  const pricing = {
-    promoCodes: { please: 'reduced', hike: 'standard', subway: 'half' },
-    reduced: { min: 2, max: 30, options: [2, 5, 8] },
-    half: { min: 7.5, max: 30, options: [7.5, 10, 15] },
-    standard: { min: 15, max: 30, options: [15, 20, 30] },
-  };
+const paymentTypeConstraints = (trip, priceData) => {
+  const { pricing } = trip;
+  pricing.promoCodes[''] = 'standard';
   return {
     promoCode: {
       inclusion: {
@@ -78,8 +69,20 @@ const paymentTypeConstraints = trip => {
         message: '^Sorry, %{value} is not a valid promo code.',
       },
     },
+    selectedPrice: {
+      presence: {
+        allowEmpty: true,
+      },
+      numericality: {
+        greaterThanOrEqualTo: priceData.min,
+        notGreaterThanOrEqualTo: `^ Your minimum price is $${priceData.min}`,
+        lessThanOrEqualTo: priceData.max,
+        notLessThanOrEqualTo: `^ Sorry, we will not accept more than $${
+          priceData.max
+        } per ticket.`,
+      },
+    },
   };
-  //promoCode.length > 0 ? [2, 5, 10] : [15, 20, 30];
 };
 
-export { contactConstraints, hikeConstraints };
+export { contactConstraints, hikeConstraints, paymentTypeConstraints };
