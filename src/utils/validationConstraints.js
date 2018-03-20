@@ -56,10 +56,6 @@ const hikeConstraints = trip => {
         allowEmpty: false,
         message: '^Please enter your address',
       },
-      inclusion: {
-        within: zips,
-        message: '^Please select a zipcode.',
-      },
     },
   };
 };
@@ -78,8 +74,8 @@ const paymentTypeConstraints = (trip, priceData) => {
         allowEmpty: true,
       },
       numericality: {
-        greaterThan: priceData.min,
-        notGreaterThan: `^ Your minimum price is $${priceData.min}`,
+        greaterThanOrEqualTo: priceData.min,
+        notGreaterThanOrEqualTo: `^ Your minimum price is $${priceData.min}`,
         lessThanOrEqualTo: priceData.max,
         notLessThanOrEqualTo: `^ Sorry, we will not accept more than $${
           priceData.max
