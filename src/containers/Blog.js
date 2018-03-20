@@ -8,15 +8,6 @@ import styled from 'styled-components';
 class Blog extends Component {
   static pageType = 'blogpost';
 
-  render() {
-    return (
-      <Container>
-        <H1>Blog</H1>
-        {this.renderBlogPreviews()}
-      </Container>
-    );
-  }
-
   renderBlogPreviews() {
     const results = this.props.doc.results;
     const blogs = results.map(blog => {
@@ -33,6 +24,15 @@ class Blog extends Component {
       );
     });
     return blogs;
+  }
+
+  render() {
+    return (
+      <Container>
+        <H1>Blog</H1>
+        {this.renderBlogPreviews()}
+      </Container>
+    );
   }
 }
 
