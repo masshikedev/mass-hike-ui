@@ -130,7 +130,6 @@ class MobileCheckoutForm extends Component {
             }
             onClickNextButton={(fields, e) => {
               e.preventDefault();
-              console.log(fields);
               this.completeSection(fields);
             }}
           />
