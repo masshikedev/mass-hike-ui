@@ -13,12 +13,10 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <NavMargin>
-          <HomeMain {...this.props} />
-          <HomeSummary {...this.props} />
-          <HomeDetails {...this.props} />
-          <HomeNext {...this.props} />
-        </NavMargin>
+        <HomeMain {...this.props} />
+        <HomeSummary {...this.props} />
+        <HomeDetails {...this.props} />
+        <HomeNext {...this.props} />
       </Container>
     );
   }

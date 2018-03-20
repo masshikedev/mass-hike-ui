@@ -85,9 +85,7 @@ class NavBar extends Component {
           return (
             <NavItem>
               <H3>
-                <a href={link.primary.destination.url}>
-                  {RichText.asText(link.primary.label)}
-                </a>
+                <Link to="/">{RichText.asText(link.primary.label)}</Link>
               </H3>
             </NavItem>
           );

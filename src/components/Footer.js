@@ -91,19 +91,13 @@ class Footer extends Component {
         if (link.primary.destination.uid) {
           const destination = '/' + link.primary.destination.uid;
           return (
-            <P>
-              <Link to={destination}>
-                {RichText.asText(link.primary.label)}
-              </Link>
-            </P>
+            <Link to={destination}>{RichText.asText(link.primary.label)}</Link>
           );
         } else {
           return (
-            <P>
-              <a href={link.primary.destination.url}>
-                {RichText.asText(link.primary.label)}
-              </a>
-            </P>
+            <a href={link.primary.destination.url}>
+              {RichText.asText(link.primary.label)}
+            </a>
           );
         }
       }

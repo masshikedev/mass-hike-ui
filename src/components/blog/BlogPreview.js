@@ -25,12 +25,7 @@ const Column = styled.div`
 
 class BlogPreview extends Component {
   render() {
-    var maxLength = 375;
-    var trimmedString = this.props.content.substr(0, maxLength);
-    trimmedString = trimmedString.substr(
-      0,
-      Math.min(trimmedString.length, trimmedString.lastIndexOf(' '))
-    );
+    var postContent = trimPostContent(this.props.content);
 
     return (
       <GridParent>
@@ -42,7 +37,7 @@ class BlogPreview extends Component {
           <H4>
             {this.props.date} - by {this.props.author}
           </H4>
-          <P>{trimmedString}...</P>
+          <P>{postContent}...</P>
           <Button onClick={() => this.props.toFull(this.props.uid)}>
             Read More
           </Button>
@@ -50,6 +45,16 @@ class BlogPreview extends Component {
       </GridParent>
     );
   }
+}
+
+function trimPostContent(post) {
+  var maxLength = 375;
+  var trimmedString = post.substr(0, maxLength);
+  trimmedString = trimmedString.substr(
+    0,
+    Math.min(trimmedString.length, trimmedString.lastIndexOf(' '))
+  );
+  return trimmedString;
 }
 
 const mapDispatchToProps = dispatch =>

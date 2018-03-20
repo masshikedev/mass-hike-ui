@@ -11,17 +11,14 @@ class Blog extends Component {
   render() {
     return (
       <Container>
-        <NavMargin>
-          <H1>Blog</H1>
-          {this.renderBlogPreviews()}
-        </NavMargin>
+        <H1>Blog</H1>
+        {this.renderBlogPreviews()}
       </Container>
     );
   }
 
   renderBlogPreviews() {
     const results = this.props.doc.results;
-    console.log(results);
     const blogs = results.map(blog => {
       return (
         <BlogPreview

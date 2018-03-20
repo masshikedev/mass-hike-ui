@@ -5,7 +5,6 @@ import TeamList from '../components/about/TeamList';
 import AboutMain from '../components/about/AboutMain';
 import AboutStory from '../components/about/AboutStory';
 import WhatWeDo from '../components/about/WhatWeDo';
-import ContactFooter from '../components/home/ContactFooter';
 import { Container, NavMargin } from '../style';
 import styled from 'styled-components';
 
@@ -15,12 +14,10 @@ class About extends Component {
   render() {
     return (
       <Container>
-        <NavMargin>
-          <AboutMain {...this.props} />
-          <AboutStory {...this.props} />
-          <WhatWeDo {...this.props} />
-          <TeamList {...this.props.doc.data} />
-        </NavMargin>
+        <AboutMain {...this.props} />
+        <AboutStory {...this.props} />
+        <WhatWeDo {...this.props} />
+        <TeamList {...this.props.doc.data} />
       </Container>
     );
   }

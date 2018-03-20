@@ -5,7 +5,7 @@ import Home from './Home';
 import About from './About';
 import Impact from './Impact';
 import Blog from './Blog';
-import BlogInfo from '../components/blog/BlogInfo';
+import BlogPost from './BlogPost';
 import Contact from './Contact';
 import TripList from './TripList';
 import TripDetail from './TripDetail';
@@ -55,7 +55,7 @@ const Routes = props => (
       exact
       path="/blog/:uid"
       routerProps={props}
-      component={BlogInfo}
+      component={BlogPost}
     />
     <PrismicRoute
       exact
