@@ -66,13 +66,14 @@ class PaymentTypeSection extends Component {
             document.getElementById('customPrice').select();
           }}
         />
-        <Input
+        <ValidatedTextInput
           type="number"
           id="customPrice"
           placeholder="Other amount"
           value={!prices.includes(selectedPrice) ? selectedPrice : ''}
           onChange={e => this.setState({ selectedPrice: e.target.value })}
-          onClick={e => this.setState({ selectedPrice: e.target.value })}
+          onFocus={e => this.setState({ selectedPrice: e.target.value })}
+          error={messages['selectedPrice']}
         />
 
         <H2>How would you like to pay?</H2>
@@ -92,7 +93,7 @@ class PaymentTypeSection extends Component {
             onChange={() => this.setState({ paymentType: 'cash' })}
           />
         </label>
-        {showNextButton(this.state) && (
+        {messages === 'valid' && (
           <button onClick={e => onClickNextButton(this.state, e)}>Next</button>
         )}
       </div>

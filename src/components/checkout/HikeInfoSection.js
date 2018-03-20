@@ -12,7 +12,6 @@ class HikeInfoSection extends Component {
     this.state = {
       tickets,
       pickupLocation,
-      showMoreZips: false,
     };
   }
 

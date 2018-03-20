@@ -63,8 +63,9 @@ const hikeConstraints = trip => {
     },
   };
 };
-const paymentTypeConstraints = trip => {
+const paymentTypeConstraints = (trip, priceData) => {
   const { pricing } = trip;
+  pricing.promoCodes[''] = 'standard';
   return {
     promoCode: {
       inclusion: {
@@ -72,8 +73,20 @@ const paymentTypeConstraints = trip => {
         message: '^Sorry, %{value} is not a valid promo code.',
       },
     },
+    selectedPrice: {
+      presence: {
+        allowEmpty: true,
+      },
+      numericality: {
+        greaterThan: priceData.min,
+        notGreaterThan: `^ Your minimum price is $${priceData.min}`,
+        lessThanOrEqualTo: priceData.max,
+        notLessThanOrEqualTo: `^ Sorry, we will not accept more than $${
+          priceData.max
+        } per ticket.`,
+      },
+    },
   };
-  //promoCode.length > 0 ? [2, 5, 10] : [15, 20, 30];
 };
 
 export { contactConstraints, hikeConstraints, paymentTypeConstraints };

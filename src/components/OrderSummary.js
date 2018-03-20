@@ -46,7 +46,7 @@ class OrderSummary extends Component {
     const trip = order.trip;
     return (
       <div>
-        <H2>Order Summary</H2>
+        <H2>Trip Summary</H2>
         <Wrapper>
           <Column>
             <P large>
@@ -55,6 +55,8 @@ class OrderSummary extends Component {
               {format(trip.time.hikeStart, MONTH_DATE_YEAR)}
               <br />
               {format(trip.time.hikeStart, TIME)}
+              {' - '}
+              {format(trip.time.hikeEnd, TIME)}
               <br />
             </P>
             <HeadingContainer>
@@ -69,7 +71,7 @@ class OrderSummary extends Component {
               {order.phone}
             </P>
             <HeadingContainer>
-              <H6>Payment Type</H6>
+              <H6>Payment</H6>
               {this.editButtonForSection(2)}
             </HeadingContainer>
             <P>{order.paymentType}</P>
@@ -91,16 +93,22 @@ class OrderSummary extends Component {
             )}
           </Column>
           <Column>
-            <H6>Pickup</H6>
+            <HeadingContainer>
+              <H6>Pickup</H6>
+              {this.editButtonForSection(1)}
+            </HeadingContainer>
             <P large>{order.pickupLocation}</P>
-            <H6>Contact Method</H6>
+            <HeadingContainer>
+              <H6>Contact Method</H6>
+              {this.editButtonForSection(0)}
+            </HeadingContainer>
             <P large capitalize>
               {order.preferredContactMethods.join(', ')}
             </P>
           </Column>
         </Wrapper>
-        <P large>{`${order.tickets} Tickets`}</P>
-        <P large>{`$${order.tickets * order.selectedPrice}`}</P>
+        <P large>{`${order.tickets} Tickets x $${order.selectedPrice} each`}</P>
+        <P large>{`Total: $${order.tickets * order.selectedPrice}`}</P>
       </div>
     );
   }
