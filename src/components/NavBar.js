@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
 import hamburger from '../images/hamburger.png';
+import renderLinkSlices from '../utils/renderLinkSlices';
 import { RichText } from 'prismic-reactjs';
 import { H2, H3, P, Img, MediaQueries } from '../style';
 
@@ -58,41 +59,12 @@ class NavBar extends Component {
             </H3>
           </NavItem>
         </NavLeft>
-        <NavRight>{this.renderNavLinks()}</NavRight>
+        <NavRight>{renderLinkSlices(this.props.doc.data.body)}</NavRight>
         <Hamburger>
           <Img src={hamburger} />
         </Hamburger>
       </Nav>
     );
-  }
-
-  renderNavLinks() {
-    const body = this.props.doc.data.body;
-    const navLinks = body.map(link => {
-      if (link.slice_type === 'nav_link') {
-        if (link.primary.destination.uid) {
-          const destination = '/' + link.primary.destination.uid;
-          return (
-            <NavItem>
-              <H3>
-                <Link to={destination}>
-                  {RichText.asText(link.primary.label)}
-                </Link>
-              </H3>
-            </NavItem>
-          );
-        } else {
-          return (
-            <NavItem>
-              <H3>
-                <Link to="/">{RichText.asText(link.primary.label)}</Link>
-              </H3>
-            </NavItem>
-          );
-        }
-      }
-    });
-    return navLinks;
   }
 }
 

@@ -21,9 +21,11 @@ export default Wrapped =>
       if (props.prismicCtx) {
         props.prismicCtx.api
           .query(Prismic.Predicates.at('document.type', Wrapped.pageType), {})
-          .then(doc => {
+          .then((doc, err) => {
             if (doc) {
               this.setState(() => ({ doc }));
+            } else if (err) {
+              this.setState(() => ({ err }));
             }
           });
       }
@@ -32,6 +34,9 @@ export default Wrapped =>
     render() {
       return this.state.doc ? (
         <Wrapped doc={this.state.doc} />
+      ) : // TODO: add better loading state
+      this.state.err ? (
+        <NotFound />
       ) : (
         <h3>Loading...</h3>
       );

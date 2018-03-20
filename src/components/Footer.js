@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
 import { RichText } from 'prismic-reactjs';
 import hamburger from '../images/hamburger.png';
+import renderLinkSlices from '../utils/renderLinkSlices';
+import SocialMedia from './footer/SocialMedia';
 import {
   Container,
   Input,
@@ -29,13 +31,6 @@ const Links = styled.div`
   ${MediaQueries.small} {
     grid-column: span 12;
   }
-`;
-
-const Social = styled.div`
-  display: grid;
-  grid-column: span 2;
-  grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 20px;
 `;
 
 const Logo = styled.div`
@@ -76,56 +71,12 @@ class Footer extends Component {
             </Button>
           </Contact>
           <Links>
-            {this.renderFooterLinks()}
-            <Social>{this.renderSocialLinks()}</Social>
+            {renderLinkSlices(this.props.doc.data.body)}
+            <SocialMedia url={this.props.doc.data.footer_image.url} />
           </Links>
         </GridParent>
       </Container>
     );
-  }
-
-  renderFooterLinks() {
-    const body = this.props.doc.data.body;
-    const footerLinks = body.map(link => {
-      if (link.slice_type === 'footer_link') {
-        if (link.primary.destination.uid) {
-          const destination = '/' + link.primary.destination.uid;
-          return (
-            <Link to={destination}>{RichText.asText(link.primary.label)}</Link>
-          );
-        } else {
-          return (
-            <a href={link.primary.destination.url}>
-              {RichText.asText(link.primary.label)}
-            </a>
-          );
-        }
-      }
-    });
-    return footerLinks;
-  }
-
-  renderSocialLinks() {
-    const body = this.props.doc.data.body;
-    const socialLinks = body.map(link => {
-      if (link.slice_type === 'social_media_link') {
-        if (link.primary.destination.uid) {
-          const destination = '/' + link.primary.destination.uid;
-          return (
-            <Link to={destination}>
-              <Img src={link.primary.label.url} />
-            </Link>
-          );
-        } else {
-          return (
-            <a href={link.primary.destination.url}>
-              <Img src={link.primary.label.url} />
-            </a>
-          );
-        }
-      }
-    });
-    return socialLinks;
   }
 }
 

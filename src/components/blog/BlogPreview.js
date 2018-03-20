@@ -25,8 +25,6 @@ const Column = styled.div`
 
 class BlogPreview extends Component {
   render() {
-    var postContent = trimPostContent(this.props.content);
-
     return (
       <GridParent>
         <Column>
@@ -37,7 +35,7 @@ class BlogPreview extends Component {
           <H4>
             {this.props.date} - by {this.props.author}
           </H4>
-          <P>{postContent}...</P>
+          <P>{trimPostContent(this.props.content)}...</P>
           <Button onClick={() => this.props.toFull(this.props.uid)}>
             Read More
           </Button>
