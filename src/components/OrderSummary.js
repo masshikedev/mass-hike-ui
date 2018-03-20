@@ -4,12 +4,15 @@ import { bindActionCreators } from 'redux';
 import { setCheckoutState } from '../actions/CheckoutActions';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
-import { P, H2, H6 } from '../style';
+import { P, H2, H6, MediaQueries } from '../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, auto);
+  ${MediaQueries.small} {
+    grid-template-columns: auto;
+  }
   justify-content: stretch;
 `;
 
