@@ -17,11 +17,11 @@ class CheckoutConfirmation extends Component {
   };
 
   render() {
-    const { order, trip, status } = this.props;
+    const { order, status } = this.props;
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
-        <OrderSummary order={order} trip={trip} showEditButtons />
+        <OrderSummary order={order} showEditButtons />
         <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
       </div>
     );

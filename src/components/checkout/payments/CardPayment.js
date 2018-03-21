@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { H3, H6, Input, Button } from '../../../style';
 
+const NEXT_SECTION_PATH = 'confirmation';
+
 class CardPayment extends Component {
   constructor(props) {
     super(props);
@@ -14,8 +16,13 @@ class CardPayment extends Component {
     };
   }
 
+  onCompleteSection = e => {
+    const { completeSection } = this.props;
+    completeSection(this.state, NEXT_SECTION_PATH);
+    e.preventDefault;
+  };
+
   render() {
-    const { showNextButton, onClickNextButton } = this.props;
     return (
       <div>
         <H3>Enter your credit card information</H3>
@@ -52,9 +59,7 @@ class CardPayment extends Component {
           />
         </label>
 
-        {showNextButton(this.state) && (
-          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
-        )}
+        {true && <Button onClick={this.onCompleteSection}>Next</Button>}
       </div>
     );
   }

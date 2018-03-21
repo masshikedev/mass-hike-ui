@@ -64,7 +64,7 @@ const Routes = props => (
       componentProps={{ uid: 'tripsdetail' }}
       component={TripDetail}
     />
-    <Route exact path="/trips/:tripId/checkout" component={Checkout} />
+    <Route path="/trips/:tripId/checkout" component={Checkout} />
     <Route
       exact
       path="/trips/:tripId/checkout-mobile"

@@ -5,6 +5,8 @@ import { validate } from 'validate.js';
 import { hikeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 
+const NEXT_SECTION_PATH = 'payment-type';
+
 class HikeInfoSection extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,12 @@ class HikeInfoSection extends Component {
       pickupLocation,
     };
   }
+
+  onCompleteSection = e => {
+    const { completeSection } = this.props;
+    completeSection(this.state, NEXT_SECTION_PATH);
+    e.preventDefault;
+  };
 
   render() {
     const { showNextButton, onClickNextButton, trip } = this.props;
@@ -42,7 +50,7 @@ class HikeInfoSection extends Component {
         />
 
         {messages === 'valid' && (
-          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
+          <Button onClick={this.onCompleteSection}>Next</Button>
         )}
       </div>
     );

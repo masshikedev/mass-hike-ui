@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -48,14 +49,24 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    const { currentSection } = this.props;
+    const { currentSection, match } = this.props;
     const FormSection = FORM_SEQUENCE[currentSection];
+    const childProps = {
+      showNextButton: this.isSectionComplete,
+      onClickNextButton: fields => this.completeSection(fields),
+    };
     return (
       <Wrapper>
         <form>
-          <FormSection
-            showNextButton={this.isSectionComplete}
-            onClickNextButton={fields => this.completeSection(fields)}
+          <Route
+            exact
+            path={`${match.url}/contact-info`}
+            render={() => <ContactSection {...childProps} />}
+          />
+          <Route
+            exact
+            path={`${match.url}/hike-info`}
+            render={() => <HikeInfoSection {...childProps} />}
           />
         </form>
       </Wrapper>

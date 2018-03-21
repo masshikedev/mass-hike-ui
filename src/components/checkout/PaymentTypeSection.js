@@ -5,6 +5,8 @@ import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 
+const NEXT_SECTION_PATH = 'payment';
+
 class PaymentTypeSection extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +17,12 @@ class PaymentTypeSection extends Component {
       selectedPrice,
     };
   }
+
+  onCompleteSection = e => {
+    const { completeSection } = this.props;
+    completeSection(this.state, NEXT_SECTION_PATH);
+    e.preventDefault;
+  };
 
   renderPrices(prices) {
     const { selectedPrice } = this.state;
@@ -94,7 +102,7 @@ class PaymentTypeSection extends Component {
           />
         </label>
         {messages === 'valid' && (
-          <button onClick={e => onClickNextButton(this.state, e)}>Next</button>
+          <button onClick={this.onCompleteSection}>Next</button>
         )}
       </div>
     );

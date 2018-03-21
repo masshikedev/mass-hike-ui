@@ -17,7 +17,12 @@ const CheckBoxWrapper = styled.div`
   }
 `;
 
+const NEXT_SECTION_PATH = 'hike-info';
+
 class ContactSection extends Component {
+  sectionPath = 'contact-info';
+  nextSectionPath = 'hike-info';
+
   constructor(props) {
     super(props);
     const { name, email, phone, preferredContactMethods } = props;
@@ -29,9 +34,15 @@ class ContactSection extends Component {
     };
   }
 
+  onCompleteSection = e => {
+    const { completeSection } = this.props;
+    completeSection(this.state, NEXT_SECTION_PATH);
+    e.preventDefault;
+  };
+
   render() {
-    const { showNextButton, onClickNextButton } = this.props;
     const { name, email, phone, preferredContactMethods } = this.state;
+    const { onCompleteSection } = this.props;
     const messages = validate(this.state, contactConstraints()) || 'valid';
     return (
       <div>
@@ -93,7 +104,7 @@ class ContactSection extends Component {
         <br />
 
         {messages === 'valid' && (
-          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
+          <Button onClick={this.onCompleteSection}>Next</Button>
         )}
       </div>
     );
