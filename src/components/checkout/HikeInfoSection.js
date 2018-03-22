@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { P, H3, H6, Input, Button } from '../../style';
+import { bindActionCreators } from 'redux';
+import BaseCheckoutSection from './BaseCheckoutSection';
+import { setCurrentSection } from '../../actions/CheckoutActions';
+import { P, H3, Button } from '../../style';
 import { validate } from 'validate.js';
 import { hikeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 
-const NEXT_SECTION_PATH = 'payment-type';
-
-class HikeInfoSection extends Component {
+class HikeInfoSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
     const { tickets, pickupLocation } = props;
@@ -17,14 +18,8 @@ class HikeInfoSection extends Component {
     };
   }
 
-  onCompleteSection = e => {
-    const { completeSection } = this.props;
-    completeSection(this.state, NEXT_SECTION_PATH);
-    e.preventDefault;
-  };
-
   render() {
-    const { showNextButton, onClickNextButton, trip } = this.props;
+    const { trip } = this.props;
     const messages = validate(this.state, hikeConstraints(trip)) || 'valid';
     return (
       <div>
@@ -63,4 +58,12 @@ const mapStateToProps = state => ({
   trip: state.currentTrip.trip,
 });
 
-export default connect(mapStateToProps)(HikeInfoSection);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentSection,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(HikeInfoSection);

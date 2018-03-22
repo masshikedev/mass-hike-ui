@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { RichText } from 'prismic-reactjs';
 import PrismicPage from '../prismic/PrismicPage';
 import ImpactMain from '../components/impact/ImpactMain';
 import ImpactHero from '../components/impact/ImpactHero';
 import ImpactStats from '../components/impact/ImpactStats';
-import ContactFooter from '../components/home/ContactFooter';
-import { NavMargin, Container } from '../style';
-import styled from 'styled-components';
+import { Container } from '../style';
 
 class Impact extends Component {
   static pageType = 'impact';
@@ -14,11 +11,9 @@ class Impact extends Component {
   render() {
     return (
       <Container>
-        <NavMargin>
-          <ImpactMain {...this.props} />
-          <ImpactHero {...this.props} />
-          <ImpactStats {...this.props} />
-        </NavMargin>
+        <ImpactMain {...this.props} />
+        <ImpactHero {...this.props} />
+        <ImpactStats {...this.props} />
       </Container>
     );
   }

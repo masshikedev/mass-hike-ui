@@ -1,16 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  H2,
-  H3,
-  H4,
-  P,
-  Button,
-  MediaQueries,
-  Img,
-  GridParent,
-} from '../../style';
-import { RichText } from 'prismic-reactjs';
+import { H2, H4, P, Button, MediaQueries, Img, GridParent } from '../../style';
 
 const Column = styled.div`
   grid-column: span 6;

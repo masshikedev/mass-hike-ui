@@ -28,6 +28,7 @@ const initialState = {
 
   currentSection: 0,
   highestCompletedSection: 0,
+  initialized: false,
 };
 
 export default (state = initialState, action) => {
@@ -53,6 +54,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.payload.checkoutState,
+      };
+    case ActionTypes.SET_CURRENT_SECTION:
+      return {
+        ...state,
+        currentSection: action.payload.sectionIndex,
+        initialized: state.initialized || action.payload.sectionIndex === 1,
+        highestCompletedSection: Math.max(
+          action.payload.sectionIndex,
+          state.highestCompletedSection
+        ),
       };
     default:
       return state;

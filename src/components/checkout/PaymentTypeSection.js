@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import BaseCheckoutSection from './BaseCheckoutSection';
+import { setCurrentSection } from '../../actions/CheckoutActions';
 import { H2, H4, Input } from '../../style';
 import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 
-const NEXT_SECTION_PATH = 'payment';
-
-class PaymentTypeSection extends Component {
+class PaymentTypeSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
     const { promoCode, paymentType, selectedPrice } = props;
@@ -17,12 +18,6 @@ class PaymentTypeSection extends Component {
       selectedPrice,
     };
   }
-
-  onCompleteSection = e => {
-    const { completeSection } = this.props;
-    completeSection(this.state, NEXT_SECTION_PATH);
-    e.preventDefault;
-  };
 
   renderPrices(prices) {
     const { selectedPrice } = this.state;
@@ -41,7 +36,7 @@ class PaymentTypeSection extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton, trip } = this.props;
+    const { trip } = this.props;
     const { promoCode, paymentType, selectedPrice } = this.state;
     const pricing = trip.pricing;
     const priceData =
@@ -116,4 +111,12 @@ const mapStateToProps = state => ({
   trip: state.currentTrip.trip,
 });
 
-export default connect(mapStateToProps)(PaymentTypeSection);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentSection,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentTypeSection);

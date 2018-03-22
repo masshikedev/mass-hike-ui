@@ -5,13 +5,10 @@ const formatPhoneNumber = input => {
   // Strip all characters from the input except digits
   input = input.replace(/\D/g, '').substring(0, 10);
 
-  // Trim the remaining input to ten characters, to preserve phone number format
-  input = input;
-
   // Based upon the length of the string, we add formatting as necessary
   let size = input.length;
-  if (size == 0) {
-    input = input;
+  if (size === 0) {
+    return input;
   } else if (size < 4) {
     input = '(' + input;
   } else if (size < 7) {

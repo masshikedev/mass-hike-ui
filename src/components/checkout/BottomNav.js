@@ -6,7 +6,6 @@ import {
   prevCheckoutSection,
 } from '../../actions/CheckoutActions';
 import styled from 'styled-components';
-import { H3, Container, GridParent, MediaQueries } from '../../style';
 
 const Wrapper = styled.div`
   position: fixed;

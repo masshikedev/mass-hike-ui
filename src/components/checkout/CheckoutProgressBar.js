@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
-import { setCheckoutState } from '../../actions/CheckoutActions';
 import styled from 'styled-components';
 import { P, MediaQueries } from '../../style';
 
@@ -20,31 +20,37 @@ const Wrapper = styled.div`
   }
 `;
 
-const sectionSequence = [
-  'Contact Info',
-  'Hike Info',
-  'Payment Type',
-  'Payment',
-  'Order Summary',
-];
+const ProgressBarLink = styled.div`
+  grid-column: span 1;
+  grid-row: 1;
+  cursor: pointer;
+`;
+
+const ProgressBarSection = styled.div`
+  grid-column: span 1;
+  grid-row: 2;
+  border: 3px solid white;
+  background-color: ${props => props.color};
+`;
 
 class CheckoutProgressBar extends Component {
   renderProgressBarLinks() {
-    const { highestCompletedSection, setCurrentSection } = this.props;
+    const {
+      highestCompletedSection,
+      setCurrentSection,
+      sectionOrder,
+      baseUrl,
+    } = this.props;
     const links = [];
     for (let i = 0; i < highestCompletedSection + 1; i++) {
+      const nextSectionPath = sectionOrder[i].path;
       links.push(
-        <div
-          onClick={() => setCurrentSection(i)}
-          style={{
-            gridColumn: 'span 1',
-            gridRow: '1',
-            cursor: 'pointer',
-          }}
+        <ProgressBarLink
+          onClick={() => setCurrentSection(`${baseUrl}/${nextSectionPath}`)}
           key={i}
         >
-          <P>{sectionSequence[i]}</P>
-        </div>
+          <P>{sectionOrder[i].name}</P>
+        </ProgressBarLink>
       );
     }
     return links;
@@ -53,18 +59,8 @@ class CheckoutProgressBar extends Component {
     const { currentSection, highestCompletedSection } = this.props;
     const sections = [];
     for (let i = 0; i < highestCompletedSection + 1; i++) {
-      const color = i === currentSection ? '#999' : '#000';
-      sections.push(
-        <div
-          style={{
-            backgroundColor: color,
-            border: '3px solid white',
-            gridColumn: 'span 1',
-            gridRow: '2',
-          }}
-          key={i}
-        />
-      );
+      const color = i === currentSection ? '#000' : '#999';
+      sections.push(<ProgressBarSection color={color} key={i} />);
     }
     return sections;
   }
@@ -87,8 +83,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setCurrentSection: section =>
-        setCheckoutState({ currentSection: section }),
+      setCurrentSection: sectionPath => push(sectionPath),
     },
     dispatch
   );

@@ -6,7 +6,6 @@ import {
   setCheckoutState,
 } from '../../actions/CheckoutActions';
 import styled from 'styled-components';
-import { MediaQueries } from '../../style';
 import CheckoutFormValidator from '../../utils/CheckoutFormValidator';
 
 const Wrapper = styled.div`
@@ -27,8 +26,6 @@ const SectionWrapper = styled.div`
 
 class MobileCheckoutForm extends Component {
   componentWillMount() {
-    const { currentSection } = this.props;
-
     // Setup isScrolling variable
     let isScrolling;
 
@@ -55,7 +52,6 @@ class MobileCheckoutForm extends Component {
 
   handleScroll() {
     const {
-      currentSection,
       highestCompletedSection,
       setCurrentSection,
       components,
@@ -63,7 +59,6 @@ class MobileCheckoutForm extends Component {
     const scroll = window.scrollY;
     const scrollBottom = scroll + window.innerHeight;
     const scrollCenter = (scroll + scrollBottom) / 2;
-    const bottom = document.documentElement.scrollHeight;
 
     let y = 0;
     for (
@@ -89,11 +84,7 @@ class MobileCheckoutForm extends Component {
   }
 
   completeSection(fields) {
-    const {
-      nextCheckoutSection,
-      setCheckoutState,
-      currentSection,
-    } = this.props;
+    const { nextCheckoutSection, setCheckoutState } = this.props;
     setCheckoutState(fields);
     nextCheckoutSection();
   }
@@ -140,8 +131,6 @@ class MobileCheckoutForm extends Component {
   }
 
   render() {
-    const { currentSection, components } = this.props;
-    const FormSection = components[currentSection];
     return (
       <Wrapper>
         <form>{this.renderSections()}</form>

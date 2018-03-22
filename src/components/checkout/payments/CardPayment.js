@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import BaseCheckoutSection from '../BaseCheckoutSection';
+import { setCurrentSection } from '../../../actions/CheckoutActions';
 import { H3, H6, Input, Button } from '../../../style';
 
-const NEXT_SECTION_PATH = 'confirmation';
-
-class CardPayment extends Component {
+class CardPayment extends BaseCheckoutSection {
   constructor(props) {
     super(props);
     const { cardNumber, expiration, cvv, billingZip } = props;
@@ -15,12 +16,6 @@ class CardPayment extends Component {
       billingZip,
     };
   }
-
-  onCompleteSection = e => {
-    const { completeSection } = this.props;
-    completeSection(this.state, NEXT_SECTION_PATH);
-    e.preventDefault;
-  };
 
   render() {
     return (
@@ -71,4 +66,12 @@ const mapStateToProps = state => ({
   billingZip: state.checkout.billingZip,
 });
 
-export default connect(mapStateToProps)(CardPayment);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentSection,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardPayment);

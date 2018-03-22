@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import OrderSummary from '../OrderSummary';
+import BaseCheckoutSection from './BaseCheckoutSection';
 import { Button } from '../../style';
+import { setCurrentSection } from '../../actions/CheckoutActions';
 import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
 import { H3 } from '../../style';
 import { RequestStatus } from '../../constants';
 
-class CheckoutConfirmation extends Component {
+class CheckoutConfirmation extends BaseCheckoutSection {
   handleConfirmOrder = e => {
     const { order, confirmOrder, status } = this.props;
     e.preventDefault();
@@ -55,6 +57,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       confirmOrder,
+      setCurrentSection,
     },
     dispatch
   );

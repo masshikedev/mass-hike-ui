@@ -5,11 +5,11 @@ import CardPayment from './payments/CardPayment';
 
 class PaymentSection extends Component {
   render() {
-    const { paymentType, completeSection, tripId } = this.props;
+    const { paymentType } = this.props;
     const Child = paymentType === 'card' ? CardPayment : CashPayment;
     return (
       <div>
-        <Child completeSection={completeSection} tripId={tripId} />
+        <Child {...this.props} />
       </div>
     );
   }

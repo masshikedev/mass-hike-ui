@@ -35,7 +35,6 @@ const contactConstraints = () => {
 
 const hikeConstraints = trip => {
   const remaining = trip.capacity - trip.ticketsSold;
-  const zips = trip.pickupZipcodes.map(z => z.zip);
   return {
     tickets: {
       presence: {

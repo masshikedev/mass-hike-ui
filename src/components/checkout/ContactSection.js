@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import BaseCheckoutSection from './BaseCheckoutSection';
+import { setCurrentSection } from '../../actions/CheckoutActions';
 import { H2, H6, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { contactConstraints } from '../../utils/validationConstraints';
@@ -17,12 +20,7 @@ const CheckBoxWrapper = styled.div`
   }
 `;
 
-const NEXT_SECTION_PATH = 'hike-info';
-
-class ContactSection extends Component {
-  sectionPath = 'contact-info';
-  nextSectionPath = 'hike-info';
-
+class ContactSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
     const { name, email, phone, preferredContactMethods } = props;
@@ -34,15 +32,19 @@ class ContactSection extends Component {
     };
   }
 
-  onCompleteSection = e => {
-    const { completeSection } = this.props;
-    completeSection(this.state, NEXT_SECTION_PATH);
-    e.preventDefault;
-  };
+  componentDidMount() {
+    super.componentDidMount();
+    const onBackButton = event => {
+      return 'are you sure';
+    };
+    this.setState({ onBackButton });
+    window.addEventListener('beforeunload', onBackButton);
+  }
+
+  componentWillUnmount() {}
 
   render() {
     const { name, email, phone, preferredContactMethods } = this.state;
-    const { onCompleteSection } = this.props;
     const messages = validate(this.state, contactConstraints()) || 'valid';
     return (
       <div>
@@ -118,4 +120,12 @@ const mapStateToProps = state => ({
   preferredContactMethods: state.checkout.preferredContactMethods,
 });
 
-export default connect(mapStateToProps)(ContactSection);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentSection,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactSection);

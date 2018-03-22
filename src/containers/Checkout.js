@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
@@ -34,6 +34,18 @@ const FormWrapper = styled.div`
   }
 `;
 
+const SECTION_ORDER = [
+  { component: ContactSection, path: 'contact-info', name: 'Contact Info' },
+  { component: HikeInfoSection, path: 'hike-info', name: 'Hike Info' },
+  { component: PaymentTypeSection, path: 'payment-type', name: 'Payment Type' },
+  { component: PaymentSection, path: 'payment', name: 'Payment' },
+  {
+    component: CheckoutConfirmation,
+    path: 'confirmation',
+    name: 'Confirmation',
+  },
+];
+
 class Checkout extends Component {
   componentWillMount() {
     const { getTripById } = this.props;
@@ -41,15 +53,55 @@ class Checkout extends Component {
   }
 
   completeSection = (fields, nextSectionPath) => {
-    const {
-      nextCheckoutSection,
-      setCheckoutState,
-      match,
-      dispatch,
-    } = this.props;
+    const { nextCheckoutSection, setCheckoutState, match } = this.props;
     setCheckoutState(fields);
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
+
+  renderDefaultSection() {
+    const { match } = this.props;
+    const section = SECTION_ORDER[0];
+    const Section = section.component;
+    return (
+      <Route
+        exact
+        path={`${match.url}/${section.path}`}
+        render={() => (
+          <Section
+            completeSection={this.completeSection}
+            index={0}
+            next={section.next}
+          />
+        )}
+      />
+    );
+  }
+
+  renderRemainingSections() {
+    const { match } = this.props;
+    return SECTION_ORDER.map((section, i) => {
+      if (i === 0) {
+        return null;
+      }
+      const Section = section.component;
+      const next =
+        i < SECTION_ORDER.length - 1 ? SECTION_ORDER[i + 1].path : null;
+      return (
+        <Route
+          exact
+          path={`${match.url}/${section.path}`}
+          render={() => (
+            <Section
+              completeSection={this.completeSection}
+              index={i}
+              next={next}
+            />
+          )}
+          key={i}
+        />
+      );
+    });
+  }
 
   renderLoading() {
     return <H3>Loading...</H3>;
@@ -60,52 +112,26 @@ class Checkout extends Component {
   }
 
   renderSuccess = () => {
-    const { currentSection, trip, match } = this.props;
-    console.log(match);
+    const { currentSection, trip, match, checkoutInitialized } = this.props;
     return (
       <div>
         <GridParent>
           <FormWrapper>
             <form>
-              <Route
-                exact
-                path={`${match.url}/contact-info`}
-                render={() => (
-                  <ContactSection completeSection={this.completeSection} />
+              <Switch>
+                {this.renderDefaultSection()}
+                {!checkoutInitialized && (
+                  <Redirect to={`${match.url}/${SECTION_ORDER[0].path}`} />
                 )}
-              />
-              <Route
-                exact
-                path={`${match.url}/hike-info`}
-                render={() => (
-                  <HikeInfoSection completeSection={this.completeSection} />
-                )}
-              />
-              <Route
-                exact
-                path={`${match.url}/payment-type`}
-                render={() => (
-                  <PaymentTypeSection completeSection={this.completeSection} />
-                )}
-              />
-              <Route
-                exact
-                path={`${match.url}/payment`}
-                render={() => (
-                  <PaymentSection completeSection={this.completeSection} />
-                )}
-              />
-              <Route
-                exact
-                path={`${match.url}/confirmation`}
-                component={CheckoutConfirmation}
-              />
+                {this.renderRemainingSections()}
+                <Redirect to={`${match.url}/${SECTION_ORDER[0].path}`} />
+              </Switch>
             </form>
           </FormWrapper>
           {currentSection !== 4 && <Divider />}
           {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
         </GridParent>
-        <CheckoutProgressBar />
+        <CheckoutProgressBar sectionOrder={SECTION_ORDER} baseUrl={match.url} />
       </div>
     );
   };
@@ -127,6 +153,7 @@ class Checkout extends Component {
 
 const mapStateToProps = state => ({
   currentSection: state.checkout.currentSection,
+  checkoutInitialized: state.checkout.initialized,
   trip: state.currentTrip.trip,
   status: state.currentTrip.status,
 });
