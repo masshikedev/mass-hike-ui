@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 const renderLinkSlices = body => {
   return body.map(link => {
-    console.log(link.slice_type);
     if (link.slice_type && link.slice_type === 'link') {
       if (link.primary.destination.uid) {
         const destination = '/' + link.primary.destination.uid;
