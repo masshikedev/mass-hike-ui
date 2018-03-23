@@ -3,11 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import ContactSection from '../components/checkout/ContactSection';
-import HikeInfoSection from '../components/checkout/HikeInfoSection';
-import PaymentSection from '../components/checkout/PaymentSection';
-import PaymentTypeSection from '../components/checkout/PaymentTypeSection';
-import CheckoutConfirmation from '../components/checkout/CheckoutConfirmation';
+import SectionOrder from '../data/CheckoutSectionOrder';
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar';
 import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
 import { getTripById } from '../actions/CurrentTripActions';
@@ -34,52 +30,30 @@ const FormWrapper = styled.div`
   }
 `;
 
-const SECTION_ORDER = [
-  { component: ContactSection, path: 'contact-info', name: 'Contact Info' },
-  { component: HikeInfoSection, path: 'hike-info', name: 'Hike Info' },
-  { component: PaymentTypeSection, path: 'payment-type', name: 'Payment Type' },
-  { component: PaymentSection, path: 'payment', name: 'Payment' },
-  {
-    component: CheckoutConfirmation,
-    path: 'confirmation',
-    name: 'Confirmation',
-  },
-];
-
 class Checkout extends Component {
   componentWillMount() {
-    const { getTripById, setCheckoutState, match } = this.props;
+    const { getTripById } = this.props;
     getTripById(this.props.match.params.tripId);
   }
 
   componentWillReceiveProps() {
-    const {
-      trip,
-      checkoutTripId,
-      clearCheckoutData,
-      resetCheckout,
-      match,
-    } = this.props;
+    const { trip, checkoutTripId, resetCheckout, match } = this.props;
     if (trip !== null && trip.tripId !== checkoutTripId) {
-      resetCheckout(match.params.tripId);
+      resetCheckout(match.params.tripId, match.url);
     }
   }
 
-  completeSection = (fields, nextSectionPath) => {
-    const {
-      nextCheckoutSection,
-      setCheckoutState,
-      match,
-      checkoutInitialized,
-    } = this.props;
+  completeSection = (fields, options) => {
+    const { nextCheckoutSection, setCheckoutState, match } = this.props;
+    const { nextSectionPath } = options;
     setCheckoutState(fields);
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
 
   renderDefaultSection() {
     const { match } = this.props;
-    const section = SECTION_ORDER[0];
-    const next = SECTION_ORDER[1];
+    const section = SectionOrder[0];
+    const next = SectionOrder[1];
     const Section = section.component;
     return (
       <Route
@@ -98,13 +72,13 @@ class Checkout extends Component {
 
   renderRemainingSections() {
     const { match } = this.props;
-    return SECTION_ORDER.map((section, i) => {
+    return SectionOrder.map((section, i) => {
       if (i === 0) {
         return null;
       }
       const Section = section.component;
       const next =
-        i < SECTION_ORDER.length - 1 ? SECTION_ORDER[i + 1].path : null;
+        i < SectionOrder.length - 1 ? SectionOrder[i + 1].path : null;
       return (
         <Route
           exact
@@ -140,17 +114,16 @@ class Checkout extends Component {
               <Switch>
                 {this.renderDefaultSection()}
                 {!checkoutInitialized && (
-                  <Redirect to={`${match.url}/${SECTION_ORDER[0].path}`} />
+                  <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
                 )}
                 {this.renderRemainingSections()}
-                <Redirect to={`${match.url}/${SECTION_ORDER[0].path}`} />
               </Switch>
             </form>
           </FormWrapper>
           {currentSection !== 4 && <Divider />}
           {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
         </GridParent>
-        <CheckoutProgressBar sectionOrder={SECTION_ORDER} baseUrl={match.url} />
+        <CheckoutProgressBar sectionOrder={SectionOrder} baseUrl={match.url} />
       </div>
     );
   };

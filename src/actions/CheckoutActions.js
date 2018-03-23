@@ -28,9 +28,9 @@ export const setCurrentSection = sectionIndex => {
   };
 };
 
-export const resetCheckout = nextTripId => {
+export const resetCheckout = (nextTripId, basePath) => {
   return {
     type: ActionTypes.RESET_CHECKOUT,
-    payload: { nextTripId },
+    payload: { nextTripId, basePath },
   };
 };

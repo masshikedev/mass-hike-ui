@@ -19,11 +19,11 @@ class CheckoutConfirmation extends BaseCheckoutSection {
   };
 
   render() {
-    const { order, status } = this.props;
+    const { order, status, mobile } = this.props;
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
-        <OrderSummary order={order} showEditButtons />
+        <OrderSummary order={order} showEditButtons mobile={mobile} />
         <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
       </div>
     );

@@ -2,16 +2,25 @@ import { Component } from 'react';
 
 export default class BaseCheckoutSection extends Component {
   componentDidMount() {
-    const { setCurrentSection, index } = this.props;
-    setCurrentSection(index);
+    const { setCurrentSection, index, mobile } = this.props;
+    if (!mobile) {
+      setCurrentSection(index);
+    }
   }
 
   onCompleteSection = e => {
-    const { completeSection, next, index, setCheckoutState } = this.props;
+    const {
+      completeSection,
+      next,
+      index,
+      setCheckoutState,
+      mobile,
+    } = this.props;
+    e.preventDefault();
     if (index === 0) {
       setCheckoutState({ initialized: true });
     }
-    completeSection(this.state, next);
-    e.preventDefault();
+    const options = mobile ? { index } : { nextSectionPath: next };
+    completeSection(this.state, options);
   };
 }

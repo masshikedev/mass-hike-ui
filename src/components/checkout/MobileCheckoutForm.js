@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import {
   nextCheckoutSection,
   setCheckoutState,
 } from '../../actions/CheckoutActions';
+import BaseSectionOrder from '../../data/CheckoutSectionOrder';
+import BottomNav from './BottomNav';
 import styled from 'styled-components';
-import CheckoutFormValidator from '../../utils/CheckoutFormValidator';
+import { Container, GridParent } from '../../style';
+
+const SectionOrder = BaseSectionOrder.slice(0, 4);
 
 const Wrapper = styled.div`
   grid-column: span 12;
@@ -51,11 +56,7 @@ class MobileCheckoutForm extends Component {
   }
 
   handleScroll() {
-    const {
-      highestCompletedSection,
-      setCurrentSection,
-      components,
-    } = this.props;
+    const { highestCompletedSection, setCurrentSection } = this.props;
     const scroll = window.scrollY;
     const scrollBottom = scroll + window.innerHeight;
     const scrollCenter = (scroll + scrollBottom) / 2;
@@ -63,7 +64,7 @@ class MobileCheckoutForm extends Component {
     let y = 0;
     for (
       let i = 0;
-      i <= highestCompletedSection && i < components.length;
+      i <= highestCompletedSection && i < SectionOrder.length;
       i++
     ) {
       let newY = y + document.getElementById(`section ${i}`).clientHeight;
@@ -74,20 +75,20 @@ class MobileCheckoutForm extends Component {
     }
   }
 
-  isSectionComplete(fields) {
-    for (const key in fields) {
-      if (!CheckoutFormValidator[key](fields[key])) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  completeSection(fields) {
-    const { nextCheckoutSection, setCheckoutState } = this.props;
+  completeSection = (fields, options) => {
+    const {
+      nextCheckoutSection,
+      setCheckoutState,
+      match,
+      toConfirmation,
+    } = this.props;
     setCheckoutState(fields);
-    nextCheckoutSection();
-  }
+    if (options.index === SectionOrder.length - 1) {
+      toConfirmation(match.url);
+    } else {
+      nextCheckoutSection();
+    }
+  };
 
   componentDidUpdate() {
     this.scrollToCurrentSection();
@@ -95,6 +96,7 @@ class MobileCheckoutForm extends Component {
 
   scrollToCurrentSection() {
     const { currentSection } = this.props;
+    console.log(currentSection);
     const newSection = document.getElementById(`section ${currentSection}`);
     if (newSection)
       newSection.scrollIntoView({
@@ -105,24 +107,20 @@ class MobileCheckoutForm extends Component {
   }
 
   renderSections() {
-    const { highestCompletedSection, components } = this.props;
+    const { highestCompletedSection } = this.props;
     let sections = [];
     for (
       let i = 0;
-      i < highestCompletedSection + 1 && i < components.length;
+      i < highestCompletedSection + 1 && i < SectionOrder.length;
       i++
     ) {
-      const FormSection = components[i];
+      const FormSection = SectionOrder[i].component;
       sections.push(
         <SectionWrapper key={i} id={`section ${i}`}>
           <FormSection
-            showNextButton={fields =>
-              this.isSectionComplete(fields) && i === highestCompletedSection
-            }
-            onClickNextButton={(fields, e) => {
-              e.preventDefault();
-              this.completeSection(fields);
-            }}
+            index={i}
+            completeSection={this.completeSection}
+            mobile
           />
         </SectionWrapper>
       );
@@ -132,10 +130,17 @@ class MobileCheckoutForm extends Component {
 
   render() {
     return (
-      <Wrapper>
-        <form>{this.renderSections()}</form>
-        <BottomSpacer />
-      </Wrapper>
+      <div>
+        <Container>
+          <GridParent>
+            <Wrapper>
+              <form>{this.renderSections()}</form>
+              <BottomSpacer />
+            </Wrapper>
+          </GridParent>
+        </Container>
+        <BottomNav names={SectionOrder.map(s => s.name)} />
+      </div>
     );
   }
 }
@@ -152,6 +157,7 @@ const mapDispatchToProps = dispatch =>
       setCheckoutState,
       setCurrentSection: section =>
         setCheckoutState({ currentSection: section }),
+      toConfirmation: basePath => push(`${basePath}/confirmation`),
     },
     dispatch
   );

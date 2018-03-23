@@ -70,6 +70,7 @@ const Routes = props => (
       path="/trips/:tripId/checkout-mobile"
       component={MobileCheckout}
     />
+    <Route path="/trips/:tripId/checkout-mobile" component={MobileCheckout} />
     <Route exact path="/order/:id" component={OrderConfirmation} />
     <Route component={NotFound} />
   </Switch>

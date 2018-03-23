@@ -2,6 +2,7 @@ import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
   tripId: null,
+  basePath: '',
 
   // Contact
   name: '',
@@ -67,10 +68,10 @@ export default (state = initialState, action) => {
         ),
       };
     case ActionTypes.RESET_CHECKOUT:
-      console.log('reset checkout');
       return {
         ...initialState,
         tripId: action.payload.nextTripId,
+        basePath: action.payload.basePath,
       };
     default:
       return state;
