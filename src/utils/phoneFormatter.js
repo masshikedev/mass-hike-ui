@@ -7,7 +7,7 @@ const formatPhoneNumber = input => {
 
   // Based upon the length of the string, we add formatting as necessary
   let size = input.length;
-  if (size === 0) {
+  if (!size) {
     return input;
   } else if (size < 4) {
     input = '(' + input;

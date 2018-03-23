@@ -17,7 +17,7 @@ export default class BaseCheckoutSection extends Component {
       mobile,
     } = this.props;
     e.preventDefault();
-    if (index === 0) {
+    if (!index) {
       setCheckoutState({ initialized: true });
     }
     const options = mobile ? { index } : { nextSectionPath: next };
