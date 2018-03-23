@@ -96,7 +96,6 @@ class MobileCheckoutForm extends Component {
 
   scrollToCurrentSection() {
     const { currentSection } = this.props;
-    console.log(currentSection);
     const newSection = document.getElementById(`section ${currentSection}`);
     if (newSection)
       newSection.scrollIntoView({

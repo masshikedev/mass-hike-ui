@@ -11,7 +11,7 @@ import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 
 class MobileCheckout extends Component {
   componentWillMount() {
-    const { getTripById, setBaseMobilePath, match } = this.props;
+    const { getTripById, match } = this.props;
     getTripById(match.params.tripId);
   }
 

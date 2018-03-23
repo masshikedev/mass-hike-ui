@@ -1,7 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { setCheckoutState } from '../actions/CheckoutActions';
+import React from 'react';
 import EditButton from './checkout/EditButton';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
@@ -26,7 +23,7 @@ const HeadingContainer = styled.div`
 `;
 
 export default function OrderSummary(props) {
-  const { order, showEditButtons, checkoutPath, mobile } = props;
+  const { order, showEditButtons, mobile } = props;
   const trip = order.trip;
   return (
     <div>

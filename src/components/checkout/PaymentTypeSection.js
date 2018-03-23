@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
 import { setCurrentSection } from '../../actions/CheckoutActions';
-import { H2, H4, Input } from '../../style';
+import { H2, H4, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
@@ -96,8 +96,9 @@ class PaymentTypeSection extends BaseCheckoutSection {
             onChange={() => this.setState({ paymentType: 'cash' })}
           />
         </label>
+        <br />
         {messages === 'valid' && (
-          <button onClick={this.onCompleteSection}>Next</button>
+          <Button onClick={this.onCompleteSection}>Next</Button>
         )}
       </div>
     );

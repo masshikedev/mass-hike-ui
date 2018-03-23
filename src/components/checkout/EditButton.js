@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push, goBack } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import { setCheckoutState } from '../../actions/CheckoutActions';
 import SectionOrder from '../../data/CheckoutSectionOrder';
 import { Button } from '../../style';
@@ -9,8 +9,8 @@ import { Button } from '../../style';
 const SmallButton = Button.extend`
   cursor: pointer;
   font-size: 14px;
-  width: 50px;
-  height: 20px;
+  width: 60px;
+  height: 30px;
   margin-left: 15px;
 `;
 
@@ -25,7 +25,6 @@ class EditButton extends Component {
   onClickDesktop = e => {
     const { section, goBack, checkoutPath } = this.props;
     e.preventDefault();
-    console.log('click');
     goBack(`${checkoutPath}/${SectionOrder[section].path}`);
   };
 
@@ -35,7 +34,7 @@ class EditButton extends Component {
     if (!display) {
       return null;
     }
-    return <SmallButton onClick={onClick} />;
+    return <SmallButton onClick={onClick}>Edit</SmallButton>;
   }
 }
 
