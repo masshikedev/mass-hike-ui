@@ -39,14 +39,16 @@ class CheckoutProgressBar extends Component {
       highestCompletedSection,
       setCurrentSection,
       sectionOrder,
-      baseUrl,
+      tripId,
     } = this.props;
     const links = [];
     for (let i = 0; i < highestCompletedSection + 1; i++) {
       const nextSectionPath = sectionOrder[i].path;
       links.push(
         <ProgressBarLink
-          onClick={() => setCurrentSection(`${baseUrl}/${nextSectionPath}`)}
+          onClick={() =>
+            setCurrentSection(`/trips/${tripId}/checkout/${nextSectionPath}`)
+          }
           key={i}
         >
           <P>{sectionOrder[i].name}</P>
@@ -78,6 +80,7 @@ class CheckoutProgressBar extends Component {
 const mapStateToProps = state => ({
   currentSection: state.checkout.currentSection,
   highestCompletedSection: state.checkout.highestCompletedSection,
+  tripId: state.currentTrip.trip.tripId,
 });
 
 const mapDispatchToProps = dispatch =>

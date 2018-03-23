@@ -16,16 +16,16 @@ const SmallButton = Button.extend`
 
 class EditButton extends Component {
   onClickMobile = e => {
-    const { section, setCurrentSection, goBack, checkoutPath } = this.props;
+    const { section, setCurrentSection, toMobileCheckout, tripId } = this.props;
     e.preventDefault();
     setCurrentSection(section);
-    goBack(checkoutPath);
+    toMobileCheckout(tripId);
   };
 
   onClickDesktop = e => {
-    const { section, goBack, checkoutPath } = this.props;
+    const { section, toCheckoutSection, tripId } = this.props;
     e.preventDefault();
-    goBack(`${checkoutPath}/${SectionOrder[section].path}`);
+    toCheckoutSection(tripId, SectionOrder[section].path);
   };
 
   render() {
@@ -39,7 +39,7 @@ class EditButton extends Component {
 }
 
 const mapStateToProps = state => ({
-  checkoutPath: state.checkout.basePath,
+  tripId: state.currentTrip.trip.tripId,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -47,7 +47,9 @@ const mapDispatchToProps = dispatch =>
     {
       setCurrentSection: section =>
         setCheckoutState({ currentSection: section }),
-      goBack: path => push(path),
+      toMobileCheckout: tripId => push(`/trips/${tripId}/checkout-mobile`),
+      toCheckoutSection: (tripId, sectionPath) =>
+        push(`/trips/${tripId}/checkout/${sectionPath}`),
     },
     dispatch
   );

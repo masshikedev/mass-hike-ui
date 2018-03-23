@@ -39,7 +39,7 @@ class Checkout extends Component {
   componentWillReceiveProps() {
     const { trip, checkoutTripId, resetCheckout, match } = this.props;
     if (trip !== null && trip.tripId !== checkoutTripId) {
-      resetCheckout(match.params.tripId, match.url);
+      resetCheckout(match.params.tripId);
     }
   }
 
@@ -123,7 +123,7 @@ class Checkout extends Component {
           {currentSection !== 4 && <Divider />}
           {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
         </GridParent>
-        <CheckoutProgressBar sectionOrder={SectionOrder} baseUrl={match.url} />
+        <CheckoutProgressBar sectionOrder={SectionOrder} />
       </div>
     );
   };

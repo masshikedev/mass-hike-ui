@@ -18,7 +18,7 @@ class MobileCheckout extends Component {
   componentWillReceiveProps() {
     const { trip, checkoutTripId, resetCheckout, match } = this.props;
     if (trip !== null && trip.tripId !== checkoutTripId) {
-      resetCheckout(match.params.tripId, match.url);
+      resetCheckout(match.params.tripId);
     }
   }
 
