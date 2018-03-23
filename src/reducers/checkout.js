@@ -1,6 +1,8 @@
 import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
+  tripId: null,
+
   // Contact
   name: '',
   phone: '',
@@ -59,11 +61,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentSection: action.payload.sectionIndex,
-        initialized: state.initialized || action.payload.sectionIndex === 1,
         highestCompletedSection: Math.max(
           action.payload.sectionIndex,
           state.highestCompletedSection
         ),
+      };
+    case ActionTypes.RESET_CHECKOUT:
+      console.log('reset checkout');
+      return {
+        ...initialState,
+        tripId: action.payload.nextTripId,
       };
     default:
       return state;

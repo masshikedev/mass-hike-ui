@@ -1,8 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
-import { setCurrentSection } from '../../actions/CheckoutActions';
+import {
+  setCurrentSection,
+  setCheckoutState,
+} from '../../actions/CheckoutActions';
 import { H2, H6, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { contactConstraints } from '../../utils/validationConstraints';
@@ -31,17 +35,6 @@ class ContactSection extends BaseCheckoutSection {
       preferredContactMethods,
     };
   }
-
-  componentDidMount() {
-    super.componentDidMount();
-    const onBackButton = event => {
-      return 'are you sure';
-    };
-    this.setState({ onBackButton });
-    window.addEventListener('beforeunload', onBackButton);
-  }
-
-  componentWillUnmount() {}
 
   render() {
     const { name, email, phone, preferredContactMethods } = this.state;
@@ -124,6 +117,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setCurrentSection,
+      setCheckoutState,
     },
     dispatch
   );

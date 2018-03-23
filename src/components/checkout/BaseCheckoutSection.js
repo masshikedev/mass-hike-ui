@@ -7,7 +7,10 @@ export default class BaseCheckoutSection extends Component {
   }
 
   onCompleteSection = e => {
-    const { completeSection, next } = this.props;
+    const { completeSection, next, index, setCheckoutState } = this.props;
+    if (index === 0) {
+      setCheckoutState({ initialized: true });
+    }
     completeSection(this.state, next);
     e.preventDefault();
   };

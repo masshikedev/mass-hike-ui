@@ -11,7 +11,7 @@ import CheckoutConfirmation from '../components/checkout/CheckoutConfirmation';
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar';
 import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
 import { getTripById } from '../actions/CurrentTripActions';
-import { setCheckoutState } from '../actions/CheckoutActions';
+import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import renderByStatus from '../utils/renderByStatus';
 import styled from 'styled-components';
 import { H3, Container, GridParent, MediaQueries } from '../style';
@@ -48,12 +48,30 @@ const SECTION_ORDER = [
 
 class Checkout extends Component {
   componentWillMount() {
-    const { getTripById } = this.props;
+    const { getTripById, setCheckoutState, match } = this.props;
     getTripById(this.props.match.params.tripId);
   }
 
+  componentWillReceiveProps() {
+    const {
+      trip,
+      checkoutTripId,
+      clearCheckoutData,
+      resetCheckout,
+      match,
+    } = this.props;
+    if (trip !== null && trip.tripId !== checkoutTripId) {
+      resetCheckout(match.params.tripId);
+    }
+  }
+
   completeSection = (fields, nextSectionPath) => {
-    const { nextCheckoutSection, setCheckoutState, match } = this.props;
+    const {
+      nextCheckoutSection,
+      setCheckoutState,
+      match,
+      checkoutInitialized,
+    } = this.props;
     setCheckoutState(fields);
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
@@ -61,6 +79,7 @@ class Checkout extends Component {
   renderDefaultSection() {
     const { match } = this.props;
     const section = SECTION_ORDER[0];
+    const next = SECTION_ORDER[1];
     const Section = section.component;
     return (
       <Route
@@ -70,7 +89,7 @@ class Checkout extends Component {
           <Section
             completeSection={this.completeSection}
             index={0}
-            next={section.next}
+            next={next.path}
           />
         )}
       />
@@ -156,6 +175,7 @@ const mapStateToProps = state => ({
   checkoutInitialized: state.checkout.initialized,
   trip: state.currentTrip.trip,
   status: state.currentTrip.status,
+  checkoutTripId: state.checkout.tripId,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -163,6 +183,7 @@ const mapDispatchToProps = dispatch =>
     {
       getTripById,
       setCheckoutState,
+      resetCheckout,
       nextCheckoutSection: nextSectionUrl => push(nextSectionUrl),
     },
     dispatch
