@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import CheckoutForm from '../components/checkout/CheckoutForm';
+import { push } from 'react-router-redux';
+import SectionOrder from '../data/CheckoutSectionOrder';
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar';
 import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
 import { getTripById } from '../actions/CurrentTripActions';
+import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import renderByStatus from '../utils/renderByStatus';
 import styled from 'styled-components';
 import { H3, Container, GridParent, MediaQueries } from '../style';
@@ -19,10 +22,78 @@ const Divider = styled.div`
   }
 `;
 
+const FormWrapper = styled.div`
+  grid-column: span 8;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
+`;
+
 class Checkout extends Component {
   componentWillMount() {
     const { getTripById } = this.props;
     getTripById(this.props.match.params.tripId);
+  }
+
+  componentWillReceiveProps() {
+    const { trip, checkoutTripId, resetCheckout, match } = this.props;
+    if (trip !== null && trip.tripId !== checkoutTripId) {
+      resetCheckout(match.params.tripId);
+    }
+  }
+
+  completeSection = (fields, options) => {
+    const { nextCheckoutSection, setCheckoutState, match } = this.props;
+    const { nextSectionPath } = options;
+    setCheckoutState(fields);
+    nextCheckoutSection(`${match.url}/${nextSectionPath}`);
+  };
+
+  renderDefaultSection() {
+    const { match } = this.props;
+    const section = SectionOrder[0];
+    const next = SectionOrder[1];
+    const Section = section.component;
+    return (
+      <Route
+        exact
+        path={`${match.url}/${section.path}`}
+        render={() => (
+          <Section
+            completeSection={this.completeSection}
+            index={0}
+            next={next.path}
+          />
+        )}
+      />
+    );
+  }
+
+  renderRemainingSections() {
+    const { match } = this.props;
+    return SectionOrder.map((section, i) => {
+      if (i === 0) {
+        return null;
+      }
+      const Section = section.component;
+      const next =
+        i < SectionOrder.length - 1 ? SectionOrder[i + 1].path : null;
+      return (
+        <Route
+          exact
+          path={`${match.url}/${section.path}`}
+          render={() => (
+            <Section
+              completeSection={this.completeSection}
+              index={i}
+              next={next}
+            />
+          )}
+          key={i}
+        />
+      );
+    });
   }
 
   renderLoading() {
@@ -34,15 +105,25 @@ class Checkout extends Component {
   }
 
   renderSuccess = () => {
-    const { currentSection, trip } = this.props;
+    const { currentSection, trip, match, checkoutInitialized } = this.props;
     return (
       <div>
         <GridParent>
-          <CheckoutForm />
+          <FormWrapper>
+            <form>
+              <Switch>
+                {this.renderDefaultSection()}
+                {!checkoutInitialized && (
+                  <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
+                )}
+                {this.renderRemainingSections()}
+              </Switch>
+            </form>
+          </FormWrapper>
           {currentSection !== 4 && <Divider />}
           {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
         </GridParent>
-        <CheckoutProgressBar />
+        <CheckoutProgressBar sectionOrder={SectionOrder} />
       </div>
     );
   };
@@ -64,14 +145,19 @@ class Checkout extends Component {
 
 const mapStateToProps = state => ({
   currentSection: state.checkout.currentSection,
+  checkoutInitialized: state.checkout.initialized,
   trip: state.currentTrip.trip,
   status: state.currentTrip.status,
+  checkoutTripId: state.checkout.tripId,
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getTripById,
+      setCheckoutState,
+      resetCheckout,
+      nextCheckoutSection: nextSectionUrl => push(nextSectionUrl),
     },
     dispatch
   );

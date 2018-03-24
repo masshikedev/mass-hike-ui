@@ -16,7 +16,21 @@ export const setCheckoutState = checkoutState => {
   return {
     type: ActionTypes.SET_CHECKOUT_STATE,
     payload: {
-      checkoutState: checkoutState,
+      checkoutState,
     },
+  };
+};
+
+export const setCurrentSection = sectionIndex => {
+  return {
+    type: ActionTypes.SET_CURRENT_SECTION,
+    payload: { sectionIndex },
+  };
+};
+
+export const resetCheckout = nextTripId => {
+  return {
+    type: ActionTypes.RESET_CHECKOUT,
+    payload: { nextTripId },
   };
 };

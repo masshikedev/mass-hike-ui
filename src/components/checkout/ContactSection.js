@@ -1,5 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import BaseCheckoutSection from './BaseCheckoutSection';
+import {
+  setCurrentSection,
+  setCheckoutState,
+} from '../../actions/CheckoutActions';
 import { H2, H6, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { contactConstraints } from '../../utils/validationConstraints';
@@ -17,7 +23,7 @@ const CheckBoxWrapper = styled.div`
   }
 `;
 
-class ContactSection extends Component {
+class ContactSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
     const { name, email, phone, preferredContactMethods } = props;
@@ -30,7 +36,6 @@ class ContactSection extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton } = this.props;
     const { name, email, phone, preferredContactMethods } = this.state;
     const messages = validate(this.state, contactConstraints()) || 'valid';
     return (
@@ -93,7 +98,7 @@ class ContactSection extends Component {
         <br />
 
         {messages === 'valid' && (
-          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
+          <Button onClick={this.onCompleteSection}>Next</Button>
         )}
       </div>
     );
@@ -107,4 +112,13 @@ const mapStateToProps = state => ({
   preferredContactMethods: state.checkout.preferredContactMethods,
 });
 
-export default connect(mapStateToProps)(ContactSection);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentSection,
+      setCheckoutState,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactSection);
