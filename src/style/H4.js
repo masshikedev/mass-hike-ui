@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-
+//Requires proxima nova bold
 const H4 = styled.h4`
-  font-style: italic;
+  font-weight: bold;
 `;
 
 export default H4;

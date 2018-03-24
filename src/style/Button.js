@@ -4,7 +4,9 @@ const Button = styled.button`
   width: 100%;
   max-width: 300px;
   height: ${({ small }) => (small ? '40px' : '56px')};
-  background-color: #000000;
+  background-color: #f05a28;
+  border: none;
+  border-radius: 31.5px;
   font-family: 'Open Sans';
   font-size: ${({ small }) => (small ? '18px' : '21px')};
   font-weight: normal;
@@ -13,7 +15,8 @@ const Button = styled.button`
   line-height: normal;
   letter-spacing: 0.3px;
   text-align: center;
-  color: #ffffff;
+  color: white;
+  text-decoration: none;
 `;
 
 export default Button;

@@ -13,8 +13,8 @@ const Nav = styled.div`
   width: 100%;
   top: 0;
   position: fixed;
-  border-bottom: solid;
   background: white;
+  box-shadow: 0 2px 25px 0 rgba(51, 51, 51, 0.28);
 `;
 
 const NavItem = styled.div`
