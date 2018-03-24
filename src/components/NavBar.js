@@ -49,13 +49,6 @@ const Hamburger = styled.div`
 class NavBar extends Component {
   static pageType = 'header';
 
-  renderNavLinks(links) {
-    const navLinks = links.map(link => {
-      return <NavItem>{link}</NavItem>;
-    });
-    return navLinks;
-  }
-
   render() {
     return (
       <Nav>
@@ -67,7 +60,7 @@ class NavBar extends Component {
           </NavItem>
         </NavLeft>
         <NavRight>
-          {this.renderNavLinks(renderLinkSlices(this.props.doc.data.body))}
+          {renderLinkSlices(this.props.doc.data.body, NavItem)}
         </NavRight>
         <Hamburger>
           <Img src={hamburger} />
