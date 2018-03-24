@@ -12,10 +12,10 @@ const DetailItem = styled.div`
 
 const Title = styled.div`
   grid-column: span 12;
+  text-align: center;
 `;
 
 function HomeDetails(props) {
-  console.log(props.doc.data.detail1);
   return (
     <GridParent>
       <Title>

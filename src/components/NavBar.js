@@ -5,7 +5,7 @@ import PrismicPage from '../prismic/PrismicPage';
 import hamburger from '../images/hamburger.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
 import { RichText } from 'prismic-reactjs';
-import { H2, H3, P, Img, MediaQueries } from '../style';
+import { H2, H3, P, Button, Img, MediaQueries } from '../style';
 
 const Nav = styled.div`
   display: flex;
@@ -20,6 +20,17 @@ const Nav = styled.div`
 const NavItem = styled.div`
   display: block;
   padding: 10px;
+  font-family: 'Open Sans';
+`;
+
+const NavButton = styled.div`
+  color: #fff;
+  background-color: #faaf3f;
+  text-transform: lowercase;
+  font-family: 'Open Sans';
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px 20px;
 `;
 
 const NavLeft = styled.div`
@@ -51,7 +62,11 @@ class NavBar extends Component {
 
   renderNavLinks(links) {
     const navLinks = links.map(link => {
-      return <NavItem>{link}</NavItem>;
+      if (link.props.to === '/trips') {
+        return <NavButton>{link}</NavButton>;
+      } else {
+        return <NavItem>{link}</NavItem>;
+      }
     });
     return navLinks;
   }

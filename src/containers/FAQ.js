@@ -19,6 +19,7 @@ const Main = styled.div`
 `;
 
 const SideBar = styled.div`
+  position: fixed;
   border-left: solid;
   grid-column: span 4;
 `;
@@ -26,13 +27,7 @@ const SideBar = styled.div`
 class FAQ extends Component {
   static pageType = 'faq';
 
-  getQuestionTypes() {
-    var questionTypes = this.props.faqs.map(faq => {
-      return faq.primary.question_type[0].text;
-    });
-  }
-
-  displayFAQs(faqs) {
+  getQuestionTypes(faqs) {
     var questionTypes = faqs.map(faq => {
       return faq.primary.question_type[0].text;
     });
@@ -40,6 +35,12 @@ class FAQ extends Component {
     questionTypes = questionTypes.filter(function(x, i) {
       return questionTypes.indexOf(x) === i;
     });
+
+    return questionTypes;
+  }
+
+  displayFAQs(faqs) {
+    var questionTypes = this.getQuestionTypes(faqs);
 
     const elements = questionTypes.map(type => {
       return (
@@ -56,6 +57,15 @@ class FAQ extends Component {
     return elements;
   }
 
+  displaySideBarLinks(faqs) {
+    var questionTypes = this.getQuestionTypes(faqs);
+
+    var sideBar = questionTypes.map(type => {
+      return <P>{type}</P>;
+    });
+    return sideBar;
+  }
+
   render() {
     return (
       <Container>
@@ -69,7 +79,9 @@ class FAQ extends Component {
             {this.displayFAQs(this.props.doc.data.body)}
           </Main>
           <div>
-            <SideBar>Henlo</SideBar>
+            <SideBar>
+              {this.displaySideBarLinks(this.props.doc.data.body)}
+            </SideBar>
           </div>
         </GridParent>
       </Container>
