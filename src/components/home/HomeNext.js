@@ -1,26 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, Button, Img, GridParent } from '../../style';
+import { H2, H4, P, Button, Img, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Column = styled.div`
   grid-column: span 12;
 `;
 
+const Text = styled.div`
+  grid-column: span 8;
+  background-color: #f05a28;
+  color: #fff;
+  padding: 100px 20px;
+`;
+
+const Image = Img.extend`
+  grid-column span 4;
+`;
+
+const Next = GridParent.extend`
+  grid-column-gap: 0;
+`;
+
 function HomeNext(props) {
+  console.log(props);
+  //This should all be replaced with information from the actual trips api
   return (
-    <GridParent>
-      <Column>
-        <H2>Next Trip</H2>
-      </Column>
-      <Column>
-        <Img src={props.doc.data.next_trip_image.url} />
-      </Column>
-      <Column>{RichText.render(props.doc.data.next_trip)}</Column>
-      <Column>
-        <Button>Book this hike</Button>
-      </Column>
-    </GridParent>
+    <Next>
+      <Text>
+        <H4>Let's go to </H4>
+        <H2>{props.doc.data.next_trip[0].text}</H2>
+        <P>{props.doc.data.next_trip[1].text}</P>
+      </Text>
+      <Image src={props.doc.data.next_trip_image.url} />
+    </Next>
   );
 }
 

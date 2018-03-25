@@ -7,8 +7,9 @@ const Input = styled.input`
   padding: 5px;
   &[type='text'] {
     width: 100%;
-    max-width: 500px;
-    border: 3px solid ${props => (props.invalid ? 'red' : 'black')};
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: solid 2px ${props => (props.invalid ? 'red' : 'black')};
   }
 `;
 

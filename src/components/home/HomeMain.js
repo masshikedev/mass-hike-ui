@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { H1, Button, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
+import hero from '../../images/home-hero2.png';
 
 const HomeSection = GridParent.extend`
-  height: 600px;
+  height: 564px;
+  background-image: url(${hero});
 `;
 
 const Column = styled.div`

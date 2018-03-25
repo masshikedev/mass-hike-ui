@@ -26,17 +26,21 @@ const Title = styled.div`
   grid-column: span 12;
 `;
 
+const Summary = GridParent.extend`
+  grid-column-gap: 0;
+`;
+
 function HomeSummary(props) {
   return (
-    <GridParent>
+    <Summary>
       <Column>
         <H2>{RichText.asText(props.doc.data.about_title)}</H2>
-        <P>{RichText.asText(props.doc.data.about_content)}</P>
+        <P>{RichText.render(props.doc.data.about_content)}</P>
       </Column>
       <Top>
         <Img src={props.doc.data.about_image.url} />
       </Top>
-    </GridParent>
+    </Summary>
   );
 }
 

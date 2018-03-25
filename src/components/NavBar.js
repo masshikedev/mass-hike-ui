@@ -10,6 +10,7 @@ import { H2, H3, P, Button, Img, MediaQueries } from '../style';
 const Nav = styled.div`
   display: flex;
   align-items: center;
+  z-index: 20;
   width: 100%;
   top: 0;
   position: fixed;
@@ -19,7 +20,7 @@ const Nav = styled.div`
 
 const NavItem = styled.div`
   display: block;
-  padding: 10px;
+  margin: 10px;
   font-family: 'Open Sans';
 `;
 
@@ -28,9 +29,11 @@ const NavButton = styled.div`
   background-color: #faaf3f;
   text-transform: lowercase;
   font-family: 'Open Sans';
+  font-weight: normal;
   text-align: center;
   border-radius: 20px;
   padding: 10px 20px;
+  margin: 0 10px;
 `;
 
 const NavLeft = styled.div`

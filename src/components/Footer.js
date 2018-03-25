@@ -8,6 +8,7 @@ import renderLinkSlices from '../utils/renderLinkSlices';
 import SocialMedia from './footer/SocialMedia';
 import {
   Container,
+  H2,
   Input,
   P,
   Button,
@@ -16,6 +17,11 @@ import {
   GridParent,
 } from '../style';
 
+const Foot = Container.extend`
+  color: white;
+  background-color: #558959;
+`;
+
 const Contact = styled.div`
   grid-column: span 4;
   ${MediaQueries.small} {
@@ -23,9 +29,21 @@ const Contact = styled.div`
   }
 `;
 
+const SButton = Button.extend`
+  color: #fff;
+  background-color: #faaf3f;
+  text-transform: lowercase;
+  font-family: 'Open Sans';
+  font-weight: normal;
+
+  border-radius: 80px;
+  padding: 0 20px;
+  width: auto;
+`;
+
 const Links = styled.div`
   display: grid;
-  grid-column: 9 / span 4;
+  grid-column: span 4;
   grid-template-columns: 1fr 1fr;
 
   ${MediaQueries.small} {
@@ -33,8 +51,10 @@ const Links = styled.div`
   }
 `;
 
-const Logo = styled.div`
-  grid-column: span 3;
+const Logo = H2.extend`
+  grid-column: span 12;
+  font-family: 'Open Sans';
+  font-weight: normal;
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -46,19 +66,14 @@ class Footer extends Component {
 
   render() {
     return (
-      <Container>
+      <Foot>
         <GridParent>
-          <Logo>
-            <Img src={this.props.doc.data.footer_image.url} />
-          </Logo>
+          <Logo>Mass Hike</Logo>
+          <Links>
+            {renderLinkSlices(this.props.doc.data.body)}
+            <SocialMedia url={this.props.doc.data.footer_image.url} />
+          </Links>
           <Contact>
-            <label>
-              <Input
-                type="text"
-                value="Name"
-                onChange={e => this.setState({ Name: e.target.value })}
-              />
-            </label>
             <label>
               <Input
                 type="text"
@@ -66,16 +81,12 @@ class Footer extends Component {
                 onChange={e => this.setState({ Email: e.target.value })}
               />
             </label>
-            <Button>
+            <SButton>
               {RichText.asText(this.props.doc.data.submit_button)}
-            </Button>
+            </SButton>
           </Contact>
-          <Links>
-            {renderLinkSlices(this.props.doc.data.body)}
-            <SocialMedia url={this.props.doc.data.footer_image.url} />
-          </Links>
         </GridParent>
-      </Container>
+      </Foot>
     );
   }
 }
