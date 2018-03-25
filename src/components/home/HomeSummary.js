@@ -13,7 +13,7 @@ const Top = styled.div`
 
 const Column = styled.div`
   grid-column: span 8;
-  background-color: #85aa5b;
+  background-color: #558959;
   color: #fff;
   padding: 40px 80px 40px 40px;
 
