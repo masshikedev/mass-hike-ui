@@ -4,7 +4,7 @@ const Button = styled.button`
   width: 100%;
   max-width: 300px;
   height: ${({ small }) => (small ? '40px' : '56px')};
-  background-color: #000000;
+  background-color: ${({ disabled }) => (disabled ? '#999999' : '#000000')};
   font-family: 'Open Sans';
   font-size: ${({ small }) => (small ? '18px' : '21px')};
   font-weight: normal;

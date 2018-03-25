@@ -12,6 +12,7 @@ import TripDetail from './TripDetail';
 import Checkout from './Checkout';
 import MobileCheckout from './MobileCheckout';
 import OrderConfirmation from './OrderConfirmation';
+import Admin from './Admin';
 import PrismicRoute from '../prismic/PrismicRoute';
 
 const Routes = props => (
@@ -79,6 +80,7 @@ const Routes = props => (
     />
     <Route path="/trips/:tripId/checkout-mobile" component={MobileCheckout} />
     <Route exact path="/order/:id" component={OrderConfirmation} />
+    <Route exact path="/admin" component={Admin} />
     <Route component={NotFound} />
   </Switch>
 );
