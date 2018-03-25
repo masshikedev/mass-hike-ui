@@ -41,6 +41,10 @@ const NavLeft = styled.div`
 const NavRight = styled.div`
   display: flex;
   flex-direction: row;
+  font-family: 'Open Sans';
+  font-size: 16px;
+  font-weight: bold;
+
   ${MediaQueries.small} {
     display: none;
   }

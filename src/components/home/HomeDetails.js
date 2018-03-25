@@ -30,7 +30,7 @@ function HomeDetails(props) {
       </DetailItem>
       <DetailItem>{props.doc.data.detail2[2].text}</DetailItem>
       <DetailItem>
-        <Img src={props.doc.data.detail2[0].url} />
+        <Img src={props.doc.data.detail3[0].url} />
       </DetailItem>
       <DetailItem>{props.doc.data.detail3[2].text}</DetailItem>
     </GridParent>
