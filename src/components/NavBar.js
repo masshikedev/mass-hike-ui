@@ -25,13 +25,12 @@ const NavItem = styled.div`
 
 const NavLeft = styled.div`
   display: flex;
-  flex: 4;
+  flex: 6;
 `;
 
 const NavRight = styled.div`
   display: flex;
   flex-direction: row;
-  flex: 6;
   ${MediaQueries.small} {
     display: none;
   }
@@ -42,7 +41,6 @@ const Hamburger = styled.div`
   flex-direction: row-reverse;
   flex: 0.5;
   display: none;
-
   ${MediaQueries.small} {
     display: block;
   }
@@ -84,4 +82,5 @@ const mapStateToProps = state => ({
   loggedIn: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(NavBar);
+const connected = connect(mapStateToProps)(NavBar);
+export default PrismicPage(connected);

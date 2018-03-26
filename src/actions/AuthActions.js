@@ -3,7 +3,7 @@ import { postLoginCredentials } from '../api/auth';
 
 const loginSuccess = dispatch => {
   return response => {
-    localStorage.setItem('mh-login-token', response.token);
+    localStorage.setItem('mh-login-token', response.data.token);
     dispatch({
       type: ActionTypes.LOGIN_SUCCESS,
     });

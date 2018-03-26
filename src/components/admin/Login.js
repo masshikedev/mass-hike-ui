@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { P, H6, Input, Container, GridParent, Button } from '../../style';
+import { P, H3, H6, Input, Container, GridParent, Button } from '../../style';
 import { login } from '../../actions/AuthActions';
 import { RequestStatus } from '../../constants';
 
@@ -24,6 +24,7 @@ class Login extends Component {
     const { email, password, status, error } = this.props;
     return (
       <Container>
+        <H3>You must be a Mass Hike administator to access this page</H3>
         <form>
           <H6>Email</H6>
           <Input
