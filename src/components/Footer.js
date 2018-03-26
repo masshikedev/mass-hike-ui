@@ -44,7 +44,7 @@ const SButton = Button.extend`
 const Links = styled.div`
   display: grid;
   grid-column: span 4;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -69,11 +69,9 @@ class Footer extends Component {
       <Foot>
         <GridParent>
           <Logo>Mass Hike</Logo>
-          <Links>
-            {renderLinkSlices(this.props.doc.data.body)}
-            <SocialMedia url={this.props.doc.data.footer_image.url} />
-          </Links>
+          <Links>{renderLinkSlices(this.props.doc.data.body)}</Links>
           <Contact>
+            <P>Sign up to receive newsletters!</P>
             <label>
               <Input
                 type="text"

@@ -6,14 +6,19 @@ import { RichText } from 'prismic-reactjs';
 const Top = styled.div`
   grid-column: span 4;
   ${MediaQueries.small} {
-    order: -1;
-    grid-column: span 12;
+    display: none;
   }
 `;
 
 const Column = styled.div`
   grid-column: span 8;
-  background-color: #558959;
+  background: repeating-linear-gradient(
+    135deg,
+    #558959,
+    #558959 10px,
+    #497c49 2px,
+    #497c49 12px
+  );
   color: #fff;
   padding: 40px 80px 40px 40px;
 

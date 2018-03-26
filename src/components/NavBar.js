@@ -6,6 +6,7 @@ import hamburger from '../images/hamburger.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
 import { RichText } from 'prismic-reactjs';
 import { H2, H3, P, Button, Img, MediaQueries } from '../style';
+import logo from '../images/mh_large.png';
 
 const Nav = styled.div`
   display: flex;
@@ -22,6 +23,11 @@ const NavItem = styled.div`
   display: block;
   margin: 10px;
   font-family: 'Open Sans';
+`;
+
+const Logo = Img.extend`
+  height: 100%;
+  width: 70px;
 `;
 
 const NavButton = styled.div`
@@ -82,6 +88,7 @@ class NavBar extends Component {
     return (
       <Nav>
         <NavLeft>
+          <Logo src={logo} />
           <NavItem>
             <H3>
               <Link to="/">Mass Hike</Link>

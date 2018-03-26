@@ -9,19 +9,45 @@ import {
   Input,
   Container,
   GridParent,
-  NavMargin,
+  MediaQueries,
 } from '../style';
 import QuestionAnswer from '../components/faq/QuestionAnswer';
 import styled from 'styled-components';
 
 const Main = styled.div`
   grid-column: span 8;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+    order: 1;
+  }
+`;
+
+const FixedWrap = styled.div`
+  grid-column: span 4;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
 `;
 
 const SideBar = styled.div`
-  position: fixed;
+  display: grid;
   border-left: solid;
-  grid-column: span 4;
+  position: absolute;
+
+  ${MediaQueries.small} {
+    position: static;
+    border-left: none;
+    border-bottom: solid;
+    order: 0;
+  }
+`;
+
+const Search = styled.div`
+  ${MediaQueries.small} {
+    display: none;
+  }
 `;
 
 class FAQ extends Component {
@@ -72,17 +98,19 @@ class FAQ extends Component {
         <GridParent>
           <Main>
             <H1>{RichText.asText(this.props.doc.data.title)}</H1>
-            <label>
-              <H6>Search</H6>
-              <Input type="text" />
-            </label>
+            <Search>
+              <label>
+                <H6>Search</H6>
+                <Input type="text" />
+              </label>
+            </Search>
             {this.displayFAQs(this.props.doc.data.body)}
           </Main>
-          <div>
+          <FixedWrap>
             <SideBar>
               {this.displaySideBarLinks(this.props.doc.data.body)}
             </SideBar>
-          </div>
+          </FixedWrap>
         </GridParent>
       </Container>
     );

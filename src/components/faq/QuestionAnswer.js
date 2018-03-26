@@ -24,7 +24,6 @@ const Title = styled.div`
   grid-column: span 12;
 `;
 function QuestionAnswer(props) {
-  console.log(props);
   return (
     <div>
       <H4>{RichText.asText(props.question)}</H4>

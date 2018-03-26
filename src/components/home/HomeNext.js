@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H4, P, Button, Img, GridParent } from '../../style';
+import { H2, H4, P, Button, Img, GridParent, MediaQueries } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Column = styled.div`
@@ -9,9 +9,21 @@ const Column = styled.div`
 
 const Text = styled.div`
   grid-column: span 8;
-  background-color: #f05a28;
+  background: repeating-linear-gradient(
+    135deg,
+    #f05a28,
+    #f05a28 10px,
+    #da5323 2px,
+    #da5323 12px
+  );
   color: #fff;
-  padding: 100px 20px;
+  padding: 100px 0;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+    order: 1;
+    text-align: center;
+  }
 `;
 
 const Date = styled.div`
@@ -25,6 +37,11 @@ const Date = styled.div`
 
 const Image = Img.extend`
   grid-column span 4;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+    order: 0;
+  }
 `;
 
 const Next = GridParent.extend`
