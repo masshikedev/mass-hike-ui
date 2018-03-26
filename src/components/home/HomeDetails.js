@@ -33,7 +33,7 @@ const Details = GridParent.extend`
 
 const Step = styled.div`
   grid-column-start: 7;
-  grid-column-end: 12;
+  grid-column-end: 13;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 

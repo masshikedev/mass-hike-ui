@@ -8,6 +8,7 @@ import hero from '../../images/home-hero2.png';
 const HomeSection = GridParent.extend`
   height: 564px;
   background-image: url(${hero});
+  background-repeat: no-repeat;
 `;
 
 const Column = styled.div`

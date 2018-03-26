@@ -14,6 +14,15 @@ const Text = styled.div`
   padding: 100px 20px;
 `;
 
+const Date = styled.div`
+  font-family: 'Open Sans';
+  font-weight: bold;
+  color: #f05a28;
+  background-color: #fff;
+  margin-bottom: 20px;
+  width: 150px;
+`;
+
 const Image = Img.extend`
   grid-column span 4;
 `;
@@ -23,11 +32,11 @@ const Next = GridParent.extend`
 `;
 
 function HomeNext(props) {
-  console.log(props);
   //This should all be replaced with information from the actual trips api
   return (
     <Next>
       <Text>
+        <Date>{props.doc.data.next_trip_date}</Date>
         <H4>Let's go to </H4>
         <H2>{props.doc.data.next_trip[0].text}</H2>
         <P>{props.doc.data.next_trip[1].text}</P>
