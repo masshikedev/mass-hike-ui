@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import BaseCheckoutSection from '../BaseCheckoutSection';
+import { setCurrentSection } from '../../../actions/CheckoutActions';
 import { H3, H6, Input, Button } from '../../../style';
 
-class CardPayment extends Component {
+class CardPayment extends BaseCheckoutSection {
   constructor(props) {
     super(props);
     const { cardNumber, expiration, cvv, billingZip } = props;
@@ -15,7 +18,6 @@ class CardPayment extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton } = this.props;
     return (
       <div>
         <H3>Enter your credit card information</H3>
@@ -52,9 +54,7 @@ class CardPayment extends Component {
           />
         </label>
 
-        {showNextButton(this.state) && (
-          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
-        )}
+        {true && <Button onClick={this.onCompleteSection}>Next</Button>}
       </div>
     );
   }
@@ -66,4 +66,12 @@ const mapStateToProps = state => ({
   billingZip: state.checkout.billingZip,
 });
 
-export default connect(mapStateToProps)(CardPayment);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentSection,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardPayment);

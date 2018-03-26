@@ -29,6 +29,7 @@ class TeamList extends Component {
           />
         );
       }
+      return null;
     });
     return teamComponents;
   }

@@ -1,30 +1,25 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import CheckoutForm from '../components/checkout/CheckoutForm';
-import BottomNav from '../components/checkout/BottomNav';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { getTripById } from '../actions/CurrentTripActions';
 import renderByStatus from '../utils/renderByStatus';
-import ContactSection from '../components/checkout/ContactSection';
-import HikeInfoSection from '../components/checkout/HikeInfoSection';
-import PaymentSection from '../components/checkout/PaymentSection';
-import PaymentTypeSection from '../components/checkout/PaymentTypeSection';
 import CheckoutConfirmation from '../components/checkout/CheckoutConfirmation';
 import MobileCheckoutForm from '../components/checkout/MobileCheckoutForm';
-import styled from 'styled-components';
-import { H3, Container, GridParent, MediaQueries } from '../style';
-
-const FORM_SEQUENCE = [
-  { name: 'Contact', component: ContactSection },
-  { name: 'Hike Info', component: HikeInfoSection },
-  { name: 'Payment', component: PaymentTypeSection },
-  { name: 'Payment', component: PaymentSection },
-];
+import { H3, Container, GridParent } from '../style';
+import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 
 class MobileCheckout extends Component {
   componentWillMount() {
-    const { getTripById } = this.props;
-    getTripById(this.props.match.params.tripId);
+    const { getTripById, match } = this.props;
+    getTripById(match.params.tripId);
+  }
+
+  componentWillReceiveProps() {
+    const { trip, checkoutTripId, resetCheckout, match } = this.props;
+    if (trip !== null && trip.tripId !== checkoutTripId) {
+      resetCheckout(match.params.tripId);
+    }
   }
 
   renderLoading() {
@@ -44,39 +39,25 @@ class MobileCheckout extends Component {
   }
 
   renderSuccess = () => {
-    const { currentSection } = this.props;
-    const num_sections = FORM_SEQUENCE.length;
-    return currentSection < num_sections
-      ? this.renderSections()
-      : this.renderSummary();
+    const { checkoutInitialized, match } = this.props;
+    return (
+      <Switch>
+        <Route exact path={match.url} component={MobileCheckoutForm} />
+        {!checkoutInitialized && <Redirect to={`${match.url}`} />}
+        <Route
+          exact
+          path={`${match.url}/confirmation`}
+          render={() => (
+            <Container>
+              <GridParent>
+                <CheckoutConfirmation mobile />
+              </GridParent>
+            </Container>
+          )}
+        />
+      </Switch>
+    );
   };
-
-  renderSections() {
-    return (
-      <div>
-        <Container>
-          <GridParent>
-            <MobileCheckoutForm
-              components={FORM_SEQUENCE.map(s => s.component)}
-            />
-          </GridParent>
-        </Container>
-        <BottomNav names={FORM_SEQUENCE.map(s => s.name)} />
-      </div>
-    );
-  }
-
-  renderSummary() {
-    return (
-      <Container>
-        <GridParent>
-          <form>
-            <CheckoutConfirmation />
-          </form>
-        </GridParent>
-      </Container>
-    );
-  }
 
   render() {
     const { status } = this.props;
@@ -97,12 +78,17 @@ const mapStateToProps = state => ({
   currentSection: state.checkout.currentSection,
   trip: state.currentTrip.trip,
   status: state.currentTrip.status,
+  checkoutInitialized: state.checkout.initialized,
+  checkoutTripId: state.checkout.tripId,
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getTripById,
+      resetCheckout,
+      setCurrentSection: section =>
+        setCheckoutState({ currentSection: section }),
     },
     dispatch
   );

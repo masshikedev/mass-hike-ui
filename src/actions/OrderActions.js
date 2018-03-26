@@ -38,6 +38,10 @@ const confirmOrderSuccess = dispatch => {
     });
     const id = response.data._id;
     dispatch(push(`/order/${id}`));
+    dispatch({
+      type: ActionTypes.RESET_CHECKOUT,
+      payload: { nextTripId: null },
+    });
   };
 };
 

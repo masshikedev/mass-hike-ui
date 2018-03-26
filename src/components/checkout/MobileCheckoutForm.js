@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import {
   nextCheckoutSection,
   setCheckoutState,
 } from '../../actions/CheckoutActions';
+import BaseSectionOrder from '../../data/CheckoutSectionOrder';
+import BottomNav from './BottomNav';
 import styled from 'styled-components';
-import { MediaQueries } from '../../style';
-import CheckoutFormValidator from '../../utils/CheckoutFormValidator';
+import { Container, GridParent } from '../../style';
+
+const SectionOrder = BaseSectionOrder.slice(0, 4);
 
 const Wrapper = styled.div`
   grid-column: span 12;
@@ -26,51 +30,96 @@ const SectionWrapper = styled.div`
 `;
 
 class MobileCheckoutForm extends Component {
-  isSectionComplete(fields) {
-    for (const key in fields) {
-      if (!CheckoutFormValidator[key](fields[key])) {
-        return false;
-      }
-    }
-    return true;
+  componentWillMount() {
+    // Setup isScrolling variable
+    let isScrolling;
+
+    const scrollListener = event => {
+      // Clear our timeout throughout the scroll
+      window.clearTimeout(isScrolling);
+
+      // Set a timeout to run after scrolling ends
+      isScrolling = setTimeout(() => this.handleScroll(), 66);
+    };
+
+    // Listen for scroll events
+    this.setState({ scrollListener });
+    window.addEventListener('scroll', scrollListener);
   }
 
-  completeSection(fields) {
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.state.scrollListener);
+  }
+
+  componentDidMount() {
+    this.scrollToCurrentSection();
+  }
+
+  handleScroll() {
+    const { highestCompletedSection, setCurrentSection } = this.props;
+    const scroll = window.scrollY;
+    const scrollBottom = scroll + window.innerHeight;
+    const scrollCenter = (scroll + scrollBottom) / 2;
+
+    let y = 0;
+    for (
+      let i = 0;
+      i <= highestCompletedSection && i < SectionOrder.length;
+      i++
+    ) {
+      let newY = y + document.getElementById(`section ${i}`).clientHeight;
+      if (y < scrollCenter && scrollCenter < newY) {
+        setCurrentSection(i);
+      }
+      y = newY;
+    }
+  }
+
+  completeSection = (fields, options) => {
     const {
       nextCheckoutSection,
       setCheckoutState,
-      currentSection,
+      match,
+      toConfirmation,
     } = this.props;
     setCheckoutState(fields);
-    nextCheckoutSection();
-  }
+    if (options.index === SectionOrder.length - 1) {
+      toConfirmation(match.url);
+    } else {
+      nextCheckoutSection();
+    }
+  };
 
   componentDidUpdate() {
+    this.scrollToCurrentSection();
+  }
+
+  scrollToCurrentSection() {
     const { currentSection } = this.props;
-    console.log(currentSection);
     const newSection = document.getElementById(`section ${currentSection}`);
-    newSection.scrollIntoView({
-      block: 'center',
-      inline: 'center',
-      behavior: 'smooth',
-    });
+    if (newSection)
+      newSection.scrollIntoView({
+        block: 'center',
+        inline: 'center',
+        behavior: 'smooth',
+      });
   }
 
   renderSections() {
-    const { highestCompletedSection, components } = this.props;
+    const { highestCompletedSection } = this.props;
     let sections = [];
-    for (let i = 0; i < highestCompletedSection + 1; i++) {
-      const FormSection = components[i];
+    for (
+      let i = 0;
+      i < highestCompletedSection + 1 && i < SectionOrder.length;
+      i++
+    ) {
+      const FormSection = SectionOrder[i].component;
       sections.push(
         <SectionWrapper key={i} id={`section ${i}`}>
           <FormSection
-            showNextButton={() =>
-              this.isSectionComplete() && i === highestCompletedSection
-            }
-            onClickNextButton={(fields, e) => {
-              this.completeSection(fields);
-              e.preventDefault();
-            }}
+            index={i}
+            completeSection={this.completeSection}
+            mobile
           />
         </SectionWrapper>
       );
@@ -79,13 +128,18 @@ class MobileCheckoutForm extends Component {
   }
 
   render() {
-    const { currentSection, components } = this.props;
-    const FormSection = components[currentSection];
     return (
-      <Wrapper>
-        <form>{this.renderSections()}</form>
-        <BottomSpacer />
-      </Wrapper>
+      <div>
+        <Container>
+          <GridParent>
+            <Wrapper>
+              <form>{this.renderSections()}</form>
+              <BottomSpacer />
+            </Wrapper>
+          </GridParent>
+        </Container>
+        <BottomNav names={SectionOrder.map(s => s.name)} />
+      </div>
     );
   }
 }
@@ -100,6 +154,9 @@ const mapDispatchToProps = dispatch =>
     {
       nextCheckoutSection,
       setCheckoutState,
+      setCurrentSection: section =>
+        setCheckoutState({ currentSection: section }),
+      toConfirmation: basePath => push(`${basePath}/confirmation`),
     },
     dispatch
   );
