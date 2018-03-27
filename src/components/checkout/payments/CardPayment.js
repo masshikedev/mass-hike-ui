@@ -22,8 +22,17 @@ class CardPayment extends Component {
 
   handleChange = change => {
     console.log(change);
+
     // find el with id
+    let id = 'error-' + change.elementType;
+    let errorElement = document.getElementById(id);
+
     // update children to show error
+    if (change.error) {
+      errorElement.textContent = change.error.message;
+    } else {
+      errorElement.textContent = '';
+    }
   };
 
   render() {
@@ -39,14 +48,17 @@ class CardPayment extends Component {
         <label>
           <H6>Expiration</H6>
           <CardExpiryElement onChange={this.handleChange} />
+          <P error id="error-cardExpiry" />
         </label>
         <label>
           <H6>Security Code</H6>
           <CardCVCElement onChange={this.handleChange} />
+          <P error id="error-cardCvc" />
         </label>
         <label>
           <H6>Billing Zip</H6>
           <PostalCodeElement onChange={this.handleChange} />
+          <P error id="error-postalCode" />
         </label>
 
         {showNextButton(this.state) && (
