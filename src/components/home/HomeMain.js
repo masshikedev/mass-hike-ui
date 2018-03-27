@@ -11,7 +11,7 @@ import cloud3 from '../../images/cloud cut2.png';
 
 const HomeSection = GridParent.extend`
   position: relative;
-  height: 780px;
+  height: 600px;
   background: url(${hero}),
     repeating-linear-gradient(
       135deg,
@@ -21,9 +21,12 @@ const HomeSection = GridParent.extend`
       #f2f4f0 12px
     );
   background-size: cover;
+  background-position: center;
+  overflow: hidden;
 
   ${MediaQueries.small} {
     display: auto;
+    background-position: right;
   }
 `;
 
@@ -39,10 +42,11 @@ const Bus = Img.extend`
   width: 150px;
   position: absolute;
   left: 33%;
-  top: 91%;
+  top: 88%;
 `;
 
 const Cloud = Img.extend`
+  overflow: hidden;
   ${MediaQueries.small} {
     display: none;
   }
@@ -52,35 +56,35 @@ const Cloud1 = Cloud.extend`
   width: 170px;
   position: absolute;
   left: 16%;
-  top: 33%;
+  top: 30%;
 `;
 
 const Cloud2 = Cloud.extend`
   width: 327px;
   position: absolute;
   left: 7%;
-  top: 40%;
+  top: 37%;
 `;
 
 const Cloud3 = Cloud.extend`
   width: 327px;
   position: absolute;
   right: 8%;
-  top: 5%;
+  top: 2%;
 `;
 
 const Cloud4 = Cloud.extend`
   width: 478px;
   position: absolute;
   right: -11%;
-  top: 10%;
+  top: 7%;
 `;
 
 const Cloud5 = Cloud.extend`
   width: 515px;
   position: absolute;
   left: -7%;
-  top: -12%;
+  top: -15%;
 `;
 
 const Column = styled.div`
