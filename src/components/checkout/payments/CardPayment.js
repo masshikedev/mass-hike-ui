@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { H3, H6, Input, Button } from '../../../style';
+import { P, H3, H6, Input, Button } from '../../../style';
+import {
+  CardNumberElement,
+  CardExpiryElement,
+  CardCVCElement,
+  PostalCodeElement,
+} from 'react-stripe-elements';
 
 class CardPayment extends Component {
   constructor(props) {
@@ -14,6 +20,12 @@ class CardPayment extends Component {
     };
   }
 
+  handleChange = change => {
+    console.log(change);
+    // find el with id
+    // update children to show error
+  };
+
   render() {
     const { showNextButton, onClickNextButton } = this.props;
     return (
@@ -21,35 +33,20 @@ class CardPayment extends Component {
         <H3>Enter your credit card information</H3>
         <label>
           <H6>Card Number</H6>
-          <Input
-            type="text"
-            value={this.state.cardNumber}
-            onChange={e => this.setState({ cardNumber: e.target.value })}
-          />
+          <CardNumberElement onChange={this.handleChange} />
+          <P error id="error-cardNumber" />
         </label>
         <label>
           <H6>Expiration</H6>
-          <Input
-            type="text"
-            value={this.state.expiration}
-            onChange={e => this.setState({ expiration: e.target.value })}
-          />
+          <CardExpiryElement onChange={this.handleChange} />
         </label>
         <label>
           <H6>Security Code</H6>
-          <Input
-            type="text"
-            value={this.state.cvv}
-            onChange={e => this.setState({ cvv: e.target.value })}
-          />
+          <CardCVCElement onChange={this.handleChange} />
         </label>
         <label>
           <H6>Billing Zip</H6>
-          <Input
-            type="text"
-            value={this.state.billingZip}
-            onChange={e => this.setState({ billingZip: e.target.value })}
-          />
+          <PostalCodeElement onChange={this.handleChange} />
         </label>
 
         {showNextButton(this.state) && (
