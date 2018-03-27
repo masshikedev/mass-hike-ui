@@ -20,17 +20,16 @@ const HomeSection = GridParent.extend`
       #f2f4f0 2px,
       #f2f4f0 12px
     );
-  background-size: 100% 100%;
+  background-size: cover;
 
   ${MediaQueries.small} {
     display: auto;
   }
-
-  @media (max-width: 767px) {
-  }
 `;
 
-const Drawing = styled.div``;
+const Drawing = styled.div`
+  overflow: hidden;
+`;
 
 const Images = styled.div`
   grid-column: span 12;
@@ -43,39 +42,45 @@ const Bus = Img.extend`
   top: 91%;
 `;
 
-const Cloud1 = Img.extend`
+const Cloud = Img.extend`
+  ${MediaQueries.small} {
+    display: none;
+  }
+`;
+
+const Cloud1 = Cloud.extend`
   width: 170px;
   position: absolute;
   left: 16%;
   top: 33%;
 `;
 
-const Cloud2 = Img.extend`
+const Cloud2 = Cloud.extend`
   width: 327px;
   position: absolute;
   left: 7%;
   top: 40%;
 `;
 
-const Cloud3 = Img.extend`
+const Cloud3 = Cloud.extend`
   width: 327px;
   position: absolute;
-  right: 0%;
+  right: 8%;
+  top: 5%;
+`;
+
+const Cloud4 = Cloud.extend`
+  width: 478px;
+  position: absolute;
+  right: -11%;
   top: 10%;
 `;
 
-const Cloud4 = Img.extend`
-  width: 327px;
+const Cloud5 = Cloud.extend`
+  width: 515px;
   position: absolute;
-  left: 73%;
-  top: 0%;
-`;
-
-const Cloud5 = Img.extend`
-  width: 378px;
-  position: absolute;
-  left: 0%;
-  top: 0%;
+  left: -7%;
+  top: -12%;
 `;
 
 const Column = styled.div`
@@ -110,13 +115,13 @@ function HomeMain(props) {
           <Cloud2 src={cloud1} />
         </Drawing>
         <Drawing>
-          <Cloud3 src={cloud2} />
+          <Cloud3 src={cloud1} />
         </Drawing>
         <Drawing>
           <Cloud4 src={cloud1} />
         </Drawing>
         <Drawing>
-          <Cloud5 src={cloud3} />
+          <Cloud5 src={cloud1} />
         </Drawing>
       </Images>
       <Column>

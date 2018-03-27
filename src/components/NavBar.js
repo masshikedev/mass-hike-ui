@@ -22,7 +22,6 @@ const Nav = styled.div`
 const NavItem = styled.div`
   display: block;
   margin: 10px;
-  font-family: 'Open Sans';
 `;
 
 const Logo = Img.extend`
@@ -89,7 +88,9 @@ class NavBar extends Component {
     return (
       <Nav>
         <NavLeft>
-          <Logo src={logo} />
+          <Link to="/">
+            <Logo src={logo} />
+          </Link>
           <NavItem>
             <H3>
               <Link to="/">Mass Hike</Link>

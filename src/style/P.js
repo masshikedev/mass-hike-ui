@@ -6,7 +6,7 @@ const P = styled.p`
 
   text-transform: ${({ capitalize }) => (capitalize ? 'capitalize' : 'none')};
 
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Serif', sans-serif;
   margin-bottom: 10px;
   line-height: 1.44;
   color: ${({ error }) => (error ? 'red' : 'inherit')};

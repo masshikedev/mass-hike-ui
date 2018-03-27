@@ -92,15 +92,6 @@ video {
   vertical-align: baseline;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-body {
-  background-color: #f9f9f9;
-}
-
 /* HTML5 display-role reset for older browsers */
 article,
 aside,

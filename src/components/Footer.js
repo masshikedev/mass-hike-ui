@@ -20,13 +20,13 @@ import {
 const Foot = Container.extend`
   color: white;
   background-color: #558959;
-  padding: 40px;
 `;
 
 const Contact = styled.div`
   grid-column: span 4;
   ${MediaQueries.small} {
     grid-column: span 12;
+    align-items: center;
   }
 `;
 
@@ -44,10 +44,12 @@ const SButton = Button.extend`
 
 const Links = styled.div`
   display: grid;
+  grid-gap: 20px;
   grid-column: span 4;
   grid-template-columns: 1fr 1fr 1fr;
 
   ${MediaQueries.small} {
+    grid-template-columns: 1fr 1fr;
     grid-column: span 12;
   }
 `;
@@ -59,7 +61,12 @@ const Logo = H2.extend`
 
   ${MediaQueries.small} {
     grid-column: span 12;
+    text-align: center;
   }
+`;
+
+const FootGrid = GridParent.extend`
+  padding: 40px;
 `;
 
 class Footer extends Component {
@@ -68,7 +75,7 @@ class Footer extends Component {
   render() {
     return (
       <Foot>
-        <GridParent>
+        <FootGrid>
           <Logo>Mass Hike</Logo>
           <Links>{renderLinkSlices(this.props.doc.data.body)}</Links>
           <Contact>
@@ -84,7 +91,7 @@ class Footer extends Component {
               {RichText.asText(this.props.doc.data.submit_button)}
             </SButton>
           </Contact>
-        </GridParent>
+        </FootGrid>
       </Foot>
     );
   }
