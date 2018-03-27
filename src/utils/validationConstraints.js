@@ -85,4 +85,17 @@ const paymentTypeConstraints = (trip, priceData) => {
   };
 };
 
-export { contactConstraints, hikeConstraints, paymentTypeConstraints };
+const constraints = (trip, priceData) => {
+  return {
+    ...contactConstraints(),
+    ...hikeConstraints(trip),
+    ...paymentTypeConstraints(trip, priceData),
+  };
+};
+
+export {
+  contactConstraints,
+  hikeConstraints,
+  paymentTypeConstraints,
+  constraints,
+};

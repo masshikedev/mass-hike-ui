@@ -6,6 +6,8 @@ import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
 import { H3 } from '../../style';
 import { RequestStatus } from '../../constants';
+import { validate } from 'validate.js';
+import { constraints } from '../../utils/validationConstraints';
 
 class CheckoutConfirmation extends Component {
   handleConfirmOrder = e => {
@@ -16,9 +18,17 @@ class CheckoutConfirmation extends Component {
     }
   };
 
+  renderError() {
+    return <H3>An error has occured.</H3>;
+  }
+
   render() {
     const { order, trip, status } = this.props;
-    return (
+    const errors = validate(this.state, constraints);
+
+    return errors ? (
+      this.renderError()
+    ) : (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
         <OrderSummary order={order} trip={trip} showEditButtons />
@@ -39,6 +49,7 @@ const mapStateToProps = state => {
       paymentType: checkout.paymentType,
       tickets: checkout.tickets,
       pickupLocation: checkout.pickupLocation,
+      zipCode: checkout.zipCode,
       cardNumber: checkout.cardNumber,
       selectedPrice: checkout.selectedPrice,
       meetingLocation:
