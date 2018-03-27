@@ -11,6 +11,7 @@ import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import renderByStatus from '../utils/renderByStatus';
 import styled from 'styled-components';
 import { H3, Container, GridParent, MediaQueries } from '../style';
+import { StripeProvider, Elements } from 'react-stripe-elements';
 
 const Divider = styled.div`
   grid-column: span 1;
@@ -109,6 +110,7 @@ class Checkout extends Component {
     return (
       <div>
         <GridParent>
+<<<<<<< HEAD
           <FormWrapper>
             <form>
               <Switch>
@@ -120,6 +122,11 @@ class Checkout extends Component {
               </Switch>
             </form>
           </FormWrapper>
+=======
+          <Elements>
+            <CheckoutForm />
+          </Elements>
+>>>>>>> setting up stripe
           {currentSection !== 4 && <Divider />}
           {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
         </GridParent>
@@ -131,14 +138,16 @@ class Checkout extends Component {
   render() {
     const { status } = this.props;
     return (
-      <Container>
-        {renderByStatus(
-          status,
-          this.renderLoading,
-          this.renderSuccess,
-          this.renderError
-        )}
-      </Container>
+      <StripeProvider apiKey="pk_test_gdoocVed0AjapcCEvNtTQqt5">
+        <Container>
+          {renderByStatus(
+            status,
+            this.renderLoading,
+            this.renderSuccess,
+            this.renderError
+          )}
+        </Container>
+      </StripeProvider>
     );
   }
 }
