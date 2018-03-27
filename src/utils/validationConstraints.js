@@ -56,6 +56,17 @@ const hikeConstraints = trip => {
         message: '^Please enter your address',
       },
     },
+    zipCode: {
+      presence: {
+        allowEmpty: false,
+        message:
+          '^Sorry, we could not determine a zip code for this place. Try selecting a specific street address.',
+      },
+      inclusion: {
+        within: zips,
+        message: '^Sorry, this trip will not be serving the zipcode %{value}.',
+      },
+    },
   };
 };
 const paymentTypeConstraints = (trip, priceData) => {
