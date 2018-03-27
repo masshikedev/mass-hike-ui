@@ -49,7 +49,8 @@ const NavButton = styled.div`
 const NavLeft = styled.div`
   display: flex;
   flex: 6;
-  font-family: 'proxima-nova';
+  font-family: 'proxima-soft';
+  font-weight: 700;
 `;
 
 const NavRight = styled.div`
