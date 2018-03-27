@@ -20,7 +20,7 @@ const Column = styled.div`
     #497c49 12px
   );
   color: #fff;
-  padding: 40px 80px 40px 40px;
+  padding: 80px 40px;
 
   ${MediaQueries.small} {
     grid-column: span 12;

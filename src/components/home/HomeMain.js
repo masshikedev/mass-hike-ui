@@ -10,7 +10,8 @@ import cloud2 from '../../images/cloud cut1.png';
 import cloud3 from '../../images/cloud cut2.png';
 
 const HomeSection = GridParent.extend`
-  height: 564px;
+  position: relative;
+  height: 780px;
   background: url(${hero}),
     repeating-linear-gradient(
       135deg,
@@ -19,38 +20,62 @@ const HomeSection = GridParent.extend`
       #f2f4f0 2px,
       #f2f4f0 12px
     );
-`;
-
-const Drawing = Img.extend`
-  position: absolute;
+  background-size: 100% 100%;
 
   ${MediaQueries.small} {
-    display: none;
+    display: auto;
+  }
+
+  @media (max-width: 767px) {
   }
 `;
 
-const Bus = Drawing.extend`
+const Drawing = styled.div``;
+
+const Images = styled.div`
+  grid-column: span 12;
+`;
+
+const Bus = Img.extend`
   width: 150px;
-  bottom: 347px;
-  left: 700px;
+  position: absolute;
+  left: 33%;
+  top: 91%;
 `;
 
-const Cloud1 = Drawing.extend`
-  width: 324px;
-  top: 100px;
-  right: 324px;
+const Cloud1 = Img.extend`
+  width: 170px;
+  position: absolute;
+  left: 16%;
+  top: 33%;
 `;
 
-const Cloud2 = Drawing.extend`
-  width: 324px;
-  bottom: 550px;
-  left: 340px;
+const Cloud2 = Img.extend`
+  width: 327px;
+  position: absolute;
+  left: 7%;
+  top: 40%;
 `;
 
-const Cloud3 = Drawing.extend`
-  width: 250px;
-  top: 200px;
-  right: 500px;
+const Cloud3 = Img.extend`
+  width: 327px;
+  position: absolute;
+  right: 0%;
+  top: 10%;
+`;
+
+const Cloud4 = Img.extend`
+  width: 327px;
+  position: absolute;
+  left: 73%;
+  top: 0%;
+`;
+
+const Cloud5 = Img.extend`
+  width: 378px;
+  position: absolute;
+  left: 0%;
+  top: 0%;
 `;
 
 const Column = styled.div`
@@ -59,6 +84,7 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 2;
 `;
 
 const Title = H1.extend`
@@ -73,10 +99,26 @@ const BookNow = Button.extend`
 function HomeMain(props) {
   return (
     <HomeSection>
-      <Bus src={bus} />
-      <Cloud1 src={cloud1} />
-      <Cloud2 src={cloud1} />
-      <Cloud3 src={cloud1} />
+      <Images>
+        <Drawing>
+          <Bus src={bus} />
+        </Drawing>
+        <Drawing>
+          <Cloud1 src={cloud1} />
+        </Drawing>
+        <Drawing>
+          <Cloud2 src={cloud1} />
+        </Drawing>
+        <Drawing>
+          <Cloud3 src={cloud2} />
+        </Drawing>
+        <Drawing>
+          <Cloud4 src={cloud1} />
+        </Drawing>
+        <Drawing>
+          <Cloud5 src={cloud3} />
+        </Drawing>
+      </Images>
       <Column>
         <Title>{RichText.asText(props.doc.data.top_title)}</Title>
         <BookNow>

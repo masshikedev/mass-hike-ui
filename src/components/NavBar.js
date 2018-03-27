@@ -34,7 +34,7 @@ const NavButton = styled.div`
   color: #fff;
   background-color: #faaf3f;
   text-transform: lowercase;
-  font-family: 'Open Sans';
+  font-family: 'proxima-nova';
   font-weight: normal;
   text-align: center;
   border-radius: 20px;
@@ -45,12 +45,13 @@ const NavButton = styled.div`
 const NavLeft = styled.div`
   display: flex;
   flex: 6;
+  font-family: 'proxima-nova';
 `;
 
 const NavRight = styled.div`
   display: flex;
   flex-direction: row;
-  font-family: 'Open Sans';
+  font-family: 'proxima-nova';
   font-size: 16px;
   font-weight: bold;
 

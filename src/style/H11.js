@@ -1,14 +1,10 @@
 import styled from 'styled-components';
 import MediaQueries from './MediaQueries';
 
-const H7 = styled.p`
+const H11 = styled.p`
   font-family: 'proxima-nova';
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 400;
-
-  ${MediaQueries.small} {
-    font-size: 20px;
-  }
 `;
 
-export default H7;
+export default H11;

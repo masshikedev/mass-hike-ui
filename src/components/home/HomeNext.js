@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H4, P, Button, Img, GridParent, MediaQueries } from '../../style';
+import { H2, H5, P, Button, Img, GridParent, MediaQueries } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Column = styled.div`
@@ -17,7 +17,7 @@ const Text = styled.div`
     #da5323 12px
   );
   color: #fff;
-  padding: 100px 0;
+  padding: 40px;
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -26,8 +26,15 @@ const Text = styled.div`
   }
 `;
 
+const Summary = styled.div`
+  margin-top: 50px;
+  padding: 50px;
+`;
+
 const Date = styled.div`
   font-family: 'Open Sans';
+  position: absolute;
+  left: 0;
   font-weight: bold;
   color: #f05a28;
   background-color: #fff;
@@ -54,9 +61,11 @@ function HomeNext(props) {
     <Next>
       <Text>
         <Date>{props.doc.data.next_trip_date}</Date>
-        <H4>Let's go to </H4>
-        <H2>{props.doc.data.next_trip[0].text}</H2>
-        <P>{props.doc.data.next_trip[1].text}</P>
+        <Summary>
+          <H5>Let's go to </H5>
+          <H2>{props.doc.data.next_trip[0].text}</H2>
+          <P>{props.doc.data.next_trip[1].text}</P>
+        </Summary>
       </Text>
       <Image src={props.doc.data.next_trip_image.url} />
     </Next>

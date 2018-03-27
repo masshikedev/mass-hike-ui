@@ -7,7 +7,7 @@ const H2 = styled.h2`
   margin-bottom: 15px;
 
   ${MediaQueries.small} {
-    font-size: 36px;
+    font-size: 30px;
   }
 `;
 

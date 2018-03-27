@@ -20,6 +20,7 @@ import {
 const Foot = Container.extend`
   color: white;
   background-color: #558959;
+  padding: 40px;
 `;
 
 const Contact = styled.div`
