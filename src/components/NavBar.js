@@ -25,8 +25,8 @@ const NavItem = styled.div`
 `;
 
 const Logo = Img.extend`
-  height: 100%;
-  width: 70px;
+  height: 60px;
+  width: 60px;
 
   ${MediaQueries.small} {
     width: 43px;

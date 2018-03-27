@@ -51,15 +51,7 @@ const Title = styled.div`
   margin-top: 20px;
   grid-column: span 12;
   text-align: center;
-  display: flex;
   align-items: center;
-`;
-
-const Line = styled.span`
-  border-top: 1px solid #333;
-  display: inline-block;
-  height: 1px;
-  flex: 1;
 `;
 
 const Divider = styled.span`
@@ -75,9 +67,7 @@ function HomeDetails(props) {
   return (
     <Details>
       <Title>
-        <Line />
         <H2>{RichText.asText(props.doc.data.detail_main_title)}</H2>
-        <Line />
       </Title>
       <DetailImage>
         <Img src={props.doc.data.detail1[0].url} />
