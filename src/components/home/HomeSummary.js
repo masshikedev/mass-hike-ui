@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H8, H6, Img, MediaQueries, GridParent } from '../../style';
+import {
+  H2,
+  H8,
+  H6,
+  Img,
+  constants,
+  MediaQueries,
+  GridParent,
+} from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Top = styled.div`
@@ -25,13 +33,7 @@ const List = styled.ul`
 
 const Column = styled.div`
   grid-column: span 8;
-  background: repeating-linear-gradient(
-    135deg,
-    #558959,
-    #558959 10px,
-    #497c49 2px,
-    #497c49 12px
-  );
+  background: ${constants.greenBg};
   color: #fff;
   padding: 80px 40px;
   line-height: 1.5;
