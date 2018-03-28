@@ -13,13 +13,14 @@ import {
   H5,
   Button,
   Img,
+  constants,
   MediaQueries,
   GridParent,
 } from '../style';
 
 const Foot = Container.extend`
   color: white;
-  background-color: #558959;
+  background-color: ${constants.green};
   padding-top: 0;
 `;
 
@@ -29,18 +30,6 @@ const Contact = styled.div`
     grid-column: span 12;
     align-items: center;
   }
-`;
-
-const SButton = Button.extend`
-  color: #fff;
-  background-color: #faaf3f;
-  text-transform: lowercase;
-  font-family: 'Open Sans';
-  font-weight: normal;
-
-  border-radius: 80px;
-  padding: 0 20px;
-  width: auto;
 `;
 
 const Links = styled.ul`
@@ -102,9 +91,9 @@ class Footer extends Component {
                 onChange={e => this.setState({ Email: e.target.value })}
               />
             </label>
-            <SButton>
+            <Button primary>
               {RichText.asText(this.props.doc.data.submit_button)}
-            </SButton>
+            </Button>
           </Contact>
         </FootGrid>
       </Foot>

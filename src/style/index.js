@@ -22,6 +22,7 @@ import Button from './Button';
 import Container from './Container';
 import GridParent from './GridParent';
 import Img from './Img';
+import constants from './constants';
 import MediaQueries from './MediaQueries';
 
 export {
@@ -49,5 +50,6 @@ export {
   Container,
   GridParent,
   Img,
+  constants,
   MediaQueries,
 };

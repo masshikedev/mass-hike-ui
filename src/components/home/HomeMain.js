@@ -1,25 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { H1, Button, Img, GridParent, MediaQueries } from '../../style';
+import {
+  H1,
+  Button,
+  Img,
+  GridParent,
+  constants,
+  MediaQueries,
+} from '../../style';
 import { RichText } from 'prismic-reactjs';
 import hero from '../../images/home-hero2.png';
 import bus from '../../images/bus1.png';
 import cloud1 from '../../images/cloud.png';
-import cloud2 from '../../images/cloud cut1.png';
-import cloud3 from '../../images/cloud cut2.png';
 
 const HomeSection = styled.div`
   position: relative;
   height: 600px;
-  background: url(${hero}),
-    repeating-linear-gradient(
-      135deg,
-      #f8f8f8,
-      #f8f8f8 10px,
-      #f2f4f0 2px,
-      #f2f4f0 12px
-    );
+  background: url(${hero}), ${constants.grayBg};
   background-size: cover;
   background-position: center;
   overflow: hidden;

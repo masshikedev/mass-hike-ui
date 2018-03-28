@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H7, MediaQueries, Img, GridParent } from '../../style';
+import { H2, H7, constants, MediaQueries, Img, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const DetailItem = H7.extend`
@@ -17,7 +17,7 @@ const StepNumber = styled.div`
   align-items: center;
   font-weight: bold;
   padding-right: 10px;
-  color: #faaf3f;
+  color: ${constants.yellow};
 `;
 
 const DetailImage = styled.div`
@@ -56,7 +56,7 @@ const Title = H2.extend`
   grid-column-end: 12;
   text-align: center;
   line-height: 0;
-  border-bottom: solid 2px #e6e6e6;
+  border-bottom: solid 2px ${constants.darkgray};
   padding: 0;
 
   ${MediaQueries.small} {
@@ -67,7 +67,7 @@ const Title = H2.extend`
 `;
 
 const Line = styled.span`
-  background: #f9f9f9;
+  background: ${constants.gray};
   padding: 0 15px;
 `;
 
@@ -75,7 +75,7 @@ const Divider = styled.span`
   display: inline-block;
   grid-column-start: 2;
   grid-column-end: 12;
-  border: solid 2px #e6e6e6;
+  border: solid 2px ${constants.darkgray};
   display: block;
 `;
 

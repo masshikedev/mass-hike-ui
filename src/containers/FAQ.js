@@ -34,10 +34,16 @@ const FixedWrap = styled.div`
 const SideBar = styled.div`
   display: grid;
   border-left: solid;
-  position: absolute;
+  grid-column: span 4;
+  max-height: 300px;
+  position: sticky;
+  top: 100px;
 
   ${MediaQueries.small} {
+    grid-column: span 12;
     position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     border-left: none;
     border-bottom: solid;
     order: 0;
@@ -45,6 +51,7 @@ const SideBar = styled.div`
 `;
 
 const Search = styled.div`
+  grid-column: span 12;
   ${MediaQueries.small} {
     display: none;
   }
@@ -71,7 +78,7 @@ class FAQ extends Component {
     const elements = questionTypes.map(type => {
       return (
         <div>
-          <H2>{type}</H2>
+          <H2 id={type}>{type}</H2>
           {faqs.map(faq => {
             if (faq.primary.question_type[0].text === type) {
               return <QuestionAnswer {...faq.primary} />;
@@ -87,7 +94,8 @@ class FAQ extends Component {
     var questionTypes = this.getQuestionTypes(faqs);
 
     var sideBar = questionTypes.map(type => {
-      return <P>{type}</P>;
+      const link = '#' + type;
+      return <a href={link}>{type}</a>;
     });
     return sideBar;
   }
@@ -96,21 +104,17 @@ class FAQ extends Component {
     return (
       <Container>
         <GridParent>
-          <Main>
-            <H1>{RichText.asText(this.props.doc.data.title)}</H1>
-            <Search>
-              <label>
-                <H6>Search</H6>
-                <Input type="text" />
-              </label>
-            </Search>
-            {this.displayFAQs(this.props.doc.data.body)}
-          </Main>
-          <FixedWrap>
-            <SideBar>
-              {this.displaySideBarLinks(this.props.doc.data.body)}
-            </SideBar>
-          </FixedWrap>
+          <H1>{RichText.asText(this.props.doc.data.title)}</H1>
+          <Search>
+            <label>
+              <H6>Search</H6>
+              <Input type="text" />
+            </label>
+          </Search>
+          <Main>{this.displayFAQs(this.props.doc.data.body)}</Main>
+          <SideBar>
+            {this.displaySideBarLinks(this.props.doc.data.body)}
+          </SideBar>
         </GridParent>
       </Container>
     );

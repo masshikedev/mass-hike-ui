@@ -34,18 +34,6 @@ const Logo = Img.extend`
   }
 `;
 
-const NavButton = styled.div`
-  color: #fff;
-  background-color: #faaf3f;
-  text-transform: lowercase;
-  font-family: 'proxima-nova';
-  font-weight: normal;
-  text-align: center;
-  border-radius: 20px;
-  padding: 10px 20px;
-  margin: 0 10px;
-`;
-
 const NavLeft = styled.div`
   display: flex;
   flex: 6;
@@ -82,7 +70,11 @@ class NavBar extends Component {
   renderNavLinks(links) {
     const navLinks = links.map(link => {
       if (link.props.to === '/trips') {
-        return <NavButton>{link}</NavButton>;
+        return (
+          <Button primary small>
+            {link}
+          </Button>
+        );
       } else {
         return <NavItem>{link}</NavItem>;
       }

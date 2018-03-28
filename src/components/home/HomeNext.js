@@ -7,6 +7,7 @@ import {
   Button,
   Img,
   GridParent,
+  constants,
   MediaQueries,
 } from '../../style';
 import { RichText } from 'prismic-reactjs';
@@ -19,13 +20,7 @@ const Column = styled.div`
 
 const Text = styled.div`
   grid-column: span 7;
-  background: repeating-linear-gradient(
-    135deg,
-    #f05a28,
-    #f05a28 10px,
-    #da5323 2px,
-    #da5323 12px
-  );
+  background: ${constants.orangeBg};
   color: #fff;
   padding: 40px;
 
@@ -51,7 +46,7 @@ const Date = styled.div`
   position: absolute;
   left: 0;
   font-weight: bold;
-  color: #f05a28;
+  color: ${constants.orange};
   background-color: #fff;
   margin-bottom: 20px;
   padding: 8px;
