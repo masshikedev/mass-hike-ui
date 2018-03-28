@@ -73,7 +73,7 @@ class FAQ extends Component {
   }
 
   displayFAQs(faqs) {
-    var questionTypes = this.getQuestionTypes(faqs);
+    const questionTypes = this.getQuestionTypes(faqs);
 
     const elements = questionTypes.map(type => {
       return (
