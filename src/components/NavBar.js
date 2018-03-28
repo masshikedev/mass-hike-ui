@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
@@ -40,7 +41,6 @@ const Hamburger = styled.div`
   flex-direction: row-reverse;
   flex: 0.5;
   display: none;
-
   ${MediaQueries.small} {
     display: block;
   }
@@ -50,6 +50,7 @@ class NavBar extends Component {
   static pageType = 'header';
 
   render() {
+    const { loggedIn } = this.props;
     return (
       <Nav>
         <NavLeft>
@@ -60,6 +61,13 @@ class NavBar extends Component {
           </NavItem>
         </NavLeft>
         <NavRight>
+          {loggedIn && (
+            <NavItem>
+              <H3>
+                <Link to="/admin">Admin</Link>
+              </H3>
+            </NavItem>
+          )}
           {renderLinkSlices(this.props.doc.data.body, NavItem)}
         </NavRight>
         <Hamburger>
@@ -70,4 +78,9 @@ class NavBar extends Component {
   }
 }
 
-export default PrismicPage(NavBar);
+const mapStateToProps = state => ({
+  loggedIn: state.auth.isAuthenticated,
+});
+
+const connected = connect(mapStateToProps)(NavBar);
+export default PrismicPage(connected);

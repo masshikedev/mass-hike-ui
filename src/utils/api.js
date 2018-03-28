@@ -2,6 +2,9 @@ const BASE_URL = 'https://shielded-cove-82777.herokuapp.com';
 
 const formatResponse = response => {
   return response.json().then(data => {
+    if (response.status !== 200) {
+      throw data.error;
+    }
     return { data, status: response.status };
   });
 };
