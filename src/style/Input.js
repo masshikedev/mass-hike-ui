@@ -11,6 +11,11 @@ const Input = styled.input`
     background-color: #ffffff;
     border: solid 2px ${props => (props.invalid ? 'red' : 'black')};
   }
+  &[type='password'] {
+    width: 100%;
+    max-width: 500px;
+    border: 3px solid ${props => (props.invalid ? 'red' : 'black')};
+  }
 `;
 
 export default Input;

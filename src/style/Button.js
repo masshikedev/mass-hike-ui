@@ -12,6 +12,7 @@ const Button = styled.button`
   border: none;
   border-radius: 31.5px;
   font-family: 'proxima-nova';
+  background-color: ${({ disabled }) => (disabled ? '#999999' : constants.orange)};
   font-size: ${({ small }) => (small ? '18px' : '21px')};
   font-weight: normal;
   font-style: normal;

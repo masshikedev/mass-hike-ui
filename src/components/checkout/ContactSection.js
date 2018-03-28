@@ -1,12 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import BaseCheckoutSection from './BaseCheckoutSection';
+import {
+  setCurrentSection,
+  setCheckoutState,
+} from '../../actions/CheckoutActions';
 import { H2, H6, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { contactConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 import formatPhoneNumber from '../../utils/phoneFormatter';
+import styled from 'styled-components';
+import { MediaQueries } from '../../style';
 
-class ContactSection extends Component {
+const CheckBoxWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  ${MediaQueries.small} {
+    flex-direction: column;
+  }
+`;
+
+class ContactSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
     const { name, email, phone, preferredContactMethods } = props;
@@ -19,7 +36,6 @@ class ContactSection extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton } = this.props;
     const { name, email, phone, preferredContactMethods } = this.state;
     const messages = validate(this.state, contactConstraints()) || 'valid';
     return (
@@ -48,38 +64,41 @@ class ContactSection extends Component {
           placeholder="(000) 000 - 0000"
         />
         <H6>How should we contact you?</H6>
-        <label>
-          Email
-          <Input
-            type="checkbox"
-            checked={preferredContactMethods.includes('email')}
-            onChange={e =>
-              this.setState({
-                preferredContactMethods: e.target.checked
-                  ? preferredContactMethods.concat('email')
-                  : preferredContactMethods.filter(i => i !== 'email'),
-              })
-            }
-          />
-        </label>
-        <label>
-          Text Message
-          <Input
-            type="checkbox"
-            checked={preferredContactMethods.includes('phone')}
-            onChange={e =>
-              this.setState({
-                preferredContactMethods: e.target.checked
-                  ? preferredContactMethods.concat('phone')
-                  : preferredContactMethods.filter(i => i !== 'phone'),
-              })
-            }
-          />
-        </label>
+        <CheckBoxWrapper>
+          <label>
+            <Input
+              type="checkbox"
+              checked={preferredContactMethods.includes('email')}
+              onChange={e =>
+                this.setState({
+                  preferredContactMethods: e.target.checked
+                    ? preferredContactMethods.concat('email')
+                    : preferredContactMethods.filter(i => i !== 'email'),
+                })
+              }
+            />
+            Email
+          </label>
+          <label>
+            <Input
+              type="checkbox"
+              checked={preferredContactMethods.includes('phone')}
+              onChange={e =>
+                this.setState({
+                  preferredContactMethods: e.target.checked
+                    ? preferredContactMethods.concat('phone')
+                    : preferredContactMethods.filter(i => i !== 'phone'),
+                })
+              }
+            />
+            Text Message
+          </label>
+        </CheckBoxWrapper>
+
         <br />
 
         {messages === 'valid' && (
-          <Button onClick={() => onClickNextButton(this.state)}>Next</Button>
+          <Button onClick={this.onCompleteSection}>Next</Button>
         )}
       </div>
     );
@@ -93,4 +112,13 @@ const mapStateToProps = state => ({
   preferredContactMethods: state.checkout.preferredContactMethods,
 });
 
-export default connect(mapStateToProps)(ContactSection);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentSection,
+      setCheckoutState,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactSection);

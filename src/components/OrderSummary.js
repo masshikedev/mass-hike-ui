@@ -1,24 +1,33 @@
 import React from 'react';
+import EditButton from './checkout/EditButton';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
-import { P, H2, H6 } from '../style';
+import { P, H2, H6, MediaQueries } from '../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, auto);
+  ${MediaQueries.small} {
+    grid-template-columns: auto;
+  }
+  justify-content: stretch;
 `;
 
 const Column = styled.div`
   grid-column: span 1;
 `;
 
-function OrderSummary(props) {
-  const { order } = props;
+const HeadingContainer = styled.div`
+  display: flex;
+`;
+
+export default function OrderSummary(props) {
+  const { order, showEditButtons, mobile } = props;
   const trip = order.trip;
   return (
     <div>
-      <H2>Order Summary</H2>
+      <H2>Trip Summary</H2>
       <Wrapper>
         <Column>
           <P large>
@@ -27,9 +36,14 @@ function OrderSummary(props) {
             {format(trip.time.hikeStart, MONTH_DATE_YEAR)}
             <br />
             {format(trip.time.hikeStart, TIME)}
+            {' - '}
+            {format(trip.time.hikeEnd, TIME)}
             <br />
           </P>
-          <H6>Contact Info</H6>
+          <HeadingContainer>
+            <H6>Contact Info</H6>
+            <EditButton display={showEditButtons} section={0} mobile={mobile} />
+          </HeadingContainer>
           <P large>
             {order.name}
             <br />
@@ -37,7 +51,10 @@ function OrderSummary(props) {
             <br />
             {order.phone}
           </P>
-          <H6>Payment Type</H6>
+          <HeadingContainer>
+            <H6>Payment</H6>
+            <EditButton display={showEditButtons} section={2} mobile={mobile} />
+          </HeadingContainer>
           <P>{order.paymentType}</P>
           {order.paymentType === 'card' && (
             <div>
@@ -57,18 +74,22 @@ function OrderSummary(props) {
           )}
         </Column>
         <Column>
-          <H6>Pickup</H6>
+          <HeadingContainer>
+            <H6>Pickup</H6>
+            <EditButton display={showEditButtons} section={1} mobile={mobile} />
+          </HeadingContainer>
           <P large>{order.pickupLocation}</P>
-          <H6>Contact Method</H6>
+          <HeadingContainer>
+            <H6>Contact Method</H6>
+            <EditButton display={showEditButtons} section={0} mobile={mobile} />
+          </HeadingContainer>
           <P large capitalize>
             {order.preferredContactMethods.join(', ')}
           </P>
         </Column>
       </Wrapper>
-      <P large>{`${order.tickets} Tickets`}</P>
-      <P large>{`$${order.tickets * order.selectedPrice}`}</P>
+      <P large>{`${order.tickets} Tickets x $${order.selectedPrice} each`}</P>
+      <P large>{`Total: $${order.tickets * order.selectedPrice}`}</P>
     </div>
   );
 }
-
-export default OrderSummary;

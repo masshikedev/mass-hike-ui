@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { RichText } from 'prismic-reactjs';
 import PrismicPage from '../prismic/PrismicPage';
 import TeamList from '../components/about/TeamList';
 import AboutMain from '../components/about/AboutMain';

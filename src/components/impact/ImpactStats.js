@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { H1, P, MediaQueries, Img, GridParent } from '../../style';
+import { MediaQueries, Img, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const StatItem = styled.div`

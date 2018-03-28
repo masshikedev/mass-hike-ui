@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { P, H6, Input } from '../../style';
-import styled from 'styled-components';
 
 class ValidatedTextInput extends Component {
   constructor(props) {
@@ -9,7 +8,7 @@ class ValidatedTextInput extends Component {
   }
 
   render() {
-    const { title, onChange, error, value } = this.props;
+    const { title, onChange, onFocus, error, value, id } = this.props;
     const { editing } = this.state;
     const transform = this.props.transform || (v => v);
     const placeholder = this.props.placeholder || '';
@@ -18,6 +17,7 @@ class ValidatedTextInput extends Component {
         <H6>{title}</H6>
         <Input
           type="text"
+          id={id}
           placeholder={placeholder}
           value={transform(value)}
           onChange={e => {
@@ -26,7 +26,8 @@ class ValidatedTextInput extends Component {
           onBlur={() => {
             this.setState({ editing: false });
           }}
-          onFocus={() => {
+          onFocus={e => {
+            if (onFocus) onFocus(e);
             this.setState({ editing: true });
           }}
           invalid={!editing && error}
