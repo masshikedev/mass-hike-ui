@@ -16,6 +16,7 @@ const StepNumber = styled.div`
   display: flex;
   align-items: center;
   font-weight: bold;
+  padding-right: 10px;
   color: #faaf3f;
 `;
 
@@ -25,11 +26,13 @@ const DetailImage = styled.div`
 
   ${MediaQueries.small} {
     grid-column: span 12;
+    padding: 10px 25px;
   }
 `;
 
 const Details = GridParent.extend`
   grid-row-gap: 100px;
+  padding-bottom: 30px;
 
   ${MediaQueries.small} {
     padding: 20px;
@@ -38,7 +41,7 @@ const Details = GridParent.extend`
 
 const Step = styled.div`
   grid-column-start: 8;
-  grid-column-end: 11;
+  grid-column-end: 12;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 
@@ -47,19 +50,32 @@ const Step = styled.div`
   }
 `;
 
-const Title = styled.div`
-  margin-top: 20px;
-  grid-column: span 12;
+const Title = H2.extend`
+  margin-top: 8%;
+  grid-column-start: 2;
+  grid-column-end: 12;
   text-align: center;
-  align-items: center;
+  line-height: 0;
+  border-bottom: solid 2px #e6e6e6;
+  padding: 0;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+    border: none;
+    line-height: 1;
+  }
+`;
+
+const Line = styled.span`
+  background: #f9f9f9;
+  padding: 0 15px;
 `;
 
 const Divider = styled.span`
-  border-top: 1px solid #333;
   display: inline-block;
   grid-column-start: 2;
   grid-column-end: 12;
-  height: 1px;
+  border: solid 2px #e6e6e6;
   display: block;
 `;
 
@@ -67,7 +83,7 @@ function HomeDetails(props) {
   return (
     <Details>
       <Title>
-        <H2>{RichText.asText(props.doc.data.detail_main_title)}</H2>
+        <Line>{RichText.asText(props.doc.data.detail_main_title)}</Line>
       </Title>
       <DetailImage>
         <Img src={props.doc.data.detail1[0].url} />

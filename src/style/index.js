@@ -21,7 +21,6 @@ import Select from './Select';
 import Button from './Button';
 import Container from './Container';
 import GridParent from './GridParent';
-import NavMargin from './NavMargin';
 import Img from './Img';
 import MediaQueries from './MediaQueries';
 
@@ -49,7 +48,6 @@ export {
   Button,
   Container,
   GridParent,
-  NavMargin,
   Img,
   MediaQueries,
 };

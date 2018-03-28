@@ -10,7 +10,7 @@ import {
   Container,
   H2,
   Input,
-  P,
+  H5,
   Button,
   Img,
   MediaQueries,
@@ -20,6 +20,7 @@ import {
 const Foot = Container.extend`
   color: white;
   background-color: #558959;
+  padding-top: 0;
 `;
 
 const Contact = styled.div`
@@ -42,11 +43,15 @@ const SButton = Button.extend`
   width: auto;
 `;
 
-const Links = styled.div`
+const Links = styled.ul`
   display: grid;
   grid-gap: 20px;
   grid-column: span 4;
   grid-template-columns: 1fr 1fr 1fr;
+  font-family: 'proxima-nova';
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 10px;
 
   ${MediaQueries.small} {
     grid-template-columns: 1fr 1fr;
@@ -56,8 +61,9 @@ const Links = styled.div`
 
 const Logo = H2.extend`
   grid-column: span 12;
-  font-family: 'Open Sans';
-  font-weight: normal;
+  font-family: 'proxima-soft';
+  font-weight: 500;
+  text-transform: uppercase;
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -66,20 +72,29 @@ const Logo = H2.extend`
 `;
 
 const FootGrid = GridParent.extend`
-  padding: 40px;
+  padding: 40px 80px;
 `;
 
 class Footer extends Component {
   static pageType = 'footer';
+
+  renderFootLinks(links) {
+    const footLinks = links.map(link => {
+      return <li>{link}</li>;
+    });
+    return footLinks;
+  }
 
   render() {
     return (
       <Foot>
         <FootGrid>
           <Logo>Mass Hike</Logo>
-          <Links>{renderLinkSlices(this.props.doc.data.body)}</Links>
+          <Links>
+            {this.renderFootLinks(renderLinkSlices(this.props.doc.data.body))}
+          </Links>
           <Contact>
-            <P>Sign up to receive newsletters!</P>
+            <H5>Sign up to receive newsletters!</H5>
             <label>
               <Input
                 type="text"

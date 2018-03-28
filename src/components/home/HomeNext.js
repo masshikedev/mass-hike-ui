@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H5, P, Button, Img, GridParent, MediaQueries } from '../../style';
+import {
+  H2,
+  H6,
+  H10,
+  Button,
+  Img,
+  GridParent,
+  MediaQueries,
+} from '../../style';
 import { RichText } from 'prismic-reactjs';
 import { format } from 'date-fns';
 import { MONTH_DATE } from '../../utils/dateFormats';
@@ -25,6 +33,7 @@ const Text = styled.div`
     grid-column: span 12;
     order: 1;
     text-align: center;
+    padding: 10px;
   }
 `;
 
@@ -49,7 +58,7 @@ const Date = styled.div`
 
   ${MediaQueries.small} {
     left: 50%;
-    transform: translate(-50%, -150%);
+    transform: translate(-50%, -80%);
   }
 `;
 
@@ -78,9 +87,9 @@ function HomeNext(props) {
       <Text>
         <Date>{format(props.doc.data.next_trip_date, MONTH_DATE)}</Date>
         <Summary>
-          <H5>Let's go to </H5>
+          <H6>Let's go to </H6>
           <H2>{props.doc.data.next_trip[0].text}</H2>
-          <P>{props.doc.data.next_trip[1].text}</P>
+          <H10>{props.doc.data.next_trip[1].text}</H10>
         </Summary>
       </Text>
       <Image bg={props.doc.data.next_trip_image.url} />

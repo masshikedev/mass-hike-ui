@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { RichText } from 'prismic-reactjs';
 import PrismicPage from '../prismic/PrismicPage';
-import { H1, H6, Input, GridParent, Container, NavMargin } from '../style';
+import { H1, H6, Input, GridParent, Container } from '../style';
 import styled from 'styled-components';
 
 const Column = styled.div`

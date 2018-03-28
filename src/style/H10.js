@@ -4,7 +4,7 @@ import MediaQueries from './MediaQueries';
 const H10 = styled.p`
   font-family: 'proxima-nova';
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 400;
 
   ${MediaQueries.small} {
     font-size: 16px;

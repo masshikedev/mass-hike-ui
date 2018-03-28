@@ -9,7 +9,7 @@ import cloud1 from '../../images/cloud.png';
 import cloud2 from '../../images/cloud cut1.png';
 import cloud3 from '../../images/cloud cut2.png';
 
-const HomeSection = GridParent.extend`
+const HomeSection = styled.div`
   position: relative;
   height: 600px;
   background: url(${hero}),
@@ -88,12 +88,15 @@ const Cloud5 = Cloud.extend`
 `;
 
 const Column = styled.div`
-  grid-column: span 12;
-  grid-row-start: 2;
+  padding: 7%;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 2;
+
+  ${MediaQueries.small} {
+    padding: 7% 22%;
+  }
 `;
 
 const Title = H1.extend`

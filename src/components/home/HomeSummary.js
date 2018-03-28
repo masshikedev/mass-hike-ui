@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H8, P, Img, MediaQueries, GridParent } from '../../style';
+import { H2, H8, H6, Img, MediaQueries, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Top = styled.div`
@@ -34,6 +34,7 @@ const Column = styled.div`
   );
   color: #fff;
   padding: 80px 40px;
+  line-height: 1.5;
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -49,12 +50,11 @@ const Summary = GridParent.extend`
 `;
 
 function HomeSummary(props) {
-  console.log(props);
   return (
     <Summary>
       <Column>
         <H8>{RichText.asText(props.doc.data.about_title)}</H8>
-        <P>{RichText.render(props.doc.data.about_content)}</P>
+        <H6>{RichText.render(props.doc.data.about_content)}</H6>
         <Lists>
           <List>
             <H8>{RichText.asText(props.doc.data.list1_title)}</H8>

@@ -4,7 +4,7 @@ import PrismicPage from '../prismic/PrismicPage';
 import ImpactMain from '../components/impact/ImpactMain';
 import ImpactHero from '../components/impact/ImpactHero';
 import ImpactStats from '../components/impact/ImpactStats';
-import { NavMargin, Container } from '../style';
+import { Container } from '../style';
 import styled from 'styled-components';
 
 class Impact extends Component {

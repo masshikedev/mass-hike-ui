@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { RichText } from 'prismic-reactjs';
 import PrismicRepeatable from '../prismic/PrismicRepeatable';
 import BlogPreview from '../components/blog/BlogPreview';
-import { H1, Container, NavMargin } from '../style';
+import { H1, Container } from '../style';
 import styled from 'styled-components';
 
 class Blog extends Component {
