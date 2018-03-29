@@ -68,14 +68,16 @@ class NavBar extends Component {
 
   renderNavLinks(links) {
     const navLinks = links.map(link => {
-      if (link.props.to === '/trips') {
+      if (link.props.children.props.to === '/trips') {
         return (
           <Button primary small>
-            {link}
+            <a href={link.props.children.props.to}>
+              {link.props.children.props.children}
+            </a>
           </Button>
         );
       } else {
-        return <NavItem>{link}</NavItem>;
+        return link;
       }
     });
     return navLinks;
@@ -103,7 +105,9 @@ class NavBar extends Component {
               </H3>
             </NavItem>
           )}
-          {renderLinkSlices(this.props.doc.data.body, NavItem)}
+          {this.renderNavLinks(
+            renderLinkSlices(this.props.doc.data.body, NavItem)
+          )}
         </NavRight>
         <Hamburger>
           <Img src={hamburger} />

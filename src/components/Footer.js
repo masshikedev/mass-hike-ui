@@ -87,7 +87,7 @@ class Footer extends Component {
                 onChange={e => this.setState({ Email: e.target.value })}
               />
             </label>
-            <Button primary>
+            <Button primary small>
               {RichText.asText(this.props.doc.data.submit_button)}
             </Button>
           </Contact>
