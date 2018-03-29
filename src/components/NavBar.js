@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
 import hamburger from '../images/hamburger.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
-import { RichText } from 'prismic-reactjs';
-import { H3, P, Button, Img, MediaQueries } from '../style';
+import { H3, Button, Img, MediaQueries } from '../style';
 import logo from '../images/mh_large.png';
 
 const Nav = styled.div`

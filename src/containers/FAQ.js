@@ -4,7 +4,6 @@ import PrismicPage from '../prismic/PrismicPage';
 import {
   H1,
   H2,
-  P,
   H6,
   Input,
   Container,
@@ -20,14 +19,6 @@ const Main = styled.div`
   ${MediaQueries.small} {
     grid-column: span 12;
     order: 1;
-  }
-`;
-
-const FixedWrap = styled.div`
-  grid-column: span 4;
-
-  ${MediaQueries.small} {
-    grid-column: span 12;
   }
 `;
 

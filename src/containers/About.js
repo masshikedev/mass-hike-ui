@@ -5,7 +5,6 @@ import AboutMain from '../components/about/AboutMain';
 import AboutStory from '../components/about/AboutStory';
 import WhatWeDo from '../components/about/WhatWeDo';
 import { Container } from '../style';
-import styled from 'styled-components';
 
 class About extends Component {
   static pageType = 'about';

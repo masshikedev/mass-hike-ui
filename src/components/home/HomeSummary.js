@@ -1,14 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  H2,
-  H8,
-  H6,
-  Img,
-  constants,
-  MediaQueries,
-  GridParent,
-} from '../../style';
+import { H8, H6, Img, constants, MediaQueries, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Top = styled.div`
@@ -41,10 +33,6 @@ const Column = styled.div`
   ${MediaQueries.small} {
     grid-column: span 12;
   }
-`;
-
-const Title = styled.div`
-  grid-column: span 12;
 `;
 
 const Summary = GridParent.extend`

@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
 import { RichText } from 'prismic-reactjs';
-import hamburger from '../images/hamburger.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
-import SocialMedia from './footer/SocialMedia';
 import {
   Container,
   H2,
   Input,
   H5,
   Button,
-  Img,
   constants,
   MediaQueries,
   GridParent,

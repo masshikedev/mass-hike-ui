@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { logout } from '../../actions/AuthActions';
 import styled from 'styled-components';
-import { P } from '../../style';
 
 const AdminBarContainer = styled.div`
   position: absolute;

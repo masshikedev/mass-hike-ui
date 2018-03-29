@@ -1,22 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  H2,
-  H6,
-  H10,
-  Button,
-  Img,
-  GridParent,
-  constants,
-  MediaQueries,
-} from '../../style';
-import { RichText } from 'prismic-reactjs';
+import { H2, H6, H10, GridParent, constants, MediaQueries } from '../../style';
 import { format } from 'date-fns';
 import { MONTH_DATE } from '../../utils/dateFormats';
-
-const Column = styled.div`
-  grid-column: span 12;
-`;
 
 const Text = styled.div`
   grid-column: span 7;

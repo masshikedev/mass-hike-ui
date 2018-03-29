@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { constants } from './';
 
 const Container = styled.div`
   width: 100%;

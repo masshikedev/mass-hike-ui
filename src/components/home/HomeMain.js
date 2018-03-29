@@ -1,14 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import {
-  H1,
-  Button,
-  Img,
-  GridParent,
-  constants,
-  MediaQueries,
-} from '../../style';
+import { H1, Button, Img, constants, MediaQueries } from '../../style';
 import { RichText } from 'prismic-reactjs';
 import hero from '../../images/home-hero2.png';
 import bus from '../../images/bus1.png';

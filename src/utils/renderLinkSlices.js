@@ -1,4 +1,4 @@
-import React, { createElement } from 'react';
+import React from 'react';
 import { RichText } from 'prismic-reactjs';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';

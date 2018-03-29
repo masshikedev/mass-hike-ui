@@ -4,7 +4,6 @@ import ImpactMain from '../components/impact/ImpactMain';
 import ImpactHero from '../components/impact/ImpactHero';
 import ImpactStats from '../components/impact/ImpactStats';
 import { Container } from '../style';
-import styled from 'styled-components';
 
 class Impact extends Component {
   static pageType = 'impact';

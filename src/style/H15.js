@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import MediaQueries from './MediaQueries';
 
 const H15 = styled.p`
   font-family: 'proxima-nova';
