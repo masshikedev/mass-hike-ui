@@ -10,15 +10,19 @@ const formatResponse = response => {
 };
 
 export const get = endpoint => {
-  return fetch(`${BASE_URL}${endpoint}`, { method: 'get' }).then(
-    formatResponse
-  );
+  return fetch(`${BASE_URL}${endpoint}`, {
+    method: 'get',
+    headers: { 'x-access-token': localStorage.getItem('mh-login-token') },
+  }).then(formatResponse);
 };
 
 export const post = (endpoint, body) => {
   return fetch(`${BASE_URL}${endpoint}`, {
     body,
     method: 'post',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem('mh-login-token'),
+    },
   }).then(formatResponse);
 };

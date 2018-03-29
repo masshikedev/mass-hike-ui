@@ -1,5 +1,5 @@
 import ActionTypes from './ActionTypes';
-import { fetchTripById } from '../api/trips';
+import { fetchTripById, adminFetchTripById } from '../api/trips';
 
 const getTripByIdSuccess = dispatch => {
   return response => {
@@ -18,10 +18,11 @@ const getTripByIdFailure = dispatch => {
   };
 };
 
-export const getTripById = tripId => {
+export const getTripById = (tripId, admin) => {
+  const apiCall = admin ? adminFetchTripById : fetchTripById;
   return dispatch => {
     dispatch({ type: ActionTypes.GET_TRIP_BY_ID_ATTEMPT });
-    fetchTripById(tripId)
+    apiCall(tripId)
       .then(getTripByIdSuccess(dispatch))
       .catch(getTripByIdFailure(dispatch));
   };

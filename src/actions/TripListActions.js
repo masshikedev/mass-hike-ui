@@ -1,5 +1,5 @@
 import ActionTypes from './ActionTypes';
-import { fetchAllTrips } from '../api/trips';
+import { fetchAllTrips, adminFetchAllTrips } from '../api/trips';
 
 const getAllTripsSuccess = dispatch => {
   return response => {
@@ -18,10 +18,11 @@ const getAllTripsFailure = dispatch => {
   };
 };
 
-export const getTripList = () => {
+export const getTripList = admin => {
+  const apiCall = admin ? adminFetchAllTrips : fetchAllTrips;
   return dispatch => {
     dispatch({ type: ActionTypes.GET_TRIP_LIST_ATTEMPT });
-    fetchAllTrips()
+    apiCall()
       .then(getAllTripsSuccess(dispatch))
       .catch(getAllTripsFailure(dispatch));
   };

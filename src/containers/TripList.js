@@ -93,7 +93,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getTripList,
+      getTripList: () => getTripList(false),
     },
     dispatch
   );
