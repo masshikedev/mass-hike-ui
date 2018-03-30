@@ -120,7 +120,6 @@ class Checkout extends Component {
               </Switch>
             </form>
           </FormWrapper>
-          <CheckoutForm />
           {currentSection !== 4 && <Divider />}
           {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
         </GridParent>
