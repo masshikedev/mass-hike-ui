@@ -14,7 +14,6 @@ import PaymentTypeSection from './PaymentTypeSection';
 import CheckoutConfirmation from './CheckoutConfirmation';
 import styled from 'styled-components';
 import { MediaQueries } from '../../style';
-import { injectStripe } from 'react-stripe-elements';
 
 const FORM_SEQUENCE = [
   ContactSection,
@@ -78,6 +77,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default injectStripe(
-  connect(mapStateToProps, mapDispatchToProps)(CheckoutForm)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm);
