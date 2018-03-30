@@ -23,9 +23,14 @@ class CheckoutConfirmation extends Component {
   }
 
   render() {
-    const { order, trip, status } = this.props;
-    const errors = validate(this.state, constraints);
-
+    const { order, status } = this.props;
+    const { promoCode, trip } = order;
+    const pricing = trip.pricing;
+    const priceData =
+      pricing[pricing.promoCodes[promoCode]] || pricing.standard;
+    const errors = validate({ ...order }, constraints(trip, priceData));
+    console.log('Constraints: ' + constraints);
+    console.log('Err: ' + errors);
     return errors ? (
       this.renderError()
     ) : (
@@ -57,6 +62,7 @@ const mapStateToProps = state => {
       meetingDate: checkout.meetingDate,
       tripId: currentTrip.trip.tripId,
       trip: currentTrip.trip,
+      promoCode: checkout.promoCode,
     },
     status: orders.confirmOrderStatus,
   };
