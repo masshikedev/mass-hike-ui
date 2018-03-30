@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Login from '../components/admin/Login';
-import TripGrid from '../components/admin/TripGrid';
-import { getTripList } from '../actions/TripListActions';
-import { H2, H3, Container, GridParent } from '../style';
+import Login from './Login';
+import TripGrid from './TripGrid';
+import { getTripList } from '../../actions/TripListActions';
+import { H2, H3, Container, GridParent } from '../../style';
 
 class AdminDashboard extends Component {
   componentDidMount() {
@@ -13,10 +13,7 @@ class AdminDashboard extends Component {
   }
 
   render() {
-    const { loggedIn, upcomingTrips, pastTrips } = this.props;
-    if (!loggedIn) {
-      return <Login />;
-    }
+    const { upcomingTrips, pastTrips } = this.props;
     return (
       <Container>
         <H2>Upcoming Trips</H2>
@@ -29,7 +26,6 @@ class AdminDashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.isAuthenticated,
   upcomingTrips: state.tripList.trips.filter(
     trip => trip.time.hikeStart >= Date.now()
   ),
