@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H6, H10, GridParent, constants, MediaQueries } from '../../style';
+import { H2, H6, P, GridParent, constants, MediaQueries } from '../../style';
 import { format } from 'date-fns';
 import { MONTH_DATE } from '../../utils/dateFormats';
 
@@ -70,7 +70,9 @@ function HomeNext(props) {
         <Summary>
           <H6>Let's go to </H6>
           <H2>{props.doc.data.next_trip[0].text}</H2>
-          <H10>{props.doc.data.next_trip[1].text}</H10>
+          <P proxima medium large white>
+            {props.doc.data.next_trip[1].text}
+          </P>
         </Summary>
       </Text>
       <Image bg={props.doc.data.next_trip_image.url} />

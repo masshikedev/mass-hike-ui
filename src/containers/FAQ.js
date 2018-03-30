@@ -52,7 +52,7 @@ class FAQ extends Component {
   static pageType = 'faq';
 
   getQuestionTypes(faqs) {
-    var questionTypes = faqs.map(faq => {
+    let questionTypes = faqs.map(faq => {
       return faq.primary.question_type[0].text;
     });
 
@@ -64,7 +64,7 @@ class FAQ extends Component {
   }
 
   displayFAQs(faqs) {
-    const questionTypes = this.getQuestionTypes(faqs);
+    let questionTypes = this.getQuestionTypes(faqs);
 
     const elements = questionTypes.map(type => {
       return (
@@ -82,9 +82,9 @@ class FAQ extends Component {
   }
 
   displaySideBarLinks(faqs) {
-    var questionTypes = this.getQuestionTypes(faqs);
+    const questionTypes = this.getQuestionTypes(faqs);
 
-    var sideBar = questionTypes.map(type => {
+    const sideBar = questionTypes.map(type => {
       const link = '#' + type;
       return <a href={link}>{type}</a>;
     });

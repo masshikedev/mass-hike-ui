@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H8, H6, Img, constants, MediaQueries, GridParent } from '../../style';
+import { P, Img, constants, MediaQueries, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Top = styled.div`
@@ -43,15 +43,23 @@ function HomeSummary(props) {
   return (
     <Summary>
       <Column>
-        <H8>{RichText.asText(props.doc.data.about_title)}</H8>
-        <H6>{RichText.render(props.doc.data.about_content)}</H6>
+        <P uppercase bold proxima white>
+          {RichText.asText(props.doc.data.about_title)}
+        </P>
+        <P white medium>
+          {RichText.render(props.doc.data.about_content)}
+        </P>
         <Lists>
           <List>
-            <H8>{RichText.asText(props.doc.data.list1_title)}</H8>
+            <P uppercase bold proxima white>
+              {RichText.asText(props.doc.data.list1_title)}
+            </P>
             {RichText.render(props.doc.data.list1)}
           </List>
           <List>
-            <H8>{RichText.asText(props.doc.data.list2_title)}</H8>
+            <P uppercase bold proxima white>
+              {RichText.asText(props.doc.data.list2_title)}
+            </P>
             {RichText.render(props.doc.data.list2)}
           </List>
         </Lists>
