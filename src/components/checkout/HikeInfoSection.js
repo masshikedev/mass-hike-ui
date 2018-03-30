@@ -9,10 +9,11 @@ import PlaceAutocomplete from '../forms/PlaceAutocomplete';
 class HikeInfoSection extends Component {
   constructor(props) {
     super(props);
-    const { tickets, pickupLocation } = props;
+    const { tickets, pickupLocation, zipCode } = props;
     this.state = {
       tickets,
       pickupLocation,
+      zipCode,
     };
   }
 
