@@ -17,44 +17,41 @@ class CardPayment extends BaseCheckoutSection {
     };
   }
 
-  handleChange = change => {
-    console.log(change);
-
-    // find el with id
-    let id = 'error-' + change.elementType;
-    let errorElement = document.getElementById(id);
-
-    // update children to show error
-    if (change.error) {
-      errorElement.textContent = change.error.message;
-    } else {
-      errorElement.textContent = '';
-    }
-  };
-
   render() {
     return (
       <div>
         <H3>Enter your credit card information</H3>
         <label>
           <H6>Card Number</H6>
-          <CardNumberElement onChange={this.handleChange} />
-          <P error id="error-cardNumber" />
+          <Input
+            type="text"
+            value={this.state.cardNumber}
+            onChange={e => this.setState({ cardNumber: e.target.value })}
+          />
         </label>
         <label>
           <H6>Expiration</H6>
-          <CardExpiryElement onChange={this.handleChange} />
-          <P error id="error-cardExpiry" />
+          <Input
+            type="text"
+            value={this.state.expiration}
+            onChange={e => this.setState({ expiration: e.target.value })}
+          />
         </label>
         <label>
           <H6>Security Code</H6>
-          <CardCVCElement onChange={this.handleChange} />
-          <P error id="error-cardCvc" />
+          <Input
+            type="text"
+            value={this.state.cvv}
+            onChange={e => this.setState({ cvv: e.target.value })}
+          />
         </label>
         <label>
           <H6>Billing Zip</H6>
-          <PostalCodeElement onChange={this.handleChange} />
-          <P error id="error-postalCode" />
+          <Input
+            type="text"
+            value={this.state.billingZip}
+            onChange={e => this.setState({ billingZip: e.target.value })}
+          />
         </label>
 
         {true && <Button onClick={this.onCompleteSection}>Next</Button>}

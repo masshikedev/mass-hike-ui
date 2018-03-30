@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import React from 'react';
-=======
 /* eslint-disable no-undef */
-=======
->>>>>>> some cleanup and validation
 import React, { Component } from 'react';
->>>>>>> api setup
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
@@ -20,11 +13,10 @@ import PlaceAutocomplete from '../forms/PlaceAutocomplete';
 class HikeInfoSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
-    const { tickets, pickupLocation, zipCode } = props;
+    const { tickets, pickupLocation } = props;
     this.state = {
       tickets,
       pickupLocation,
-      zipCode,
     };
   }
 
@@ -41,12 +33,8 @@ class HikeInfoSection extends BaseCheckoutSection {
   }
 
   render() {
-<<<<<<< HEAD
-    const { trip } = this.props;
-=======
     const { showNextButton, onClickNextButton, trip } = this.props;
     const { tickets, pickupLocation } = this.state;
->>>>>>> api setup
     const messages = validate(this.state, hikeConstraints(trip)) || 'valid';
 
     return (
