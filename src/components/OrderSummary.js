@@ -46,6 +46,7 @@ class OrderSummary extends Component {
   }
   render() {
     const { order } = this.props;
+    const errors = this.props.errors || {};
     const trip = order.trip;
     return (
       <div>
@@ -66,18 +67,19 @@ class OrderSummary extends Component {
               <H6>Contact Info</H6>
               {this.editButtonForSection(0)}
             </HeadingContainer>
-            <P large>
-              {order.name}
-              <br />
-              {order.email}
-              <br />
-              {order.phone}
-            </P>
+            <P large>{order.name} </P>
+            {errors['name'] ? <P error>{errors['name'][0]}</P> : null}
+            <P large>{order.email}</P>
+            {errors['email'] ? <P error>{errors['email'][0]}</P> : null}
+            <P large>{order.phone}</P>
+            {errors['phone'] ? <P error>{errors['phone'][0]}</P> : null}
+
             <HeadingContainer>
               <H6>Payment</H6>
               {this.editButtonForSection(2)}
             </HeadingContainer>
             <P>{order.paymentType}</P>
+            <P error>{errors['paymentType']}</P>
             {order.paymentType === 'card' && (
               <div>
                 <H6>Credit Card</H6>
@@ -108,9 +110,16 @@ class OrderSummary extends Component {
             <P large capitalize>
               {order.preferredContactMethods.join(', ')}
             </P>
+            {errors['preferredContactMethods'] ? (
+              <P error>{errors['preferredContactMethods'][0]}</P>
+            ) : null}
           </Column>
         </Wrapper>
         <P large>{`${order.tickets} Tickets x $${order.selectedPrice} each`}</P>
+        {errors['tickets'] ? <P error>{errors['tickets'][0]}</P> : null}
+        {errors['selectedPrice'] ? (
+          <P error>{errors['selectedPrice'][0]}</P>
+        ) : null}
         <P large>{`Total: $${order.tickets * order.selectedPrice}`}</P>
       </div>
     );

@@ -4,7 +4,7 @@ import OrderSummary from '../OrderSummary';
 import { Button } from '../../style';
 import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
-import { H3 } from '../../style';
+import { P, H3 } from '../../style';
 import { RequestStatus } from '../../constants';
 import { validate } from 'validate.js';
 import { constraints } from '../../utils/validationConstraints';
@@ -18,10 +18,6 @@ class CheckoutConfirmation extends Component {
     }
   };
 
-  renderError() {
-    return <H3>An error has occured.</H3>;
-  }
-
   render() {
     const { order, status } = this.props;
     const { promoCode, trip } = order;
@@ -29,15 +25,20 @@ class CheckoutConfirmation extends Component {
     const priceData =
       pricing[pricing.promoCodes[promoCode]] || pricing.standard;
     const errors = validate({ ...order }, constraints(trip, priceData));
-    console.log('Constraints: ' + constraints);
-    console.log('Err: ' + errors);
-    return errors ? (
-      this.renderError()
-    ) : (
+    return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
-        <OrderSummary order={order} trip={trip} showEditButtons />
-        <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
+        <OrderSummary
+          order={order}
+          trip={trip}
+          errors={errors}
+          showEditButtons
+        />
+        {errors ? (
+          <P error>An error has occured. Please check your responses.</P>
+        ) : (
+          <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
+        )}
       </div>
     );
   }
