@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { H1, P, GridParent } from '../../style';
+import { GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Column = styled.div`

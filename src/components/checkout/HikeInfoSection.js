@@ -1,12 +1,16 @@
+/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H3, H6, Input, Button } from '../../style';
+import { bindActionCreators } from 'redux';
+import BaseCheckoutSection from './BaseCheckoutSection';
+import { setCurrentSection } from '../../actions/CheckoutActions';
+import { P, H3, Button } from '../../style';
 import { validate } from 'validate.js';
 import { hikeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 import PlaceAutocomplete from '../forms/PlaceAutocomplete';
 
-class HikeInfoSection extends Component {
+class HikeInfoSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
     const { tickets, pickupLocation, zipCode } = props;
@@ -58,7 +62,7 @@ class HikeInfoSection extends Component {
         />
 
         {messages === 'valid' && (
-          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
+          <Button onClick={this.onCompleteSection}>Next</Button>
         )}
       </div>
     );
@@ -72,4 +76,12 @@ const mapStateToProps = state => ({
   trip: state.currentTrip.trip,
 });
 
-export default connect(mapStateToProps)(HikeInfoSection);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentSection,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(HikeInfoSection);

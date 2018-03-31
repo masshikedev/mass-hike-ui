@@ -1,15 +1,18 @@
 import React from 'react';
 import Routes from './Routes';
 import NavBar from '../components/NavBar';
-import ContactFooter from '../components/home/ContactFooter';
+import Footer from '../components/Footer';
+import AdminBar from '../components/admin/AdminBar';
 
 const App = props => {
   return (
     <div>
-      <NavBar />
+      <NavBar prismicCtx={props.prismicCtx} uid="nav" />
+      <AdminBar />
       <main>
         <Routes prismicCtx={props.prismicCtx} />
       </main>
+      <Footer prismicCtx={props.prismicCtx} uid="footer" />
     </div>
   );
 };

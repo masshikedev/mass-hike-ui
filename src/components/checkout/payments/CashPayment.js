@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import BaseCheckoutSection from '../BaseCheckoutSection';
+import { setCurrentSection } from '../../../actions/CheckoutActions';
 import { P, H3, Button } from '../../../style';
 
-class CashPayment extends Component {
+class CashPayment extends BaseCheckoutSection {
   constructor(props) {
     super(props);
     const { selectedLocationIndex, meetingDate } = props;
@@ -55,7 +58,7 @@ class CashPayment extends Component {
   }
 
   render() {
-    const { showNextButton, onClickNextButton, trip } = this.props;
+    const { trip } = this.props;
     const { showMoreLocations, selectedLocationIndex } = this.state;
     const cashLocations = trip.cashLocations;
 
@@ -83,9 +86,8 @@ class CashPayment extends Component {
             </Button>
           </div>
         )}
-        {showNextButton(this.state) && (
-          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
-        )}
+        <br />
+        {true && <Button onClick={this.onCompleteSection}>Next</Button>}
       </div>
     );
   }
@@ -97,4 +99,12 @@ const mapStateToProps = state => ({
   trip: state.currentTrip.trip,
 });
 
-export default connect(mapStateToProps)(CashPayment);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentSection,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(CashPayment);

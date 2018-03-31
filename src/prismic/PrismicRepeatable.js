@@ -1,8 +1,9 @@
 import React from 'react';
 import NotFound from '../NotFound';
+import Prismic from 'prismic-javascript';
 
 export default Wrapped =>
-  class PrismicPage extends React.Component {
+  class PrismicRepeatable extends React.Component {
     state = {
       doc: null,
       err: null,
@@ -18,24 +19,20 @@ export default Wrapped =>
 
     fetchPage = props => {
       if (props.prismicCtx) {
-        props.prismicCtx.api.getByUID(
-          Wrapped.pageType,
-          this.props.uid || this.props.match.params.uid,
-          {},
-          (err, doc) => {
-            if (err) {
-              this.setState(() => ({ err }));
-            } else if (doc) {
+        props.prismicCtx.api
+          .query(Prismic.Predicates.at('document.type', Wrapped.pageType), {})
+          .then((doc, err) => {
+            if (doc) {
               this.setState(() => ({ doc }));
+            } else if (err) {
+              this.setState(() => ({ err }));
             }
-          }
-        );
+          });
       }
     };
 
     render() {
       return this.state.doc ? (
-        // TODO: have this automatically create the header/footer
         <Wrapped doc={this.state.doc} />
       ) : // TODO: add better loading state
       this.state.err ? (

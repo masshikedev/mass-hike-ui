@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { P, H6, Input } from '../../style';
-import styled from 'styled-components';
 
 class ValidatedTextInput extends Component {
   constructor(props) {
