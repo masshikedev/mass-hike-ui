@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import constants from './constants';
-//TODO: add P size, weight. color, text-transform options
+
 const P = styled.p`
-  font-size: ${({ xxl, xlarge, large, small }) =>
-    xxl ? '42px' : xlarge ? '24px' : large ? '18px' : small ? '14px' : '16px'};
+  font-size: ${({ xxlarge, xlarge, large, small }) =>
+    xxlarge
+      ? '42px'
+      : xlarge ? '24px' : large ? '18px' : small ? '14px' : '16px'};
 
   text-transform: ${({ capitalize, uppercase, lowercase }) =>
     capitalize

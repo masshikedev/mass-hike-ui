@@ -56,10 +56,6 @@ class FAQ extends Component {
       return faq.primary.question_type[0].text;
     });
 
-    questionTypes = questionTypes.filter(function(x, i) {
-      return questionTypes.indexOf(x) === i;
-    });
-
     return questionTypes;
   }
 

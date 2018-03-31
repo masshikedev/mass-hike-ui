@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
 import hamburger from '../images/hamburger.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
-import { H3, Button, Img, MediaQueries } from '../style';
+import { constants, H3, Button, Img, MediaQueries } from '../style';
 import logo from '../images/mh_large.png';
 
 const Nav = styled.div`
@@ -16,7 +16,7 @@ const Nav = styled.div`
   top: 0;
   position: fixed;
   background: white;
-  box-shadow: 0 2px 25px 0 rgba(51, 51, 51, 0.28);
+  box-shadow: ${constants.boxshadow};
 `;
 
 const NavItem = styled.div`
