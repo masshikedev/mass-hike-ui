@@ -27,7 +27,6 @@ class PlaceAutocomplete extends Component {
     },
     type: 'search',
     placeholder: 'Search Places...',
-    autoFocus: true,
   };
 
   styles = bad => {
@@ -63,9 +62,7 @@ class PlaceAutocomplete extends Component {
     </Footer>
   );
 
-  // Log error status and clear dropdown when Google Maps API returns an error.
   onError = (status, clearSuggestions) => {
-    //console.log('Google Maps API returned error with status: ', status)
     clearSuggestions();
   };
 

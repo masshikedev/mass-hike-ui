@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -55,8 +54,10 @@ class HikeInfoSection extends BaseCheckoutSection {
         </P>
 
         <PlaceAutocomplete
-          value={pickupLocation} // `value` is required
-          onChange={address => this.setState({ pickupLocation: address })} // `onChange` is required/>
+          value={pickupLocation}
+          onChange={address =>
+            this.setState({ pickupLocation: address, zipCode: '' })
+          }
           callback={place => this.setZipCodeFromPlace(place)}
           error={messages['zipCode']}
         />
