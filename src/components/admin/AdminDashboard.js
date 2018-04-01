@@ -4,7 +4,11 @@ import { bindActionCreators } from 'redux';
 import Login from './Login';
 import TripGrid from './TripGrid';
 import { getTripList } from '../../actions/TripListActions';
-import { H2, H3, Container, GridParent } from '../../style';
+import { H2, H3, Container, GridParent, Button } from '../../style';
+
+const CreateButton = Button.extend`
+  margin-bottom: 50px;
+`;
 
 class AdminDashboard extends Component {
   componentDidMount() {
@@ -18,6 +22,7 @@ class AdminDashboard extends Component {
       <Container>
         <H2>Upcoming Trips</H2>
         <TripGrid trips={upcomingTrips} showTickets={true} />
+        <CreateButton>Create New</CreateButton>
         <H2>Past Trips</H2>
         <TripGrid trips={pastTrips} showTickets={false} />
       </Container>

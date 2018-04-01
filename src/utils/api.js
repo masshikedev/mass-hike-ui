@@ -1,5 +1,4 @@
-// const BASE_URL = 'https://shielded-cove-82777.herokuapp.com';
-const BASE_URL = 'http://localhost:8000';
+const BASE_URL = 'https://shielded-cove-82777.herokuapp.com';
 
 const formatResponse = response => {
   return response.json().then(data => {

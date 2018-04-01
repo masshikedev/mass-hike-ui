@@ -5,9 +5,12 @@ import styled from 'styled-components';
 import { format } from 'date-fns';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 
-const TripGridParent = GridParent.extend`
-  margin-top: 30px;
-  margin-bottom: 40px;
+const TripGridWrapper = styled.div`
+  margin-top: 25px;
+  margin-bottom: 10px;
+`;
+
+const TripGridRow = GridParent.extend`
   font-size: 16px;
 `;
 
@@ -19,30 +22,34 @@ const Column = styled.div`
 class TripGrid extends Component {
   renderTrip(trip) {
     const { showTickets } = this.props;
-    return [
-      <Column>{trip.name}</Column>,
-      <Column>{format(trip.time.hikeStart, MONTH_DATE_YEAR)}</Column>,
-      <Column>{showTickets && trip.capacity - trip.orders.length}</Column>,
-      <Column>
-        <Link to="/">details</Link>
-      </Column>,
-    ];
+    return (
+      <TripGridRow key={trip.tripId}>
+        <Column>{trip.name}</Column>
+        <Column>{format(trip.time.hikeStart, MONTH_DATE_YEAR)}</Column>
+        <Column>{showTickets && trip.capacity - trip.orders.length}</Column>
+        <Column>
+          <Link to="/">details</Link>
+        </Column>
+      </TripGridRow>
+    );
   }
 
   render() {
     const { trips, showTickets } = this.props;
     return (
-      <TripGridParent>
-        <Column>
-          <H6>Name</H6>
-        </Column>
-        <Column>
-          <H6>Date</H6>
-        </Column>
-        <Column>{showTickets && <H6>Remaining Tickets</H6>}</Column>
-        <Column />
+      <TripGridWrapper>
+        <TripGridRow>
+          <Column>
+            <H6>Name</H6>
+          </Column>
+          <Column>
+            <H6>Date</H6>
+          </Column>
+          <Column>{showTickets && <H6>Remaining Tickets</H6>}</Column>
+          <Column />
+        </TripGridRow>
         {trips.map(trip => this.renderTrip(trip))}
-      </TripGridParent>
+      </TripGridWrapper>
     );
   }
 }
