@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { RichText } from 'prismic-reactjs';
 import PrismicPage from '../prismic/PrismicPage';
 import {
+  Button,
   H1,
   H2,
   H6,
@@ -13,6 +14,10 @@ import {
 import QuestionAnswer from '../components/faq/QuestionAnswer';
 import styled from 'styled-components';
 
+const FAQs = Container.extend`
+  padding: 80px;
+`;
+
 const Main = styled.div`
   grid-column: span 8;
 
@@ -20,6 +25,10 @@ const Main = styled.div`
     grid-column: span 12;
     order: 1;
   }
+`;
+
+const Title = H1.extend`
+  grid-column: span 12;
 `;
 
 const SideBar = styled.div`
@@ -43,6 +52,7 @@ const SideBar = styled.div`
 
 const Search = styled.div`
   grid-column: span 12;
+  max-width: 400px;
   ${MediaQueries.small} {
     display: none;
   }
@@ -50,6 +60,21 @@ const Search = styled.div`
 
 class FAQ extends Component {
   static pageType = 'faq';
+
+  constructor() {
+    super();
+    this.state = {
+      search: '',
+    };
+  }
+
+  updateSearch(event) {
+    this.setState({ search: event.target.value });
+  }
+
+  clearSearch() {
+    this.setState({ search: '' });
+  }
 
   getQuestionTypes(faqs) {
     let questionTypes = faqs.map(faq => {
@@ -92,22 +117,33 @@ class FAQ extends Component {
   }
 
   render() {
+    let filteredFAQs = this.props.doc.data.body.filter(faq => {
+      return (
+        faq.primary.question[0].text.includes(this.state.search) ||
+        faq.primary.answer[0].text.includes(this.state.search)
+      );
+    });
     return (
-      <Container>
+      <FAQs>
         <GridParent>
-          <H1>{RichText.asText(this.props.doc.data.title)}</H1>
+          <Title>{RichText.asText(this.props.doc.data.title)}</Title>
           <Search>
             <label>
               <H6>Search</H6>
-              <Input type="text" />
+              <Input
+                type="text"
+                value={this.state.search}
+                onChange={this.updateSearch.bind(this)}
+              />
             </label>
+            <Button small onClick={this.clearSearch.bind(this)}>
+              Clear
+            </Button>
           </Search>
-          <Main>{this.displayFAQs(this.props.doc.data.body)}</Main>
-          <SideBar>
-            {this.displaySideBarLinks(this.props.doc.data.body)}
-          </SideBar>
+          <Main>{this.displayFAQs(filteredFAQs)}</Main>
+          <SideBar>{this.displaySideBarLinks(filteredFAQs)}</SideBar>
         </GridParent>
-      </Container>
+      </FAQs>
     );
   }
 }
