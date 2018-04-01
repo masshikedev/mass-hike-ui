@@ -4,6 +4,7 @@ export default {
   yellow: '#faaf3f',
   gray: '#f8f8f8',
   darkgray: '#e6e6e6',
+  boxshadow: '0 2px 25px 0 rgba(51, 51, 51, 0.28)',
   greenBg:
     'repeating-linear-gradient(135deg, #558959, #558959 10px, #497c49 2px, #497c49 12px)',
   orangeBg:

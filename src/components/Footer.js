@@ -14,7 +14,7 @@ import {
   GridParent,
 } from '../style';
 
-const Foot = Container.extend`
+const FooterWrap = Container.extend`
   color: white;
   background-color: ${constants.green};
   padding-top: 0;
@@ -32,7 +32,7 @@ const Links = styled.ul`
   display: grid;
   grid-gap: 20px;
   grid-column: span 4;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   font-family: 'proxima-nova';
   font-size: 18px;
   font-weight: 500;
@@ -60,24 +60,17 @@ const FootGrid = GridParent.extend`
   padding: 40px 80px;
 `;
 
+const ListItem = styled.li``;
+
 class Footer extends Component {
   static pageType = 'footer';
 
-  renderFootLinks(links) {
-    const footLinks = links.map(link => {
-      return <li>{link}</li>;
-    });
-    return footLinks;
-  }
-
   render() {
     return (
-      <Foot>
+      <FooterWrap>
         <FootGrid>
           <Logo>Mass Hike</Logo>
-          <Links>
-            {this.renderFootLinks(renderLinkSlices(this.props.doc.data.body))}
-          </Links>
+          <Links>{renderLinkSlices(this.props.doc.data.body, ListItem)}</Links>
           <Contact>
             <H5>Sign up to receive newsletters!</H5>
             <label>
@@ -92,7 +85,7 @@ class Footer extends Component {
             </Button>
           </Contact>
         </FootGrid>
-      </Foot>
+      </FooterWrap>
     );
   }
 }
