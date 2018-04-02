@@ -41,10 +41,18 @@ const TitleWrapper = GridParent.extend`
   background: ${constants.green} ${constants.greenBg};
   background-blend-mode: multiply;
   margin-bottom: 50px;
+
+  ${MediaQueries.small} {
+    padding: 30px;
+  }
 `;
 
 const TitleContent = styled.div`
   grid-column: 3 / span 8;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
 `;
 
 const Title = H1.extend`
@@ -73,13 +81,30 @@ const SideBar = styled.div`
   max-height: 300px;
 
   ${MediaQueries.small} {
-    grid-column: span 12;
-    position: static;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-left: none;
-    border-bottom: solid;
+    display: flex;
+    flex-flow: row wrap;
+    grid-column: 2 / span 10;
     order: 0;
+    margin-bottom: 40px;
+    justify-content: center;
+
+    a:nth-child(even) {
+      text-align: left;
+    }
+    a:nth-child(odd) {
+      text-align: right;
+    }
+
+    h4 {
+      width: 100%;
+      text-align: center;
+    }
+
+    a {
+      width: 40%;
+      flex-grow: 1;
+      margin: 10px 0;
+    }
   }
 `;
 
