@@ -3,6 +3,7 @@ import Routes from './Routes';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import AdminBar from '../components/admin/AdminBar';
+import { StripeProvider, Elements } from 'react-stripe-elements';
 
 const App = props => {
   return (
@@ -10,7 +11,11 @@ const App = props => {
       <NavBar prismicCtx={props.prismicCtx} uid="nav" />
       <AdminBar />
       <main>
-        <Routes prismicCtx={props.prismicCtx} />
+        <StripeProvider apiKey="pk_test_gdoocVed0AjapcCEvNtTQqt5">
+          <Elements>
+            <Routes prismicCtx={props.prismicCtx} />
+          </Elements>
+        </StripeProvider>
       </main>
       <Footer prismicCtx={props.prismicCtx} uid="footer" />
     </div>
