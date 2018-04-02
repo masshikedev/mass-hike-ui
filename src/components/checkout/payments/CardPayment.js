@@ -4,6 +4,12 @@ import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from '../BaseCheckoutSection';
 import { setCurrentSection } from '../../../actions/CheckoutActions';
 import { H3, H6, Input, Button } from '../../../style';
+import {
+  injectStripe,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCVCElement,
+} from 'react-stripe-elements';
 
 class CardPayment extends BaseCheckoutSection {
   constructor(props) {
@@ -14,27 +20,51 @@ class CardPayment extends BaseCheckoutSection {
       expiration,
       cvv,
       billingZip,
+      hide: false,
     };
   }
 
   render() {
+    const { stripeCreateToken } = this.props;
+    const { hide } = this.state;
+    const style = {
+      base: {
+        color: '#303238',
+        fontSize: '16px',
+        color: '#32325d',
+        fontSmoothing: 'antialiased',
+        '::placeholder': {
+          color: '#ccc',
+        },
+      },
+      invalid: {
+        color: '#e5424d',
+        ':focus': {
+          color: '#303238',
+        },
+      },
+    };
     return (
       <div>
         <H3>Enter your credit card information</H3>
-        <label>
+        <label style={hide ? { position: 'absolute', top: '80px' } : {}}>
           <H6>Card Number</H6>
-          <Input
-            type="text"
+          <CardNumberElement
             value={this.state.cardNumber}
-            onChange={e => this.setState({ cardNumber: e.target.value })}
+            style={style}
+            onChange={e => {
+              console.log(e);
+            }}
           />
         </label>
-        <label>
+        <label style={hide ? { position: 'absolute', top: '80px' } : {}}>
           <H6>Expiration</H6>
-          <Input
-            type="text"
+          <CardExpiryElement
             value={this.state.expiration}
-            onChange={e => this.setState({ expiration: e.target.value })}
+            style={style}
+            onChange={e => {
+              console.log(e);
+            }}
           />
         </label>
         <label>
@@ -54,7 +84,17 @@ class CardPayment extends BaseCheckoutSection {
           />
         </label>
 
-        {true && <Button onClick={this.onCompleteSection}>Next</Button>}
+        {true && (
+          <Button
+            onClick={e => {
+              //this.onCompleteSection(e);
+              this.setState({ hide: true });
+              stripeCreateToken();
+            }}
+          >
+            Next
+          </Button>
+        )}
       </div>
     );
   }

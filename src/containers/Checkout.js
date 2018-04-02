@@ -10,7 +10,12 @@ import LoadableComponent from '../components/LoadableComponent';
 import { getTripById } from '../actions/CurrentTripActions';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import styled from 'styled-components';
+<<<<<<< HEAD
 import { Container, GridParent, MediaQueries } from '../style';
+=======
+import { H3, Container, GridParent, MediaQueries } from '../style';
+import { injectStripe } from 'react-stripe-elements';
+>>>>>>> stripe setup and messing around
 
 const Divider = styled.div`
   grid-column: span 1;
@@ -50,8 +55,13 @@ class Checkout extends LoadableComponent {
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
 
+  stripeCreateToken = () =>
+    this.props.stripe.createToken().then(({ token }) => {
+      console.log('Received Stripe token:', token);
+    });
+
   renderDefaultSection() {
-    const { match } = this.props;
+    const { match, stripe } = this.props;
     const section = SectionOrder[0];
     const next = SectionOrder[1];
     const Section = section.component;
@@ -64,6 +74,7 @@ class Checkout extends LoadableComponent {
             completeSection={this.completeSection}
             index={0}
             next={next.path}
+            stripeCreateToken={this.stripeCreateToken}
           />
         )}
       />
@@ -71,7 +82,7 @@ class Checkout extends LoadableComponent {
   }
 
   renderRemainingSections() {
-    const { match } = this.props;
+    const { match, stripe } = this.props;
     return SectionOrder.map((section, i) => {
       if (i === 0) {
         return null;
@@ -88,6 +99,7 @@ class Checkout extends LoadableComponent {
               completeSection={this.completeSection}
               index={i}
               next={next}
+              stripeCreateToken={this.stripeCreateToken}
             />
           )}
           key={i}
@@ -142,4 +154,6 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default injectStripe(
+  connect(mapStateToProps, mapDispatchToProps)(Checkout)
+);
