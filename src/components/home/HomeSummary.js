@@ -19,8 +19,8 @@ const Lists = styled.div`
 `;
 
 const List = styled.ul`
-  margin: 10px;
   flex: 1;
+  margin-top: 10px;
 `;
 
 const Column = styled.div`

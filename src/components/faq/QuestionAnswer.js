@@ -5,8 +5,8 @@ import { RichText } from 'prismic-reactjs';
 function QuestionAnswer(props) {
   return (
     <div>
-      <H4>{RichText.asText(props.question)}</H4>
-      <P>{RichText.render(props.answer)}</P>
+      <H4>{RichText.asText(props.faq)}</H4>
+      <P>{RichText.render(props.faq_response)}</P>
     </div>
   );
 }

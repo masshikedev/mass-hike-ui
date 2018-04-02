@@ -17,6 +17,7 @@ injectGlobal`
 
   ul {
     list-style-image: url(${tree});
+    list-style-position: inside;
   }
 
   li {

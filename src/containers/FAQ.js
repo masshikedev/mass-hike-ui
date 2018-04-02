@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { RichText } from 'prismic-reactjs';
+import { fromJS } from 'immutable';
 import PrismicPage from '../prismic/PrismicPage';
 import {
   Button,
@@ -14,9 +15,7 @@ import {
 import QuestionAnswer from '../components/faq/QuestionAnswer';
 import styled from 'styled-components';
 
-const FAQs = Container.extend`
-  padding: 80px;
-`;
+const FAQs = Container.extend``;
 
 const Main = styled.div`
   grid-column: span 8;
@@ -78,11 +77,7 @@ class FAQ extends Component {
 
   getQuestionTypes(faqs) {
     let questionTypes = faqs.map(faq => {
-      return faq.primary.question_type[0].text;
-    });
-
-    questionTypes = questionTypes.filter(function(x, i) {
-      return questionTypes.indexOf(x) === i;
+      return faq.primary.faq_category[0].text;
     });
 
     return questionTypes;
@@ -91,14 +86,13 @@ class FAQ extends Component {
   displayFAQs(faqs) {
     let questionTypes = this.getQuestionTypes(faqs);
 
-    const elements = questionTypes.map(type => {
+    const elements = faqs.map(faq => {
+      const category = faq.primary.faq_category[0].text;
       return (
         <div>
-          <H2 id={type}>{type}</H2>
-          {faqs.map(faq => {
-            if (faq.primary.question_type[0].text === type) {
-              return <QuestionAnswer {...faq.primary} />;
-            }
+          <H2 id={category}>{category}</H2>
+          {faq.items.map(QA => {
+            return <QuestionAnswer {...QA} />;
           })}
         </div>
       );
@@ -117,11 +111,16 @@ class FAQ extends Component {
   }
 
   render() {
-    let filteredFAQs = this.props.doc.data.body.filter(faq => {
-      return (
-        faq.primary.question[0].text.includes(this.state.search) ||
-        faq.primary.answer[0].text.includes(this.state.search)
-      );
+    const allSections = fromJS(this.props.doc.data.body);
+
+    let filteredFAQs = this.props.doc.data.body.filter(set => {
+      set.items.filter(item => {
+        return (
+          item.faq[0].text.includes(this.state.search) ||
+          item.faq_response[0].text.includes(this.state.search)
+        );
+      });
+      return set.items.length > 0;
     });
     return (
       <FAQs>
