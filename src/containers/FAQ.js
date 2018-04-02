@@ -79,8 +79,11 @@ const SideBar = styled.div`
   display: grid;
   grid-column: span 2 / -3;
   max-height: 300px;
+  position: sticky;
+  top: 100px;
 
   ${MediaQueries.small} {
+    postiion: relative;
     display: flex;
     flex-flow: row wrap;
     grid-column: 2 / span 10;
