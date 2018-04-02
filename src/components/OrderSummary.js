@@ -1,6 +1,6 @@
 import React from 'react';
 import EditButton from './checkout/EditButton';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
 import { P, H2, H6, MediaQueries } from '../style';
 import styled from 'styled-components';
@@ -33,11 +33,11 @@ export default function OrderSummary(props) {
           <P large>
             {trip.name}
             <br />
-            {format(trip.time.hikeStart, MONTH_DATE_YEAR)}
+            {moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}
             <br />
-            {format(trip.time.hikeStart, TIME)}
+            {moment(trip.time.hikeStart).format(TIME)}
             {' - '}
-            {format(trip.time.hikeEnd, TIME)}
+            {moment(trip.time.hikeEnd).format(TIME)}
             <br />
           </P>
           <HeadingContainer>

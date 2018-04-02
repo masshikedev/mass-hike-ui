@@ -6,7 +6,7 @@ import previewImage from '../images/square.png'; // relative path to image
 import Button from '../style/Button';
 import { P, constants, GridParent, MediaQueries } from '../style';
 import styled from 'styled-components';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { MONTH_DATE, TIME } from '../utils/dateFormats';
 
 const Margin = styled.div`
@@ -76,8 +76,8 @@ class TripListItem extends Component {
       difficulty,
       tripId,
     } = this.props;
-    const dateString = format(date, MONTH_DATE);
-    const timeString = format(date, TIME);
+    const dateString = moment(date).format(MONTH_DATE);
+    const timeString = moment(date).format(TIME);
     return (
       <TripWrapper>
         <Date proxima bold size="large" color="orange">

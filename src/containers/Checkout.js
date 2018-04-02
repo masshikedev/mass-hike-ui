@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -6,9 +6,9 @@ import { push } from 'react-router-redux';
 import SectionOrder from '../data/CheckoutSectionOrder';
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar';
 import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
+import LoadableComponent from '../components/LoadableComponent';
 import { getTripById } from '../actions/CurrentTripActions';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
-import renderByStatus from '../utils/renderByStatus';
 import styled from 'styled-components';
 import { H3, Container, GridParent, MediaQueries } from '../style';
 
@@ -30,7 +30,7 @@ const FormWrapper = styled.div`
   }
 `;
 
-class Checkout extends Component {
+class Checkout extends LoadableComponent {
   componentWillMount() {
     const { getTripById } = this.props;
     getTripById(this.props.match.params.tripId);
@@ -96,51 +96,31 @@ class Checkout extends Component {
     });
   }
 
-  renderLoading() {
-    return <H3>Loading...</H3>;
-  }
-
-  renderError() {
-    return <H3>An error has occured.</H3>;
-  }
-
   renderSuccess = () => {
     const { currentSection, trip, match, checkoutInitialized } = this.props;
     return (
-      <div>
-        <GridParent>
-          <FormWrapper>
-            <form>
-              <Switch>
-                {this.renderDefaultSection()}
-                {!checkoutInitialized && (
-                  <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
-                )}
-                {this.renderRemainingSections()}
-              </Switch>
-            </form>
-          </FormWrapper>
-          {currentSection !== 4 && <Divider />}
-          {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
-        </GridParent>
-        <CheckoutProgressBar sectionOrder={SectionOrder} />
-      </div>
-    );
-  };
-
-  render() {
-    const { status } = this.props;
-    return (
       <Container>
-        {renderByStatus(
-          status,
-          this.renderLoading,
-          this.renderSuccess,
-          this.renderError
-        )}
+        <div>
+          <GridParent>
+            <FormWrapper>
+              <form>
+                <Switch>
+                  {this.renderDefaultSection()}
+                  {!checkoutInitialized && (
+                    <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
+                  )}
+                  {this.renderRemainingSections()}
+                </Switch>
+              </form>
+            </FormWrapper>
+            {currentSection !== 4 && <Divider />}
+            {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
+          </GridParent>
+          <CheckoutProgressBar sectionOrder={SectionOrder} />
+        </div>
       </Container>
     );
-  }
+  };
 }
 
 const mapStateToProps = state => ({

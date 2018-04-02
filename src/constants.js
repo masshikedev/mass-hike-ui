@@ -4,3 +4,5 @@ export const RequestStatus = {
   SUCCESS: 'SUCCESS',
   ERROR: 'ERROR',
 };
+
+export const TRIP_DIFFICULTIES = ['Easy', 'Moderate', 'Challenging'];

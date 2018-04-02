@@ -13,7 +13,8 @@ import TripDetail from './TripDetail';
 import Checkout from './Checkout';
 import MobileCheckout from './MobileCheckout';
 import OrderConfirmation from './OrderConfirmation';
-import Admin from './Admin';
+import AdminDashboard from './AdminDashboard';
+import NewTrip from './NewTrip';
 import PrismicRoute from '../prismic/PrismicRoute';
 
 const Routes = props => (
@@ -88,7 +89,8 @@ const Routes = props => (
     />
     <Route path="/trips/:tripId/checkout-mobile" component={MobileCheckout} />
     <Route exact path="/order/:id" component={OrderConfirmation} />
-    <Route exact path="/admin" component={Admin} />
+    <Route exact path="/admin" component={AdminDashboard} />
+    <Route exact path="/admin/trips/new" component={NewTrip} />
     <Route component={NotFound} />
   </Switch>
 );

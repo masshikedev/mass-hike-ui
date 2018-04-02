@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTripList } from '../actions/TripListActions';
 import TripListItem from '../components/TripListItem';
-import renderByStatus from '../utils/renderByStatus';
+import LoadableComponent from '../components/LoadableComponent';
 import { H1, P, H3, MediaQueries, Container } from '../style';
 import styled from 'styled-components';
 
@@ -24,7 +24,7 @@ const TitleContent = H1.extend`
   margin-bottom: 20px;
 `;
 
-class TripList extends Component {
+class TripList extends LoadableComponent {
   componentWillMount() {
     const { getTripList } = this.props;
     getTripList();
@@ -32,14 +32,6 @@ class TripList extends Component {
 
   spotsRemaining(trip) {
     return trip.capacity - trip.ticketsSold;
-  }
-
-  renderLoading() {
-    return <H3>Loading...</H3>;
-  }
-
-  renderError() {
-    return <H3>An error has occured.</H3>;
   }
 
   renderSuccess = () => {
@@ -58,31 +50,19 @@ class TripList extends Component {
       );
     });
     return (
-      <div>
-        <Title>
-          <P proxima size="large" bold>
-            Take a look at our
-          </P>
-          <TitleContent>Upcoming Trips</TitleContent>
-        </Title>
-        <Trips>{tripComponents}</Trips>
-      </div>
-    );
-  };
-
-  render() {
-    const { status } = this.props;
-    return (
       <Container>
-        {renderByStatus(
-          status,
-          this.renderLoading,
-          this.renderSuccess,
-          this.renderError
-        )}
+        <div>
+          <Title>
+            <P proxima size="large" bold>
+              Take a look at our
+            </P>
+            <TitleContent>Upcoming Trips</TitleContent>
+          </Title>
+          <Trips>{tripComponents}</Trips>
+        </div>
       </Container>
     );
-  }
+  };
 }
 
 const mapStateToProps = state => ({

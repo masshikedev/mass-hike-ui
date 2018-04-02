@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DetailDescription from '../components/DetailDescription';
@@ -6,7 +6,7 @@ import TripInfo from '../components/TripInfo';
 import { getTripById } from '../actions/CurrentTripActions';
 import previewImage from '../images/square.png';
 import styled from 'styled-components';
-import renderByStatus from '../utils/renderByStatus';
+import LoadableComponent from '../components/LoadableComponent';
 import {
   H1,
   H3,
@@ -16,7 +16,7 @@ import {
   GridParent,
   MediaQueries,
 } from '../style';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { MONTH_DATE } from '../utils/dateFormats';
 
 const Title = H1.extend`
@@ -81,63 +81,42 @@ const Date = P.extend`
   }
 `;
 
-class TripDetail extends Component {
+class TripDetail extends LoadableComponent {
   componentWillMount() {
     const { getTripById } = this.props;
     getTripById(this.props.match.params.tripId);
   }
 
-  renderLoading() {
-    return <H3>Loading...</H3>;
-  }
-
-  renderError() {
-    return <H3>An error has occured.</H3>;
-  }
-
   renderSuccess = () => {
     const { trip } = this.props;
-    const dateString = format(trip.time.hikeStart, MONTH_DATE);
-    console.log(trip);
-    return (
-      <TripWrapper>
-        <Date uppercase proxima color="orange" bold size="large">
-          {dateString}
-        </Date>
-        <Summary>
-          <MainInfo>
-            <P proxima bold size="large" color="white">
-              Let's go to
-            </P>
-            <Title>{trip.name}</Title>
-            <P proxima size="medium" color="white">
-              {trip.detail.body}
-            </P>
-          </MainInfo>
-          <TripImage bg={previewImage} />
-        </Summary>
-        <DetailSection>
-          <DetailDescription {...trip} />
-          <Divider />
-          <TripInfo {...trip} />
-        </DetailSection>
-      </TripWrapper>
-    );
-  };
-
-  render() {
-    const { status } = this.props;
+    const dateString = moment(trip.time.hikeStart).format(MONTH_DATE);
     return (
       <Container>
-        {renderByStatus(
-          status,
-          this.renderLoading,
-          this.renderSuccess,
-          this.renderError
-        )}
+        <TripWrapper>
+          <Date uppercase proxima color="orange" bold size="large">
+            {dateString}
+          </Date>
+          <Summary>
+            <MainInfo>
+              <P proxima bold size="large" color="white">
+                Let's go to
+              </P>
+              <Title>{trip.name}</Title>
+              <P proxima size="medium" color="white">
+                {trip.detail.body}
+              </P>
+            </MainInfo>
+            <TripImage bg={previewImage} />
+          </Summary>
+          <DetailSection>
+            <DetailDescription {...trip} />
+            <Divider />
+            <TripInfo {...trip} />
+          </DetailSection>
+        </TripWrapper>
       </Container>
     );
-  }
+  };
 }
 
 const mapStateToProps = state => ({

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { GridParent, H6 } from '../../style';
 import styled from 'styled-components';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 
 const TripGridWrapper = styled.div`
@@ -25,7 +25,7 @@ class TripGrid extends Component {
     return (
       <TripGridRow key={trip.tripId}>
         <Column>{trip.name}</Column>
-        <Column>{format(trip.time.hikeStart, MONTH_DATE_YEAR)}</Column>
+        <Column>{moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}</Column>
         <Column>{showTickets && trip.capacity - trip.orders.length}</Column>
         <Column>
           <Link to="/">details</Link>

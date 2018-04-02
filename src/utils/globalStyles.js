@@ -1,6 +1,8 @@
 import { injectGlobal } from 'styled-components';
 import tree from '../images/tree.png';
 import { constants } from '../style';
+import 'react-day-picker/lib/style.css';
+import 'rc-time-picker/assets/index.css';
 
 injectGlobal`
   body {
