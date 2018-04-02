@@ -146,15 +146,13 @@ class FAQ extends Component {
           <Main>
             {filteredFAQs.map((section, secId) => (
               <React.Fragment>
-                {!this.state.search && (
-                  <FAQWrapper key={secId}>
-                    <HR />
-                    <FAQTitle id={this.getSectionTitle(section)}>
-                      {this.getSectionTitle(section)}
-                    </FAQTitle>
-                    <HR />
-                  </FAQWrapper>
-                )}
+                <FAQWrapper key={secId}>
+                  <HR />
+                  <FAQTitle id={this.getSectionTitle(section)}>
+                    {this.getSectionTitle(section)}
+                  </FAQTitle>
+                  <HR />
+                </FAQWrapper>
                 {section.get('items').map((question, faqId) => {
                   return !this.state.search ||
                     question
