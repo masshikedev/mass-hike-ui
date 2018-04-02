@@ -10,12 +10,8 @@ import LoadableComponent from '../components/LoadableComponent';
 import { getTripById } from '../actions/CurrentTripActions';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import styled from 'styled-components';
-<<<<<<< HEAD
 import { Container, GridParent, MediaQueries } from '../style';
-=======
-import { H3, Container, GridParent, MediaQueries } from '../style';
 import { injectStripe } from 'react-stripe-elements';
->>>>>>> stripe setup and messing around
 
 const Divider = styled.div`
   grid-column: span 1;
