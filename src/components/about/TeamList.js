@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import TeamMember from './TeamMember';
-import { H2, GridParent } from '../../style';
+import { P, GridParent, MediaQueries } from '../../style';
+
+const Members = GridParent.extend`
+  grid-gap: 5px;
+
+  ${MediaQueries.small} {
+    grid-gap: 0;
+  }
+`;
+
+const Title = P.extend`
+  text-align: center;
+  padding-top: 20px;
+`;
 
 class TeamList extends Component {
   static pageType = 'about';
@@ -8,8 +21,10 @@ class TeamList extends Component {
   render() {
     return (
       <div>
-        <H2>Our Team</H2>
-        <GridParent>{this.renderTeamMembers()}</GridParent>
+        <Title xxlarge proxima bold>
+          Our Team
+        </Title>
+        <Members>{this.renderTeamMembers()}</Members>
       </div>
     );
   }

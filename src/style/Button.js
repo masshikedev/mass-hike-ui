@@ -5,8 +5,10 @@ const Button = styled.button`
   width: 100%;
   max-width: 300px;
   height: ${({ small }) => (small ? '36px' : '56px')};
-  background-color: ${({ primary, disabled }) =>
-    disabled ? '#999999' : primary ? constants.yellow : constants.orange};
+  background-color: ${({ primary, disabled, trip }) =>
+    disabled
+      ? '#999999'
+      : primary ? constants.yellow : trip ? constants.blue : constants.orange};
   text-transform: ${({ primary }) => (primary ? 'lowercase' : 'none')};
   padding: ${({ primary }) => (primary ? '0 20px' : 'auto')};
   border: none;

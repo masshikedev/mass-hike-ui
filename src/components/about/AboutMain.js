@@ -1,20 +1,57 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H1, P, GridParent } from '../../style';
+import { H1, P, GridParent, MediaQueries, constants } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
-const Column = styled.div`
-  grid-column: span 12;
+const About = GridParent.extend`
+  grid-column-gap: 0;
+`;
+
+const Text = styled.div`
+  grid-column: span 7;
+  padding: 40px 80px;
+  padding-top: 80px;
+  background: ${constants.lightgreenBg};
+  color: #fff;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+    padding: 40px;
+    text-align: center;
+  }
+`;
+
+const Title = H1.extend`
+  margin-bottom: 10px;
+`;
+
+const Image = styled.div`
+  grid-column: span 5;
+  background-image: url(${props => props.bg});
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 400px;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+    order: 0;
+  }
 `;
 
 function AboutMain(props) {
+  console.log(props);
   return (
-    <GridParent>
-      <Column>
-        <H1>{RichText.asText(props.doc.data.title)}</H1>
-        <P>{RichText.asText(props.doc.data.main_content)}</P>
-      </Column>
-    </GridParent>
+    <About>
+      <Text>
+        <P bold proxima xlarge>
+          Learn a bit
+        </P>
+        <Title>{RichText.asText(props.doc.data.title)}</Title>
+        <P proxima>{RichText.asText(props.doc.data.main_content)}</P>
+      </Text>
+      <Image bg={props.doc.data.about_image.url} />
+    </About>
   );
 }
 

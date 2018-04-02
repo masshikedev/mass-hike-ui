@@ -19,12 +19,14 @@ const P = styled.p`
     medium ? '500' : bold ? '700' : extrabold ? '800' : '400'};
   margin-bottom: 10px;
   line-height: 1.44;
-  color: ${({ error, green, yellow, white }) =>
+  color: ${({ error, green, orange, yellow, white }) =>
     error
       ? 'red'
       : green
         ? constants.green
-        : yellow ? constants.yellow : white ? '#fff' : 'black'};
+        : orange
+          ? constants.orange
+          : yellow ? constants.yellow : white ? '#fff' : 'inherit'};
 `;
 
 export default P;

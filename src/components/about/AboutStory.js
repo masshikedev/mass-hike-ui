@@ -1,41 +1,54 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, Img, MediaQueries, GridParent } from '../../style';
+import { P, MediaQueries, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
+import hero from '../../images/home-hero2.png';
 
-const Column = styled.div`
-  grid-column: span 6;
-
-  ${MediaQueries.small} {
-    order: 2;
-    grid-column: span 12;
-  }
-`;
-
-const ImgColumn = Img.extend`
-  grid-column: span 6;
+const Text = P.extend`
+  grid-column: span 8;
+  padding: 40px;
+  padding-top: 20px;
 
   ${MediaQueries.small} {
-    order: 1;
     grid-column: span 12;
   }
 `;
 
 const Title = styled.div`
   grid-column: span 12;
+  padding: 0 40px;
+  padding-top: 20px;
   order: 0;
 `;
+
+const Story = GridParent.extend``;
+
+const Image = styled.div`
+  grid-column: span 12;
+  background-image: url(${hero});
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 300px;
+
+  ${MediaQueries.small} {
+    min-height: 264px;
+    background-position: right bottom;
+    background-size: auto;
+  }
+`;
+
 function AboutStory(props) {
   return (
-    <GridParent>
+    <Story>
       <Title>
-        <H2>{RichText.asText(props.doc.data.title2)}</H2>
+        <P xxlarge bold proxima>
+          {RichText.asText(props.doc.data.title2)}
+        </P>
       </Title>
-      <Column>
-        <div>{RichText.render(props.doc.data.our_story)}</div>
-      </Column>
-      <ImgColumn src={props.doc.data.story_image.url} />
-    </GridParent>
+      <Text large>{RichText.render(props.doc.data.our_story)}</Text>
+      <Image />
+    </Story>
   );
 }
 

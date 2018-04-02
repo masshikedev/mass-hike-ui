@@ -1,10 +1,19 @@
 export default {
   green: '#558959',
+  lightgreen: '#85AA5B',
   orange: '#f05a28',
+  darkorange: '#EF5B17',
+  blue: '#27A9E0',
   yellow: '#faaf3f',
   gray: '#f8f8f8',
   darkgray: '#e6e6e6',
   boxshadow: '0 2px 25px 0 rgba(51, 51, 51, 0.28)',
+  offwhiteBg:
+    'repeating-linear-gradient(135deg, #E8E9D9, #E8E9D9 10px, #DDE1CB 2px, #DDE1CB 12px)',
+  yellowBg:
+    'repeating-linear-gradient(135deg, #faaf3f, #faaf3f 10px, #EF5B17 2px, #EF5B17 12px)',
+  lightgreenBg:
+    'repeating-linear-gradient(135deg, #85AA5B, #85AA5B 10px, #7BA151 2px, #7BA151 12px)',
   greenBg:
     'repeating-linear-gradient(135deg, #558959, #558959 10px, #497c49 2px, #497c49 12px)',
   orangeBg:
