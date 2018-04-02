@@ -41,6 +41,8 @@ const Button = styled.button`
   padding: ${({ primary }) => (primary ? '15px 30px' : '5px 20px')};
   > * {
     margin: 0;
+    padding: 0;
+    color: white;
   }
 `;
 

@@ -6,8 +6,7 @@ import { RichText } from 'prismic-reactjs';
 const DetailItem = P.extend`
   grid-column: span 6;
   display: flex;
-  align-items center;
-  
+  align-items: center;
 `;
 
 const StepNumber = styled.div`
@@ -90,7 +89,7 @@ function HomeDetails(props) {
       </DetailImage>
       <Step>
         <StepNumber>1</StepNumber>
-        <DetailItem proxima large>
+        <DetailItem proxima size="large">
           {props.doc.data.detail1[2].text}
         </DetailItem>
       </Step>
@@ -100,7 +99,7 @@ function HomeDetails(props) {
       </DetailImage>
       <Step>
         <StepNumber>2</StepNumber>
-        <DetailItem proxima large>
+        <DetailItem proxima size="large">
           {props.doc.data.detail2[2].text}
         </DetailItem>
       </Step>
@@ -110,7 +109,7 @@ function HomeDetails(props) {
       </DetailImage>
       <Step>
         <StepNumber>3</StepNumber>
-        <DetailItem proxima large>
+        <DetailItem proxima size="large">
           {props.doc.data.detail3[2].text}
         </DetailItem>
       </Step>

@@ -18,6 +18,7 @@ const FooterWrap = Container.extend`
   color: white;
   background-color: ${constants.green};
   padding-top: 0;
+  min-height: ${constants.footerMinHeight};
 `;
 
 const Contact = styled.div`

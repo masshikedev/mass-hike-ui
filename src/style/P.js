@@ -2,10 +2,12 @@ import styled from 'styled-components';
 import constants from './constants';
 
 const P = styled.p`
-  font-size: ${({ xxlarge, xlarge, large, small }) =>
-    xxlarge
+  font-size: ${({ size }) =>
+    size === 'xlarge'
       ? '42px'
-      : xlarge ? '24px' : large ? '18px' : small ? '14px' : '16px'};
+      : size === 'large'
+        ? '24px'
+        : size === 'medium' ? '16px' : size === 'small' ? '14px' : '16px'};
 
   text-transform: ${({ capitalize, uppercase, lowercase }) =>
     capitalize
@@ -19,12 +21,14 @@ const P = styled.p`
     medium ? '500' : bold ? '700' : extrabold ? '800' : '400'};
   margin-bottom: 10px;
   line-height: 1.44;
-  color: ${({ error, green, yellow, white }) =>
-    error
+  color: ${({ color }) =>
+    color === 'error'
       ? 'red'
-      : green
+      : color === 'green'
         ? constants.green
-        : yellow ? constants.yellow : white ? '#fff' : 'black'};
+        : color === 'yellow'
+          ? constants.yellow
+          : color === 'white' ? '#fff' : 'black'};
 `;
 
 export default P;

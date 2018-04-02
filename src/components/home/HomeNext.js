@@ -96,9 +96,9 @@ class HomeNext extends Component {
         <Text>
           <Date>{format(trip.time.hikeStart, MONTH_DATE)}</Date>
           <Summary>
-            <H6>Let's go to </H6>
+            <H6 color="white">Let's go to </H6>
             <H2>{trip.name}</H2>
-            <P proxima medium large white>
+            <P proxima medium large color="white">
               {trip.detail.body}
             </P>
           </Summary>

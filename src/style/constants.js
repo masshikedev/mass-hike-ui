@@ -1,12 +1,14 @@
 export default {
-  green: '#558959',
+  green: '#85AA5B',
   orange: '#f05a28',
   yellow: '#faaf3f',
   gray: '#f8f8f8',
   darkgray: '#e6e6e6',
+  navHeight: '75px',
+  footerMinHeight: '150px;',
   boxshadow: '0 2px 25px 0 rgba(51, 51, 51, 0.28)',
   greenBg:
-    'repeating-linear-gradient(135deg, #558959, #558959 10px, #497c49 2px, #497c49 12px)',
+    'repeating-linear-gradient(135deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 10px, rgba(133,170,91, 0.4) 2px, rgba(133,170,91, 0.4) 12px)',
   orangeBg:
     'repeating-linear-gradient(135deg, #f05a28, #f05a28 10px, #da5323 2px, #da5323 12px)',
   grayBg:
