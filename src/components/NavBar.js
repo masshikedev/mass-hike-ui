@@ -66,11 +66,11 @@ const Hamburger = styled.div`
 class NavBar extends Component {
   static pageType = 'header';
 
-  renderNavLinks(links) {
-    const navLinks = links.map(link => {
+  renderNavLinks = links =>
+    links.map(link => {
       if (link.props.children.props.to === '/trips') {
         return (
-          <Button primary small>
+          <Button key="cta">
             <a href={link.props.children.props.to}>
               {link.props.children.props.children}
             </a>
@@ -80,8 +80,6 @@ class NavBar extends Component {
         return link;
       }
     });
-    return navLinks;
-  }
 
   render() {
     const { loggedIn } = this.props;

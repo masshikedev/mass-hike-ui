@@ -6,7 +6,7 @@ function QuestionAnswer(props) {
   return (
     <div>
       <H4>{RichText.asText(props.faq)}</H4>
-      <P>{RichText.render(props.faq_response)}</P>
+      <P>{RichText.asText(props.faq_response)}</P>
     </div>
   );
 }

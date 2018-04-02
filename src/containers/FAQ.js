@@ -3,14 +3,14 @@ import { RichText } from 'prismic-reactjs';
 import { fromJS } from 'immutable';
 import PrismicPage from '../prismic/PrismicPage';
 import {
-  Button,
+  Button as _Button,
   H1,
   H2,
-  H6,
   Input,
   Container,
   GridParent,
   MediaQueries,
+  constants,
 } from '../style';
 import QuestionAnswer from '../components/faq/QuestionAnswer';
 import styled from 'styled-components';
@@ -26,8 +26,18 @@ const Main = styled.div`
   }
 `;
 
-const Title = H1.extend`
+const Button = _Button.extend`
+  margin-left: 30px;
+`;
+
+const TitleWrapper = styled.div`
   grid-column: span 12;
+  padding: 75px;
+  background: ${constants.greenBg};
+`;
+
+const Title = H1.extend`
+  color: white;
 `;
 
 const SideBar = styled.div`
@@ -50,8 +60,10 @@ const SideBar = styled.div`
 `;
 
 const Search = styled.div`
-  grid-column: span 12;
-  max-width: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
   ${MediaQueries.small} {
     display: none;
   }
@@ -67,80 +79,80 @@ class FAQ extends Component {
     };
   }
 
-  updateSearch(event) {
+  updateSearch = event => {
     this.setState({ search: event.target.value });
-  }
+  };
 
-  clearSearch() {
+  clearSearch = () => {
     this.setState({ search: '' });
-  }
+  };
 
-  getQuestionTypes(faqs) {
-    let questionTypes = faqs.map(faq => {
-      return faq.primary.faq_category[0].text;
-    });
-
-    return questionTypes;
-  }
-
-  displayFAQs(faqs) {
-    let questionTypes = this.getQuestionTypes(faqs);
-
-    const elements = faqs.map(faq => {
-      const category = faq.primary.faq_category[0].text;
-      return (
-        <div>
-          <H2 id={category}>{category}</H2>
-          {faq.items.map(QA => {
-            return <QuestionAnswer {...QA} />;
-          })}
-        </div>
-      );
-    });
-    return elements;
-  }
-
-  displaySideBarLinks(faqs) {
-    const questionTypes = this.getQuestionTypes(faqs);
-
-    const sideBar = questionTypes.map(type => {
-      const link = '#' + type;
-      return <a href={link}>{type}</a>;
-    });
-    return sideBar;
+  getSectionTitle(faqSection) {
+    return faqSection.getIn(['primary', 'faq_category', 0, 'text']);
   }
 
   render() {
-    const allSections = fromJS(this.props.doc.data.body);
-
-    let filteredFAQs = this.props.doc.data.body.filter(set => {
-      set.items.filter(item => {
+    let filteredFAQs = fromJS(this.props.doc.data.body).filter(sections => {
+      return sections.get('items').filter(item => {
         return (
-          item.faq[0].text.includes(this.state.search) ||
-          item.faq_response[0].text.includes(this.state.search)
+          item.getIn(['faq', 0, 'text']).includes(this.state.search) ||
+          item.getIn(['faq_response', 0, 'text']).includes(this.state.search)
         );
-      });
-      return set.items.length > 0;
+      }).size;
     });
     return (
       <FAQs>
         <GridParent>
-          <Title>{RichText.asText(this.props.doc.data.title)}</Title>
-          <Search>
-            <label>
-              <H6>Search</H6>
-              <Input
-                type="text"
-                value={this.state.search}
-                onChange={this.updateSearch.bind(this)}
-              />
-            </label>
-            <Button small onClick={this.clearSearch.bind(this)}>
-              Clear
-            </Button>
-          </Search>
-          <Main>{this.displayFAQs(filteredFAQs)}</Main>
-          <SideBar>{this.displaySideBarLinks(filteredFAQs)}</SideBar>
+          <TitleWrapper>
+            <Title>{RichText.asText(this.props.doc.data.title)}</Title>
+            <Search>
+              <label>
+                <Input
+                  type="text"
+                  placeholder="search"
+                  value={this.state.search}
+                  onChange={this.updateSearch}
+                />
+              </label>
+              <Button small primary onClick={this.clearSearch}>
+                Clear
+              </Button>
+            </Search>
+          </TitleWrapper>
+          <Main>
+            {filteredFAQs.map((section, secId) => (
+              <div key={secId}>
+                {!this.state.search && (
+                  <H2 id={this.getSectionTitle(section)}>
+                    {this.getSectionTitle(section)}
+                  </H2>
+                )}
+                {section.get('items').map((question, faqId) => {
+                  return !this.state.search ||
+                    question
+                      .getIn(['faq', 0, 'text'])
+                      .includes(this.state.search) ||
+                    question
+                      .getIn(['faq_response', 0, 'text'])
+                      .includes(this.state.search) ? (
+                    <QuestionAnswer key={faqId} {...question.toJS()} />
+                  ) : null;
+                })}
+              </div>
+            ))}
+          </Main>
+          {!this.state.search && (
+            <SideBar>
+              {filteredFAQs.map((section, id) => {
+                const link = '#' + this.getSectionTitle(section);
+                return (
+                  <a href={link} key={id}>
+                    {this.getSectionTitle(section)}
+                  </a>
+                );
+              })}
+            </SideBar>
+          )}
         </GridParent>
       </FAQs>
     );
