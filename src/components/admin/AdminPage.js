@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Login from './Login';
 
-class AdminPage extends Component {
-  render() {
-    const { loggedIn, children } = this.props;
+export default Wrapped => {
+  return connect(mapStateToProps)(function(props) {
+    const { loggedIn } = props;
     if (!loggedIn) {
       return <Login />;
     }
-    return children;
-  }
-}
+    return <Wrapped />;
+  });
+};
 
 const mapStateToProps = state => ({
   loggedIn: state.auth.isAuthenticated,
 });
-
-export default connect(mapStateToProps)(AdminPage);

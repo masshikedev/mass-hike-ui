@@ -5,13 +5,11 @@ import TripForm from '../components/admin/TripForm';
 
 function NewTrip(props) {
   return (
-    <AdminPage>
-      <Container>
-        <H2>New Trip</H2>
-        <TripForm />
-      </Container>
-    </AdminPage>
+    <Container>
+      <H2>New Trip</H2>
+      <TripForm />
+    </Container>
   );
 }
 
-export default NewTrip;
+export default AdminPage(NewTrip);

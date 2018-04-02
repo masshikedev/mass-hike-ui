@@ -26,7 +26,11 @@ const CalendarWrapper = styled.div`
 class TripForm extends Component {
   constructor(props) {
     super(props);
-    this.state = props.trip ? props.trip : emptyTrip;
+    const baseState = props.trip ? props.trip : emptyTrip;
+    this.state = {
+      ...baseState,
+      uploadInProgress: false,
+    };
   }
 
   fieldFor = (fieldName, parent) => {
@@ -42,8 +46,10 @@ class TripForm extends Component {
     );
   };
 
-  onDrop = acceptedFiles => {
-    console.log(acceptedFiles);
+  onUploadAttempt = () => this.setStaate({ uploadInProgress: true });
+
+  onUploadSuccess = imageUrl => {
+    this.setState({ imageUrl, uploadInProgress: false });
   };
 
   render() {
@@ -88,7 +94,10 @@ class TripForm extends Component {
           <H6>Body</H6>
           <TextArea />
           <H6>Image</H6>
-          <ImageDropzone onDrop={this.onDrop}>
+          <ImageDropzone
+            onUploadStart={this.onUploadStart}
+            onUploadSuccess={this.onUploadSuccess}
+          >
             Drag and drop an image or click to select one
           </ImageDropzone>
         </TripFormSection>

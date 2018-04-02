@@ -16,13 +16,21 @@ export const get = endpoint => {
   }).then(formatResponse);
 };
 
-export const post = (endpoint, body) => {
+const basePost = (endpoint, body, contentType) => {
   return fetch(`${BASE_URL}${endpoint}`, {
     body,
     method: 'post',
     headers: {
-      'Content-Type': 'application/json',
+      ...contentType,
       'x-access-token': localStorage.getItem('mh-login-token'),
     },
   }).then(formatResponse);
+};
+
+export const post = (endpoint, body) => {
+  return basePost(endpoint, body, { 'Content-Type': 'application/json' });
+};
+
+export const postFile = (endpoint, body) => {
+  return basePost(endpoint, body, {});
 };

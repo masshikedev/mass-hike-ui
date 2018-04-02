@@ -31,15 +31,13 @@ class AdminDashboard extends LoadableComponent {
       return null;
     }
     return (
-      <AdminPage>
-        <Container>
-          <H2>Upcoming Trips</H2>
-          <TripGrid trips={upcomingTrips} showTickets={true} />
-          <CreateButton onClick={this.onClickCreate}>Create New</CreateButton>
-          <H2>Past Trips</H2>
-          <TripGrid trips={pastTrips} showTickets={false} />
-        </Container>
-      </AdminPage>
+      <Container>
+        <H2>Upcoming Trips</H2>
+        <TripGrid trips={upcomingTrips} showTickets={true} />
+        <CreateButton onClick={this.onClickCreate}>Create New</CreateButton>
+        <H2>Past Trips</H2>
+        <TripGrid trips={pastTrips} showTickets={false} />
+      </Container>
     );
   };
 }
@@ -63,4 +61,6 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminDashboard);
+export default AdminPage(
+  connect(mapStateToProps, mapDispatchToProps)(AdminDashboard)
+);
