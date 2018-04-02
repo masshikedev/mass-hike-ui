@@ -40,7 +40,6 @@ class TripTimeSelector extends Component {
     if (!day) {
       return times;
     }
-    console.log(day.getTime());
     for (const key in this.state) {
       if (this.state[key] && key !== 'day') {
         times[key] =

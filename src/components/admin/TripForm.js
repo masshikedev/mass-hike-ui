@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ImageDropzone from '../ImageDropzone';
 import TripTimeSelector from './TripTimeSelector';
 import emptyTrip from '../../data/emptyTrip';
 import { H3, H6, Input, TextArea, Button, GridParent } from '../../style';
@@ -41,8 +42,11 @@ class TripForm extends Component {
     );
   };
 
+  onDrop = acceptedFiles => {
+    console.log(acceptedFiles);
+  };
+
   render() {
-    console.log(this.state);
     return (
       <form>
         <TripFormSection>
@@ -83,6 +87,10 @@ class TripForm extends Component {
           {this.fieldFor('title', 'detail')}
           <H6>Body</H6>
           <TextArea />
+          <H6>Image</H6>
+          <ImageDropzone onDrop={this.onDrop}>
+            Drag and drop an image or click to select one
+          </ImageDropzone>
         </TripFormSection>
       </form>
     );
