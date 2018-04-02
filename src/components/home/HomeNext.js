@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import { H2, H6, P, GridParent, constants, MediaQueries } from '../../style';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getTripList } from '../../actions/TripListActions';
+import previewImage from '../../images/square.png';
+import {
+  H2,
+  H3,
+  H6,
+  P,
+  GridParent,
+  constants,
+  MediaQueries,
+} from '../../style';
 import { format } from 'date-fns';
+import renderByStatus from '../../utils/renderByStatus';
 import { MONTH_DATE } from '../../utils/dateFormats';
 
 const Text = styled.div`
@@ -61,23 +74,66 @@ const Next = GridParent.extend`
   grid-column-gap: 0;
 `;
 
-function HomeNext(props) {
-  //This should all be replaced with information from the actual trips api
-  return (
-    <Next>
-      <Text>
-        <Date>{format(props.doc.data.next_trip_date, MONTH_DATE)}</Date>
-        <Summary>
-          <H6>Let's go to </H6>
-          <H2>{props.doc.data.next_trip[0].text}</H2>
-          <P proxima medium large white>
-            {props.doc.data.next_trip[1].text}
-          </P>
-        </Summary>
-      </Text>
-      <Image bg={props.doc.data.next_trip_image.url} />
-    </Next>
-  );
+class HomeNext extends Component {
+  componentWillMount() {
+    const { getTripList } = this.props;
+    getTripList();
+  }
+
+  renderLoading() {
+    return <H3>Loading...</H3>;
+  }
+
+  renderError() {
+    return <H3>An error has occured.</H3>;
+  }
+
+  renderSuccess = () => {
+    const trip = this.props.trips[0];
+
+    return (
+      <Next>
+        <Text>
+          <Date>{format(trip.time.hikeStart, MONTH_DATE)}</Date>
+          <Summary>
+            <H6 color="white">Let's go to </H6>
+            <H2>{trip.name}</H2>
+            <P proxima medium large color="white">
+              {trip.detail.body}
+            </P>
+          </Summary>
+        </Text>
+        <Image bg={previewImage} />
+      </Next>
+    );
+  };
+
+  render() {
+    const { status } = this.props;
+    return (
+      <div>
+        {renderByStatus(
+          status,
+          this.renderLoading,
+          this.renderSuccess,
+          this.renderError
+        )}
+      </div>
+    );
+  }
 }
 
-export default HomeNext;
+const mapStateToProps = state => ({
+  trips: state.tripList.trips,
+  status: state.tripList.status,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getTripList,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeNext);

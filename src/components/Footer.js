@@ -18,6 +18,7 @@ const FooterWrap = Container.extend`
   color: white;
   background-color: ${constants.green};
   padding-top: 0;
+  min-height: ${constants.footerMinHeight};
 `;
 
 const Contact = styled.div`
@@ -80,7 +81,7 @@ class Footer extends Component {
                 onChange={e => this.setState({ Email: e.target.value })}
               />
             </label>
-            <Button primary small>
+            <Button>
               {RichText.asText(this.props.doc.data.submit_button)}
             </Button>
           </Contact>

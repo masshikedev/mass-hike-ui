@@ -19,19 +19,30 @@ const Lists = styled.div`
 `;
 
 const List = styled.ul`
-  margin: 10px;
   flex: 1;
+  margin-top: 10px;
 `;
 
 const Column = styled.div`
   grid-column: span 8;
-  background: ${constants.greenBg};
+  background: ${constants.green} ${constants.greenBg};
+  background-blend-mode: multiply;
   color: #fff;
   padding: 80px 40px;
   line-height: 1.5;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
 
   ${MediaQueries.small} {
     grid-column: span 12;
+  }
+`;
+
+const ColumnContent = styled.div`
+  grid-column: 2 / span 10;
+
+  ${MediaQueries.small} {
+    grid-column: 1 / span 10;
   }
 `;
 
@@ -43,26 +54,28 @@ function HomeSummary(props) {
   return (
     <Summary>
       <Column>
-        <P uppercase bold proxima white>
-          {RichText.asText(props.doc.data.about_title)}
-        </P>
-        <P white medium>
-          {RichText.render(props.doc.data.about_content)}
-        </P>
-        <Lists>
-          <List>
-            <P uppercase bold proxima white>
-              {RichText.asText(props.doc.data.list1_title)}
-            </P>
-            {RichText.render(props.doc.data.list1)}
-          </List>
-          <List>
-            <P uppercase bold proxima white>
-              {RichText.asText(props.doc.data.list2_title)}
-            </P>
-            {RichText.render(props.doc.data.list2)}
-          </List>
-        </Lists>
+        <ColumnContent>
+          <P uppercase bold proxima color="white">
+            {RichText.asText(props.doc.data.about_title)}
+          </P>
+          <P color="white" size="large">
+            {RichText.render(props.doc.data.about_content)}
+          </P>
+          <Lists>
+            <List>
+              <P uppercase bold proxima color="white">
+                {RichText.asText(props.doc.data.list1_title)}
+              </P>
+              {RichText.render(props.doc.data.list1)}
+            </List>
+            <List>
+              <P uppercase bold proxima color="white">
+                {RichText.asText(props.doc.data.list2_title)}
+              </P>
+              {RichText.render(props.doc.data.list2)}
+            </List>
+          </Lists>
+        </ColumnContent>
       </Column>
       <Top>
         <Img src={props.doc.data.about_image.url} />

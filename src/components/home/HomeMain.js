@@ -94,11 +94,6 @@ const Title = H1.extend`
   max-width: 500px;
 `;
 
-const BookNow = Button.extend`
-  width: 181px;
-  height: 63px;
-`;
-
 function HomeMain(props) {
   return (
     <HomeSection>
@@ -124,9 +119,9 @@ function HomeMain(props) {
       </Images>
       <Column>
         <Title>{RichText.asText(props.doc.data.top_title)}</Title>
-        <BookNow>
+        <Button primary>
           <Link to="/trips">{RichText.asText(props.doc.data.main_cta)}</Link>
-        </BookNow>
+        </Button>
       </Column>
     </HomeSection>
   );
