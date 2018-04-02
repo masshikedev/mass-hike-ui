@@ -11,11 +11,12 @@ import { RequestStatus } from '../../constants';
 
 class CheckoutConfirmation extends BaseCheckoutSection {
   handleConfirmOrder = e => {
-    const { order, confirmOrder, status } = this.props;
+    const { order, confirmOrder, status, stripeCreateToken } = this.props;
     e.preventDefault();
     if (status === RequestStatus.UNITIALIZED) {
       confirmOrder(order);
     }
+    stripeCreateToken();
   };
 
   render() {

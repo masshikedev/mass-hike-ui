@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import AdminBar from '../components/admin/AdminBar';
 import styled from 'styled-components';
 import { constants } from '../style';
+import { StripeProvider, Elements } from 'react-stripe-elements';
 
 const Main = styled.main`
   margin-top: ${constants.navHeight};
@@ -18,7 +19,11 @@ const App = props => {
       <NavBar prismicCtx={props.prismicCtx} uid="nav" />
       <AdminBar />
       <Main>
-        <Routes prismicCtx={props.prismicCtx} />
+        <StripeProvider apiKey="pk_test_gdoocVed0AjapcCEvNtTQqt5">
+          <Elements>
+            <Routes prismicCtx={props.prismicCtx} />
+          </Elements>
+        </StripeProvider>
       </Main>
       <Footer prismicCtx={props.prismicCtx} uid="footer" />
     </React.Fragment>

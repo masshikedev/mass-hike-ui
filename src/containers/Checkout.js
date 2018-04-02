@@ -11,6 +11,7 @@ import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import renderByStatus from '../utils/renderByStatus';
 import styled from 'styled-components';
 import { H3, Container, GridParent, MediaQueries } from '../style';
+import { injectStripe } from 'react-stripe-elements';
 
 const Divider = styled.div`
   grid-column: span 1;
@@ -50,8 +51,13 @@ class Checkout extends Component {
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
 
+  stripeCreateToken = () =>
+    this.props.stripe.createToken().then(({ token }) => {
+      console.log('Received Stripe token:', token);
+    });
+
   renderDefaultSection() {
-    const { match } = this.props;
+    const { match, stripe } = this.props;
     const section = SectionOrder[0];
     const next = SectionOrder[1];
     const Section = section.component;
@@ -64,6 +70,7 @@ class Checkout extends Component {
             completeSection={this.completeSection}
             index={0}
             next={next.path}
+            stripeCreateToken={this.stripeCreateToken}
           />
         )}
       />
@@ -71,7 +78,7 @@ class Checkout extends Component {
   }
 
   renderRemainingSections() {
-    const { match } = this.props;
+    const { match, stripe } = this.props;
     return SectionOrder.map((section, i) => {
       if (i === 0) {
         return null;
@@ -88,6 +95,7 @@ class Checkout extends Component {
               completeSection={this.completeSection}
               index={i}
               next={next}
+              stripeCreateToken={this.stripeCreateToken}
             />
           )}
           key={i}
@@ -162,4 +170,6 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default injectStripe(
+  connect(mapStateToProps, mapDispatchToProps)(Checkout)
+);
