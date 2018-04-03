@@ -15,8 +15,13 @@ const Title = styled.div`
   grid-column: span 12;
 `;
 
+const Tree = P.extend`
+  display: inline-block;
+`;
+
 const Content = GridParent.extend`
-  background: ${constants.greenBg};
+  background: ${constants.green} ${constants.greenBg};
+  background-blend-mode: multiply;
   color: #fff;
   padding: 80px;
 
@@ -28,39 +33,45 @@ function WhatWeDo(props) {
   return (
     <Content>
       <Title>
-        <P proxima xxlarge bold>
+        <P proxima size="xlarge" bold color="white">
           {RichText.asText(props.doc.data.title3)}
         </P>
       </Title>
       <Column>
         <ul>
           <li>
-            <P proxima bold uppercase white>
+            <Tree proxima bold uppercase color="white">
               {RichText.asText(props.doc.data.wwd_title1)}
-            </P>
+            </Tree>
           </li>
         </ul>
-        <P large>{RichText.asText(props.doc.data.wwd_content1)}</P>
+        <P size="large" color="white">
+          {RichText.asText(props.doc.data.wwd_content1)}
+        </P>
       </Column>
       <Column>
         <ul>
           <li>
-            <P proxima bold uppercase white>
+            <Tree proxima bold uppercase color="white">
               {RichText.asText(props.doc.data.wwd_title2)}
-            </P>
+            </Tree>
           </li>
         </ul>
-        <P large>{RichText.asText(props.doc.data.wwd_content2)}</P>
+        <P size="large" color="white">
+          {RichText.asText(props.doc.data.wwd_content2)}
+        </P>
       </Column>
       <Column>
         <ul>
           <li>
-            <P proxima bold uppercase white>
+            <Tree proxima bold uppercase color="white">
               {RichText.asText(props.doc.data.wwd_title3)}
-            </P>
+            </Tree>
           </li>
         </ul>
-        <P large>{RichText.asText(props.doc.data.wwd_content3)}</P>
+        <P size="large" color="white">
+          {RichText.asText(props.doc.data.wwd_content3)}
+        </P>
       </Column>
     </Content>
   );

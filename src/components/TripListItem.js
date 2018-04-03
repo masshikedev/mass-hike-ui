@@ -79,29 +79,29 @@ class TripListItem extends Component {
     const timeString = format(date, TIME);
     return (
       <TripWrapper>
-        <Date proxima bold xlarge orange>
+        <Date proxima bold size="large" color="orange">
           {dateString}
         </Date>
         <Wrapper>
           <Margin />
           <TripImage bg={previewImage} />
           <InfoWrapper>
-            <P proxima bold green xxlarge>
+            <P proxima bold color="green" size="xlarge">
               {name}
             </P>
-            <P proxima bold uppercase large>
+            <P proxima bold uppercase size="medium">
               Location
             </P>
             <P proxima>{location}</P>
-            <P proxima bold uppercase large>
+            <P proxima bold uppercase size="medium">
               Time
             </P>
             <P proxima>{timeString}</P>
-            <P proxima bold uppercase large>
+            <P proxima bold uppercase size="medium">
               Availability
             </P>
             <P proxima>{`${spotsRemaining} spots left`}</P>
-            <P proxima bold uppercase large>
+            <P proxima bold uppercase size="medium">
               Difficulty
             </P>
             <P proxima capitalize>{`${difficulty}`}</P>

@@ -36,6 +36,7 @@ const Image = styled.div`
   ${MediaQueries.small} {
     grid-column: span 12;
     order: 0;
+    min-height: 250px;
   }
 `;
 
@@ -44,11 +45,13 @@ function AboutMain(props) {
   return (
     <About>
       <Text>
-        <P bold proxima xlarge>
+        <P color="white" bold proxima size="large">
           Learn a bit
         </P>
         <Title>{RichText.asText(props.doc.data.title)}</Title>
-        <P proxima>{RichText.asText(props.doc.data.main_content)}</P>
+        <P proxima color="white">
+          {RichText.asText(props.doc.data.main_content)}
+        </P>
       </Text>
       <Image bg={props.doc.data.about_image.url} />
     </About>

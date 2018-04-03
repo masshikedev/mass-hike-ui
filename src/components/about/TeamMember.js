@@ -5,7 +5,6 @@ import { RichText } from 'prismic-reactjs';
 
 const Member = styled.div`
   grid-column: span 4;
-  padding: 20px 40px;
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -16,21 +15,45 @@ const Headshot = Img.extend`
   border-radius: 100%;
 `;
 
+const HeadshotWrapper = styled.div`
+  padding: 0 10%;
+`;
+
+const NameWrapper = styled.ul`
+  list-style-position: outside;
+`;
+
+const Name = P.extend`
+  margin-bottom: 0;
+`;
+
+const Text = styled.div`
+  padding: 0 40px;
+
+  ${MediaQueries.small} {
+    padding: 0 10px;
+  }
+`;
+
 function TeamMember(props) {
   return (
     <Member>
-      <Headshot src={props.headshot.url} />
-      <ul>
-        <li>
-          <P proxima bold uppercase yellow>
-            {RichText.asText(props.name)}
-          </P>
-        </li>
-      </ul>
-      <P proxima bold uppercase green>
-        {RichText.asText(props.position)}
-      </P>
-      <P small>{RichText.asText(props.desc)}</P>
+      <HeadshotWrapper>
+        <Headshot src={props.headshot.url} />
+      </HeadshotWrapper>
+      <Text>
+        <NameWrapper>
+          <li>
+            <Name proxima bold uppercase color="yellow">
+              {RichText.asText(props.name)}
+            </Name>
+          </li>
+        </NameWrapper>
+        <P proxima bold uppercase color="green">
+          {RichText.asText(props.position)}
+        </P>
+        <P medium>{RichText.asText(props.desc)}</P>
+      </Text>
     </Member>
   );
 }

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import TeamMember from './TeamMember';
-import { P, GridParent, MediaQueries } from '../../style';
+import { P, GridParent, constants, MediaQueries } from '../../style';
 
 const Members = GridParent.extend`
   grid-gap: 5px;
+  padding: 0 40px;
 
   ${MediaQueries.small} {
     grid-gap: 0;
@@ -12,7 +13,7 @@ const Members = GridParent.extend`
 
 const Title = P.extend`
   text-align: center;
-  padding-top: 20px;
+  padding: 20px 0;
 `;
 
 class TeamList extends Component {
@@ -21,7 +22,7 @@ class TeamList extends Component {
   render() {
     return (
       <div>
-        <Title xxlarge proxima bold>
+        <Title size="xlarge" proxima bold>
           Our Team
         </Title>
         <Members>{this.renderTeamMembers()}</Members>

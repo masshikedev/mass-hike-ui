@@ -56,7 +56,7 @@ class TripList extends Component {
     return (
       <div>
         <Title>
-          <P proxima xlarge bold>
+          <P proxima size="large" bold>
             Take a look at our
           </P>
           <H1>Upcoming Trips</H1>
