@@ -47,26 +47,27 @@ class CardPayment extends BaseCheckoutSection {
     return (
       <div>
         <H3>Enter your credit card information</H3>
-        <label style={hide ? { position: 'absolute', top: '80px' } : {}}>
-          <H6>Card Number</H6>
-          <CardNumberElement
-            value={this.state.cardNumber}
-            style={style}
-            onChange={e => {
-              console.log(e);
-            }}
-          />
-        </label>
-        <label style={hide ? { position: 'absolute', top: '80px' } : {}}>
-          <H6>Expiration</H6>
-          <CardExpiryElement
-            value={this.state.expiration}
-            style={style}
-            onChange={e => {
-              console.log(e);
-            }}
-          />
-        </label>
+        <div style={hide ? { display: 'none' } : {}}>
+          <label>
+            <H6>Card Number</H6>
+            <CardNumberElement
+              style={style}
+              onChange={e => {
+                console.log(e);
+              }}
+            />
+          </label>
+          <label>
+            <H6>Expiration</H6>
+            <CardExpiryElement
+              style={style}
+              onChange={e => {
+                console.log(e);
+              }}
+            />
+          </label>
+        </div>
+
         <label>
           <H6>Security Code</H6>
           <Input
@@ -87,8 +88,9 @@ class CardPayment extends BaseCheckoutSection {
         {true && (
           <Button
             onClick={e => {
+              e.preventDefault();
               //this.onCompleteSection(e);
-              this.setState({ hide: true });
+              //this.setState({ hide: true });
               stripeCreateToken();
             }}
           >
