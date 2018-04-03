@@ -4,12 +4,11 @@ import MediaQueries from './MediaQueries';
 const H1 = styled.h1`
   font-weight: bold;
   margin-bottom: 50px;
-  font-size: 80px;
-  font-weight: bold;
+  font-size: 72px;
   color: #000;
 
   ${MediaQueries.small} {
-    font-size: 50px;
+    font-size: 48px;
   }
 `;
 

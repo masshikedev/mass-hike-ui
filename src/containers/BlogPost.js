@@ -1,27 +1,7 @@
 import React, { Component } from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
 import PrismicPage from '../prismic/PrismicPage';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { RichText } from 'prismic-reactjs';
-import {
-  H1,
-  H2,
-  H3,
-  H4,
-  P,
-  Button,
-  MediaQueries,
-  Img,
-  GridParent,
-  Container,
-  NavMargin,
-} from '../style';
-
-const Column = styled.div`
-  grid-column: span 12;
-`;
+import { H1, H4, P, Img, Container } from '../style';
 
 class BlogPost extends Component {
   static pageType = 'blogpost';

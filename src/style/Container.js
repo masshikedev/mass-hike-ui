@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import constants from './constants';
 
 const Container = styled.div`
-  width: 80%;
-  max-width: 1024px;
+  width: 100%;
   margin: 0 auto;
-  padding-top: 100px;
+  background-color: ${constants.gray};
 `;
 
 export default Container;
