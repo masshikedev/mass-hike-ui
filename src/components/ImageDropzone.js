@@ -12,6 +12,7 @@ const dropzoneStyle = {
   marginTop: 10,
   textAlign: 'center',
   fontSize: 16,
+  marginBottom: 10,
 };
 
 class ImageDropzone extends Component {
@@ -23,8 +24,8 @@ class ImageDropzone extends Component {
   }
 
   onDrop = (acceptedFiles, rejectedFiles) => {
-    const { onUploadStart, onUploadSuccess } = this.props;
-    onUploadStart();
+    const { onUploadAttempt, onUploadSuccess } = this.props;
+    onUploadAttempt();
     if (rejectedFiles.length > 0) {
       return this.setState({
         error: 'Invalid file. Please select a jpeg or png.',
