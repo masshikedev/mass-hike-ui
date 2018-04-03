@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { P, H3, H6, Input, Container, GridParent, Button } from '../../style';
+import { P, H3, H6, Input, Container, Button } from '../../style';
 import { login } from '../../actions/AuthActions';
 import { RequestStatus } from '../../constants';
 

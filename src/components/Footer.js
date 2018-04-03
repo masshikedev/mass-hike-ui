@@ -1,64 +1,79 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
 import { RichText } from 'prismic-reactjs';
-import hamburger from '../images/hamburger.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
-import SocialMedia from './footer/SocialMedia';
 import {
   Container,
+  H2,
   Input,
-  P,
+  H5,
   Button,
-  Img,
+  constants,
   MediaQueries,
   GridParent,
 } from '../style';
+
+const FooterWrap = Container.extend`
+  color: white;
+  background-color: ${constants.green};
+  padding-top: 0;
+  min-height: ${constants.footerMinHeight};
+`;
 
 const Contact = styled.div`
   grid-column: span 4;
   ${MediaQueries.small} {
     grid-column: span 12;
+    align-items: center;
   }
 `;
 
-const Links = styled.div`
+const Links = styled.ul`
   display: grid;
-  grid-column: 9 / span 4;
-  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  grid-column: span 4;
+  grid-template-columns: repeat(3, 1fr);
+  font-family: 'proxima-nova';
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 10px;
 
   ${MediaQueries.small} {
+    grid-template-columns: 1fr 1fr;
     grid-column: span 12;
   }
 `;
 
-const Logo = styled.div`
-  grid-column: span 3;
+const Logo = H2.extend`
+  grid-column: span 12;
+  font-family: 'proxima-soft';
+  font-weight: 500;
+  text-transform: uppercase;
 
   ${MediaQueries.small} {
     grid-column: span 12;
+    text-align: center;
   }
 `;
+
+const FootGrid = GridParent.extend`
+  padding: 40px 80px;
+`;
+
+const ListItem = styled.li``;
 
 class Footer extends Component {
   static pageType = 'footer';
 
   render() {
     return (
-      <Container>
-        <GridParent>
-          <Logo>
-            <Img src={this.props.doc.data.footer_image.url} />
-          </Logo>
+      <FooterWrap>
+        <FootGrid>
+          <Logo>Mass Hike</Logo>
+          <Links>{renderLinkSlices(this.props.doc.data.body, ListItem)}</Links>
           <Contact>
-            <label>
-              <Input
-                type="text"
-                value="Name"
-                onChange={e => this.setState({ Name: e.target.value })}
-              />
-            </label>
+            <H5>Sign up to receive newsletters!</H5>
             <label>
               <Input
                 type="text"
@@ -70,12 +85,8 @@ class Footer extends Component {
               {RichText.asText(this.props.doc.data.submit_button)}
             </Button>
           </Contact>
-          <Links>
-            {renderLinkSlices(this.props.doc.data.body)}
-            <SocialMedia url={this.props.doc.data.footer_image.url} />
-          </Links>
-        </GridParent>
-      </Container>
+        </FootGrid>
+      </FooterWrap>
     );
   }
 }
