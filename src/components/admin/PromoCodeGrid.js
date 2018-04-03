@@ -16,7 +16,7 @@ const ButtonColumn = ColumnSmall.extend`
   padding: 0;
 `;
 
-const PricingOptionsRow = GridParent.extend`
+const PricingcodesRow = GridParent.extend`
   font-size: 16px;
 `;
 
@@ -31,23 +31,30 @@ class PromoCodeGrid extends Component {
     super(props);
   }
 
-  renderPricingOptions() {
-    const { options } = this.props;
-    for (const code in options) {
+  renderPricingcodes() {
+    const { codes, onDelete } = this.props;
+    return codes.map((code, i) => {
       return (
-        <PricingOptionsRow>
-          <ColumnLarge>{code}</ColumnLarge>
-          <ColumnSmall>{`$${options[code]['min']}`}</ColumnSmall>
-          <ColumnSmall>{`$${options[code]['max']}`}</ColumnSmall>
-          <ColumnLarge>{`$${options[code]['suggestion1']}, $${
-            options[code]['suggestion2']
-          }, $${options[code]['suggestion3']}`}</ColumnLarge>
+        <PricingcodesRow key={i}>
+          <ColumnLarge>{code.promoCode}</ColumnLarge>
+          <ColumnSmall>{`$${code.min}`}</ColumnSmall>
+          <ColumnSmall>{`$${code.max}`}</ColumnSmall>
+          <ColumnLarge>{`$${code.suggestion1}, $${code.suggestion2}, $${
+            code.suggestion3
+          }`}</ColumnLarge>
           <ButtonColumn>
-            <DeleteButton>delete</DeleteButton>
+            <DeleteButton
+              onClick={e => {
+                e.preventDefault();
+                onDelete(i);
+              }}
+            >
+              delete
+            </DeleteButton>
           </ButtonColumn>
-        </PricingOptionsRow>
+        </PricingcodesRow>
       );
-    }
+    });
   }
 
   render() {
@@ -68,7 +75,7 @@ class PromoCodeGrid extends Component {
           </ColumnLarge>
           <ColumnSmall />
         </GridParent>
-        {this.renderPricingOptions()}
+        {this.renderPricingcodes()}
       </div>
     );
   }

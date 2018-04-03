@@ -62,6 +62,16 @@ class TripForm extends Component {
     );
   };
 
+  onAddPromoCode = options => {
+    this.setState({ promoCodes: this.state.promoCodes.concat([options]) });
+  };
+
+  onDeletePromoCode = index => {
+    const { promoCodes } = this.state;
+    promoCodes.splice(index, 1);
+    this.setState({ promoCodes });
+  };
+
   onUploadAttempt = () => this.setState({ uploadInProgress: true });
 
   onUploadSuccess = imageUrl => {
@@ -72,7 +82,7 @@ class TripForm extends Component {
   };
 
   render() {
-    const { pricing, detail } = this.state;
+    const { pricing, detail, promoCodes } = this.state;
     const imageUrl = detail.imageUrl;
     return (
       <form>
@@ -97,8 +107,8 @@ class TripForm extends Component {
         </TripFormSection>
         <TripFormSection>
           <H3>Promo Codes</H3>
-          <PromoCodeGrid />
-          <PricingForm />
+          <PromoCodeGrid codes={promoCodes} onDelete={this.onDeletePromoCode} />
+          <PricingForm promo onAddPromoCode={this.onAddPromoCode} />
         </TripFormSection>
         <TripFormSection>
           <H3>Difficulty and Statistics</H3>
@@ -129,6 +139,9 @@ class TripForm extends Component {
             Drag and drop an image or click to select one
           </ImageDropzone>
           {imageUrl && <PreviewImage src={imageUrl} />}
+        </TripFormSection>
+        <TripFormSection>
+          <H3>Pickup Radius</H3>
         </TripFormSection>
       </form>
     );
