@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GridParent, H6, Button } from '../../style';
+import { GridParent, P, H6, Button } from '../../style';
 import styled from 'styled-components';
 
 const ColumnLarge = styled.div`
@@ -58,6 +58,10 @@ class PromoCodeGrid extends Component {
   }
 
   render() {
+    const { codes } = this.props;
+    if (codes.length === 0) {
+      return <P>No promo codes set for this trip</P>;
+    }
     return (
       <div>
         <GridParent>
