@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TeamMember from './TeamMember';
-import { P, GridParent, constants, MediaQueries } from '../../style';
+import { P, GridParent, constants, HR, MediaQueries } from '../../style';
+import styled from 'styled-components';
 
 const Members = GridParent.extend`
   grid-gap: 5px;
@@ -12,8 +13,28 @@ const Members = GridParent.extend`
 `;
 
 const Title = P.extend`
+  flex-shrink: 0;
+  width: fit-content;
+  margin: 0 10px;
   text-align: center;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
   padding: 20px 0;
+  flex-grow: 0.5;
+  :not(:first-child) {
+    margin: 30px 0;
+  }
+`;
+const Decoration = HR.extend`
+  width: 33%;
+
+  ${MediaQueries.small} {
+    width: 0%;
+  }
 `;
 
 class TeamList extends Component {
@@ -22,9 +43,13 @@ class TeamList extends Component {
   render() {
     return (
       <div>
-        <Title size="xlarge" proxima bold>
-          Our Team
-        </Title>
+        <TitleWrapper>
+          <Decoration />
+          <Title size="xlarge" proxima bold>
+            Our Team
+          </Title>
+          <Decoration />
+        </TitleWrapper>
         <Members>{this.renderTeamMembers()}</Members>
       </div>
     );
