@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* global google */
 import React, { Component } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { P, H6 } from '../../style';
