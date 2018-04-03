@@ -3,6 +3,8 @@ import ImageDropzone from '../ImageDropzone';
 import TripTimeSelector from './TripTimeSelector';
 import PricingForm from './PricingForm';
 import PromoCodeGrid from './PromoCodeGrid';
+import ZipcodeList from './ZipcodeList';
+import ZipcodeForm from './ZipcodeForm';
 import emptyTrip from '../../data/emptyTrip';
 import {
   H3,
@@ -46,6 +48,7 @@ class TripForm extends Component {
     this.state = {
       ...baseState,
       uploadInProgress: false,
+      currentZipcode: '',
     };
   }
 
@@ -72,6 +75,18 @@ class TripForm extends Component {
     this.setState({ promoCodes });
   };
 
+  onAddZipcode = zipcode => {
+    this.setState({
+      pickupZipcodes: this.state.pickupZipcodes.concat([zipcode]),
+    });
+  };
+
+  onDeleteZipcode = index => {
+    const { pickupZipcodes } = this.state;
+    pickupZipcodes.splice(index, 1);
+    this.setState({ pickupZipcodes });
+  };
+
   onUploadAttempt = () => this.setState({ uploadInProgress: true });
 
   onUploadSuccess = imageUrl => {
@@ -82,7 +97,13 @@ class TripForm extends Component {
   };
 
   render() {
-    const { pricing, detail, promoCodes } = this.state;
+    const {
+      pricing,
+      detail,
+      promoCodes,
+      pickupZipcodes,
+      currentZipcode,
+    } = this.state;
     const imageUrl = detail.imageUrl;
     return (
       <form>
@@ -142,6 +163,11 @@ class TripForm extends Component {
         </TripFormSection>
         <TripFormSection>
           <H3>Pickup Radius</H3>
+          <ZipcodeList
+            zipcodes={pickupZipcodes}
+            onDelete={this.onDeleteZipcode}
+          />
+          <ZipcodeForm onAddZipcode={this.onAddZipcode} />
         </TripFormSection>
       </form>
     );
