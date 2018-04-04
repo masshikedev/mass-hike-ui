@@ -35,6 +35,7 @@ const contactConstraints = () => {
 
 const hikeConstraints = trip => {
   const remaining = trip.capacity - trip.ticketsSold;
+  const zips = trip.pickupZipcodes.map(z => z.zip);
   return {
     tickets: {
       presence: {
@@ -54,6 +55,17 @@ const hikeConstraints = trip => {
       presence: {
         allowEmpty: false,
         message: '^Please enter your address',
+      },
+    },
+    zipCode: {
+      presence: {
+        allowEmpty: false,
+        message:
+          '^Sorry, we could not determine a zip code for this place. Try selecting a specific street address.',
+      },
+      inclusion: {
+        within: zips,
+        message: '^Sorry, this trip will not be serving the zipcode %{value}.',
       },
     },
   };

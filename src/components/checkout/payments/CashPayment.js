@@ -58,7 +58,7 @@ class CashPayment extends BaseCheckoutSection {
   }
 
   render() {
-    const { showNextButton, onClickNextButton, trip } = this.props;
+    const { trip } = this.props;
     const { showMoreLocations, selectedLocationIndex } = this.state;
     const cashLocations = trip.cashLocations;
 
@@ -86,9 +86,8 @@ class CashPayment extends BaseCheckoutSection {
             </Button>
           </div>
         )}
-        {showNextButton(this.state) && (
-          <Button onClick={e => onClickNextButton(this.state, e)}>Next</Button>
-        )}
+        <br />
+        {true && <Button onClick={this.onCompleteSection}>Next</Button>}
       </div>
     );
   }

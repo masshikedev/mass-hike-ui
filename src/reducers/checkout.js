@@ -12,6 +12,7 @@ const initialState = {
   // Tickets
   tickets: '',
   pickupLocation: '',
+  zipCode: '',
 
   // Payment amount & type
   promoCode: '',
