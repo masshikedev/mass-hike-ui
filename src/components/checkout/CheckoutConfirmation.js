@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import OrderSummary from '../OrderSummary';
+import BaseCheckoutSection from './BaseCheckoutSection';
 import { Button } from '../../style';
+import { setCurrentSection } from '../../actions/CheckoutActions';
 import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
 import { P, H3 } from '../../style';
@@ -9,7 +11,7 @@ import { RequestStatus } from '../../constants';
 import { validate } from 'validate.js';
 import { constraints } from '../../utils/validationConstraints';
 
-class CheckoutConfirmation extends Component {
+class CheckoutConfirmation extends BaseCheckoutSection {
   handleConfirmOrder = e => {
     const { order, confirmOrder, status } = this.props;
     e.preventDefault();
@@ -19,12 +21,12 @@ class CheckoutConfirmation extends Component {
   };
 
   render() {
-    const { order, status } = this.props;
+    const { order, status, mobile } = this.props;
     const { promoCode, trip } = order;
     const pricing = trip.pricing;
     const priceData =
       pricing[pricing.promoCodes[promoCode]] || pricing.standard;
-    const errors = validate({ ...order }, constraints(trip, priceData));
+    const errors = validate({ ...order }, constraints(trip, priceData)) || {};
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
@@ -32,6 +34,7 @@ class CheckoutConfirmation extends Component {
           order={order}
           trip={trip}
           errors={errors}
+          mobile={mobile}
           showEditButtons
         />
         {errors ? (
@@ -73,6 +76,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       confirmOrder,
+      setCurrentSection,
     },
     dispatch
   );

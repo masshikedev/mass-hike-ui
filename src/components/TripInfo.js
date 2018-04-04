@@ -28,7 +28,7 @@ const BookButton = Button.extend`
 
 const toCheckoutPage = id => {
   let mq = window.matchMedia(MediaQueries.small.replace('@media ', ''));
-  return push(`${id}/checkout${mq.matches ? '-mobile' : ''}`);
+  return push(`${id}/checkout${mq.matches ? '-mobile' : '/contact-info'}`);
 };
 
 function TripInfo(props) {

@@ -4,8 +4,7 @@ import HomeMain from '../components/home/HomeMain';
 import HomeSummary from '../components/home/HomeSummary';
 import HomeDetails from '../components/home/HomeDetails';
 import HomeNext from '../components/home/HomeNext';
-import { NavMargin, Container } from '../style';
-import styled from 'styled-components';
+import { Container } from '../style';
 
 class Home extends Component {
   static pageType = 'homepage';
@@ -13,12 +12,10 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <NavMargin>
-          <HomeMain {...this.props} />
-          <HomeSummary {...this.props} />
-          <HomeDetails {...this.props} />
-          <HomeNext {...this.props} />
-        </NavMargin>
+        <HomeMain {...this.props} />
+        <HomeSummary {...this.props} />
+        <HomeDetails {...this.props} />
+        <HomeNext {...this.props} />
       </Container>
     );
   }

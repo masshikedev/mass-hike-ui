@@ -5,20 +5,11 @@ import CardPayment from './payments/CardPayment';
 
 class PaymentSection extends Component {
   render() {
-    const {
-      paymentType,
-      showNextButton,
-      onClickNextButton,
-      tripId,
-    } = this.props;
+    const { paymentType } = this.props;
     const Child = paymentType === 'card' ? CardPayment : CashPayment;
     return (
       <div>
-        <Child
-          showNextButton={showNextButton}
-          onClickNextButton={onClickNextButton}
-          tripId={tripId}
-        />
+        <Child {...this.props} />
       </div>
     );
   }

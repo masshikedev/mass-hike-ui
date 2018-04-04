@@ -20,7 +20,7 @@ export default Wrapped =>
       if (props.prismicCtx) {
         props.prismicCtx.api.getByUID(
           Wrapped.pageType,
-          this.props.uid || this.props.routeProps.params.uid,
+          this.props.uid || this.props.match.params.uid,
           {},
           (err, doc) => {
             if (err) {

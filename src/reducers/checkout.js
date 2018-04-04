@@ -1,6 +1,8 @@
 import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
+  tripId: null,
+
   // Contact
   name: '',
   phone: '',
@@ -10,6 +12,7 @@ const initialState = {
   // Tickets
   tickets: '',
   pickupLocation: '',
+  zipCode: '',
 
   // Payment amount & type
   promoCode: '',
@@ -28,6 +31,7 @@ const initialState = {
 
   currentSection: 0,
   highestCompletedSection: 0,
+  initialized: false,
 };
 
 export default (state = initialState, action) => {
@@ -53,6 +57,20 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.payload.checkoutState,
+      };
+    case ActionTypes.SET_CURRENT_SECTION:
+      return {
+        ...state,
+        currentSection: action.payload.sectionIndex,
+        highestCompletedSection: Math.max(
+          action.payload.sectionIndex,
+          state.highestCompletedSection
+        ),
+      };
+    case ActionTypes.RESET_CHECKOUT:
+      return {
+        ...initialState,
+        tripId: action.payload.nextTripId,
       };
     default:
       return state;

@@ -3,14 +3,17 @@ import { Route, Switch } from 'react-router-dom';
 import NotFound from '../NotFound';
 import Home from './Home';
 import About from './About';
+import FAQ from './FAQ';
 import Impact from './Impact';
 import Blog from './Blog';
+import BlogPost from './BlogPost';
 import Contact from './Contact';
 import TripList from './TripList';
 import TripDetail from './TripDetail';
 import Checkout from './Checkout';
 import MobileCheckout from './MobileCheckout';
 import OrderConfirmation from './OrderConfirmation';
+import Admin from './Admin';
 import PrismicRoute from '../prismic/PrismicRoute';
 
 const Routes = props => (
@@ -52,6 +55,19 @@ const Routes = props => (
     />
     <PrismicRoute
       exact
+      path="/faq"
+      routerProps={props}
+      componentProps={{ uid: 'faq' }}
+      component={FAQ}
+    />
+    <PrismicRoute
+      exact
+      path="/blog/:uid"
+      routerProps={props}
+      component={BlogPost}
+    />
+    <PrismicRoute
+      exact
       path="/trips"
       routerProps={props}
       componentProps={{ uid: 'trips' }}
@@ -64,13 +80,15 @@ const Routes = props => (
       componentProps={{ uid: 'tripsdetail' }}
       component={TripDetail}
     />
-    <Route exact path="/trips/:tripId/checkout" component={Checkout} />
+    <Route path="/trips/:tripId/checkout" component={Checkout} />
     <Route
       exact
       path="/trips/:tripId/checkout-mobile"
       component={MobileCheckout}
     />
+    <Route path="/trips/:tripId/checkout-mobile" component={MobileCheckout} />
     <Route exact path="/order/:id" component={OrderConfirmation} />
+    <Route exact path="/admin" component={Admin} />
     <Route component={NotFound} />
   </Switch>
 );
