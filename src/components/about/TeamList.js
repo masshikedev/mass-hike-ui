@@ -37,12 +37,16 @@ const Decoration = HR.extend`
   }
 `;
 
+const TeamWrapper = styled.div`
+  padding-bottom: 80px;
+`;
+
 class TeamList extends Component {
   static pageType = 'about';
 
   render() {
     return (
-      <div>
+      <TeamWrapper>
         <TitleWrapper>
           <Decoration />
           <Title size="xlarge" proxima bold>
@@ -51,7 +55,7 @@ class TeamList extends Component {
           <Decoration />
         </TitleWrapper>
         <Members>{this.renderTeamMembers()}</Members>
-      </div>
+      </TeamWrapper>
     );
   }
 
