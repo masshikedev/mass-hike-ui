@@ -11,6 +11,8 @@ const Text = P.extend`
 
   ${MediaQueries.small} {
     grid-column: span 12;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 `;
 
@@ -18,7 +20,7 @@ const Title = styled.div`
   grid-column: span 12;
   display: flex;
   padding: 0 80px;
-  padding-top: 20px;
+  padding-top: 40px;
   order: 0;
 
   :after {
@@ -35,6 +37,8 @@ const Title = styled.div`
     :after {
       display: none;
     }
+    padding-left: 40px;
+    padding-right: 40px;
   }
 `;
 
