@@ -4,6 +4,7 @@ import TripTimeSelector from './TripTimeSelector';
 import PricingForm from './PricingForm';
 import PromoCodeGrid from './PromoCodeGrid';
 import ZipcodeList from './ZipcodeList';
+import CashLocationList from './CashLocationList';
 import ZipcodeForm from './ZipcodeForm';
 import emptyTrip from '../../data/emptyTrip';
 import {
@@ -87,6 +88,12 @@ class TripForm extends Component {
     this.setState({ pickupZipcodes });
   };
 
+  onDeleteCashLocation = index => {
+    const { cashLocations } = this.state;
+    cashLocations.splice(index, 1);
+    this.setState({ cashLocations });
+  };
+
   onUploadAttempt = () => this.setState({ uploadInProgress: true });
 
   onUploadSuccess = imageUrl => {
@@ -102,6 +109,7 @@ class TripForm extends Component {
       detail,
       promoCodes,
       pickupZipcodes,
+      cashLocations,
       currentZipcode,
     } = this.state;
     const imageUrl = detail.imageUrl;
@@ -168,6 +176,13 @@ class TripForm extends Component {
             onDelete={this.onDeleteZipcode}
           />
           <ZipcodeForm onAddZipcode={this.onAddZipcode} />
+        </TripFormSection>
+        <TripFormSection>
+          <H3>Cash Locations</H3>
+          <CashLocationList
+            locations={cashLocations}
+            onDelete={this.onDeleteCashLocation}
+          />
         </TripFormSection>
       </form>
     );

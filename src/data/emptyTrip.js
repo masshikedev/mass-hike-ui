@@ -21,7 +21,120 @@ export default {
     hikeDistance: 0,
     elevation: 0,
   },
-  cashLocations: [],
+  cashLocations: [
+    {
+      name: 'Blackstone',
+      address: 'South End',
+    },
+    {
+      name: 'Charlestown',
+      address: 'Charlestown',
+    },
+    {
+      name: 'Cleveland',
+      address: 'Dorchester',
+    },
+    {
+      name: 'Condon',
+      address: 'South Boston',
+    },
+    {
+      name: 'Curley',
+      address: 'South Boston',
+    },
+    {
+      name: 'Curtis Hall',
+      address: 'Jamaica Plain',
+    },
+    {
+      name: 'Gallavan',
+      address: 'Mattapan',
+    },
+    {
+      name: 'Hennigan',
+      address: 'Jamaica Plain',
+    },
+    {
+      name: 'Holland',
+      address: 'Dorchester',
+    },
+    {
+      name: 'Hyde Park',
+      address: 'Hyde Park',
+    },
+    {
+      name: 'Jackon/Mann',
+      address: 'Allston',
+    },
+    {
+      name: 'Leahy/Holloran',
+      address: 'Dorchester',
+    },
+    {
+      name: 'Madison Park',
+      address: 'Roxbury',
+    },
+    {
+      name: 'Mattahunt',
+      address: 'Mattapan',
+    },
+    {
+      name: 'Menino',
+      address: 'Roslindale',
+    },
+    {
+      name: 'Mildred Avanue',
+      address: 'Mattapan',
+    },
+    {
+      name: 'Nazzaro',
+      address: 'North End',
+    },
+    {
+      name: 'Ohrenberger',
+      address: 'West Roxbury',
+    },
+    {
+      name: 'Paris Street',
+      address: 'East Boston',
+    },
+    {
+      name: 'Perkins',
+      address: 'Dorchester',
+    },
+    {
+      name: 'Pino',
+      address: 'East Boston',
+    },
+    {
+      name: 'Quincy',
+      address: 'Chinatown',
+    },
+    {
+      name: 'Roche',
+      address: 'West Roxbury',
+    },
+    {
+      name: 'Roslindale',
+      address: 'Roslindale',
+    },
+    {
+      name: 'Shelburne',
+      address: 'Roxbury',
+    },
+    {
+      name: 'Tobin',
+      address: 'Mission Hill',
+    },
+    {
+      name: 'Tynan',
+      address: 'South Boston',
+    },
+    {
+      name: 'Vine Street',
+      address: 'Roxbury',
+    },
+  ],
   pickupZipcodes: [
     '02108',
     '02109',

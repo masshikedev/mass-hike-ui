@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import emptyTrip from '../../data/emptyTrip';
 import { GridParent, Button } from '../../style';
 import styled from 'styled-components';
 
