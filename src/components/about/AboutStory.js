@@ -6,7 +6,7 @@ import hero from '../../images/home-hero2.png';
 
 const Text = P.extend`
   grid-column: span 8;
-  padding: 40px;
+  padding: 0 80px;
   padding-top: 20px;
 
   ${MediaQueries.small} {
@@ -17,7 +17,7 @@ const Text = P.extend`
 const Title = styled.div`
   grid-column: span 12;
   display: flex;
-  padding: 0 40px;
+  padding: 0 80px;
   padding-top: 20px;
   order: 0;
 
