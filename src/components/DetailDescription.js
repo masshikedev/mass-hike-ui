@@ -6,9 +6,11 @@ import { TIME } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
   grid-column: span 7;
+  padding: 40px 80px;
 
   ${MediaQueries.small} {
     grid-column: span 12;
+    padding: 40px;
   }
 `;
 
@@ -16,7 +18,9 @@ function DetailDescription(props) {
   const { detail, time } = props;
   return (
     <Wrapper>
-      <H2>{detail.title}</H2>
+      <P proxima size="xlarge" bold>
+        What you need to know
+      </P>
       <P>{detail.body}</P>
       <H6>pickup</H6>
       <P>{`${format(time.pickupStart, TIME)} - ${format(

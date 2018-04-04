@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TeamMember from './TeamMember';
-import { P, GridParent, constants, HR, MediaQueries } from '../../style';
+import { P, GridParent, HR, MediaQueries } from '../../style';
 import styled from 'styled-components';
 
 const Members = GridParent.extend`

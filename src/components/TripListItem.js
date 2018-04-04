@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import previewImage from '../images/square.png'; // relative path to image
 import Button from '../style/Button';
-import { P, constants, Img, GridParent, MediaQueries } from '../style';
+import { P, constants, GridParent, MediaQueries } from '../style';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import { MONTH_DATE, TIME } from '../utils/dateFormats';
@@ -19,9 +19,7 @@ const Margin = styled.div`
   }
 `;
 
-const TripWrapper = styled.div`
-  margin-top: -44px;
-`;
+const TripWrapper = styled.div``;
 
 const Wrapper = GridParent.extend`
   grid-gap: 0;
@@ -106,7 +104,7 @@ class TripListItem extends Component {
             </P>
             <P proxima capitalize>{`${difficulty}`}</P>
             <br />
-            <Button onClick={() => this.props.toDetail(tripId)}>
+            <Button primary onClick={() => this.props.toDetail(tripId)}>
               Learn More
             </Button>
           </InfoWrapper>
