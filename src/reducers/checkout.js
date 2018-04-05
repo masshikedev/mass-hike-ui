@@ -24,6 +24,7 @@ const initialState = {
   expiration: '',
   cvv: '',
   billingZip: '',
+  showCardFields: false,
 
   // Pay cash
   selectedLocationIndex: -1,
