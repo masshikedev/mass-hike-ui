@@ -26,8 +26,7 @@ class CardPayment extends BaseCheckoutSection {
   }
 
   render() {
-    const { stripeCreateToken } = this.props;
-    const { hide } = this.state;
+    const { stripeCreateToken, hide } = this.props;
     const style = {
       base: {
         color: '#303238',
@@ -46,9 +45,9 @@ class CardPayment extends BaseCheckoutSection {
       },
     };
     return (
-      <div>
+      <div style={hide ? { display: 'none' } : {}}>
         <H3>Enter your credit card information</H3>
-        <div style={hide ? { display: 'none' } : {}}>
+        <div>
           <label>
             <H6>Card Number</H6>
             <CardNumberElement
@@ -91,10 +90,8 @@ class CardPayment extends BaseCheckoutSection {
         {true && (
           <Button
             onClick={e => {
-              e.preventDefault();
-              //this.onCompleteSection(e);
-              //this.setState({ hide: true });
               stripeCreateToken();
+              this.onCompleteSection(e);
             }}
           >
             Next

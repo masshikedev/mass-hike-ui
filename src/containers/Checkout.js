@@ -12,6 +12,7 @@ import renderByStatus from '../utils/renderByStatus';
 import styled from 'styled-components';
 import { H3, Container, GridParent, MediaQueries } from '../style';
 import { injectStripe } from 'react-stripe-elements';
+import CardPayment from '../components/checkout/payments/CardPayment';
 
 const Divider = styled.div`
   grid-column: span 1;
@@ -70,7 +71,6 @@ class Checkout extends Component {
             completeSection={this.completeSection}
             index={0}
             next={next.path}
-            stripeCreateToken={this.stripeCreateToken}
           />
         )}
       />
@@ -95,7 +95,6 @@ class Checkout extends Component {
               completeSection={this.completeSection}
               index={i}
               next={next}
-              stripeCreateToken={this.stripeCreateToken}
             />
           )}
           key={i}
@@ -113,7 +112,14 @@ class Checkout extends Component {
   }
 
   renderSuccess = () => {
-    const { currentSection, trip, match, checkoutInitialized } = this.props;
+    const {
+      currentSection,
+      trip,
+      match,
+      checkoutInitialized,
+      paymentType,
+    } = this.props;
+    const showCardPayment = currentSection == 3 && paymentType === 'card';
     return (
       <div>
         <GridParent>
@@ -126,6 +132,13 @@ class Checkout extends Component {
                 )}
                 {this.renderRemainingSections()}
               </Switch>
+              <CardPayment
+                index={3}
+                next={SectionOrder[4].path}
+                completeSection={this.completeSection}
+                stripeCreateToken={this.stripeCreateToken}
+                hide={!showCardPayment}
+              />
             </form>
           </FormWrapper>
           {currentSection !== 4 && <Divider />}
@@ -157,6 +170,7 @@ const mapStateToProps = state => ({
   trip: state.currentTrip.trip,
   status: state.currentTrip.status,
   checkoutTripId: state.checkout.tripId,
+  paymentType: state.checkout.paymentType,
 });
 
 const mapDispatchToProps = dispatch =>
