@@ -88,17 +88,19 @@ class NavBar extends Component {
     this.state = {
       scrolledToTop: true,
     };
-    this.listener = document.addEventListener('scroll', () => {
-      if (window.scrollY) {
-        this.setState({ scrolledToTop: false });
-      } else {
-        this.setState({ scrolledToTop: true });
-      }
-    });
+    document.addEventListener('scroll', this.onScroll);
   }
 
+  onScroll = () => {
+    if (window.scrollY) {
+      this.setState({ scrolledToTop: false });
+    } else {
+      this.setState({ scrolledToTop: true });
+    }
+  };
+
   componentWillUnmount() {
-    document.removeEventListener(this.listener);
+    document.removeEventListener('scroll', this.onScroll);
   }
 
   renderNavLinks = links =>
