@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, H6, P, constants, MediaQueries } from '../style';
+import { H6, P, MediaQueries } from '../style';
 import { format } from 'date-fns';
 import { TIME } from '../utils/dateFormats';
 

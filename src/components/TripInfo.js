@@ -1,5 +1,5 @@
 import React from 'react';
-import { P, H6, MediaQueries } from '../style';
+import { P, MediaQueries } from '../style';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

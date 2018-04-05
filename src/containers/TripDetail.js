@@ -11,7 +11,6 @@ import {
   H1,
   H3,
   P,
-  Img,
   Container,
   constants,
   GridParent,

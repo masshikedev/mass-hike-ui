@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
 import hamburger from '../images/hamburger.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
-import { A, constants, H3, Button, Img, MediaQueries } from '../style';
+import { A, constants, Button, Img, MediaQueries } from '../style';
 import logo from '../images/mh_large.png';
 
 const NavLink = A.extend`
