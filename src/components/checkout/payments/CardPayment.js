@@ -9,6 +9,7 @@ import {
   CardNumberElement,
   CardExpiryElement,
   CardCVCElement,
+  PostalCodeElement,
 } from 'react-stripe-elements';
 
 class CardPayment extends BaseCheckoutSection {
@@ -70,18 +71,20 @@ class CardPayment extends BaseCheckoutSection {
 
         <label>
           <H6>Security Code</H6>
-          <Input
-            type="text"
-            value={this.state.cvv}
-            onChange={e => this.setState({ cvv: e.target.value })}
+          <CardCVCElement
+            style={style}
+            onChange={e => {
+              console.log(e);
+            }}
           />
         </label>
         <label>
           <H6>Billing Zip</H6>
-          <Input
-            type="text"
-            value={this.state.billingZip}
-            onChange={e => this.setState({ billingZip: e.target.value })}
+          <PostalCodeElement
+            style={style}
+            onChange={e => {
+              console.log(e);
+            }}
           />
         </label>
 
