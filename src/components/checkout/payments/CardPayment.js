@@ -6,7 +6,7 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../../actions/CheckoutActions';
-import { H3, H6, Input, Button } from '../../../style';
+import { P, H3, H6, Input, Button } from '../../../style';
 import {
   injectStripe,
   CardNumberElement,
@@ -47,6 +47,7 @@ class CardPayment extends BaseCheckoutSection {
 
   render() {
     const { stripeCreateToken, show } = this.props;
+    const { cardNumber, cardExpiry, cardCvc, postalCode } = this.state;
     const style = {
       base: {
         color: '#303238',
@@ -74,6 +75,7 @@ class CardPayment extends BaseCheckoutSection {
               style={style}
               onChange={e => this.fieldChange(e)}
             />
+            {cardNumber.error && <P error>{cardNumber.error.message}</P>}
           </label>
           <label>
             <H6>Expiration</H6>
@@ -81,12 +83,14 @@ class CardPayment extends BaseCheckoutSection {
               style={style}
               onChange={e => this.fieldChange(e)}
             />
+            {cardExpiry.error && <P error>{cardExpiry.error.message}</P>}
           </label>
         </div>
 
         <label>
           <H6>Security Code</H6>
           <CardCVCElement style={style} onChange={e => this.fieldChange(e)} />
+          {cardCvc.error && <P error>{cardCvc.error.message}</P>}
         </label>
         <label>
           <H6>Billing Zip</H6>
@@ -94,6 +98,7 @@ class CardPayment extends BaseCheckoutSection {
             style={style}
             onChange={e => this.fieldChange(e)}
           />
+          {postalCode.error && <P error>{postalCode.error.message}</P>}
         </label>
 
         {this.allValid() && (
