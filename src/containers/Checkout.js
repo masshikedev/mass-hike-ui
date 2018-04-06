@@ -52,9 +52,10 @@ class Checkout extends LoadableComponent {
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
 
-  stripeCreateToken = () =>
+  stripeCreateToken = callback =>
     this.props.stripe.createToken().then(({ token }) => {
       console.log('Received Stripe token:', token);
+      callback(token);
     });
 
   renderDefaultSection() {

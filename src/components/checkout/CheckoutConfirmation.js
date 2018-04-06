@@ -17,9 +17,10 @@ class CheckoutConfirmation extends BaseCheckoutSection {
     const { order, confirmOrder, status, stripeCreateToken } = this.props;
     e.preventDefault();
     if (status === RequestStatus.UNITIALIZED) {
-      confirmOrder(order);
+      stripeCreateToken(token =>
+        confirmOrder({ ...order, stripeToken: token })
+      );
     }
-    stripeCreateToken();
   };
 
   currentPricing() {
