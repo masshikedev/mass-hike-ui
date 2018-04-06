@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import { P, MediaQueries, Img, GridParent, constants } from '../../style';
 import { RichText } from 'prismic-reactjs';
 import hero from '../../images/home-hero2.png';
-import cloud1 from '../../images/cloud.png';
+import cloud1 from '../../images/cloud2.png';
 
 const Text = P.extend`
   grid-column: span 8;
   padding: 0 80px;
   padding-top: 20px;
+  z-index: 10;
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -23,6 +24,7 @@ const Title = styled.div`
   padding: 0 80px;
   padding-top: 40px;
   order: 0;
+  z-index: 10;
 
   :after {
     position: relative;
@@ -75,6 +77,7 @@ const Drawing = styled.div`
 
 const Drawings = styled.div`
   grid-column: span 12;
+  z-index: 0;
 `;
 
 const Cloud = Img.extend`
