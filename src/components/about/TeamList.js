@@ -23,7 +23,7 @@ const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 20px 0;
+  padding: 40px 0;
   flex-grow: 0.5;
   :not(:first-child) {
     margin: 30px 0;

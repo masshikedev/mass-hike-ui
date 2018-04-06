@@ -59,11 +59,15 @@ function TripInfo(props) {
         <P proxima bold uppercase color="green">
           difficulty
         </P>
-        <P proxima>{props.difficulty}</P>
+        <P proxima capitalize>
+          {props.difficulty}
+        </P>
         <P proxima bold uppercase color="green">
           price
         </P>
-        <P proxima>${props.price} per person</P>
+        <P proxima>
+          ${props.pricing.reduced.min} - {props.pricing.reduced.max} per person
+        </P>
         <P proxima bold uppercase color="green">
           availibility
         </P>

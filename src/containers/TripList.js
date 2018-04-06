@@ -20,6 +20,10 @@ const Title = styled.div`
   padding-top: 40px;
 `;
 
+const TitleContent = H1.extend`
+  margin-bottom: 20px;
+`;
+
 class TripList extends Component {
   componentWillMount() {
     const { getTripList } = this.props;
@@ -59,7 +63,7 @@ class TripList extends Component {
           <P proxima size="large" bold>
             Take a look at our
           </P>
-          <H1>Upcoming Trips</H1>
+          <TitleContent>Upcoming Trips</TitleContent>
         </Title>
         <Trips>{tripComponents}</Trips>
       </div>

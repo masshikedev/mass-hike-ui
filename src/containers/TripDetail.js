@@ -74,7 +74,7 @@ const Date = P.extend`
   position: absolute;
   background: #fff;
   top: 180px;
-  padding: 0 15px;
+  padding: 5px 15px;
 
   ${MediaQueries.small} {
     display: none;

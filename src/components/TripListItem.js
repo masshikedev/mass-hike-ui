@@ -55,8 +55,11 @@ const TripImage = styled.div`
 
 const InfoWrapper = styled.div`
   grid-column: span 5;
-  padding: 40px 80px;
+  padding: 40px;
   background: ${constants.offwhiteBg};
+  p {
+    margin-bottom: 0;
+  }
   ${MediaQueries.small} {
     grid-column: span 12;
     text-align: center;
