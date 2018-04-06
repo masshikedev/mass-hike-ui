@@ -28,7 +28,15 @@ class CheckoutConfirmation extends BaseCheckoutSection {
   }
 
   render() {
-    const { order, status, mobile } = this.props;
+    const {
+      order,
+      status,
+      mobile,
+      cardNumberError,
+      cardExpiryError,
+      cardCvcError,
+      postalCodeError,
+    } = this.props;
     const { promoCode, trip } = order;
     const pricing = this.currentPricing();
     const errors =
@@ -41,6 +49,10 @@ class CheckoutConfirmation extends BaseCheckoutSection {
           trip={trip}
           errors={errors}
           mobile={mobile}
+          cardNumberError={cardNumberError}
+          cardExpiryError={cardExpiryError}
+          cardCvcError={cardCvcError}
+          postalCodeError={postalCodeError}
           showEditButtons
         />
         {errors !== 'valid' ? (
@@ -65,7 +77,7 @@ const mapStateToProps = state => {
       tickets: +checkout.tickets,
       pickupLocation: checkout.pickupLocation,
       zipCode: checkout.zipCode,
-      cardNumber: checkout.cardNumber,
+      cardBrand: checkout.cardNumber.brand,
       selectedPrice: checkout.selectedPrice,
       meetingLocation:
         currentTrip.trip.cashLocations[checkout.selectedLocationIndex],
@@ -74,6 +86,10 @@ const mapStateToProps = state => {
       trip: currentTrip.trip,
       promoCode: checkout.promoCode,
     },
+    cardNumberError: checkout.cardNumber.error,
+    cardExpiryError: checkout.cardExpiry.error,
+    cardCvcError: checkout.cardCvc.error,
+    postalCodeError: checkout.postalCode.error,
     status: orders.confirmOrderStatus,
   };
 };

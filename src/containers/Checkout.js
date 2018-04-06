@@ -71,6 +71,7 @@ class Checkout extends LoadableComponent {
             completeSection={this.completeSection}
             index={0}
             next={next.path}
+            stripeCreateToken={this.stripeCreateToken}
           />
         )}
       />
@@ -95,6 +96,7 @@ class Checkout extends LoadableComponent {
               completeSection={this.completeSection}
               index={i}
               next={next}
+              stripeCreateToken={this.stripeCreateToken}
             />
           )}
           key={i}
@@ -128,8 +130,7 @@ class Checkout extends LoadableComponent {
                 index={3}
                 next={SectionOrder[4].path}
                 completeSection={this.completeSection}
-                stripeCreateToken={this.stripeCreateToken}
-                hide={!showCardPayment}
+                show={showCardPayment}
               />
             </form>
           </FormWrapper>
