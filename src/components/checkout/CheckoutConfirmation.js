@@ -20,11 +20,27 @@ class CheckoutConfirmation extends BaseCheckoutSection {
   };
 
   render() {
-    const { order, status, mobile } = this.props;
+    const {
+      order,
+      status,
+      mobile,
+      cardNumberError,
+      cardExpiryError,
+      cardCvcError,
+      postalCodeError,
+    } = this.props;
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
-        <OrderSummary order={order} showEditButtons mobile={mobile} />
+        <OrderSummary
+          order={order}
+          showEditButtons
+          mobile={mobile}
+          cardNumberError={cardNumberError}
+          cardExpiryError={cardExpiryError}
+          cardCvcError={cardCvcError}
+          postalCodeError={postalCodeError}
+        />
         <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
       </div>
     );
@@ -42,7 +58,7 @@ const mapStateToProps = state => {
       paymentType: checkout.paymentType,
       tickets: checkout.tickets,
       pickupLocation: checkout.pickupLocation,
-      cardNumber: checkout.cardNumber,
+      cardBrand: checkout.cardNumber.brand,
       selectedPrice: checkout.selectedPrice,
       meetingLocation:
         currentTrip.trip.cashLocations[checkout.selectedLocationIndex],
@@ -50,6 +66,10 @@ const mapStateToProps = state => {
       tripId: currentTrip.trip.tripId,
       trip: currentTrip.trip,
     },
+    cardNumberError: checkout.cardNumber.error,
+    cardExpiryError: checkout.cardExpiry.error,
+    cardCvcError: checkout.cardCvc.error,
+    postalCodeError: checkout.postalCode.error,
     status: orders.confirmOrderStatus,
   };
 };

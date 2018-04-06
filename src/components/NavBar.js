@@ -98,7 +98,7 @@ class NavBar extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener(this.listener);
+    document.removeEventListener('scroll', this.listener);
   }
 
   renderNavLinks = links =>
