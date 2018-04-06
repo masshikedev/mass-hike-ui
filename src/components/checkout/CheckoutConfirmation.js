@@ -26,7 +26,8 @@ class CheckoutConfirmation extends BaseCheckoutSection {
     const pricing = trip.pricing;
     const priceData =
       pricing[pricing.promoCodes[promoCode]] || pricing.standard;
-    const errors = validate({ ...order }, constraints(trip, priceData)) || {};
+    const errors =
+      validate({ ...order }, constraints(trip, priceData)) || 'valid';
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
@@ -37,7 +38,7 @@ class CheckoutConfirmation extends BaseCheckoutSection {
           mobile={mobile}
           showEditButtons
         />
-        {errors ? (
+        {errors !== 'valid' ? (
           <P error>An error has occured. Please check your responses.</P>
         ) : (
           <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
