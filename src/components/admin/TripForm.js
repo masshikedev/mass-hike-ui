@@ -6,6 +6,7 @@ import PromoCodeGrid from './PromoCodeGrid';
 import ZipcodeList from './ZipcodeList';
 import CashLocationList from './CashLocationList';
 import ZipcodeForm from './ZipcodeForm';
+import AvailabilityForm from './AvailabilityForm';
 import emptyTrip from '../../data/emptyTrip';
 import {
   H3,
@@ -113,6 +114,7 @@ class TripForm extends Component {
       currentZipcode,
     } = this.state;
     const imageUrl = detail.imageUrl;
+    console.log(this.state.cashAvailability);
     return (
       <form>
         <TripFormSection>
@@ -182,6 +184,12 @@ class TripForm extends Component {
           <CashLocationList
             locations={cashLocations}
             onDelete={this.onDeleteCashLocation}
+          />
+          <H3>Availability</H3>
+          <AvailabilityForm
+            onChange={availability =>
+              this.setState({ cashAvailability: availability })
+            }
           />
         </TripFormSection>
       </form>

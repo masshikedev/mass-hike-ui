@@ -4,9 +4,8 @@ import TimePicker from '../TimePicker';
 import { P, H6, GridParent } from '../../style';
 import styled from 'styled-components';
 import moment from 'moment';
+import { DAY_PICKER_DATE_CORRECTION } from '../../constants';
 import { DAY_MONTH_DATE_YEAR } from '../../utils/dateFormats';
-
-const DATE_CORRECTION = 57600000;
 
 const Column = styled.div`
   grid-column: span 4;
@@ -43,7 +42,9 @@ class TripTimeSelector extends Component {
     for (const key in this.state) {
       if (this.state[key] && key !== 'day') {
         times[key] =
-          this.state[key].utc().unix() * 1000 + day.getTime() - DATE_CORRECTION;
+          this.state[key].utc().unix() * 1000 +
+          day.getTime() -
+          DAY_PICKER_DATE_CORRECTION;
       }
     }
     return times;
