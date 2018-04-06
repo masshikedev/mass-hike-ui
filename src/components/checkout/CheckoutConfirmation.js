@@ -6,8 +6,10 @@ import { Button } from '../../style';
 import { setCurrentSection } from '../../actions/CheckoutActions';
 import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
-import { H3 } from '../../style';
+import { P, H3 } from '../../style';
 import { RequestStatus } from '../../constants';
+import { validate } from 'validate.js';
+import { constraints } from '../../utils/validationConstraints';
 
 class CheckoutConfirmation extends BaseCheckoutSection {
   handleConfirmOrder = e => {
@@ -20,11 +22,26 @@ class CheckoutConfirmation extends BaseCheckoutSection {
 
   render() {
     const { order, status, mobile } = this.props;
+    const { promoCode, trip } = order;
+    const pricing = trip.pricing;
+    const priceData =
+      pricing[pricing.promoCodes[promoCode]] || pricing.standard;
+    const errors = validate({ ...order }, constraints(trip, priceData)) || {};
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
-        <OrderSummary order={order} showEditButtons mobile={mobile} />
-        <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
+        <OrderSummary
+          order={order}
+          trip={trip}
+          errors={errors}
+          mobile={mobile}
+          showEditButtons
+        />
+        {errors ? (
+          <P error>An error has occured. Please check your responses.</P>
+        ) : (
+          <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
+        )}
       </div>
     );
   }
@@ -41,6 +58,7 @@ const mapStateToProps = state => {
       paymentType: checkout.paymentType,
       tickets: checkout.tickets,
       pickupLocation: checkout.pickupLocation,
+      zipCode: checkout.zipCode,
       cardNumber: checkout.cardNumber,
       selectedPrice: checkout.selectedPrice,
       meetingLocation:
@@ -48,6 +66,7 @@ const mapStateToProps = state => {
       meetingDate: checkout.meetingDate,
       tripId: currentTrip.trip.tripId,
       trip: currentTrip.trip,
+      promoCode: checkout.promoCode,
     },
     status: orders.confirmOrderStatus,
   };

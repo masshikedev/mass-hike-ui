@@ -23,7 +23,7 @@ const HeadingContainer = styled.div`
 `;
 
 export default function OrderSummary(props) {
-  const { order, showEditButtons, mobile } = props;
+  const { order, showEditButtons, mobile, errors } = props;
   const trip = order.trip;
   return (
     <div>
@@ -44,18 +44,18 @@ export default function OrderSummary(props) {
             <H6>Contact Info</H6>
             <EditButton display={showEditButtons} section={0} mobile={mobile} />
           </HeadingContainer>
-          <P large>
-            {order.name}
-            <br />
-            {order.email}
-            <br />
-            {order.phone}
-          </P>
+          <P large>{order.name} </P>
+          {errors['name'] ? <P error>{errors['name'][0]}</P> : null}
+          <P large>{order.email}</P>
+          {errors['email'] ? <P error>{errors['email'][0]}</P> : null}
+          <P large>{order.phone}</P>
+          {errors['phone'] ? <P error>{errors['phone'][0]}</P> : null}
           <HeadingContainer>
             <H6>Payment</H6>
             <EditButton display={showEditButtons} section={2} mobile={mobile} />
           </HeadingContainer>
           <P>{order.paymentType}</P>
+          <P error>{errors['paymentType']}</P>
           {order.paymentType === 'card' && (
             <div>
               <H6>Credit Card</H6>
@@ -86,9 +86,16 @@ export default function OrderSummary(props) {
           <P large capitalize>
             {order.preferredContactMethods.join(', ')}
           </P>
+          {errors['preferredContactMethods'] ? (
+            <P error>{errors['preferredContactMethods'][0]}</P>
+          ) : null}
         </Column>
       </Wrapper>
       <P large>{`${order.tickets} Tickets x $${order.selectedPrice} each`}</P>
+      {errors['tickets'] ? <P error>{errors['tickets'][0]}</P> : null}
+      {errors['selectedPrice'] ? (
+        <P error>{errors['selectedPrice'][0]}</P>
+      ) : null}
       <P large>{`Total: $${order.tickets * order.selectedPrice}`}</P>
     </div>
   );
