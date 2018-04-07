@@ -17,9 +17,11 @@ class CheckoutConfirmation extends BaseCheckoutSection {
     const { order, confirmOrder, status, stripeCreateToken } = this.props;
     e.preventDefault();
     if (status === RequestStatus.UNITIALIZED) {
-      stripeCreateToken(token =>
-        confirmOrder({ ...order, stripeToken: token })
-      );
+      order.paymentType === 'card'
+        ? stripeCreateToken(token =>
+            confirmOrder({ ...order, stripeToken: token })
+          )
+        : confirmOrder(order);
     }
   };
 
@@ -27,6 +29,24 @@ class CheckoutConfirmation extends BaseCheckoutSection {
     const { order } = this.props;
     return getCurrentPricing(order.promoCode, order.trip);
   }
+
+  cardDetailsValid = () => {
+    const {
+      cardNumberError,
+      cardExpiryError,
+      cardCvcError,
+      postalCodeError,
+      order,
+    } = this.props;
+    return (
+      !(
+        cardNumberError ||
+        cardExpiryError ||
+        cardCvcError ||
+        postalCodeError
+      ) || order.paymentType !== 'card'
+    );
+  };
 
   render() {
     const {
@@ -56,7 +76,7 @@ class CheckoutConfirmation extends BaseCheckoutSection {
           postalCodeError={postalCodeError}
           showEditButtons
         />
-        {errors !== 'valid' ? (
+        {!this.cardDetailsValid() ? (
           <P error>An error has occured. Please check your responses.</P>
         ) : (
           <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
