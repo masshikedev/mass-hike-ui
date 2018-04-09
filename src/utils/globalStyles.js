@@ -7,7 +7,7 @@ injectGlobal`
     font-family: 'Source Serif Pro', Serif;
     font-size: 24px;
     color: #000000;
-    background-color: #f9f9f9;
+    background-color: ${constants.gray};
   }
 
   a {
@@ -25,4 +25,5 @@ injectGlobal`
   	font-size: 16px;
   	line-height: 2;
   }
+  
 `;

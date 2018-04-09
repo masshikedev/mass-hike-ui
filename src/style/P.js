@@ -14,8 +14,7 @@ const P = styled.p`
       ? 'capitalize'
       : uppercase ? 'uppercase' : lowercase ? 'lowercase' : 'none'};
 
-  font-family: ${({ proxima }) => (proxima ? 'proxima-nova' : 'Source Serif')},
-    'inherit';
+  font-family: ${({ proxima }) => (proxima ? 'proxima-nova' : 'inherit')};
 
   font-weight: ${({ medium, bold, extrabold }) =>
     medium ? '500' : bold ? '700' : extrabold ? '800' : '400'};
@@ -28,7 +27,9 @@ const P = styled.p`
         ? constants.green
         : color === 'yellow'
           ? constants.yellow
-          : color === 'white' ? '#fff' : 'black'};
+          : color === 'orange'
+            ? constants.orange
+            : color === 'white' ? '#fff' : 'black'};
 `;
 
 export default P;

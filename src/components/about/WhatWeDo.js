@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H2, Img, MediaQueries, GridParent } from '../../style';
+import { constants, P, MediaQueries, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Column = styled.div`
-  grid-column: span 6;
+  grid-column: span 4;
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -14,19 +14,66 @@ const Column = styled.div`
 const Title = styled.div`
   grid-column: span 12;
 `;
+
+const Tree = P.extend`
+  display: inline-block;
+`;
+
+const Content = GridParent.extend`
+  background: ${constants.green} ${constants.greenBg};
+  background-blend-mode: multiply;
+  color: #fff;
+  padding: 80px;
+
+  ${MediaQueries.small} {
+    padding: 40px;
+  }
+`;
 function WhatWeDo(props) {
   return (
-    <GridParent>
+    <Content>
       <Title>
-        <H2>{RichText.asText(props.doc.data.title3)}</H2>
+        <P proxima size="xlarge" bold color="white">
+          {RichText.asText(props.doc.data.title3)}
+        </P>
       </Title>
       <Column>
-        <Img src={props.doc.data.about_image.url} />
+        <ul>
+          <li>
+            <Tree proxima bold uppercase color="white">
+              {RichText.asText(props.doc.data.wwd_title1)}
+            </Tree>
+          </li>
+        </ul>
+        <P size="large" color="white">
+          {RichText.asText(props.doc.data.wwd_content1)}
+        </P>
       </Column>
       <Column>
-        <div>{RichText.render(props.doc.data.about_content)}</div>
+        <ul>
+          <li>
+            <Tree proxima bold uppercase color="white">
+              {RichText.asText(props.doc.data.wwd_title2)}
+            </Tree>
+          </li>
+        </ul>
+        <P size="large" color="white">
+          {RichText.asText(props.doc.data.wwd_content2)}
+        </P>
       </Column>
-    </GridParent>
+      <Column>
+        <ul>
+          <li>
+            <Tree proxima bold uppercase color="white">
+              {RichText.asText(props.doc.data.wwd_title3)}
+            </Tree>
+          </li>
+        </ul>
+        <P size="large" color="white">
+          {RichText.asText(props.doc.data.wwd_content3)}
+        </P>
+      </Column>
+    </Content>
   );
 }
 

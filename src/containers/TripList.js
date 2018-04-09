@@ -4,7 +4,25 @@ import { connect } from 'react-redux';
 import { getTripList } from '../actions/TripListActions';
 import TripListItem from '../components/TripListItem';
 import renderByStatus from '../utils/renderByStatus';
-import { H1, H3, Container } from '../style';
+import { H1, P, H3, MediaQueries, Container } from '../style';
+import styled from 'styled-components';
+
+const Trips = styled.div`
+  padding: 0 80px;
+
+  ${MediaQueries.small} {
+    padding: 0;
+  }
+`;
+
+const Title = styled.div`
+  text-align: center;
+  padding-top: 40px;
+`;
+
+const TitleContent = H1.extend`
+  margin-bottom: 20px;
+`;
 
 class TripList extends Component {
   componentWillMount() {
@@ -41,8 +59,13 @@ class TripList extends Component {
     });
     return (
       <div>
-        <H1>Upcoming Trips</H1>
-        {tripComponents}
+        <Title>
+          <P proxima size="large" bold>
+            Take a look at our
+          </P>
+          <TitleContent>Upcoming Trips</TitleContent>
+        </Title>
+        <Trips>{tripComponents}</Trips>
       </div>
     );
   };
