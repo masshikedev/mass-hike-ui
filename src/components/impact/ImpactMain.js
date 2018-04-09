@@ -1,10 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H1, MediaQueries, Img, GridParent } from '../../style';
+import { H1, MediaQueries, P, constants, Img, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
-const Column = styled.div`
-  grid-column: span 12;
+const Text = styled.div`
+  grid-column: span 7;
+  padding: 40px 80px;
+  padding-top: 80px;
+  background: ${constants.lightgreenBg};
+  color: #fff;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+    padding: 40px;
+    text-align: center;
+  }
 `;
 
 const ImpactImg = styled.div`
@@ -15,23 +25,44 @@ const ImpactImg = styled.div`
   }
 `;
 
+const Title = H1.extend`
+  color: #fff;
+  margin-bottom: 25px;
+`;
+
+const Image = styled.div`
+  grid-column: span 5;
+  background-image: url(${props => props.bg});
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 400px;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+    order: 0;
+    min-height: 250px;
+  }
+`;
+
+const Main = GridParent.extend`
+  grid-gap: 0;
+`;
+
 function ImpactMain(props) {
   return (
-    <GridParent>
-      <Column>
-        <H1>{RichText.asText(props.doc.data.impact_title)}</H1>
-        <div>{RichText.render(props.doc.data.main_content)}</div>
-      </Column>
-      <ImpactImg>
-        <Img src={props.doc.data.impact_image1.url} />
-      </ImpactImg>
-      <ImpactImg>
-        <Img src={props.doc.data.impact_image1.url} />
-      </ImpactImg>
-      <ImpactImg>
-        <Img src={props.doc.data.impact_image1.url} />
-      </ImpactImg>
-    </GridParent>
+    <Main>
+      <Text>
+        <P color="white" proxima bold size="large">
+          Making an
+        </P>
+        <Title>{RichText.asText(props.doc.data.impact_title)}</Title>
+        <P color="white" proxima size="medium">
+          {RichText.render(props.doc.data.main_content)}
+        </P>
+      </Text>
+      <Image bg={props.doc.data.impact_main_image.url} />
+    </Main>
   );
 }
 

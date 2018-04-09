@@ -7,6 +7,8 @@ export default {
   navHeight: '75px',
   footerMinHeight: '150px;',
   boxshadow: '0 2px 25px 0 rgba(51, 51, 51, 0.28)',
+  lightgreenBg:
+    'repeating-linear-gradient(135deg, #85AA5B, #85AA5B 10px, #7BA151 2px, #7BA151 12px)',
   greenBg:
     'repeating-linear-gradient(135deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 10px, rgba(133,170,91, 0.4) 2px, rgba(133,170,91, 0.4) 12px)',
   orangeBg:
