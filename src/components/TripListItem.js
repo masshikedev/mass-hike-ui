@@ -76,8 +76,8 @@ class TripListItem extends Component {
       difficulty,
       tripId,
     } = this.props;
-    const dateString = moment(date).format(MONTH_DATE);
-    const timeString = moment(date).format(TIME);
+    const dateString = moment.utc(date).format(MONTH_DATE);
+    const timeString = moment.utc(date).format(TIME);
     return (
       <TripWrapper>
         <Date proxima bold size="large" color="orange">

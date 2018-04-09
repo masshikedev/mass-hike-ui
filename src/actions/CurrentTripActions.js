@@ -13,7 +13,8 @@ const getTripByIdSuccess = dispatch => {
 };
 
 const getTripByIdError = dispatch => {
-  return () => {
+  return error => {
+    console.log(error);
     dispatch({ type: ActionTypes.GET_TRIP_BY_ID_ERROR });
   };
 };

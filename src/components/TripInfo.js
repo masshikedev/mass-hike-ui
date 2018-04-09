@@ -44,9 +44,9 @@ const toCheckoutPage = id => {
 };
 
 function TripInfo(props) {
-  const pickupString = moment(props.time.pickupStart).format(
-    DAY_MONTH_DATE_TIME
-  );
+  const pickupString = moment
+    .utc(props.time.pickupStart)
+    .format(DAY_MONTH_DATE_TIME);
   return (
     <Wrapper>
 <<<<<<< HEAD
@@ -90,7 +90,7 @@ function TripInfo(props) {
       <H6>difficulty</H6>
       <P>{props.difficulty}</P>
       <H6>price</H6>
-      <P>${props.pricing.standard.min} per person</P>
+      <P>${props.pricing.min} per person</P>
       <H6>availibility</H6>
       <P>
         {props.capacity - props.ticketsSold}/{props.capacity} Tickets remaining

@@ -5,14 +5,19 @@ import { H2, Container } from '../style';
 import AdminPage from '../components/admin/AdminPage';
 import TripForm from '../components/admin/TripForm';
 import { adminCreateTrip } from '../actions/CurrentTripActions';
+import buildTrip from '../utils/buildTrip';
 
 class NewTrip extends Component {
-  render() {
+  onConfirm = attributes => {
     const { createTrip } = this.props;
+    createTrip(buildTrip(attributes));
+  };
+
+  render() {
     return (
       <Container>
         <H2>New Trip</H2>
-        <TripForm onConfirm={createTrip} />
+        <TripForm onConfirm={this.onConfirm} />
       </Container>
     );
   }

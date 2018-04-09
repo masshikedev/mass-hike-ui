@@ -66,27 +66,27 @@ function DetailDescription(props) {
           <Line>
             <Graphic />
           </Line>
-          <P>{`${moment(time.pickupStart).format(TIME)} - ${moment(
-            time.pickupEnd
-          ).format(TIME)}`}</P>
+          <P>{`${moment.utc(time.pickupStart).format(TIME)} - ${moment
+            .utc(time.pickupEnd)
+            .format(TIME)}`}</P>
         </SmallTime>
         <LargeTime>
           <H6>hike time</H6>
           <Line>
             <Graphic primary />
           </Line>
-          <P>{`${moment(time.hikeStart).format(TIME)} - ${moment(
-            time.hikeEnd
-          ).format(TIME)}`}</P>
+          <P>{`${moment.utc(time.hikeStart).format(TIME)} - ${moment
+            .utc(time.hikeEnd)
+            .format(TIME)}`}</P>
         </LargeTime>
         <SmallTime>
           <H6>dropoff</H6>
           <Line>
             <Graphic />
           </Line>
-          <P>{`${moment(time.dropoffStart).format(TIME)} - ${moment(
-            time.dropoffEnd
-          ).format(TIME)}`}</P>
+          <P>{`${moment.utc(time.dropoffStart).format(TIME)} - ${moment
+            .utc(time.dropoffEnd)
+            .format(TIME)}`}</P>
         </SmallTime>
       </Timeline>
     </Wrapper>

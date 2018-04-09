@@ -77,6 +77,7 @@ class TripForm extends Component {
         value={base[fieldName]}
         onChange={this.onChangeField(fieldName, parent)}
         error={messages[constraintsKey]}
+        textarea={useTextArea}
       />
     );
   };
@@ -142,7 +143,7 @@ class TripForm extends Component {
 
   onUploadSuccess = imageUrl => {
     this.setState({
-      detail: { ...this.state.details, imageUrl },
+      detail: { ...this.state.detail, imageUrl },
       uploadInProgress: false,
     });
   };
@@ -152,7 +153,6 @@ class TripForm extends Component {
   onClickConfirm = e => {
     e.preventDefault();
     const { onConfirm } = this.props;
-    console.log(onConfirm);
     onConfirm(this.state);
   };
 
@@ -169,7 +169,6 @@ class TripForm extends Component {
     const imageUrl = detail.imageUrl;
     const messages =
       validate(this.state, tripConstraints(this.state)) || 'valid';
-    console.log(this.state);
     return (
       <form>
         <TripFormSection>
@@ -220,7 +219,7 @@ class TripForm extends Component {
         <TripFormSection>
           <H3>Content</H3>
           {this.fieldFor('title', 'Title', messages, 'detail')}
-          {this.fieldFor('body', 'Body', messages, 'detail', TextArea)}
+          {this.fieldFor('body', 'Body', messages, 'detail', true)}
           <H6>Image</H6>
           <ImageDropzone
             onUploadAttempt={this.onUploadAttempt}

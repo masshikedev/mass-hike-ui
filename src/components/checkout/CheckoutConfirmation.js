@@ -57,7 +57,7 @@ const mapStateToProps = state => {
       phone: checkout.phone,
       preferredContactMethods: checkout.preferredContactMethods,
       paymentType: checkout.paymentType,
-      tickets: checkout.tickets,
+      tickets: +checkout.tickets,
       pickupLocation: checkout.pickupLocation,
       zipCode: checkout.zipCode,
       cardNumber: checkout.cardNumber,
