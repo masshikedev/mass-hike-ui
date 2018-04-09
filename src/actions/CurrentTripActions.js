@@ -1,5 +1,6 @@
 import ActionTypes from './ActionTypes';
 import { fetchTripById, createTrip } from '../api/trips';
+import { push } from 'react-router-redux';
 
 const getTripByIdSuccess = dispatch => {
   return response => {
@@ -14,7 +15,6 @@ const getTripByIdSuccess = dispatch => {
 
 const getTripByIdError = dispatch => {
   return error => {
-    console.log(error);
     dispatch({ type: ActionTypes.GET_TRIP_BY_ID_ERROR });
   };
 };
@@ -29,10 +29,12 @@ export const getTripById = tripId => {
 };
 
 const adminCreateTripSuccess = dispatch => {
-  return () => {
+  return response => {
     dispatch({
       type: ActionTypes.ADMIN_CREATE_TRIP_SUCCESS,
     });
+    const tripId = response.data.tripId;
+    dispatch(push(`/admin/trips/${tripId}`));
   };
 };
 

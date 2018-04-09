@@ -198,7 +198,6 @@ const tripConstraints = trip => {
     },
     'pricing.suggestion1': {
       presence: true,
-      numericality: true,
       numericality: {
         greaterThanOrEqualTo: +pricing.min,
         lessThanOrEqualTo: +pricing.suggestion2,

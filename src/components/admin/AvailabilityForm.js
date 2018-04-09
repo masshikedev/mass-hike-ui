@@ -98,12 +98,7 @@ class AvailabilityForm extends Component {
 
   onAddAvailibility = e => {
     e.preventDefault();
-    const {
-      selectedDay,
-      selectedStartTime,
-      selectedEndTime,
-      availability,
-    } = this.state;
+    const { selectedStartTime, selectedEndTime, availability } = this.state;
     const { onChange } = this.props;
     if (selectedStartTime.unix() > selectedEndTime.unix()) {
       return this.setState({
@@ -132,7 +127,7 @@ class AvailabilityForm extends Component {
   };
 
   renderAvailibilityForDay = () => {
-    const { availability, selectedDay } = this.state;
+    const { availability } = this.state;
     const { onChange } = this.props;
     let dayData = this.getCurrentDayData();
     if (!dayData || dayData.times.length === 0) {
@@ -188,7 +183,7 @@ class AvailabilityForm extends Component {
   };
 
   render() {
-    const { selectedDay, error } = this.state;
+    const { selectedDay } = this.state;
     return (
       <GridParent>
         <DateColumn>

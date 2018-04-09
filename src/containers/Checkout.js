@@ -10,7 +10,7 @@ import LoadableComponent from '../components/LoadableComponent';
 import { getTripById } from '../actions/CurrentTripActions';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import styled from 'styled-components';
-import { H3, Container, GridParent, MediaQueries } from '../style';
+import { Container, GridParent, MediaQueries } from '../style';
 
 const Divider = styled.div`
   grid-column: span 1;

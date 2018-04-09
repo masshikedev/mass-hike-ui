@@ -11,17 +11,7 @@ import ValidatedTextInput from '../forms/ValidatedTextInput';
 import { validate } from 'validate.js';
 import { tripConstraints } from '../../utils/validationConstraints';
 import emptyTrip from '../../data/emptyTrip';
-import {
-  P,
-  H3,
-  H4,
-  H6,
-  Input,
-  TextArea,
-  Button,
-  GridParent,
-  Img,
-} from '../../style';
+import { P, H3, H6, Button, GridParent, Img } from '../../style';
 import styled from 'styled-components';
 
 const TripFormSection = styled.div`
@@ -30,16 +20,6 @@ const TripFormSection = styled.div`
 
 const Column = styled.div`
   grid-column: span 4;
-`;
-
-const TripInput = Input.extend`
-  &[type='text'] {
-    max-width: 400px;
-  }
-`;
-
-const CalendarWrapper = styled.div`
-  margin: 10px 0;
 `;
 
 const PreviewImage = Img.extend`
@@ -163,7 +143,6 @@ class TripForm extends Component {
       promoCodes,
       pickupZipcodes,
       cashLocations,
-      currentZipcode,
       uploadInProgress,
     } = this.state;
     const imageUrl = detail.imageUrl;

@@ -53,7 +53,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
 
   render() {
     const { trip } = this.props;
-    const { promoCode, paymentType, selectedPrice } = this.state;
+    const { paymentType, selectedPrice } = this.state;
     const pricing = this.currentPricing();
     const messages =
       validate(this.state, paymentTypeConstraints(trip, pricing)) || 'valid';

@@ -6,7 +6,7 @@ import AdminPage from '../components/admin/AdminPage';
 import TripGrid from '../components/admin/TripGrid';
 import LoadableComponent from '../components/LoadableComponent';
 import { adminGetTripList } from '../actions/TripListActions';
-import { H2, H3, Container, GridParent, Button } from '../style';
+import { H2, Container, Button } from '../style';
 import { RequestStatus } from '../constants';
 
 const CreateButton = Button.extend`

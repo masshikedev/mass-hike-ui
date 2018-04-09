@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import DetailDescription from '../components/DetailDescription';
 import TripInfo from '../components/TripInfo';
 import { getTripById } from '../actions/CurrentTripActions';
-import previewImage from '../images/square.png';
 import styled from 'styled-components';
 import LoadableComponent from '../components/LoadableComponent';
 import {
@@ -89,7 +88,7 @@ class TripDetail extends LoadableComponent {
 
   renderSuccess = () => {
     const { trip } = this.props;
-    const dateString = moment(trip.time.hikeStart).format(MONTH_DATE);
+    const dateString = moment.utc(trip.time.hikeStart).format(MONTH_DATE);
     return (
       <Container>
         <TripWrapper>

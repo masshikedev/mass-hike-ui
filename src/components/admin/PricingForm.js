@@ -96,7 +96,6 @@ class PricingForm extends Component {
 
   render() {
     const { promo } = this.props;
-    const { error } = this.state;
     return (
       <div>
         <GridParent>

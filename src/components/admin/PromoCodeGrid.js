@@ -27,10 +27,6 @@ const DeleteButton = Button.extend`
 `;
 
 class PromoCodeGrid extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderPricingcodes() {
     const { codes, onDelete } = this.props;
     return codes.map((code, i) => {

@@ -32,7 +32,7 @@ class ZipcodeForm extends Component {
   };
 
   render() {
-    const { onAddZipcode, error } = this.props;
+    const { error } = this.props;
     const { currentZipcode, validationError } = this.state;
     return (
       <div>
