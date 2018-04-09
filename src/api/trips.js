@@ -1,4 +1,4 @@
-import { get } from '../utils/api';
+import { get, post } from '../utils/api';
 
 const BASE_URL = '/trips';
 const ADMIN_URL = '/admin/trips';
@@ -17,4 +17,8 @@ export const adminFetchAllTrips = () => {
 
 export const adminFetchTripById = tripId => {
   return get(`${ADMIN_URL}/${tripId}`);
+};
+
+export const createTrip = trip => {
+  return post(ADMIN_URL, JSON.stringify(trip));
 };

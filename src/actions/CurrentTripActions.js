@@ -1,5 +1,5 @@
 import ActionTypes from './ActionTypes';
-import { fetchTripById, adminFetchTripById } from '../api/trips';
+import { fetchTripById, createTrip } from '../api/trips';
 
 const getTripByIdSuccess = dispatch => {
   return response => {
@@ -12,18 +12,40 @@ const getTripByIdSuccess = dispatch => {
   };
 };
 
-const getTripByIdFailure = dispatch => {
+const getTripByIdError = dispatch => {
   return () => {
     dispatch({ type: ActionTypes.GET_TRIP_BY_ID_ERROR });
   };
 };
 
-export const getTripById = (tripId, admin) => {
-  const apiCall = admin ? adminFetchTripById : fetchTripById;
+export const getTripById = tripId => {
   return dispatch => {
     dispatch({ type: ActionTypes.GET_TRIP_BY_ID_ATTEMPT });
-    apiCall(tripId)
+    fetchTripById(tripId)
       .then(getTripByIdSuccess(dispatch))
-      .catch(getTripByIdFailure(dispatch));
+      .catch(getTripByIdError(dispatch));
+  };
+};
+
+const adminCreateTripSuccess = dispatch => {
+  return () => {
+    dispatch({
+      type: ActionTypes.ADMIN_CREATE_TRIP_SUCCESS,
+    });
+  };
+};
+
+const adminCreateTripError = dispatch => {
+  return () => {
+    dispatch({ type: ActionTypes.ADMIN_CREATE_TRIP_ERROR });
+  };
+};
+
+export const adminCreateTrip = trip => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.ADMIN_CREATE_TRIP_ATTEMPT });
+    createTrip(trip)
+      .then(adminCreateTripSuccess(dispatch))
+      .catch(adminCreateTripError(dispatch));
   };
 };

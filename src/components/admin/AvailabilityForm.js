@@ -22,7 +22,8 @@ const AvailabilityColumn = styled.div`
 
 const DeleteColumn = styled.div`
   grid-column: span 4;
-  text-align: right;
+  text-align: left;
+  cursor: pointer;
 `;
 
 const TimeEntryForm = styled.div`
@@ -37,6 +38,7 @@ class AvailabilityForm extends Component {
       selectedStartTime: null,
       selectedEndTime: null,
       availability: [],
+      error: '',
     };
   }
 
@@ -70,6 +72,30 @@ class AvailabilityForm extends Component {
     };
   };
 
+  addTimesToDay(day, startTime, endTime) {
+    const { times } = day;
+    let overlap = false;
+    for (let i = 0; i < times.length; i++) {
+      if (endTime > times[i].end && startTime < times[i].end) {
+        overlap = true;
+        times[i].end = endTime;
+      }
+      if (startTime < times[i].start && endTime > times[i].start) {
+        overlap = true;
+        times[i].start = startTime;
+      }
+      if (startTime > times[i].start && endTime < times[i].end) {
+        overlap = true;
+      }
+    }
+    if (!overlap) {
+      day.times.push({
+        start: startTime,
+        end: endTime,
+      });
+    }
+  }
+
   onAddAvailibility = e => {
     e.preventDefault();
     const {
@@ -79,20 +105,30 @@ class AvailabilityForm extends Component {
       availability,
     } = this.state;
     const { onChange } = this.props;
+    if (selectedStartTime.unix() > selectedEndTime.unix()) {
+      return this.setState({
+        error: 'Start time must be earlier than end time',
+      });
+    }
     const isNewDay = !this.getCurrentDayData();
     const currentDayData = this.getCurrentDayData() || this.newCurrentDayData();
-    currentDayData.times.push({
-      start: selectedStartTime.utc().unix() * 1000,
-      end: selectedEndTime.utc().unix() * 1000,
-    });
-    if (isNewDay) {
-      this.setState(
-        { availability: availability.concat([currentDayData]) },
-        () => onChange(this.state.availability)
-      );
-    } else {
-      this.setState({ availability }, () => onChange(this.state));
-    }
+    this.addTimesToDay(
+      currentDayData,
+      selectedStartTime.utc().unix() * 1000,
+      selectedEndTime.utc().unix() * 1000
+    );
+    const newAvailability = isNewDay
+      ? availability.concat([currentDayData])
+      : availability;
+    this.setState(
+      {
+        availability: newAvailability,
+        selectedStartTime: null,
+        selectedEndTime: null,
+        error: '',
+      },
+      () => onChange(this.state.availability)
+    );
   };
 
   renderAvailibilityForDay = () => {
@@ -128,7 +164,7 @@ class AvailabilityForm extends Component {
   };
 
   renderTimeEntryForm = () => {
-    const { selectedStartTime, selectedEndTime } = this.state;
+    const { selectedStartTime, selectedEndTime, error } = this.state;
     return (
       <TimeEntryForm>
         <Label>
@@ -145,13 +181,14 @@ class AvailabilityForm extends Component {
             onChange={time => this.setState({ selectedEndTime: time })}
           />
         </Label>
+        {error && <P error>{error}</P>}
         <Button onClick={this.onAddAvailibility}>Add Availability</Button>
       </TimeEntryForm>
     );
   };
 
   render() {
-    const { selectedDay } = this.state;
+    const { selectedDay, error } = this.state;
     return (
       <GridParent>
         <DateColumn>

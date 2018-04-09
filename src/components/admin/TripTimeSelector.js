@@ -78,34 +78,53 @@ class TripTimeSelector extends Component {
     );
   };
 
+  renderErrors() {
+    const { errors } = this.props;
+    return errors.map((error, i) => {
+      return (
+        <P key={i} error>
+          {error}
+        </P>
+      );
+    });
+  }
+
+  renderTimePickers() {
+    return (
+      <GridParent>
+        <Column>
+          <H6>Pickup Start</H6>
+          {this.timePickerFor('pickupStart')}
+          <H6>Pickup End</H6>
+          {this.timePickerFor('pickupEnd')}
+        </Column>
+        <Column>
+          <H6>Hike Start</H6>
+          {this.timePickerFor('hikeStart')}
+          <H6>Hike End</H6>
+          {this.timePickerFor('hikeEnd')}
+        </Column>
+        <Column>
+          <H6>Dropoff Start</H6>
+          {this.timePickerFor('dropoffStart')}
+          <H6>Dropoff End</H6>
+          {this.timePickerFor('dropoffEnd')}
+        </Column>
+      </GridParent>
+    );
+  }
+
   render() {
     const { day } = this.state;
+    const { errors } = this.props;
     return (
       <div>
         <DayPickerWrapper>
           <DayPicker onDayClick={this.onDayClick} selectedDays={[day]} />
           <P>{day && moment(day).format(DAY_MONTH_DATE_YEAR)}</P>
         </DayPickerWrapper>
-        <GridParent>
-          <Column>
-            <H6>Pickup Start</H6>
-            {this.timePickerFor('pickupStart')}
-            <H6>Pickup End</H6>
-            {this.timePickerFor('pickupEnd')}
-          </Column>
-          <Column>
-            <H6>Hike Start</H6>
-            {this.timePickerFor('hikeStart')}
-            <H6>Hike End</H6>
-            {this.timePickerFor('hikeEnd')}
-          </Column>
-          <Column>
-            <H6>Dropoff Start</H6>
-            {this.timePickerFor('dropoffStart')}
-            <H6>Dropoff End</H6>
-            {this.timePickerFor('dropoffEnd')}
-          </Column>
-        </GridParent>
+        {day && this.renderTimePickers()}
+        {day && errors.length > 0 && this.renderErrors()}
       </div>
     );
   }

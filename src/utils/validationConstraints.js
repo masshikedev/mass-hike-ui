@@ -104,9 +104,166 @@ const constraints = (trip, priceData) => {
   };
 };
 
+const tripConstraints = trip => {
+  const { time, pricing } = trip;
+  return {
+    name: {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    location: {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    'time.pickupStart': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        lessThan: time.pickupEnd,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.pickupEnd': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.pickupStart,
+        lessThan: time.hikeStart,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.hikeStart': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.pickupEnd,
+        lessThan: time.hikeEnd,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.hikeEnd': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.hikeStart,
+        lessThan: time.dropoffStart,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.dropoffStart': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.hikeEnd,
+        lessThan: time.dropoffEnd,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.dropoffEnd': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.dropoffStart,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    capacity: {
+      presence: true,
+      numericality: true,
+    },
+    'pricing.min': {
+      presence: true,
+      numericality: {
+        lessThanOrEqualTo: +pricing.max,
+        notLessThanOrEqualTo: '^Base price cannot be higher than max price',
+      },
+    },
+    'pricing.max': {
+      presence: true,
+    },
+    'pricing.suggestion1': {
+      presence: true,
+      numericality: true,
+      numericality: {
+        greaterThanOrEqualTo: +pricing.min,
+        lessThanOrEqualTo: +pricing.suggestion2,
+        message:
+          '^Suggestion 1 should be between the min price and suggestion 2',
+      },
+    },
+    'pricing.suggestion2': {
+      presence: true,
+      numericality: {
+        greaterThanOrEqualTo: +pricing.suggestion1,
+        lessThanOrEqualTo: +pricing.suggestion3,
+        message:
+          '^Suggestion 2 should be between the suggestion 1 and suggestion 3',
+      },
+    },
+    'pricing.suggestion3': {
+      presence: true,
+      numericality: {
+        greaterThanOrEqualTo: +pricing.suggestion2,
+        lessThanOrEqualTo: +pricing.max,
+        message:
+          '^Suggestion 3 should be between the suggestion 2 and the max price',
+      },
+    },
+    difficulty: {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    'stats.hikeDistance': {
+      numericality: true,
+    },
+    'stats.elevation': {
+      numericality: true,
+    },
+    'detail.title': {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    'detail.body': {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    'detail.imageUrl': {
+      presence: {
+        allowEmpty: false,
+        message: 'Please upload an image for this trip',
+      },
+    },
+    pickupZipcodes: {
+      presence: true,
+      length: {
+        minimum: 1,
+        message: '^You must set at least one pickup zipcode for this trip',
+      },
+    },
+  };
+};
+
 export {
   contactConstraints,
   hikeConstraints,
   paymentTypeConstraints,
   constraints,
+  tripConstraints,
 };

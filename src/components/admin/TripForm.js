@@ -7,8 +7,12 @@ import ZipcodeList from './ZipcodeList';
 import CashLocationList from './CashLocationList';
 import ZipcodeForm from './ZipcodeForm';
 import AvailabilityForm from './AvailabilityForm';
+import ValidatedTextInput from '../forms/ValidatedTextInput';
+import { validate } from 'validate.js';
+import { tripConstraints } from '../../utils/validationConstraints';
 import emptyTrip from '../../data/emptyTrip';
 import {
+  P,
   H3,
   H4,
   H6,
@@ -51,20 +55,49 @@ class TripForm extends Component {
       ...baseState,
       uploadInProgress: false,
       currentZipcode: '',
+      messages: [],
     };
   }
 
-  fieldFor = (fieldName, parent, InputComponent = TripInput) => {
-    const base = parent ? this.state[parent] : this.state;
-    const onChange = e => {
+  onChangeField = (fieldName, parent) => {
+    return e => {
       const newState = parent
         ? { [parent]: { ...this.state[parent], [fieldName]: e.target.value } }
         : { [fieldName]: e.target.value };
       this.setState(newState);
     };
+  };
+
+  fieldFor = (fieldName, title, messages, parent, useTextArea) => {
+    const base = parent ? this.state[parent] : this.state;
+    const constraintsKey = parent ? `${parent}.${fieldName}` : fieldName;
     return (
-      <InputComponent type="text" value={base[fieldName]} onChange={onChange} />
+      <ValidatedTextInput
+        title={title}
+        value={base[fieldName]}
+        onChange={this.onChangeField(fieldName, parent)}
+        error={messages[constraintsKey]}
+      />
     );
+  };
+
+  timeErrors(messages) {
+    const allMessages = [].concat(
+      messages['time.pickupStart'],
+      messages['time.pickupEnd'],
+      messages['time.hikeStart'],
+      messages['time.hikeEnd'],
+      messages['time.dropoffStart'],
+      messages['time.dropoffEnd']
+    );
+    return allMessages.filter((message, index, array) => {
+      return array.indexOf(message) === index;
+    });
+  }
+
+  onChangePricing = pricingFormState => {
+    const { errors, promoCode, ...pricing } = pricingFormState;
+    this.setState({ pricing });
   };
 
   onAddPromoCode = options => {
@@ -76,6 +109,16 @@ class TripForm extends Component {
     promoCodes.splice(index, 1);
     this.setState({ promoCodes });
   };
+
+  pricingErrors(messages) {
+    return [].concat(
+      messages['pricing.min'],
+      messages['pricing.max'],
+      messages['pricing.suggestion1'],
+      messages['pricing.suggestion2'],
+      messages['pricing.suggestion3']
+    );
+  }
 
   onAddZipcode = zipcode => {
     this.setState({
@@ -104,6 +147,15 @@ class TripForm extends Component {
     });
   };
 
+  onUploadError = () => this.setState({ uploadInProgress: false });
+
+  onClickConfirm = e => {
+    e.preventDefault();
+    const { onConfirm } = this.props;
+    console.log(onConfirm);
+    onConfirm(this.state);
+  };
+
   render() {
     const {
       pricing,
@@ -112,29 +164,36 @@ class TripForm extends Component {
       pickupZipcodes,
       cashLocations,
       currentZipcode,
+      uploadInProgress,
     } = this.state;
     const imageUrl = detail.imageUrl;
-    console.log(this.state.cashAvailability);
+    const messages =
+      validate(this.state, tripConstraints(this.state)) || 'valid';
+    console.log(this.state);
     return (
       <form>
         <TripFormSection>
-          <H6>Name</H6>
-          {this.fieldFor('name')}
-          <H6>Location</H6>
-          {this.fieldFor('location')}
+          {this.fieldFor('name', 'Name', messages)}
+          {this.fieldFor('location', 'Location', messages)}
         </TripFormSection>
         <TripFormSection>
           <H3>Date & Time</H3>
-          <TripTimeSelector onChange={time => this.setState({ time })} />
+          <TripTimeSelector
+            onChange={time => this.setState({ time })}
+            errors={this.timeErrors(messages)}
+          />
         </TripFormSection>
         <TripFormSection>
           <H3>Capacity</H3>
-          <H6>Available Spots</H6>
-          {this.fieldFor('capacity')}
+          {this.fieldFor('capacity', 'Capacity', messages)}
         </TripFormSection>
         <TripFormSection>
           <H3>Base Pricing</H3>
-          <PricingForm pricing={pricing} />
+          <PricingForm
+            pricing={pricing}
+            errors={this.pricingErrors(messages)}
+            onChange={this.onChangePricing}
+          />
         </TripFormSection>
         <TripFormSection>
           <H3>Promo Codes</H3>
@@ -143,32 +202,34 @@ class TripForm extends Component {
         </TripFormSection>
         <TripFormSection>
           <H3>Difficulty and Statistics</H3>
-          <H6>Difficulty</H6>
-          {this.fieldFor('difficulty')}
+          {this.fieldFor('difficulty', 'Difficulty', messages)}
           <GridParent>
             <Column>
-              <H6>Distance</H6>
-              {this.fieldFor('hikeDistance', 'stats')}
+              {this.fieldFor(
+                'hikeDistance',
+                'Distance (mi)',
+                messages,
+                'stats'
+              )}
             </Column>
             <Column>
-              <H6>Elevation</H6>
-              {this.fieldFor('elevation', 'stats')}
+              {this.fieldFor('elevation', 'Elevation (ft)', messages, 'stats')}
             </Column>
           </GridParent>
         </TripFormSection>
         <TripFormSection>
           <H3>Content</H3>
-          <H6>Title</H6>
-          {this.fieldFor('title', 'detail')}
-          <H6>Body</H6>
-          {this.fieldFor('body', 'detail', TextArea)}
+          {this.fieldFor('title', 'Title', messages, 'detail')}
+          {this.fieldFor('body', 'Body', messages, 'detail', TextArea)}
           <H6>Image</H6>
           <ImageDropzone
             onUploadAttempt={this.onUploadAttempt}
             onUploadSuccess={this.onUploadSuccess}
+            onUploadError={this.onUploadError}
           >
             Drag and drop an image or click to select one
           </ImageDropzone>
+          {uploadInProgress && <P>Loading...</P>}
           {imageUrl && <PreviewImage src={imageUrl} />}
         </TripFormSection>
         <TripFormSection>
@@ -177,7 +238,10 @@ class TripForm extends Component {
             zipcodes={pickupZipcodes}
             onDelete={this.onDeleteZipcode}
           />
-          <ZipcodeForm onAddZipcode={this.onAddZipcode} />
+          <ZipcodeForm
+            onAddZipcode={this.onAddZipcode}
+            error={messages.pickupZipcodes}
+          />
         </TripFormSection>
         <TripFormSection>
           <H3>Cash Locations</H3>
@@ -191,6 +255,11 @@ class TripForm extends Component {
               this.setState({ cashAvailability: availability })
             }
           />
+        </TripFormSection>
+        <TripFormSection>
+          {messages === 'valid' && (
+            <Button onClick={this.onClickConfirm}>Create Trip</Button>
+          )}
         </TripFormSection>
       </form>
     );

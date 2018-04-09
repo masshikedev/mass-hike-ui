@@ -4,6 +4,8 @@ import { RequestStatus } from '../constants';
 const initialState = {
   status: RequestStatus.UNITIALIZED,
   trip: null,
+  adminCreateStatus: RequestStatus.UNITIALIZED,
+  adminTrip: null,
 };
 
 export default (state = initialState, action) => {
@@ -23,6 +25,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         status: RequestStatus.ERROR,
+      };
+    case ActionTypes.ADMIN_CREATE_TRIP_ATTEMPT:
+      return {
+        ...state,
+        adminCreateStatus: RequestStatus.PENDING,
+      };
+    case ActionTypes.ADMIN_CREATE_TRIP_SUCCESS:
+      return {
+        ...state,
+        adminCreateStatus: RequestStatus.SUCCESS,
+      };
+    case ActionTypes.ADMIN_CREATE_TRIP_ERROR:
+      return {
+        ...state,
+        adminCreateStatus: RequestStatus.ERROR,
       };
     default:
       return state;

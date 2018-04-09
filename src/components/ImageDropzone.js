@@ -24,9 +24,10 @@ class ImageDropzone extends Component {
   }
 
   onDrop = (acceptedFiles, rejectedFiles) => {
-    const { onUploadAttempt, onUploadSuccess } = this.props;
+    const { onUploadAttempt, onUploadSuccess, onUploadError } = this.props;
     onUploadAttempt();
     if (rejectedFiles.length > 0) {
+      onUploadError();
       return this.setState({
         error: 'Invalid file. Please select a jpeg or png.',
       });
@@ -37,9 +38,14 @@ class ImageDropzone extends Component {
     const file = acceptedFiles[0];
     const data = new FormData();
     data.append('image', file);
-    uploadImage(data).then(response => {
-      onUploadSuccess(response.data.imageUrl);
-    });
+    uploadImage(data)
+      .then(response => {
+        onUploadSuccess(response.data.imageUrl);
+      })
+      .catch(() => {
+        onUploadError();
+        this.setState({ error: 'Error uploading image' });
+      });
   };
 
   render() {
