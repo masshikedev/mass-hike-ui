@@ -66,7 +66,7 @@ class CardPayment extends BaseCheckoutSection {
     };
     return (
       <div style={show ? {} : { display: 'none' }}>
-        <H2>Enter your credit card information</H2>
+        <H2>Payment Info</H2>
 
         <label>
           <H6>Card Number</H6>
