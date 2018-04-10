@@ -6,7 +6,7 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../../actions/CheckoutActions';
-import { P, H3, H6, Input, Button, constants } from '../../../style';
+import { P, H2, H6, Input, Button, constants } from '../../../style';
 import {
   injectStripe,
   CardNumberElement,
@@ -66,25 +66,24 @@ class CardPayment extends BaseCheckoutSection {
     };
     return (
       <div style={show ? {} : { display: 'none' }}>
-        <H3>Enter your credit card information</H3>
-        <div>
-          <label>
-            <H6>Card Number</H6>
-            <CardNumberElement
-              style={style}
-              onChange={e => this.fieldChange(e)}
-            />
-            {cardNumber.error && <P error>{cardNumber.error.message}</P>}
-          </label>
-          <label>
-            <H6>Expiration</H6>
-            <CardExpiryElement
-              style={style}
-              onChange={e => this.fieldChange(e)}
-            />
-            {cardExpiry.error && <P error>{cardExpiry.error.message}</P>}
-          </label>
-        </div>
+        <H2>Enter your credit card information</H2>
+
+        <label>
+          <H6>Card Number</H6>
+          <CardNumberElement
+            style={style}
+            onChange={e => this.fieldChange(e)}
+          />
+          {cardNumber.error && <P error>{cardNumber.error.message}</P>}
+        </label>
+        <label>
+          <H6>Expiration</H6>
+          <CardExpiryElement
+            style={style}
+            onChange={e => this.fieldChange(e)}
+          />
+          {cardExpiry.error && <P error>{cardExpiry.error.message}</P>}
+        </label>
 
         <label>
           <H6>Security Code</H6>

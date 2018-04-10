@@ -17,7 +17,6 @@ import CardPayment from '../components/checkout/payments/CardPayment';
 const Divider = styled.div`
   grid-column: span 1;
   border-right: 3px solid #000;
-
   ${MediaQueries.small} {
     grid-column: 0;
     display: none;
@@ -26,7 +25,10 @@ const Divider = styled.div`
 
 const FormWrapper = styled.div`
   grid-column: span 8;
-
+  max-width: 800px;
+  margin: 5% 12%;
+  min-width: 200px;
+  height: 100%;
   ${MediaQueries.small} {
     grid-column: span 12;
   }
@@ -115,30 +117,26 @@ class Checkout extends LoadableComponent {
     } = this.props;
     const showCardPayment = currentSection == 3 && paymentType === 'card';
     return (
-      <div>
-        <GridParent>
-          <FormWrapper>
-            <form>
-              <Switch>
-                {this.renderDefaultSection()}
-                {!checkoutInitialized && (
-                  <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
-                )}
-                {this.renderRemainingSections()}
-              </Switch>
-              <CardPayment
-                index={3}
-                next={SectionOrder[4].path}
-                completeSection={this.completeSection}
-                show={showCardPayment}
-              />
-            </form>
-          </FormWrapper>
-          {currentSection !== 4 && <Divider />}
-          {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
-        </GridParent>
-        <CheckoutProgressBar sectionOrder={SectionOrder} />
-      </div>
+      <Container>
+        <div>
+          <GridParent>
+            <FormWrapper>
+              <CheckoutProgressBar sectionOrder={SectionOrder} />
+              <form>
+                <Switch>
+                  {this.renderDefaultSection()}
+                  {!checkoutInitialized && (
+                    <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
+                  )}
+                  {this.renderRemainingSections()}
+                </Switch>
+              </form>
+            </FormWrapper>
+            {currentSection !== 4 && <Divider />}
+            {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
+          </GridParent>
+        </div>
+      </Container>
     );
   };
 }
