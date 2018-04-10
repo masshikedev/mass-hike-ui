@@ -14,15 +14,6 @@ import { Container, GridParent, MediaQueries } from '../style';
 import { injectStripe } from 'react-stripe-elements';
 import CardPayment from '../components/checkout/payments/CardPayment';
 
-const Divider = styled.div`
-  grid-column: span 1;
-  border-right: 3px solid #000;
-  ${MediaQueries.small} {
-    grid-column: 0;
-    display: none;
-  }
-`;
-
 const FormWrapper = styled.div`
   grid-column: span 8;
   max-width: 800px;
@@ -117,24 +108,25 @@ class Checkout extends LoadableComponent {
     } = this.props;
     const showCardPayment = currentSection == 3 && paymentType === 'card';
     return (
-      <div>
-        <GridParent>
-          <FormWrapper>
-            <CheckoutProgressBar sectionOrder={SectionOrder} />
-            <form>
-              <Switch>
-                {this.renderDefaultSection()}
-                {!checkoutInitialized && (
-                  <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
-                )}
-                {this.renderRemainingSections()}
-              </Switch>
-            </form>
-          </FormWrapper>
-          {currentSection !== 4 && <Divider />}
-          {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
-        </GridParent>
-      </div>
+      <Container>
+        <div>
+          <GridParent>
+            <FormWrapper>
+              <CheckoutProgressBar sectionOrder={SectionOrder} />
+              <form>
+                <Switch>
+                  {this.renderDefaultSection()}
+                  {!checkoutInitialized && (
+                    <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
+                  )}
+                  {this.renderRemainingSections()}
+                </Switch>
+              </form>
+            </FormWrapper>
+            {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
+          </GridParent>
+        </div>
+      </Container>
     );
   };
 }

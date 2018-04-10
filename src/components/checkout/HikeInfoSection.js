@@ -9,6 +9,10 @@ import { hikeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 import PlaceAutocomplete from '../forms/PlaceAutocomplete';
 
+const Caption = P.extend`
+  max-width: 500px;
+`;
+
 class HikeInfoSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
@@ -51,10 +55,10 @@ class HikeInfoSection extends BaseCheckoutSection {
           error={messages['tickets']}
         />
         <H6>What is your prefered address for pickup?</H6>
-        <P size="medium" proxima>
+        <Caption size="medium" proxima>
           Your final pickup location will be within 15 minutes of this address
           and will be sent to you before your hike.
-        </P>
+        </Caption>
 
         <PlaceAutocomplete
           value={pickupLocation}
