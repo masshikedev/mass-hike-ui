@@ -9,7 +9,11 @@ import {
 import { P, H1, H2, H6, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { contactConstraints } from '../../utils/validationConstraints';
+<<<<<<< HEAD
 import { ValidatedTextInput, NextButton } from '../forms';
+=======
+import ValidatedTextInput from '../forms/ValidatedTextInput';
+>>>>>>> styling for desktop
 import Checkbox from '../forms/Checkbox';
 import formatPhoneNumber from '../../utils/phoneFormatter';
 import styled from 'styled-components';

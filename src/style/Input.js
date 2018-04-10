@@ -4,10 +4,10 @@ import constants from './constants';
 const Input = styled.input`
   box-sizing: border-box;
   font-size: 14px;
-  text-transform: uppercase;
+
   font-weight: 600;
   line-height: 2;
-  color: ${constants.darkgray};
+  color: black;
   padding: 5px 10px;
   &[type='text'] {
     width: 100%;
@@ -23,9 +23,9 @@ const Input = styled.input`
     max-width: 500px;
     border: 3px solid ${props => (props.invalid ? 'red' : 'black')};
   }
-  &[type='checkbox'] {
-  }
-  &[type='radio'] {
+  :placeholder-shown {
+    text-transform: uppercase;
+    color: ${constants.darkgray};
   }
 `;
 

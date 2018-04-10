@@ -20,6 +20,15 @@ const FooterImg = styled.img`
   height: auto;
 `;
 
+const Wrapper = styled.div`
+  max-width: 500px;
+  margin-bottom: 10px;
+`;
+
+const Error = P.extend`
+  margin-left: 15px;
+`;
+
 class PlaceAutocomplete extends Component {
   constructor(props) {
     super(props);
