@@ -19,6 +19,7 @@ const FormWrapper = styled.div`
   max-width: 800px;
   margin: 5% 12%;
   min-width: 200px;
+  height: 100%;
   ${MediaQueries.small} {
     grid-column: span 12;
   }

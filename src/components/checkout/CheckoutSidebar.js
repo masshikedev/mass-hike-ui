@@ -17,6 +17,11 @@ const Wrapper = styled.div`
   }
 `;
 
+const SummaryP = P.extend`
+  color: white;
+  font-family: 'proxima-nova', 'inherit';
+`;
+
 class CheckoutSidebar extends Component {
   render() {
     const { trip, tickets, price } = this.props;
