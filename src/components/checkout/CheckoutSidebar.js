@@ -17,6 +17,11 @@ const Wrapper = styled.div`
   }
 `;
 
+const SummaryP = P.extend`
+  color: white;
+  font-family: 'proxima-nova', 'inherit';
+`;
+
 class CheckoutSidebar extends Component {
   render() {
     const { trip, tickets, price } = this.props;
@@ -26,14 +31,14 @@ class CheckoutSidebar extends Component {
         <H4 color="white" size="small">
           Trip Details
         </H4>
-        <P proxima color="white">
+        <SummaryP>
           {trip.name}
           <br />
           {moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}
           <br />
           {moment(trip.time.hikeStart).format(TIME)}
           <br />
-        </P>
+        </SummaryP>
         {tickets !== '' && (
           <div>
             {price ? (
