@@ -18,7 +18,7 @@ const CheckBoxWrapper = styled.div`
   align-items: center;
   padding: 5px;
   ${MediaQueries.small} {
-    ${'' /* flex-direction: column; */};
+    flex-direction: column;
   }
 `;
 

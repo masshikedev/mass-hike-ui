@@ -5,6 +5,10 @@ import { P, H6 } from '../../style';
 import styled from 'styled-components';
 import { GOOGLE_MAPS_API_KEY } from '../../constants';
 
+const Wrapper = styled.div`
+  max-width: 500px;
+`;
+
 const Footer = styled.div`
   text-align: right;
   padding: 5px;
@@ -78,7 +82,7 @@ class PlaceAutocomplete extends Component {
     const { value, onChange, callback, error, google } = this.props;
     const { editing, service } = this.state;
     return (
-      <div>
+      <Wrapper>
         <ReactPlacesAutocomplete
           inputProps={{ value, onChange, ...this.inputProps }}
           options={this.getOptions()}
@@ -105,7 +109,7 @@ class PlaceAutocomplete extends Component {
             {error[0]}
           </P>
         ) : null}
-      </div>
+      </Wrapper>
     );
   }
 }
