@@ -108,31 +108,29 @@ class Checkout extends LoadableComponent {
     } = this.props;
     const showCardPayment = currentSection == 3 && paymentType === 'card';
     return (
-      <Container>
-        <div>
-          <GridParent>
-            <FormWrapper>
-              <CheckoutProgressBar sectionOrder={SectionOrder} />
-              <form>
-                <Switch>
-                  {this.renderDefaultSection()}
-                  {!checkoutInitialized && (
-                    <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
-                  )}
-                  {this.renderRemainingSections()}
-                </Switch>
-                <CardPayment
-                  index={3}
-                  next={SectionOrder[4].path}
-                  completeSection={this.completeSection}
-                  show={showCardPayment}
-                />
-              </form>
-            </FormWrapper>
-            {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
-          </GridParent>
-        </div>
-      </Container>
+      <div>
+        <GridParent>
+          <FormWrapper>
+            <CheckoutProgressBar sectionOrder={SectionOrder} />
+            <form>
+              <Switch>
+                {this.renderDefaultSection()}
+                {!checkoutInitialized && (
+                  <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
+                )}
+                {this.renderRemainingSections()}
+              </Switch>
+              <CardPayment
+                index={3}
+                next={SectionOrder[4].path}
+                completeSection={this.completeSection}
+                show={showCardPayment}
+              />
+            </form>
+          </FormWrapper>
+          {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
+        </GridParent>
+      </div>
     );
   };
 }
