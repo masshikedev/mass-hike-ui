@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
 import { P, H6, Input, TextArea } from '../../style';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  margin-bottom: 15px;
+`;
+
+const Error = P.extend`
+  margin-left: 15px;
+`;
 
 class ValidatedTextInput extends Component {
   constructor(props) {
@@ -14,31 +23,33 @@ class ValidatedTextInput extends Component {
     const placeholder = this.props.placeholder || '';
     const InputComponent = textarea ? TextArea : Input;
     return (
-      <label>
-        <H6>{title}</H6>
-        <InputComponent
-          type="text"
-          id={id}
-          placeholder={placeholder}
-          value={transform(value)}
-          onChange={e => {
-            onChange(e);
-          }}
-          onBlur={() => {
-            this.setState({ editing: false });
-          }}
-          onFocus={e => {
-            if (onFocus) onFocus(e);
-            this.setState({ editing: true });
-          }}
-          invalid={!editing && error}
-        />
-        {!editing && error ? (
-          <P small error>
-            {error[0]}
-          </P>
-        ) : null}
-      </label>
+      <Wrapper>
+        <label>
+          <H6>{title}</H6>
+          <InputComponent
+            type="text"
+            id={id}
+            placeholder={placeholder}
+            value={transform(value)}
+            onChange={e => {
+              onChange(e);
+            }}
+            onBlur={() => {
+              this.setState({ editing: false });
+            }}
+            onFocus={e => {
+              if (onFocus) onFocus(e);
+              this.setState({ editing: true });
+            }}
+            invalid={!editing && error}
+          />
+          {!editing && error ? (
+            <Error size="medium" color="error">
+              {error[0]}
+            </Error>
+          ) : null}
+        </label>
+      </Wrapper>
     );
   }
 }

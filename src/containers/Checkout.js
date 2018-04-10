@@ -15,7 +15,6 @@ import { Container, GridParent, MediaQueries } from '../style';
 const Divider = styled.div`
   grid-column: span 1;
   border-right: 3px solid #000;
-
   ${MediaQueries.small} {
     grid-column: 0;
     display: none;
@@ -24,7 +23,10 @@ const Divider = styled.div`
 
 const FormWrapper = styled.div`
   grid-column: span 8;
-
+  max-width: 800px;
+  margin: 5% 12%;
+  min-width: 200px;
+  height: 100%;
   ${MediaQueries.small} {
     grid-column: span 12;
   }
@@ -103,6 +105,7 @@ class Checkout extends LoadableComponent {
         <div>
           <GridParent>
             <FormWrapper>
+              <CheckoutProgressBar sectionOrder={SectionOrder} />
               <form>
                 <Switch>
                   {this.renderDefaultSection()}
@@ -116,7 +119,6 @@ class Checkout extends LoadableComponent {
             {currentSection !== 4 && <Divider />}
             {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
           </GridParent>
-          <CheckoutProgressBar sectionOrder={SectionOrder} />
         </div>
       </Container>
     );

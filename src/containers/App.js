@@ -20,7 +20,9 @@ const App = props => {
       <Main>
         <Routes prismicCtx={props.prismicCtx} />
       </Main>
-      <Footer prismicCtx={props.prismicCtx} uid="footer" />
+      {!window.location.pathname.match('trips') && (
+        <Footer prismicCtx={props.prismicCtx} uid="footer" />
+      )}
     </React.Fragment>
   );
 };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from '../BaseCheckoutSection';
 import { setCurrentSection } from '../../../actions/CheckoutActions';
-import { H3, H6, Input, Button } from '../../../style';
+import { H2, H6, Input, Button } from '../../../style';
 
 class CardPayment extends BaseCheckoutSection {
   constructor(props) {
@@ -20,7 +20,7 @@ class CardPayment extends BaseCheckoutSection {
   render() {
     return (
       <div>
-        <H3>Enter your credit card information</H3>
+        <H2>Payment Info</H2>
         <label>
           <H6>Card Number</H6>
           <Input
