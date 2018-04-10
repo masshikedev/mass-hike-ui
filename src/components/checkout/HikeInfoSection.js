@@ -46,6 +46,10 @@ const CheckBoxWrapper = styled.div`
   }
 `;
 
+const Caption = P.extend`
+  max-width: 500px;
+`;
+
 class HikeInfoSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
