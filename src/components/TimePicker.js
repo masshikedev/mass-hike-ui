@@ -2,7 +2,7 @@ import React from 'react';
 import TimePicker from 'rc-time-picker';
 import moment from 'moment';
 
-export default function(props) {
+export default function TimePicker(props) {
   return (
     <TimePicker
       {...props}

@@ -11,7 +11,7 @@ const buildPromoCodes = promoCodes => {
   });
 };
 
-export default attributes => {
+const buildTrip = attributes => {
   return {
     name: attributes.name,
     time: attributes.time,
@@ -36,3 +36,5 @@ export default attributes => {
     pickupZipcodes: attributes.pickupZipcodes,
   };
 };
+
+export default buildTrip;

@@ -46,7 +46,7 @@ class CashLocationList extends Component {
                 <GridParent>
                   <LocationColumn>
                     <LocationName>{location.name}</LocationName>
-                    <P small>{location.address}</P>
+                    <P size="small">{location.address}</P>
                   </LocationColumn>
                   <DeleteColumn>
                     <DeleteButton
