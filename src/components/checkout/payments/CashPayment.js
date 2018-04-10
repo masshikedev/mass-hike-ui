@@ -45,7 +45,7 @@ class CashPayment extends BaseCheckoutSection {
           {'  '}
           {loc.name}
           <P small>
-            {loc.location}
+            {loc.address}
             {' - '}
             <a href={loc.link} target="_blank">
               Get Directions

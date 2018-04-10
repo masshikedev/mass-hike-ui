@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from '../style/Button';
 import styled from 'styled-components';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { DAY_MONTH_DATE_TIME } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
@@ -44,7 +44,9 @@ const toCheckoutPage = id => {
 };
 
 function TripInfo(props) {
-  const pickupString = format(props.time.pickupStart, DAY_MONTH_DATE_TIME);
+  const pickupString = moment
+    .utc(props.time.pickupStart)
+    .format(DAY_MONTH_DATE_TIME);
   return (
     <Wrapper>
       <BorderWrapper>
@@ -65,9 +67,7 @@ function TripInfo(props) {
         <P proxima bold uppercase color="green">
           price
         </P>
-        <P proxima>
-          ${props.pricing.reduced.min} - {props.pricing.reduced.max} per person
-        </P>
+        <P proxima>${props.pricing.min} per person</P>
         <P proxima bold uppercase color="green">
           availibility
         </P>

@@ -5,7 +5,7 @@ import { logout } from '../../actions/AuthActions';
 import styled from 'styled-components';
 
 const AdminBarContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 70px;
   right: 40px;
 `;

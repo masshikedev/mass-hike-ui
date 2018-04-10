@@ -10,6 +10,7 @@ import { P, H3 } from '../../style';
 import { RequestStatus } from '../../constants';
 import { validate } from 'validate.js';
 import { constraints } from '../../utils/validationConstraints';
+import getCurrentPricing from '../../utils/getCurrentPricing';
 
 class CheckoutConfirmation extends BaseCheckoutSection {
   handleConfirmOrder = e => {
@@ -20,14 +21,17 @@ class CheckoutConfirmation extends BaseCheckoutSection {
     }
   };
 
+  currentPricing() {
+    const { order } = this.props;
+    return getCurrentPricing(order.promoCode, order.trip);
+  }
+
   render() {
     const { order, status, mobile } = this.props;
     const { promoCode, trip } = order;
-    const pricing = trip.pricing;
-    const priceData =
-      pricing[pricing.promoCodes[promoCode]] || pricing.standard;
+    const pricing = this.currentPricing();
     const errors =
-      validate({ ...order }, constraints(trip, priceData)) || 'valid';
+      validate({ ...order }, constraints(trip, pricing)) || 'valid';
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
@@ -57,7 +61,7 @@ const mapStateToProps = state => {
       phone: checkout.phone,
       preferredContactMethods: checkout.preferredContactMethods,
       paymentType: checkout.paymentType,
-      tickets: checkout.tickets,
+      tickets: +checkout.tickets,
       pickupLocation: checkout.pickupLocation,
       zipCode: checkout.zipCode,
       cardNumber: checkout.cardNumber,

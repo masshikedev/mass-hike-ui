@@ -4,3 +4,5 @@ export const RequestStatus = {
   SUCCESS: 'SUCCESS',
   ERROR: 'ERROR',
 };
+
+export const DAY_PICKER_DATE_CORRECTION = 57600000;

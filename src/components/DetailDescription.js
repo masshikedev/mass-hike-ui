@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { H6, P, MediaQueries } from '../style';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { TIME } from '../utils/dateFormats';
 
 const Wrapper = styled.div`
@@ -66,30 +66,27 @@ function DetailDescription(props) {
           <Line>
             <Graphic />
           </Line>
-          <P>{`${format(time.pickupStart, TIME)} - ${format(
-            time.pickupEnd,
-            TIME
-          )}`}</P>
+          <P>{`${moment.utc(time.pickupStart).format(TIME)} - ${moment
+            .utc(time.pickupEnd)
+            .format(TIME)}`}</P>
         </SmallTime>
         <LargeTime>
           <H6>hike time</H6>
           <Line>
             <Graphic primary />
           </Line>
-          <P>{`${format(time.hikeStart, TIME)} - ${format(
-            time.hikeEnd,
-            TIME
-          )}`}</P>
+          <P>{`${moment.utc(time.hikeStart).format(TIME)} - ${moment
+            .utc(time.hikeEnd)
+            .format(TIME)}`}</P>
         </LargeTime>
         <SmallTime>
           <H6>dropoff</H6>
           <Line>
             <Graphic />
           </Line>
-          <P>{`${format(time.dropoffStart, TIME)} - ${format(
-            time.dropoffEnd,
-            TIME
-          )}`}</P>
+          <P>{`${moment.utc(time.dropoffStart).format(TIME)} - ${moment
+            .utc(time.dropoffEnd)
+            .format(TIME)}`}</P>
         </SmallTime>
       </Timeline>
     </Wrapper>

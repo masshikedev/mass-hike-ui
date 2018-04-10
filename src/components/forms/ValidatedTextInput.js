@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { P, H6, Input } from '../../style';
+import { P, H6, Input, TextArea } from '../../style';
 
 class ValidatedTextInput extends Component {
   constructor(props) {
@@ -8,14 +8,15 @@ class ValidatedTextInput extends Component {
   }
 
   render() {
-    const { title, onChange, onFocus, error, value, id } = this.props;
+    const { title, onChange, onFocus, error, value, id, textarea } = this.props;
     const { editing } = this.state;
     const transform = this.props.transform || (v => v);
     const placeholder = this.props.placeholder || '';
+    const InputComponent = textarea ? TextArea : Input;
     return (
       <label>
         <H6>{title}</H6>
-        <Input
+        <InputComponent
           type="text"
           id={id}
           placeholder={placeholder}

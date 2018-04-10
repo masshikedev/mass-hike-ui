@@ -7,6 +7,7 @@ import H5 from './H5';
 import H6 from './H6';
 import HR from './HR';
 import Input from './Input';
+import TextArea from './TextArea';
 import Label from './Label';
 import P from './P';
 import Select from './Select';
@@ -36,4 +37,5 @@ export {
   Img,
   constants,
   MediaQueries,
+  TextArea,
 };

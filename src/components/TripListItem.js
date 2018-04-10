@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import previewImage from '../images/square.png'; // relative path to image
 import Button from '../style/Button';
 import { P, constants, GridParent, MediaQueries } from '../style';
 import styled from 'styled-components';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { MONTH_DATE, TIME } from '../utils/dateFormats';
 
 const Margin = styled.div`
@@ -75,9 +74,10 @@ class TripListItem extends Component {
       spotsRemaining,
       difficulty,
       tripId,
+      imageUrl,
     } = this.props;
-    const dateString = format(date, MONTH_DATE);
-    const timeString = format(date, TIME);
+    const dateString = moment.utc(date).format(MONTH_DATE);
+    const timeString = moment.utc(date).format(TIME);
     return (
       <TripWrapper>
         <Date proxima bold size="large" color="orange">
@@ -85,7 +85,7 @@ class TripListItem extends Component {
         </Date>
         <Wrapper>
           <Margin />
-          <TripImage bg={previewImage} />
+          <TripImage bg={imageUrl} />
           <InfoWrapper>
             <P proxima bold color="green" size="xlarge">
               {name}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { P, H6, MediaQueries } from '../../style';
 import styled from 'styled-components';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 
 const Wrapper = styled.div`
@@ -23,9 +23,9 @@ class CheckoutSidebar extends Component {
         <P large capitalize>
           {trip.name}
           <br />
-          {format(trip.time.hikeStart, MONTH_DATE_YEAR)}
+          {moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}
           <br />
-          {format(trip.time.hikeStart, TIME)}
+          {moment(trip.time.hikeStart).format(TIME)}
           <br />
         </P>
         {tickets !== '' && (

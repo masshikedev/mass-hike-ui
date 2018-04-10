@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { getTripById } from '../actions/CurrentTripActions';
-import renderByStatus from '../utils/renderByStatus';
+import LoadableComponent from '../components/LoadableComponent';
 import CheckoutConfirmation from '../components/checkout/CheckoutConfirmation';
 import MobileCheckoutForm from '../components/checkout/MobileCheckoutForm';
 import { H3, Container, GridParent } from '../style';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 
-class MobileCheckout extends Component {
+class MobileCheckout extends LoadableComponent {
   componentWillMount() {
     const { getTripById, match } = this.props;
     getTripById(match.params.tripId);
@@ -20,22 +20,6 @@ class MobileCheckout extends Component {
     if (trip !== null && trip.tripId !== checkoutTripId) {
       resetCheckout(match.params.tripId);
     }
-  }
-
-  renderLoading() {
-    return (
-      <Container>
-        <H3>Loading...</H3>
-      </Container>
-    );
-  }
-
-  renderError() {
-    return (
-      <Container>
-        <H3>An error has occured.</H3>
-      </Container>
-    );
   }
 
   renderSuccess = () => {
@@ -58,20 +42,6 @@ class MobileCheckout extends Component {
       </Switch>
     );
   };
-
-  render() {
-    const { status } = this.props;
-    return (
-      <div>
-        {renderByStatus(
-          status,
-          this.renderLoading,
-          this.renderSuccess,
-          this.renderError
-        )}
-      </div>
-    );
-  }
 }
 
 const mapStateToProps = state => ({
