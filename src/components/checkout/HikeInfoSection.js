@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
 import { setCurrentSection } from '../../actions/CheckoutActions';
-import { P, H3, Button } from '../../style';
+import { P, H2, H3, H6, Button } from '../../style';
 import { validate } from 'validate.js';
 import { hikeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
@@ -39,16 +39,19 @@ class HikeInfoSection extends BaseCheckoutSection {
 
     return (
       <div>
-        <H3>How many tickets would you like to purchase?</H3>
-        <P small>{trip.capacity - trip.ticketsSold} available</P>
+        <H2>Hike Information</H2>
+        <H6>How many tickets would you like to purchase?</H6>
+        <P size="medium" proxima>
+          {trip.capacity - trip.ticketsSold} available
+        </P>
         <ValidatedTextInput
           title=""
           value={tickets}
           onChange={e => this.setState({ tickets: e.target.value })}
           error={messages['tickets']}
         />
-        <H3>What is your prefered address for pickup?</H3>
-        <P small>
+        <H6>What is your prefered address for pickup?</H6>
+        <P size="medium" proxima>
           Your final pickup location will be within 15 minutes of this address
           and will be sent to you before your hike.
         </P>

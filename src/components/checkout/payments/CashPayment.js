@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from '../BaseCheckoutSection';
 import { setCurrentSection } from '../../../actions/CheckoutActions';
-import { P, H3, Button } from '../../../style';
+import { P, H2, H6, Button } from '../../../style';
 
 class CashPayment extends BaseCheckoutSection {
   constructor(props) {
@@ -64,18 +64,19 @@ class CashPayment extends BaseCheckoutSection {
 
     return (
       <div>
-        <H3>
+        <H2>Payment Info</H2>
+        <P size="medium" proxima>
           To pay in cash, you must meet a Mass Hike team member at a local
           Boston Center for Youth and Families. Please select the center most
           convient for you.
-        </H3>
-
+        </P>
+        <H6>Please select the center most convient for you.</H6>
         <fieldset>
           {this.renderCashLocations(
             showMoreLocations ? cashLocations.length : 3
           )}
         </fieldset>
-        <Button small onClick={e => this.handleToggle(e)}>
+        <Button small color="blue" onClick={e => this.handleToggle(e)}>
           {showMoreLocations ? 'Show Less' : 'Show More'}
         </Button>
 

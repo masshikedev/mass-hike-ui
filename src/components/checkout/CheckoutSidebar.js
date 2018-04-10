@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H6, MediaQueries } from '../../style';
+import { P, H2, H4, H6, constants, MediaQueries } from '../../style';
 import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 
 const Wrapper = styled.div`
-  grid-column: span 3;
-
+  color: white;
+  background: ${constants.green} ${constants.greenBg};
+  background-blend-mode: multiply;
+  grid-column: span 4;
+  padding: 15%;
   ${MediaQueries.small} {
     display: none;
     grid-column: 0;
   }
+`;
+
+const SummaryP = P.extend`
+  color: white;
+  font-family: 'proxima-nova', 'inherit';
 `;
 
 class CheckoutSidebar extends Component {
@@ -19,25 +27,28 @@ class CheckoutSidebar extends Component {
     const { trip, tickets, price } = this.props;
     return (
       <Wrapper>
-        <H6>Trip Summary</H6>
-        <P large capitalize>
+        <H2>Summary</H2>
+        <H4 color="white" size="small">
+          Trip Details
+        </H4>
+        <SummaryP>
           {trip.name}
           <br />
           {moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}
           <br />
           {moment(trip.time.hikeStart).format(TIME)}
           <br />
-        </P>
+        </SummaryP>
         {tickets !== '' && (
           <div>
             {price ? (
               <div>
-                <P large>{`${tickets} tickets x $${price} each`}</P>
+                <SummaryP>{`${tickets} tickets x $${price} each`}</SummaryP>
                 <H6>Total</H6>
-                <P large capitalize>{`$${tickets * price}`}</P>
+                <SummaryP capitalize>{`$${tickets * price}`}</SummaryP>
               </div>
             ) : (
-              <P large capitalize>{`${tickets} tickets`}</P>
+              <SummaryP>{`${tickets} tickets`}</SummaryP>
             )}
           </div>
         )}

@@ -6,7 +6,7 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../../actions/CheckoutActions';
-import { P, H3, H6, Input, Button, constants } from '../../../style';
+import { P, H2, H6, Input, Button, constants } from '../../../style';
 import {
   injectStripe,
   CardNumberElement,
@@ -66,7 +66,7 @@ class CardPayment extends BaseCheckoutSection {
     };
     return (
       <div style={show ? {} : { display: 'none' }}>
-        <H3>Enter your credit card information</H3>
+        <H2>Payment Info</H2>
         <div>
           <label>
             <H6>Card Number</H6>

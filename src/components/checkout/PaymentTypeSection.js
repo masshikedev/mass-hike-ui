@@ -3,11 +3,33 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
 import { setCurrentSection } from '../../actions/CheckoutActions';
-import { H2, H4, Input, Button } from '../../style';
+import { P, H2, H4, H6, Input, Button, MediaQueries } from '../../style';
 import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import getCurrentPricing from '../../utils/getCurrentPricing';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
+import Checkbox from '../forms/Checkbox';
+import styled from 'styled-components';
+
+const CheckBoxWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+  ${MediaQueries.small} {
+    flex-direction: column;
+  }
+`;
+
+const Caption = P.extend`
+  max-width: 500px;
+`;
+
+const OtherWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 class PaymentTypeSection extends BaseCheckoutSection {
   constructor(props) {
@@ -29,20 +51,46 @@ class PaymentTypeSection extends BaseCheckoutSection {
     return [suggestion1, suggestion2, suggestion3];
   }
 
-  renderPrices(prices) {
+  renderPrices() {
     const { selectedPrice, promoCode } = this.state;
-    return this.pricingSuggestions(promoCode).map((p, i) => {
+    return this.pricingSuggestions().map((p, i) => {
       return (
-        <label key={i}>
-          <Input
-            type="radio"
-            checked={selectedPrice === p}
-            onChange={() => this.setState({ selectedPrice: p })}
-          />
-          {`$${p}`}
-        </label>
+        <Checkbox
+          key={i}
+          type="radio"
+          checked={selectedPrice === p}
+          onChange={() => this.setState({ selectedPrice: p })}
+          text={`$${p}`}
+        />
       );
     });
+  }
+
+  renderOtherPrice(messages) {
+    const { selectedPrice } = this.state;
+    const prices = this.pricingSuggestions();
+    return (
+      <OtherWrapper>
+        <Checkbox
+          type="radio"
+          checked={!prices.includes(selectedPrice)}
+          onChange={() => {
+            document.getElementById('customPrice').focus();
+            document.getElementById('customPrice').select();
+          }}
+          text="Other:"
+        />
+        <ValidatedTextInput
+          type="number"
+          id="customPrice"
+          placeholder="Amount"
+          value={!prices.includes(selectedPrice) ? selectedPrice : ''}
+          onChange={e => this.setState({ selectedPrice: e.target.value })}
+          onFocus={e => this.setState({ selectedPrice: e.target.value })}
+          error={messages['selectedPrice']}
+        />
+      </OtherWrapper>
+    );
   }
 
   render() {
@@ -53,42 +101,29 @@ class PaymentTypeSection extends BaseCheckoutSection {
       validate(this.state, paymentTypeConstraints(trip, pricing)) || 'valid';
     return (
       <div>
-        <H2>Enter a promo code. (Optional)</H2>
+        <H2>Payment Options</H2>
+        <H6>Enter a promo code (optional)</H6>
         <ValidatedTextInput
           title=""
           value={this.state.promoCode}
           onChange={e => this.setState({ promoCode: e.target.value })}
           error={messages['promoCode']}
         />
-        <H2>Choose your ticket price.</H2>
-        <H4>{`Enter a value between $${pricing.min} and $${pricing.max}.`}</H4>
+        <H6>Choose your ticket price</H6>
+        <Caption size="medium" proxima>
+          {`Each ticket costs $${
+            pricing.min
+          }, any amount over that is a donation to Mass Hike. Please choose a price between $${
+            pricing.min
+          } and $${pricing.max}.`}
+        </Caption>
 
-        {this.renderPrices()}
+        <CheckBoxWrapper>
+          {this.renderPrices()}
+          {this.renderOtherPrice(messages)}
+        </CheckBoxWrapper>
 
-        <br />
-        <Input
-          type="radio"
-          checked={!this.pricingSuggestions().includes(selectedPrice)}
-          onChange={() => {
-            document.getElementById('customPrice').focus();
-            document.getElementById('customPrice').select();
-          }}
-        />
-        <ValidatedTextInput
-          type="number"
-          id="customPrice"
-          placeholder="Other amount"
-          value={
-            !this.pricingSuggestions().includes(selectedPrice)
-              ? selectedPrice
-              : ''
-          }
-          onChange={e => this.setState({ selectedPrice: e.target.value })}
-          onFocus={e => this.setState({ selectedPrice: e.target.value })}
-          error={messages['selectedPrice']}
-        />
-
-        <H2>How would you like to pay?</H2>
+        <H6>How would you like to pay?</H6>
         <label>
           Credit/Debit
           <Input
