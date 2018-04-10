@@ -32,7 +32,7 @@ export default [
   {
     component: CheckoutConfirmation,
     path: 'confirmation',
-    name: 'Confirmation',
+    name: 'Order Summary',
     img: 'confirm.png',
   },
 ];

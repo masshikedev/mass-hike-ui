@@ -22,7 +22,7 @@ const P = styled.p`
   line-height: 1.44;
   color: ${({ color }) =>
     color === 'error'
-      ? 'red'
+      ? constants.red
       : color === 'green'
         ? constants.green
         : color === 'yellow'
