@@ -14,10 +14,11 @@ import styled from 'styled-components';
 const CheckBoxWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   padding: 5px;
   ${MediaQueries.small} {
-    flex-direction: column;
+    ${'' /* flex-direction: column; */};
   }
 `;
 
@@ -124,22 +125,20 @@ class PaymentTypeSection extends BaseCheckoutSection {
         </CheckBoxWrapper>
 
         <H6>How would you like to pay?</H6>
-        <label>
-          Credit/Debit
-          <Input
+        <CheckBoxWrapper>
+          <Checkbox
             type="radio"
             checked={paymentType === 'card'}
             onChange={() => this.setState({ paymentType: 'card' })}
+            text="Credit/Debit"
           />
-        </label>
-        <label>
-          Cash
-          <Input
+          <Checkbox
             type="radio"
             checked={paymentType !== 'card'}
             onChange={() => this.setState({ paymentType: 'cash' })}
+            text="Cash"
           />
-        </label>
+        </CheckBoxWrapper>
         <br />
         {messages === 'valid' && (
           <Button onClick={this.onCompleteSection}>Next</Button>

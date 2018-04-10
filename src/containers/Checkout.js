@@ -12,15 +12,6 @@ import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import styled from 'styled-components';
 import { Container, GridParent, MediaQueries } from '../style';
 
-const Divider = styled.div`
-  grid-column: span 1;
-  border-right: 3px solid #000;
-  ${MediaQueries.small} {
-    grid-column: 0;
-    display: none;
-  }
-`;
-
 const FormWrapper = styled.div`
   grid-column: span 8;
   max-width: 800px;
@@ -116,7 +107,6 @@ class Checkout extends LoadableComponent {
                 </Switch>
               </form>
             </FormWrapper>
-            {currentSection !== 4 && <Divider />}
             {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
           </GridParent>
         </div>

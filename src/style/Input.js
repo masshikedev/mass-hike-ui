@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import constants from './constants';
 
 const Input = styled.input`
   box-sizing: border-box;
@@ -8,7 +9,7 @@ const Input = styled.input`
     width: 100%;
     border-radius: 4px;
     background-color: #ffffff;
-    border: solid 2px ${props => (props.invalid ? 'red' : 'black')};
+    border: solid 2px ${props => (props.invalid ? constants.red : 'black')};
     max-width: 500px;
   }
   &[type='password'] {
