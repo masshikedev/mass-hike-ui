@@ -33,8 +33,8 @@ class PlaceAutocomplete extends Component {
         fontSize: '20px',
         padding: '5px',
         width: '100%',
-        maxWidth: '500px',
-        border: bad ? '3px solid red' : '3px solid black',
+        border: bad ? '2px solid red' : '2px solid black',
+        borderRadius: '4px',
       },
     };
   }
@@ -101,9 +101,9 @@ class PlaceAutocomplete extends Component {
           }}
         />
         {!editing && error ? (
-          <P small error>
+          <Error size="medium" color="error">
             {error[0]}
-          </P>
+          </Error>
         ) : null}
       </div>
     );
