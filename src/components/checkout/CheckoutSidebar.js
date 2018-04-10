@@ -8,6 +8,7 @@ import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 const Wrapper = styled.div`
   color: white;
   background: ${constants.lightgreenBg};
+  background-blend-mode: multiply;
   grid-column: span 4;
   padding: 15%;
   ${MediaQueries.small} {
