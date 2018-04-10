@@ -14,6 +14,15 @@ const FooterImg = styled.img`
   height: auto;
 `;
 
+const Wrapper = styled.div`
+  max-width: 500px;
+  margin-bottom: 10px;
+`;
+
+const Error = P.extend`
+  margin-left: 15px;
+`;
+
 let map = new google.maps.Map(document.getElementById('map'), {
   center: { lat: -33.866, lng: 151.196 },
   zoom: 15,
@@ -36,8 +45,8 @@ class PlaceAutocomplete extends Component {
         fontSize: '20px',
         padding: '5px',
         width: '100%',
-        maxWidth: '500px',
-        border: bad ? '3px solid red' : '3px solid black',
+        border: bad ? '2px solid red' : '2px solid black',
+        borderRadius: '4px',
       },
     };
   };
@@ -70,7 +79,7 @@ class PlaceAutocomplete extends Component {
     const { value, onChange, callback, error } = this.props;
     const { editing } = this.state;
     return (
-      <div>
+      <Wrapper>
         <PlacesAutocomplete
           inputProps={{ value, onChange, ...this.inputProps }}
           options={this.options}
@@ -93,11 +102,11 @@ class PlaceAutocomplete extends Component {
           }}
         />
         {!editing && error ? (
-          <P small error>
+          <Error size="medium" color="error">
             {error[0]}
-          </P>
+          </Error>
         ) : null}
-      </div>
+      </Wrapper>
     );
   }
 }

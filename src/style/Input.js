@@ -9,6 +9,7 @@ const Input = styled.input`
     border-radius: 4px;
     background-color: #ffffff;
     border: solid 2px ${props => (props.invalid ? 'red' : 'black')};
+    max-width: 500px;
   }
   &[type='password'] {
     width: 100%;
