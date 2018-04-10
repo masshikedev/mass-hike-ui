@@ -40,6 +40,7 @@ const Button = styled.button`
   align-items: center;
   color: white;
   text-decoration: none;
+  margin-bottom: 10px;
   padding: ${({ primary }) => (primary ? '15px 30px' : '5px 20px')};
   > * {
     margin: 0;

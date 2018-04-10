@@ -77,7 +77,7 @@ class CashPayment extends BaseCheckoutSection {
           )}
         </fieldset>
         <Button small color="blue" onClick={e => this.handleToggle(e)}>
-          {showMoreLocations ? 'Show Less' : 'Show More'}
+          {showMoreLocations ? 'See Less' : 'See More'}
         </Button>
 
         {selectedLocationIndex >= 0 && (

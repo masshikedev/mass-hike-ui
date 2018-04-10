@@ -8,10 +8,12 @@ import { Button } from '../../style';
 
 const SmallButton = Button.extend`
   cursor: pointer;
-  font-size: 14px;
-  width: 60px;
-  height: 30px;
+  font-size: 12px;
+  width: 40px;
+  height: 20px;
+  min-height: 20px;
   margin-left: 15px;
+  padding: 0px;
 `;
 
 class EditButton extends Component {
@@ -34,7 +36,7 @@ class EditButton extends Component {
     if (!display) {
       return null;
     }
-    return <SmallButton onClick={onClick}>Edit</SmallButton>;
+    return <SmallButton onClick={onClick}>edit</SmallButton>;
   }
 }
 
