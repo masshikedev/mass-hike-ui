@@ -8,7 +8,7 @@ export default Wrapped => {
     if (!loggedIn) {
       return <Login />;
     }
-    return <Wrapped />;
+    return <Wrapped {...props} />;
   });
 };
 

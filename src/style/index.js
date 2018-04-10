@@ -12,6 +12,7 @@ import Label from './Label';
 import P from './P';
 import Select from './Select';
 import Button from './Button';
+import AdminContainer from './AdminContainer';
 import Container from './Container';
 import GridParent from './GridParent';
 import Img from './Img';
@@ -33,6 +34,7 @@ export {
   Select,
   Button,
   Container,
+  AdminContainer,
   GridParent,
   Img,
   constants,

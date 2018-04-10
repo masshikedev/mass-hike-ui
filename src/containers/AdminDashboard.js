@@ -6,7 +6,7 @@ import AdminPage from '../components/admin/AdminPage';
 import TripGrid from '../components/admin/TripGrid';
 import LoadableComponent from '../components/LoadableComponent';
 import { adminGetTripList } from '../actions/TripListActions';
-import { H2, Container, Button } from '../style';
+import { H2, AdminContainer, Button } from '../style';
 import { RequestStatus } from '../constants';
 
 const CreateButton = Button.extend`
@@ -31,13 +31,13 @@ class AdminDashboard extends LoadableComponent {
       return null;
     }
     return (
-      <Container>
+      <AdminContainer>
         <H2>Upcoming Trips</H2>
         <TripGrid trips={upcomingTrips} showTickets={true} />
         <CreateButton onClick={this.onClickCreate}>Create New</CreateButton>
         <H2>Past Trips</H2>
         <TripGrid trips={pastTrips} showTickets={false} />
-      </Container>
+      </AdminContainer>
     );
   };
 }

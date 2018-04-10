@@ -28,7 +28,7 @@ class TripGrid extends Component {
         <Column>{moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}</Column>
         <Column>{showTickets && trip.capacity - trip.orders.length}</Column>
         <Column>
-          <Link to="/">details</Link>
+          <Link to={`/admin/trips/${trip.tripId}`}>details</Link>
         </Column>
       </TripGridRow>
     );
