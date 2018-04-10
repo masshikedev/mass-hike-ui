@@ -6,6 +6,7 @@ import { setCurrentSection } from '../../actions/CheckoutActions';
 import { H2, H4, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
+import getCurrentPricing from '../../utils/getCurrentPricing';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 
 class PaymentTypeSection extends BaseCheckoutSection {
@@ -20,14 +21,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
   }
 
   currentPricing() {
-    const { promoCode } = this.state;
-    const promoCodes = this.props.trip.promoCodes;
-    for (let i = 0; i < promoCodes.length; i++) {
-      if (promoCode === promoCodes[i].promoCode) {
-        return promoCodes[i];
-      }
-    }
-    return this.props.trip.pricing;
+    return getCurrentPricing(this.state.promoCode, this.props.trip);
   }
 
   pricingSuggestions() {
@@ -36,8 +30,8 @@ class PaymentTypeSection extends BaseCheckoutSection {
   }
 
   renderPrices(prices) {
-    const { selectedPrice } = this.state;
-    return this.pricingSuggestions().map((p, i) => {
+    const { selectedPrice, promoCode } = this.state;
+    return this.pricingSuggestions(promoCode).map((p, i) => {
       return (
         <label key={i}>
           <Input

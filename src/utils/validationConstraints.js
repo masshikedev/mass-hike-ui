@@ -199,7 +199,7 @@ const tripConstraints = trip => {
       presence: true,
       numericality: {
         greaterThanOrEqualTo: +pricing.min,
-        lessThanOrEqualTo: +pricing.suggestion2,
+        lessThan: +pricing.suggestion2,
         message:
           '^Suggestion 1 should be between the base price and suggestion 2',
       },
@@ -207,8 +207,8 @@ const tripConstraints = trip => {
     'pricing.suggestion2': {
       presence: true,
       numericality: {
-        greaterThanOrEqualTo: +pricing.suggestion1,
-        lessThanOrEqualTo: +pricing.suggestion3,
+        greaterThan: +pricing.suggestion1,
+        lessThan: +pricing.suggestion3,
         message:
           '^Suggestion 2 should be between the suggestion 1 and suggestion 3',
       },
@@ -216,7 +216,7 @@ const tripConstraints = trip => {
     'pricing.suggestion3': {
       presence: true,
       numericality: {
-        greaterThanOrEqualTo: +pricing.suggestion2,
+        greaterThan: +pricing.suggestion2,
         lessThanOrEqualTo: +pricing.max,
         message:
           '^Suggestion 3 should be between the suggestion 2 and the max price',
