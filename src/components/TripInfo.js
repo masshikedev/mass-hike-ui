@@ -49,7 +49,6 @@ function TripInfo(props) {
     .format(DAY_MONTH_DATE_TIME);
   return (
     <Wrapper>
-<<<<<<< HEAD
       <BorderWrapper>
         <P proxima bold uppercase color="green">
           Date
@@ -68,9 +67,7 @@ function TripInfo(props) {
         <P proxima bold uppercase color="green">
           price
         </P>
-        <P proxima>
-          ${props.pricing.standard.min} per person
-        </P>
+        <P proxima>${props.pricing.min} per person</P>
         <P proxima bold uppercase color="green">
           availibility
         </P>
@@ -82,23 +79,6 @@ function TripInfo(props) {
           Book Now
         </BookButton>
       </BorderWrapper>
-=======
-      <H6>Date</H6>
-      <P>{pickupString}</P>
-      <H6>location</H6>
-      <P>{props.location}</P>
-      <H6>difficulty</H6>
-      <P>{props.difficulty}</P>
-      <H6>price</H6>
-      <P>${props.pricing.min} per person</P>
-      <H6>availibility</H6>
-      <P>
-        {props.capacity - props.ticketsSold}/{props.capacity} Tickets remaining
-      </P>
-      <BookButton onClick={() => props.toCheckout(props.tripId)}>
-        Book Now
-      </BookButton>
->>>>>>> start admin trip dashboard
     </Wrapper>
   );
 }

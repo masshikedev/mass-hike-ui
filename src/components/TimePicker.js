@@ -1,10 +1,10 @@
 import React from 'react';
-import TimePicker from 'rc-time-picker';
+import RcTimePicker from 'rc-time-picker';
 import moment from 'moment';
 
 export default function TimePicker(props) {
   return (
-    <TimePicker
+    <RcTimePicker
       {...props}
       showSecond={false}
       use12Hours

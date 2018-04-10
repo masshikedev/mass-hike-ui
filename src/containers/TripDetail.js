@@ -105,7 +105,7 @@ class TripDetail extends LoadableComponent {
                 {trip.detail.body}
               </P>
             </MainInfo>
-            <TripImage bg={previewImage} />
+            <TripImage bg={trip.detail.imageUrl} />
           </Summary>
           <DetailSection>
             <DetailDescription {...trip} />
