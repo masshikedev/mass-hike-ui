@@ -27,7 +27,7 @@ const Nav = styled.div`
   transition: box-shadow 0.1s ease;
   box-shadow: ${({ scrolledToTop }) =>
     scrolledToTop ? 'none' : constants.boxshadow};
-  z-index: 1;
+  z-index: 9999;
 `;
 
 const Logo = Img.extend`
