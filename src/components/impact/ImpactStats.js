@@ -14,7 +14,7 @@ import { RichText } from 'prismic-reactjs';
 
 const StatItem = styled.div`
   text-align: center;
-  padding: 80px 100px;
+  padding: 100px 55px;
 
   ${MediaQueries.small} {
     grid-column: span 12;

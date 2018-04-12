@@ -17,14 +17,20 @@ const Text = styled.div`
 `;
 
 const BlockQuote = P.extend`
-  font-size: 120px;
+  font-size: 560px;
   color: ${constants.yellow};
   position: relative;
   margin-bottom: 0;
   height: 0;
-  top: -60px;
-  left: -40px;
+  top: -250px;
+  left: -150px;
   z-index: 0;
+
+  ${MediaQueries.small} {
+    font-size: 400px;
+    top: -165px;
+    left: -40px;
+  }
 `;
 
 const Image = styled.div`
@@ -47,7 +53,19 @@ const Hero = GridParent.extend`
 `;
 
 const QuoteContent = P.extend`
-  z-index: 20;
+  z-index: 1;
+  position: relative;
+  text-align: center;
+
+  ${MediaQueries.small} {
+    font-size: 36px;
+  }
+`;
+
+const QuoteAuthor = QuoteContent.extend`
+  ${MediaQueries.small} {
+    text-align: right;
+  }
 `;
 
 function ImpactHero(props) {
@@ -55,13 +73,13 @@ function ImpactHero(props) {
     <Hero>
       <Image bg={props.doc.data.testimonial_image.url} />
       <Text>
-        <BlockQuote proxima>"</BlockQuote>
+        <BlockQuote proxima>“</BlockQuote>
         <QuoteContent color="white" size="xlarge">
           {RichText.asText(props.doc.data.testimonial)}
         </QuoteContent>
-        <QuoteContent color="white" size="xlarge">
+        <QuoteAuthor color="white" size="xlarge">
           -{RichText.asText(props.doc.data.testimonial_author)}
-        </QuoteContent>
+        </QuoteAuthor>
       </Text>
     </Hero>
   );
