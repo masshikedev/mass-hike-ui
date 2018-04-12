@@ -7,13 +7,20 @@ const PickupGridWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-const PickupGridRow = GridParent.extend`
+const HeaderRow = GridParent.extend`
   font-size: 16px;
+  padding: 10px 0;
+`;
+
+const PickupGridRow = HeaderRow.extend`
+  cursor: pointer;
+  &:hover {
+    background-color: #dddddd;
+  }
 `;
 
 const Column = styled.div`
   grid-column: span 4;
-  padding-bottom: 20px;
 `;
 
 class PickupGrid extends Component {
@@ -25,10 +32,10 @@ class PickupGrid extends Component {
   }
 
   renderCustomers() {
-    const { orders } = this.props;
+    const { orders, onClickOrder } = this.props;
     return orders.map((order, i) => {
       return (
-        <PickupGridRow key={i}>
+        <PickupGridRow key={i} onClick={() => onClickOrder(i)}>
           <Column>{order.name}</Column>
           <Column>{order.pickupLocation}</Column>
           <Column>{this.preferredContact(order)}</Column>
@@ -44,7 +51,7 @@ class PickupGrid extends Component {
     }
     return (
       <PickupGridWrapper>
-        <PickupGridRow>
+        <HeaderRow>
           <Column>
             <H6>Customer</H6>
           </Column>
@@ -54,7 +61,7 @@ class PickupGrid extends Component {
           <Column>
             <H6>Contact</H6>
           </Column>
-        </PickupGridRow>
+        </HeaderRow>
         {this.renderCustomers()}
       </PickupGridWrapper>
     );

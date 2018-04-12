@@ -13,6 +13,13 @@ import { AdminContainer, H2, H3, P } from '../style';
 import styled from 'styled-components';
 
 class AdminTripDetail extends LoadableComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeMapMarker: null,
+    };
+  }
+
   componentWillMount() {
     const { getTripById } = this.props;
     getTripById(this.props.match.params.tripId);
@@ -20,6 +27,7 @@ class AdminTripDetail extends LoadableComponent {
 
   renderSuccess = () => {
     const { trip } = this.props;
+    const { activeMapMarker } = this.state;
     const dateString = moment.utc(trip.time.hikeStart).format(MONTH_DATE_YEAR);
     return (
       <AdminContainer>
@@ -28,8 +36,11 @@ class AdminTripDetail extends LoadableComponent {
         <H3>Ticket Sales</H3>
         <OrderGrid orders={trip.orders} capacity={trip.capacity} />
         <H3>Pickup Locations</H3>
-        <PickupMap orders={trip.orders} />
-        <PickupGrid orders={trip.orders} />
+        <PickupMap orders={trip.orders} activeMarker={activeMapMarker} />
+        <PickupGrid
+          orders={trip.orders}
+          onClickOrder={index => this.setState({ activeMapMarker: index })}
+        />
       </AdminContainer>
     );
   };
