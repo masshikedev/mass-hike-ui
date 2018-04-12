@@ -6,6 +6,7 @@ import { setCurrentSection } from '../../actions/CheckoutActions';
 import { H2, H4, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
+import getCurrentPricing from '../../utils/getCurrentPricing';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 
 class PaymentTypeSection extends BaseCheckoutSection {
@@ -19,9 +20,18 @@ class PaymentTypeSection extends BaseCheckoutSection {
     };
   }
 
+  currentPricing() {
+    return getCurrentPricing(this.state.promoCode, this.props.trip);
+  }
+
+  pricingSuggestions() {
+    const { suggestion1, suggestion2, suggestion3 } = this.currentPricing();
+    return [suggestion1, suggestion2, suggestion3];
+  }
+
   renderPrices(prices) {
-    const { selectedPrice } = this.state;
-    return prices.map((p, i) => {
+    const { selectedPrice, promoCode } = this.state;
+    return this.pricingSuggestions(promoCode).map((p, i) => {
       return (
         <label key={i}>
           <Input
@@ -37,13 +47,10 @@ class PaymentTypeSection extends BaseCheckoutSection {
 
   render() {
     const { trip } = this.props;
-    const { promoCode, paymentType, selectedPrice } = this.state;
-    const pricing = trip.pricing;
-    const priceData =
-      pricing[pricing.promoCodes[promoCode]] || pricing.standard;
+    const { paymentType, selectedPrice } = this.state;
+    const pricing = this.currentPricing();
     const messages =
-      validate(this.state, paymentTypeConstraints(trip, priceData)) || 'valid';
-    const prices = priceData.options;
+      validate(this.state, paymentTypeConstraints(trip, pricing)) || 'valid';
     return (
       <div>
         <H2>Enter a promo code. (Optional)</H2>
@@ -54,16 +61,14 @@ class PaymentTypeSection extends BaseCheckoutSection {
           error={messages['promoCode']}
         />
         <H2>Choose your ticket price.</H2>
-        <H4>
-          {`Enter a value between $${priceData.min} and $${priceData.max}.`}
-        </H4>
+        <H4>{`Enter a value between $${pricing.min} and $${pricing.max}.`}</H4>
 
-        {this.renderPrices(prices)}
+        {this.renderPrices()}
 
         <br />
         <Input
           type="radio"
-          checked={!prices.includes(selectedPrice)}
+          checked={!this.pricingSuggestions().includes(selectedPrice)}
           onChange={() => {
             document.getElementById('customPrice').focus();
             document.getElementById('customPrice').select();
@@ -73,7 +78,11 @@ class PaymentTypeSection extends BaseCheckoutSection {
           type="number"
           id="customPrice"
           placeholder="Other amount"
-          value={!prices.includes(selectedPrice) ? selectedPrice : ''}
+          value={
+            !this.pricingSuggestions().includes(selectedPrice)
+              ? selectedPrice
+              : ''
+          }
           onChange={e => this.setState({ selectedPrice: e.target.value })}
           onFocus={e => this.setState({ selectedPrice: e.target.value })}
           error={messages['selectedPrice']}

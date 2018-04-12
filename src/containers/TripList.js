@@ -1,12 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTripList } from '../actions/TripListActions';
 import TripListItem from '../components/TripListItem';
-import renderByStatus from '../utils/renderByStatus';
-import { H1, H3, Container } from '../style';
+import LoadableComponent from '../components/LoadableComponent';
+import { H1, P, H3, MediaQueries, Container } from '../style';
+import styled from 'styled-components';
 
-class TripList extends Component {
+const Trips = styled.div`
+  padding: 0 80px;
+
+  ${MediaQueries.small} {
+    padding: 0;
+  }
+`;
+
+const Title = styled.div`
+  text-align: center;
+  padding-top: 40px;
+`;
+
+const TitleContent = H1.extend`
+  margin-bottom: 20px;
+`;
+
+class TripList extends LoadableComponent {
   componentWillMount() {
     const { getTripList } = this.props;
     getTripList();
@@ -14,14 +32,6 @@ class TripList extends Component {
 
   spotsRemaining(trip) {
     return trip.capacity - trip.ticketsSold;
-  }
-
-  renderLoading() {
-    return <H3>Loading...</H3>;
-  }
-
-  renderError() {
-    return <H3>An error has occured.</H3>;
   }
 
   renderSuccess = () => {
@@ -36,30 +46,24 @@ class TripList extends Component {
           location={trip.location}
           difficulty={trip.difficulty}
           spotsRemaining={this.spotsRemaining(trip)}
+          imageUrl={trip.detail.imageUrl}
         />
       );
     });
     return (
-      <div>
-        <H1>Upcoming Trips</H1>
-        {tripComponents}
-      </div>
-    );
-  };
-
-  render() {
-    const { status } = this.props;
-    return (
       <Container>
-        {renderByStatus(
-          status,
-          this.renderLoading,
-          this.renderSuccess,
-          this.renderError
-        )}
+        <div>
+          <Title>
+            <P proxima size="large" bold>
+              Take a look at our
+            </P>
+            <TitleContent>Upcoming Trips</TitleContent>
+          </Title>
+          <Trips>{tripComponents}</Trips>
+        </div>
       </Container>
     );
-  }
+  };
 }
 
 const mapStateToProps = state => ({
@@ -70,7 +74,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getTripList,
+      getTripList: () => getTripList(false),
     },
     dispatch
   );

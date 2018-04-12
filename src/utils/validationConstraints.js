@@ -35,7 +35,6 @@ const contactConstraints = () => {
 
 const hikeConstraints = trip => {
   const remaining = trip.capacity - trip.ticketsSold;
-  const zips = trip.pickupZipcodes.map(z => z.zip);
   return {
     tickets: {
       presence: {
@@ -64,19 +63,18 @@ const hikeConstraints = trip => {
           '^Sorry, we could not determine a zip code for this place. Try selecting a specific street address.',
       },
       inclusion: {
-        within: zips,
+        within: trip.pickupZipcodes,
         message: '^Sorry, this trip will not be serving the zipcode %{value}.',
       },
     },
   };
 };
-const paymentTypeConstraints = (trip, priceData) => {
-  const { pricing } = trip;
-  pricing.promoCodes[''] = 'standard';
+const paymentTypeConstraints = (trip, currentPricing) => {
+  const { promoCodes } = trip;
   return {
     promoCode: {
       inclusion: {
-        within: pricing.promoCodes,
+        within: [''].concat(promoCodes.map(pricing => pricing.promoCode)),
         message: '^Sorry, %{value} is not a valid promo code.',
       },
     },
@@ -85,11 +83,13 @@ const paymentTypeConstraints = (trip, priceData) => {
         allowEmpty: true,
       },
       numericality: {
-        greaterThanOrEqualTo: priceData.min,
-        notGreaterThanOrEqualTo: `^ Your minimum price is $${priceData.min}`,
-        lessThanOrEqualTo: priceData.max,
+        greaterThanOrEqualTo: currentPricing.min,
+        notGreaterThanOrEqualTo: `^ Your minimum price is $${
+          currentPricing.min
+        }`,
+        lessThanOrEqualTo: currentPricing.max,
         notLessThanOrEqualTo: `^ Sorry, we will not accept more than $${
-          priceData.max
+          currentPricing.max
         } per ticket.`,
       },
     },
@@ -104,9 +104,165 @@ const constraints = (trip, priceData) => {
   };
 };
 
+const tripConstraints = trip => {
+  const { time, pricing } = trip;
+  return {
+    name: {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    location: {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    'time.pickupStart': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        lessThan: time.pickupEnd,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.pickupEnd': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.pickupStart,
+        lessThan: time.hikeStart,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.hikeStart': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.pickupEnd,
+        lessThan: time.hikeEnd,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.hikeEnd': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.hikeStart,
+        lessThan: time.dropoffStart,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.dropoffStart': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.hikeEnd,
+        lessThan: time.dropoffEnd,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    'time.dropoffEnd': {
+      presence: {
+        allowEmpty: false,
+        message: '^All trip time must be filled out',
+      },
+      numericality: {
+        greaterThan: time.dropoffStart,
+        message: '^Hike times are not ordered correctly.',
+      },
+    },
+    capacity: {
+      presence: true,
+      numericality: true,
+    },
+    'pricing.min': {
+      presence: true,
+      numericality: {
+        lessThanOrEqualTo: +pricing.max,
+        notLessThanOrEqualTo: '^Base price cannot be higher than max price',
+      },
+    },
+    'pricing.max': {
+      presence: true,
+    },
+    'pricing.suggestion1': {
+      presence: true,
+      numericality: {
+        greaterThanOrEqualTo: +pricing.min,
+        lessThan: +pricing.suggestion2,
+        message:
+          '^Suggestion 1 should be between the base price and suggestion 2',
+      },
+    },
+    'pricing.suggestion2': {
+      presence: true,
+      numericality: {
+        greaterThan: +pricing.suggestion1,
+        lessThan: +pricing.suggestion3,
+        message:
+          '^Suggestion 2 should be between the suggestion 1 and suggestion 3',
+      },
+    },
+    'pricing.suggestion3': {
+      presence: true,
+      numericality: {
+        greaterThan: +pricing.suggestion2,
+        lessThanOrEqualTo: +pricing.max,
+        message:
+          '^Suggestion 3 should be between the suggestion 2 and the max price',
+      },
+    },
+    difficulty: {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    'stats.hikeDistance': {
+      numericality: true,
+    },
+    'stats.elevation': {
+      numericality: true,
+    },
+    'detail.title': {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    'detail.body': {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    'detail.imageUrl': {
+      presence: {
+        allowEmpty: false,
+        message: 'Please upload an image for this trip',
+      },
+    },
+    pickupZipcodes: {
+      presence: true,
+      length: {
+        minimum: 1,
+        message: '^You must set at least one pickup zipcode for this trip',
+      },
+    },
+  };
+};
+
 export {
   contactConstraints,
   hikeConstraints,
   paymentTypeConstraints,
   constraints,
+  tripConstraints,
 };

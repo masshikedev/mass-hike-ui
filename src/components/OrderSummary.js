@@ -1,6 +1,6 @@
 import React from 'react';
 import EditButton from './checkout/EditButton';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
 import { P, H2, H6, MediaQueries } from '../style';
 import styled from 'styled-components';
@@ -33,11 +33,11 @@ export default function OrderSummary(props) {
           <P large>
             {trip.name}
             <br />
-            {format(trip.time.hikeStart, MONTH_DATE_YEAR)}
+            {moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}
             <br />
-            {format(trip.time.hikeStart, TIME)}
+            {moment(trip.time.hikeStart).format(TIME)}
             {' - '}
-            {format(trip.time.hikeEnd, TIME)}
+            {moment(trip.time.hikeEnd).format(TIME)}
             <br />
           </P>
           <HeadingContainer>
@@ -45,17 +45,18 @@ export default function OrderSummary(props) {
             <EditButton display={showEditButtons} section={0} mobile={mobile} />
           </HeadingContainer>
           <P large>{order.name} </P>
-          {errors['name'] ? <P error>{errors['name'][0]}</P> : null}
+          {errors && errors['name'] && <P error>{errors['name'][0]}</P>}
           <P large>{order.email}</P>
-          {errors['email'] ? <P error>{errors['email'][0]}</P> : null}
+          {errors && errors['email'] && <P error>{errors['email'][0]}</P>}
           <P large>{order.phone}</P>
-          {errors['phone'] ? <P error>{errors['phone'][0]}</P> : null}
+          {errors && errors['phone'] && <P error>{errors['phone'][0]}</P>}
           <HeadingContainer>
             <H6>Payment</H6>
             <EditButton display={showEditButtons} section={2} mobile={mobile} />
           </HeadingContainer>
           <P>{order.paymentType}</P>
-          <P error>{errors['paymentType']}</P>
+          {errors &&
+            errors['paymentType'] && <P error>{errors['paymentType'][0]}</P>}
           {order.paymentType === 'card' && (
             <div>
               <H6>Credit Card</H6>
@@ -86,16 +87,16 @@ export default function OrderSummary(props) {
           <P large capitalize>
             {order.preferredContactMethods.join(', ')}
           </P>
-          {errors['preferredContactMethods'] ? (
-            <P error>{errors['preferredContactMethods'][0]}</P>
-          ) : null}
+          {errors &&
+            errors['preferredContactMethods'] && (
+              <P error>{errors['preferredContactMethods'][0]}</P>
+            )}
         </Column>
       </Wrapper>
       <P large>{`${order.tickets} Tickets x $${order.selectedPrice} each`}</P>
-      {errors['tickets'] ? <P error>{errors['tickets'][0]}</P> : null}
-      {errors['selectedPrice'] ? (
-        <P error>{errors['selectedPrice'][0]}</P>
-      ) : null}
+      {errors && errors['tickets'] && <P error>{errors['tickets'][0]}</P>}
+      {errors &&
+        errors['selectedPrice'] && <P error>{errors['selectedPrice'][0]}</P>}
       <P large>{`Total: $${order.tickets * order.selectedPrice}`}</P>
     </div>
   );

@@ -39,12 +39,12 @@ class Login extends Component {
             onChange={e => this.setState({ password: e.target.value })}
           />
           <br />
-          {status === RequestStatus.ERROR && <P>{error}</P>}
+          {status === RequestStatus.ERROR && <P>{error.toString()}</P>}
           <Button
             disabled={status === RequestStatus.PENDING}
             onClick={this.onClickLoginButton}
           >
-            Login
+            {status === RequestStatus.PENDING ? 'Loading' : 'Login'}
           </Button>
         </form>
       </Container>
