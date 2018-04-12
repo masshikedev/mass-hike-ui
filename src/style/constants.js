@@ -3,6 +3,7 @@ export default {
   lightgreen: '#85AA5B',
   orange: '#f05a28',
   darkorange: '#EF5B17',
+  red: '#C13F54',
   blue: '#27A9E0',
   yellow: '#faaf3f',
   gray: '#f8f8f8',

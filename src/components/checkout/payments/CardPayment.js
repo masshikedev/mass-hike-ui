@@ -6,7 +6,7 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../../actions/CheckoutActions';
-import { P, H3, H6, Input, Button } from '../../../style';
+import { P, H3, H6, Input, Button, constants } from '../../../style';
 import {
   injectStripe,
   CardNumberElement,
@@ -50,18 +50,17 @@ class CardPayment extends BaseCheckoutSection {
     const { cardNumber, cardExpiry, cardCvc, postalCode } = this.state;
     const style = {
       base: {
-        color: '#303238',
+        color: 'black',
         fontSize: '16px',
-        color: '#32325d',
         fontSmoothing: 'antialiased',
         '::placeholder': {
           color: '#ccc',
         },
       },
       invalid: {
-        color: '#e5424d',
+        color: constants.red,
         ':focus': {
-          color: '#303238',
+          color: 'black',
         },
       },
     };
