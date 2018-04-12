@@ -23,7 +23,16 @@ const HeadingContainer = styled.div`
 `;
 
 export default function OrderSummary(props) {
-  const { order, showEditButtons, mobile, errors } = props;
+  const {
+    order,
+    showEditButtons,
+    mobile,
+    errors,
+    cardNumberError,
+    cardExpiryError,
+    cardCvcError,
+    postalCodeError,
+  } = props;
   const trip = order.trip;
   return (
     <div>
@@ -60,10 +69,12 @@ export default function OrderSummary(props) {
           {order.paymentType === 'card' && (
             <div>
               <H6>Credit Card</H6>
-              <P large>
-                Card Type
-                <br />
-                {order.cardNumber}
+              {cardNumberError && <P error>{cardNumberError.message}</P>}
+              {cardExpiryError && <P error>{cardExpiryError.message}</P>}
+              {cardCvcError && <P error>{cardCvcError.message}</P>}
+              {postalCodeError && <P error>{postalCodeError.message}</P>}
+              <P large capitalize>
+                {order.cardBrand}
               </P>
             </div>
           )}

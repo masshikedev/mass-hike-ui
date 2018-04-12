@@ -11,6 +11,8 @@ import { getTripById } from '../actions/CurrentTripActions';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import styled from 'styled-components';
 import { Container, GridParent, MediaQueries } from '../style';
+import { injectStripe } from 'react-stripe-elements';
+import CardPayment from '../components/checkout/payments/CardPayment';
 
 const Divider = styled.div`
   grid-column: span 1;
@@ -50,8 +52,14 @@ class Checkout extends LoadableComponent {
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
 
+  stripeCreateToken = callback =>
+    this.props.stripe.createToken().then(({ token }) => {
+      console.log('Received Stripe token:', token);
+      callback(token);
+    });
+
   renderDefaultSection() {
-    const { match } = this.props;
+    const { match, stripe } = this.props;
     const section = SectionOrder[0];
     const next = SectionOrder[1];
     const Section = section.component;
@@ -64,6 +72,7 @@ class Checkout extends LoadableComponent {
             completeSection={this.completeSection}
             index={0}
             next={next.path}
+            stripeCreateToken={this.stripeCreateToken}
           />
         )}
       />
@@ -71,7 +80,7 @@ class Checkout extends LoadableComponent {
   }
 
   renderRemainingSections() {
-    const { match } = this.props;
+    const { match, stripe } = this.props;
     return SectionOrder.map((section, i) => {
       if (i === 0) {
         return null;
@@ -88,6 +97,7 @@ class Checkout extends LoadableComponent {
               completeSection={this.completeSection}
               index={i}
               next={next}
+              stripeCreateToken={this.stripeCreateToken}
             />
           )}
           key={i}
@@ -97,28 +107,39 @@ class Checkout extends LoadableComponent {
   }
 
   renderSuccess = () => {
-    const { currentSection, trip, match, checkoutInitialized } = this.props;
+    const {
+      currentSection,
+      trip,
+      match,
+      checkoutInitialized,
+      paymentType,
+    } = this.props;
+    const showCardPayment = currentSection == 3 && paymentType === 'card';
     return (
-      <Container>
-        <div>
-          <GridParent>
-            <FormWrapper>
-              <form>
-                <Switch>
-                  {this.renderDefaultSection()}
-                  {!checkoutInitialized && (
-                    <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
-                  )}
-                  {this.renderRemainingSections()}
-                </Switch>
-              </form>
-            </FormWrapper>
-            {currentSection !== 4 && <Divider />}
-            {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
-          </GridParent>
-          <CheckoutProgressBar sectionOrder={SectionOrder} />
-        </div>
-      </Container>
+      <div>
+        <GridParent>
+          <FormWrapper>
+            <form>
+              <Switch>
+                {this.renderDefaultSection()}
+                {!checkoutInitialized && (
+                  <Redirect to={`${match.url}/${SectionOrder[0].path}`} />
+                )}
+                {this.renderRemainingSections()}
+              </Switch>
+              <CardPayment
+                index={3}
+                next={SectionOrder[4].path}
+                completeSection={this.completeSection}
+                show={showCardPayment}
+              />
+            </form>
+          </FormWrapper>
+          {currentSection !== 4 && <Divider />}
+          {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
+        </GridParent>
+        <CheckoutProgressBar sectionOrder={SectionOrder} />
+      </div>
     );
   };
 }
@@ -129,6 +150,7 @@ const mapStateToProps = state => ({
   trip: state.currentTrip.trip,
   status: state.currentTrip.status,
   checkoutTripId: state.checkout.tripId,
+  paymentType: state.checkout.paymentType,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -142,4 +164,6 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default injectStripe(
+  connect(mapStateToProps, mapDispatchToProps)(Checkout)
+);

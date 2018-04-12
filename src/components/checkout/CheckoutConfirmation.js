@@ -14,10 +14,14 @@ import getCurrentPricing from '../../utils/getCurrentPricing';
 
 class CheckoutConfirmation extends BaseCheckoutSection {
   handleConfirmOrder = e => {
-    const { order, confirmOrder, status } = this.props;
+    const { order, confirmOrder, status, stripeCreateToken } = this.props;
     e.preventDefault();
     if (status === RequestStatus.UNITIALIZED) {
-      confirmOrder(order);
+      order.paymentType === 'card'
+        ? stripeCreateToken(token =>
+            confirmOrder({ ...order, stripeToken: token })
+          )
+        : confirmOrder(order);
     }
   };
 
@@ -26,8 +30,34 @@ class CheckoutConfirmation extends BaseCheckoutSection {
     return getCurrentPricing(order.promoCode, order.trip);
   }
 
+  cardDetailsValid = () => {
+    const {
+      cardNumberError,
+      cardExpiryError,
+      cardCvcError,
+      postalCodeError,
+      order,
+    } = this.props;
+    return (
+      !(
+        cardNumberError ||
+        cardExpiryError ||
+        cardCvcError ||
+        postalCodeError
+      ) || order.paymentType !== 'card'
+    );
+  };
+
   render() {
-    const { order, status, mobile } = this.props;
+    const {
+      order,
+      status,
+      mobile,
+      cardNumberError,
+      cardExpiryError,
+      cardCvcError,
+      postalCodeError,
+    } = this.props;
     const { promoCode, trip } = order;
     const pricing = this.currentPricing();
     const errors =
@@ -40,9 +70,13 @@ class CheckoutConfirmation extends BaseCheckoutSection {
           trip={trip}
           errors={errors}
           mobile={mobile}
+          cardNumberError={cardNumberError}
+          cardExpiryError={cardExpiryError}
+          cardCvcError={cardCvcError}
+          postalCodeError={postalCodeError}
           showEditButtons
         />
-        {errors !== 'valid' ? (
+        {!this.cardDetailsValid() ? (
           <P error>An error has occured. Please check your responses.</P>
         ) : (
           <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
@@ -64,7 +98,7 @@ const mapStateToProps = state => {
       tickets: +checkout.tickets,
       pickupLocation: checkout.pickupLocation,
       zipCode: checkout.zipCode,
-      cardNumber: checkout.cardNumber,
+      cardBrand: checkout.cardNumber.brand,
       selectedPrice: checkout.selectedPrice,
       meetingLocation:
         currentTrip.trip.cashLocations[checkout.selectedLocationIndex],
@@ -73,6 +107,10 @@ const mapStateToProps = state => {
       trip: currentTrip.trip,
       promoCode: checkout.promoCode,
     },
+    cardNumberError: checkout.cardNumber.error,
+    cardExpiryError: checkout.cardExpiry.error,
+    cardCvcError: checkout.cardCvc.error,
+    postalCodeError: checkout.postalCode.error,
     status: orders.confirmOrderStatus,
   };
 };

@@ -21,9 +21,9 @@ const initialState = {
 
   // Pay card
   cardNumber: '',
-  expiration: '',
-  cvv: '',
-  billingZip: '',
+  cardExpiry: '',
+  cardCvc: '',
+  postalCode: '',
 
   // Pay cash
   selectedLocationIndex: -1,
