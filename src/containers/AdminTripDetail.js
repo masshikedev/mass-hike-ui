@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import LoadableComponent from '../components/LoadableComponent';
 import AdminPage from '../components/admin/AdminPage';
 import OrderGrid from '../components/admin/OrderGrid';
+import PickupMap from '../components/admin/PickupMap';
 import PickupGrid from '../components/admin/PickupGrid';
 import { adminGetTripById } from '../actions/CurrentTripActions';
 import moment from 'moment';
@@ -27,6 +28,7 @@ class AdminTripDetail extends LoadableComponent {
         <H3>Ticket Sales</H3>
         <OrderGrid orders={trip.orders} capacity={trip.capacity} />
         <H3>Pickup Locations</H3>
+        <PickupMap orders={trip.orders} />
         <PickupGrid orders={trip.orders} />
       </AdminContainer>
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { H6, GridParent } from '../../style';
+import { P, H6, GridParent } from '../../style';
 import styled from 'styled-components';
 
 const PickupGridWrapper = styled.div`
@@ -28,7 +28,7 @@ class PickupGrid extends Component {
     const { orders } = this.props;
     return orders.map((order, i) => {
       return (
-        <PickupGridRow>
+        <PickupGridRow key={i}>
           <Column>{order.name}</Column>
           <Column>{order.pickupLocation}</Column>
           <Column>{this.preferredContact(order)}</Column>
@@ -38,6 +38,10 @@ class PickupGrid extends Component {
   }
 
   render() {
+    const { orders } = this.props;
+    if (orders.length === 0) {
+      return <P>No tickets purchased yet</P>;
+    }
     return (
       <PickupGridWrapper>
         <PickupGridRow>

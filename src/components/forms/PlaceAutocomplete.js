@@ -1,8 +1,9 @@
-/* global google */
 import React, { Component } from 'react';
-import PlacesAutocomplete from 'react-places-autocomplete';
+import { GoogleApiWrapper } from 'google-maps-react';
+import ReactPlacesAutocomplete from 'react-places-autocomplete';
 import { P, H6 } from '../../style';
 import styled from 'styled-components';
+import { GOOGLE_MAPS_API_KEY } from '../../constants';
 
 const Footer = styled.div`
   text-align: right;
@@ -14,22 +15,18 @@ const FooterImg = styled.img`
   height: auto;
 `;
 
-let map = new google.maps.Map(document.getElementById('map'), {
-  center: { lat: -33.866, lng: 151.196 },
-  zoom: 15,
-});
-let service = new google.maps.places.PlacesService(map);
-
 class PlaceAutocomplete extends Component {
-  inputProps = {
-    onBlur: () => {
-      this.setState({ editing: false });
-    },
-    type: 'search',
-    placeholder: 'Search Places...',
+  constructor(props) {
+    super(props);
+    const { google } = props;
+    this.state = { editing: true, service: this.getService(google) };
+  }
+
+  onError = (status, clearSuggestions) => {
+    clearSuggestions();
   };
 
-  styles = bad => {
+  styles(bad) {
     return {
       input: {
         boxSizing: 'border-box',
@@ -40,16 +37,31 @@ class PlaceAutocomplete extends Component {
         border: bad ? '3px solid red' : '3px solid black',
       },
     };
-  };
-  options = {
-    types: ['address'],
-    location: new google.maps.LatLng(42.3601, -71.0571),
-    radius: 60000,
+  }
+
+  inputProps = {
+    onBlur: () => {
+      this.setState({ editing: false });
+    },
+    type: 'search',
+    placeholder: 'Search Places...',
   };
 
-  constructor(props) {
-    super(props);
-    this.state = { editing: true };
+  getOptions() {
+    const { google } = this.props;
+    return {
+      types: ['address'],
+      location: new google.maps.LatLng(42.3601, -71.0571),
+      radius: 60000,
+    };
+  }
+
+  getService(google) {
+    const map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: -33.866, lng: 151.196 },
+      zoom: 15,
+    });
+    return new google.maps.places.PlacesService(map);
   }
 
   renderSuggestion = ({ suggestion }) => {
@@ -62,18 +74,14 @@ class PlaceAutocomplete extends Component {
     </Footer>
   );
 
-  onError = (status, clearSuggestions) => {
-    clearSuggestions();
-  };
-
   render() {
-    const { value, onChange, callback, error } = this.props;
-    const { editing } = this.state;
+    const { value, onChange, callback, error, google } = this.props;
+    const { editing, service } = this.state;
     return (
       <div>
-        <PlacesAutocomplete
+        <ReactPlacesAutocomplete
           inputProps={{ value, onChange, ...this.inputProps }}
-          options={this.options}
+          options={this.getOptions()}
           styles={this.styles(!editing && error)}
           renderSuggestion={this.renderSuggestion}
           renderFooter={this.renderFooter}
@@ -102,4 +110,6 @@ class PlaceAutocomplete extends Component {
   }
 }
 
-export default PlaceAutocomplete;
+export default GoogleApiWrapper({
+  apiKey: GOOGLE_MAPS_API_KEY,
+})(PlaceAutocomplete);

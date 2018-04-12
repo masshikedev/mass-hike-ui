@@ -26,7 +26,7 @@ class TripGrid extends Component {
       <TripGridRow key={trip.tripId}>
         <Column>{trip.name}</Column>
         <Column>{moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}</Column>
-        <Column>{showTickets && trip.capacity - trip.orders.length}</Column>
+        <Column>{showTickets && trip.capacity - trip.ticketsSold}</Column>
         <Column>
           <Link to={`/admin/trips/${trip.tripId}`}>details</Link>
         </Column>
