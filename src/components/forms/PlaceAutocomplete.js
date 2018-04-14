@@ -19,10 +19,6 @@ const Wrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-const Error = P.extend`
-  margin-left: 15px;
-`;
-
 let map = new google.maps.Map(document.getElementById('map'), {
   center: { lat: -33.866, lng: 151.196 },
   zoom: 15,
@@ -102,9 +98,9 @@ class PlaceAutocomplete extends Component {
           }}
         />
         {!editing && error ? (
-          <Error size="medium" color="error">
+          <P proxima size="medium" color="error" leftmargin>
             {error[0]}
-          </Error>
+          </P>
         ) : null}
       </Wrapper>
     );

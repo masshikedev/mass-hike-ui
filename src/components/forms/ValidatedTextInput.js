@@ -6,10 +6,6 @@ const Wrapper = styled.div`
   margin-bottom: 15px;
 `;
 
-const Error = P.extend`
-  margin-left: 15px;
-`;
-
 class ValidatedTextInput extends Component {
   constructor(props) {
     super(props);
@@ -44,9 +40,9 @@ class ValidatedTextInput extends Component {
             invalid={!editing && error}
           />
           {!editing && error ? (
-            <Error size="medium" color="error">
+            <P proxima leftmargin size="medium" color="error">
               {error[0]}
-            </Error>
+            </P>
           ) : null}
         </label>
       </Wrapper>
