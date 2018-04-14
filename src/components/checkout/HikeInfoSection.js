@@ -16,6 +16,10 @@ import {
   ButtonSpacer,
 } from '../forms';
 
+const Caption = P.extend`
+  max-width: 500px;
+`;
+
 const CheckBoxWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -23,16 +27,8 @@ const CheckBoxWrapper = styled.div`
   align-items: center;
   padding: 5px;
   ${MediaQueries.small} {
-    flex-direction: column;
+    ${'' /* flex-direction: column; */};
   }
-`;
-
-const Caption = P.extend`
-  max-width: 500px;
-`;
-
-const Caption = P.extend`
-  max-width: 500px;
 `;
 
 class HikeInfoSection extends BaseCheckoutSection {
