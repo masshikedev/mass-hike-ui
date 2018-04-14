@@ -11,6 +11,7 @@ const initialState = {
 
   // Tickets
   tickets: '',
+  kids: false,
   pickupLocation: '',
   zipCode: '',
 

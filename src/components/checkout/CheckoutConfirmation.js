@@ -62,6 +62,7 @@ const mapStateToProps = state => {
       preferredContactMethods: checkout.preferredContactMethods,
       paymentType: checkout.paymentType,
       tickets: +checkout.tickets,
+      kids: +checkout.kids,
       pickupLocation: checkout.pickupLocation,
       zipCode: checkout.zipCode,
       cardNumber: checkout.cardNumber,
