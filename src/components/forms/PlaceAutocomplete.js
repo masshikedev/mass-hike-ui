@@ -25,10 +25,6 @@ const Wrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-const Error = P.extend`
-  margin-left: 15px;
-`;
-
 class PlaceAutocomplete extends Component {
   constructor(props) {
     super(props);
