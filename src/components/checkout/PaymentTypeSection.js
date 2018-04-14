@@ -89,6 +89,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
           onChange={e => this.setState({ selectedPrice: e.target.value })}
           onFocus={e => this.setState({ selectedPrice: e.target.value })}
           error={messages['selectedPrice']}
+          short
         />
       </OtherWrapper>
     );
@@ -109,6 +110,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
           value={this.state.promoCode}
           onChange={e => this.setState({ promoCode: e.target.value })}
           error={messages['promoCode']}
+          medium
         />
         <H6>Choose your ticket price</H6>
         <Caption size="medium" proxima>

@@ -13,7 +13,17 @@ class ValidatedTextInput extends Component {
   }
 
   render() {
-    const { title, onChange, onFocus, error, value, id, textarea } = this.props;
+    const {
+      title,
+      onChange,
+      onFocus,
+      error,
+      value,
+      id,
+      textarea,
+      short,
+      medium,
+    } = this.props;
     const { editing } = this.state;
     const transform = this.props.transform || (v => v);
     const placeholder = this.props.placeholder || '';
@@ -38,6 +48,8 @@ class ValidatedTextInput extends Component {
               this.setState({ editing: true });
             }}
             invalid={!editing && error}
+            short={short}
+            medium={medium}
           />
           {!editing && error ? (
             <P proxima leftmargin size="medium" color="error">
