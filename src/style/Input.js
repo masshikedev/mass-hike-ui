@@ -3,10 +3,8 @@ import constants from './constants';
 
 const Input = styled.input`
   box-sizing: border-box;
-  font-size: 14px;
-
-  font-weight: 600;
-  line-height: 2;
+  font-size: 20px;
+  font-weight: 400;
   color: black;
   padding: 5px 10px;
   &[type='text'] {
@@ -26,6 +24,9 @@ const Input = styled.input`
 
   :placeholder-shown {
     text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 2;
     color: ${constants.darkgray};
   }
   &[type='checkbox'] {
