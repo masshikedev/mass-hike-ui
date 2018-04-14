@@ -7,6 +7,7 @@ import { GOOGLE_MAPS_API_KEY } from '../../constants';
 
 const Wrapper = styled.div`
   max-width: 500px;
+  margin-bottom: 10px;
 `;
 
 const Footer = styled.div`
