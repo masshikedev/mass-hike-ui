@@ -101,9 +101,9 @@ class PlaceAutocomplete extends Component {
           }}
         />
         {!editing && error ? (
-          <Error size="medium" color="error">
+          <P proxima size="medium" color="error" leftmargin>
             {error[0]}
-          </Error>
+          </P>
         ) : null}
       </div>
     );
