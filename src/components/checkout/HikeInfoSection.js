@@ -3,24 +3,39 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
 import { setCurrentSection } from '../../actions/CheckoutActions';
-import { P, H2, H3, H6, Button } from '../../style';
+import { P, H2, H3, H6, Button, MediaQueries } from '../../style';
+import styled from 'styled-components';
 import { validate } from 'validate.js';
 import { hikeConstraints } from '../../utils/validationConstraints';
 import ValidatedTextInput from '../forms/ValidatedTextInput';
 import PlaceAutocomplete from '../forms/PlaceAutocomplete';
+import Checkbox from '../forms/Checkbox';
 
 const Caption = P.extend`
   max-width: 500px;
 `;
 
+const CheckBoxWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 5px;
+  ${MediaQueries.small} {
+    ${'' /* flex-direction: column; */};
+  }
+`;
+
 class HikeInfoSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
-    const { tickets, pickupLocation, zipCode } = props;
+    const { tickets, kids, pickupLocation, zipCode } = props;
     this.state = {
       tickets,
       pickupLocation,
       zipCode,
+      kids,
+      edited: false,
     };
   }
 
@@ -38,7 +53,7 @@ class HikeInfoSection extends BaseCheckoutSection {
 
   render() {
     const { showNextButton, onClickNextButton, trip } = this.props;
-    const { tickets, pickupLocation } = this.state;
+    const { tickets, kids, pickupLocation, edited } = this.state;
     const messages = validate(this.state, hikeConstraints(trip)) || 'valid';
 
     return (
@@ -53,7 +68,42 @@ class HikeInfoSection extends BaseCheckoutSection {
           value={tickets}
           onChange={e => this.setState({ tickets: e.target.value })}
           error={messages['tickets']}
+          short
         />
+
+        <H6>Are any of the tickets for children 12 or under?</H6>
+        <CheckBoxWrapper>
+          <Checkbox
+            type="radio"
+            checked={kids === '' || kids > 0}
+            onChange={() => this.setState({ kids: '' })}
+            text="Yes"
+          />
+          {(kids === '' || kids > 0) && (
+            <ValidatedTextInput
+              title=""
+              placeholder="Amount"
+              value={kids}
+              onChange={e => {
+                this.setState({ kids: e.target.value, edited: true });
+              }}
+              short
+            />
+          )}
+          <Checkbox
+            type="radio"
+            checked={kids === 0}
+            onChange={() => this.setState({ kids: 0 })}
+            text="No"
+          />
+        </CheckBoxWrapper>
+        {messages['kids'] &&
+          edited && (
+            <P proxima leftmargin size="medium" color="error">
+              {messages['kids'][0]}
+            </P>
+          )}
+
         <H6>What is your prefered address for pickup?</H6>
         <Caption size="medium" proxima>
           Your final pickup location will be within 15 minutes of this address
@@ -79,6 +129,7 @@ class HikeInfoSection extends BaseCheckoutSection {
 
 const mapStateToProps = state => ({
   tickets: state.checkout.tickets,
+  kids: state.checkout.kids,
   pickupLocation: state.checkout.pickupLocation,
   zipCode: state.checkout.zipCode,
   trip: state.currentTrip.trip,
