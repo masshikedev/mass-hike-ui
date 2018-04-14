@@ -18,11 +18,8 @@ const Input = styled.input`
     border: 3px solid ${props => (props.invalid ? 'red' : 'black')};
   }
   &[type='checkbox'] {
-    background-color: red;
-    padding: 5px;
   }
   &[type='radio'] {
-    opacity: 0;
   }
 `;
 
