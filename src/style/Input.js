@@ -21,9 +21,14 @@ const Input = styled.input`
     max-width: 500px;
     border: 3px solid ${props => (props.invalid ? 'red' : 'black')};
   }
+
   :placeholder-shown {
     text-transform: uppercase;
     color: ${constants.darkgray};
+  }
+  &[type='checkbox'] {
+  }
+  &[type='radio'] {
   }
 `;
 
