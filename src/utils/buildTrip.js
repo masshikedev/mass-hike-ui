@@ -22,9 +22,9 @@ const buildTrip = attributes => {
     pricing: {
       min: +attributes.pricing.min,
       max: +attributes.pricing.max,
-      suggestion1: +attributes.pricing.min,
-      suggestion2: +attributes.pricing.min,
-      suggestion3: +attributes.pricing.min,
+      suggestion1: +attributes.pricing.suggestion1,
+      suggestion2: +attributes.pricing.suggestion2,
+      suggestion3: +attributes.pricing.suggestion3,
     },
     promoCodes: buildPromoCodes(attributes.promoCodes),
     stats: {

@@ -92,7 +92,7 @@ const Routes = props => (
     <Route exact path="/order/:id" component={OrderConfirmation} />
     <Route exact path="/admin" component={AdminDashboard} />
     <Route exact path="/admin/trips/new" component={NewTrip} />
-    <Route exact path="/admin/trips/:id" component={AdminTripDetail} />
+    <Route exact path="/admin/trips/:tripId" component={AdminTripDetail} />
     <Route component={NotFound} />
   </Switch>
 );

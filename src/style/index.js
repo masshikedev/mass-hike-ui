@@ -12,9 +12,14 @@ import Label from './Label';
 import P from './P';
 import Select from './Select';
 import Button from './Button';
+import AdminContainer from './AdminContainer';
 import Container from './Container';
 import GridParent from './GridParent';
 import Img from './Img';
+import Table from './Table';
+import Tr from './Tr';
+import Th from './Th';
+import Td from './Td';
 import constants from './constants';
 import MediaQueries from './MediaQueries';
 
@@ -33,9 +38,14 @@ export {
   Select,
   Button,
   Container,
+  AdminContainer,
   GridParent,
   Img,
   constants,
   MediaQueries,
   TextArea,
+  Table,
+  Tr,
+  Th,
+  Td,
 };

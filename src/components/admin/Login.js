@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { P, H3, H6, Input, Container, Button } from '../../style';
+import { P, H3, H6, Input, AdminContainer, Button } from '../../style';
 import { login } from '../../actions/AuthActions';
 import { RequestStatus } from '../../constants';
 
@@ -23,7 +23,7 @@ class Login extends Component {
   render() {
     const { email, password, status, error } = this.props;
     return (
-      <Container>
+      <AdminContainer>
         <H3>You must be a Mass Hike administator to access this page</H3>
         <form>
           <H6>Email</H6>
@@ -47,7 +47,7 @@ class Login extends Component {
             {status === RequestStatus.PENDING ? 'Loading' : 'Login'}
           </Button>
         </form>
-      </Container>
+      </AdminContainer>
     );
   }
 }
