@@ -24,6 +24,12 @@ const CheckBoxWrapper = styled.div`
   }
 `;
 
+const ButtonSpacer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0px -15px;
+`;
+
 class ContactSection extends BaseCheckoutSection {
   constructor(props) {
     super(props);
