@@ -23,4 +23,17 @@ export default class BaseCheckoutSection extends Component {
     const options = mobile ? { index } : { nextSectionPath: next };
     completeSection(this.state, options);
   };
+
+  onBackSection = (e, save) => {
+    const {
+      completeSection,
+      prev,
+      index,
+      setCheckoutState,
+      mobile,
+    } = this.props;
+    e.preventDefault();
+    const options = mobile ? { index } : { nextSectionPath: prev, save: save };
+    completeSection(this.state, options);
+  };
 }

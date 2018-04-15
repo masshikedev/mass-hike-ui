@@ -19,7 +19,6 @@ const FormWrapper = styled.div`
   max-width: 800px;
   margin: 5% 12%;
   min-width: 200px;
-  height: 100%;
   ${MediaQueries.small} {
     grid-column: span 12;
   }
@@ -41,13 +40,12 @@ class Checkout extends LoadableComponent {
   completeSection = (fields, options) => {
     const { nextCheckoutSection, setCheckoutState, match } = this.props;
     const { nextSectionPath } = options;
-    setCheckoutState(fields);
+    if (options.save !== false) setCheckoutState(fields);
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
 
   stripeCreateToken = callback =>
     this.props.stripe.createToken().then(({ token }) => {
-      console.log('Received Stripe token:', token);
       callback(token);
     });
 
@@ -81,6 +79,7 @@ class Checkout extends LoadableComponent {
       const Section = section.component;
       const next =
         i < SectionOrder.length - 1 ? SectionOrder[i + 1].path : null;
+      const prev = SectionOrder[i - 1].path;
       return (
         <Route
           exact
@@ -90,6 +89,7 @@ class Checkout extends LoadableComponent {
               completeSection={this.completeSection}
               index={i}
               next={next}
+              prev={prev}
               stripeCreateToken={this.stripeCreateToken}
             />
           )}
@@ -124,6 +124,7 @@ class Checkout extends LoadableComponent {
               <CardPayment
                 index={3}
                 next={SectionOrder[4].path}
+                prev={SectionOrder[3].path}
                 completeSection={this.completeSection}
                 show={showCardPayment}
               />
