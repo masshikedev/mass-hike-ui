@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { GridParent, H6 } from '../../style';
+import { GridParent, H6, Table, Th, Tr, Td } from '../../style';
 import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../../utils/dateFormats';
@@ -23,33 +23,29 @@ class TripGrid extends Component {
   renderTrip(trip) {
     const { showTickets } = this.props;
     return (
-      <TripGridRow key={trip.tripId}>
-        <Column>{trip.name}</Column>
-        <Column>{moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}</Column>
-        <Column>{showTickets && trip.capacity - trip.ticketsSold}</Column>
-        <Column>
+      <Tr key={trip.tripId}>
+        <Td>{trip.name}</Td>
+        <Td>{moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}</Td>
+        <Td>{showTickets && trip.capacity - trip.ticketsSold}</Td>
+        <Td>
           <Link to={`/admin/trips/${trip.tripId}`}>details</Link>
-        </Column>
-      </TripGridRow>
+        </Td>
+      </Tr>
     );
   }
 
   render() {
     const { trips, showTickets } = this.props;
     return (
-      <TripGridWrapper>
-        <TripGridRow>
-          <Column>
-            <H6>Name</H6>
-          </Column>
-          <Column>
-            <H6>Date</H6>
-          </Column>
-          <Column>{showTickets && <H6>Remaining Tickets</H6>}</Column>
-          <Column />
-        </TripGridRow>
+      <Table>
+        <Tr>
+          <Th>Name</Th>
+          <Th>Date</Th>
+          <Th>{showTickets && 'Remaining Tickets'}</Th>
+          <Th />
+        </Tr>
         {trips.map(trip => this.renderTrip(trip))}
-      </TripGridWrapper>
+      </Table>
     );
   }
 }
