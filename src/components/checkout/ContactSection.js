@@ -9,7 +9,7 @@ import {
 import { P, H1, H2, H6, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { contactConstraints } from '../../utils/validationConstraints';
-import ValidatedTextInput from '../forms/ValidatedTextInput';
+import { ValidatedTextInput, NextButton } from '../forms';
 import Checkbox from '../forms/Checkbox';
 import formatPhoneNumber from '../../utils/phoneFormatter';
 import styled from 'styled-components';
@@ -22,6 +22,12 @@ const CheckBoxWrapper = styled.div`
   ${MediaQueries.small} {
     flex-direction: column;
   }
+`;
+
+const ButtonSpacer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0px -15px;
 `;
 
 class ContactSection extends BaseCheckoutSection {
@@ -90,11 +96,12 @@ class ContactSection extends BaseCheckoutSection {
           />
         </CheckBoxWrapper>
 
-        <br />
-
-        {messages === 'valid' && (
-          <Button onClick={this.onCompleteSection}>Next</Button>
-        )}
+        <ButtonSpacer>
+          <NextButton
+            onClick={this.onCompleteSection}
+            active={messages === 'valid'}
+          />
+        </ButtonSpacer>
       </div>
     );
   }

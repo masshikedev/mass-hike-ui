@@ -9,6 +9,8 @@ function getBgColor(props) {
     switch (props.color) {
       case 'yellow':
         return constants.yellow;
+      case 'lightyellow':
+        return constants.lightyellow;
       case 'orange':
         return constants.orange;
       case 'blue':
@@ -47,6 +49,7 @@ const Button = styled.button`
     padding: 0;
     color: white;
   }
+  cursor: ${({ active }) => (active ? 'pointer' : 'default')};
 `;
 
 export default Button;
