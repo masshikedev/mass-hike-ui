@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
-import { P, H6, GridParent } from '../../style';
+import { P, Table, Tr, Th, Td } from '../../style';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-const OrderGridWrapper = styled.div`
-  margin-top: 25px;
-  margin-bottom: 10px;
-`;
-
-const OrderGridRow = GridParent.extend`
-  font-size: 16px;
-`;
-
-const Column = styled.div`
-  grid-column: span 2;
-  padding-bottom: 20px;
-`;
 
 class OrderGrid extends Component {
   totalSales() {
@@ -29,16 +15,16 @@ class OrderGrid extends Component {
     const { orders, capacity } = this.props;
     return orders.map((order, i) => {
       return (
-        <OrderGridRow key={i}>
-          <Column>{order.name}</Column>
-          <Column>{order.tickets}</Column>
-          <Column>0</Column>
-          <Column>{order.promoCode || 'none'}</Column>
-          <Column>{order.selectedPrice * order.tickets}</Column>
-          <Column>
+        <Tr key={i}>
+          <Td>{order.name}</Td>
+          <Td>{order.tickets}</Td>
+          <Td>0</Td>
+          <Td>{order.promoCode || 'none'}</Td>
+          <Td>{order.selectedPrice * order.tickets}</Td>
+          <Td>
             <Link to="/">details</Link>
-          </Column>
-        </OrderGridRow>
+          </Td>
+        </Tr>
       );
     });
   }
@@ -49,35 +35,20 @@ class OrderGrid extends Component {
       return <P>No tickets purchased yet</P>;
     }
     return (
-      <OrderGridWrapper>
-        <OrderGridRow>
-          <Column>
-            <H6>Customer</H6>
-          </Column>
-          <Column>
-            <H6>Tickets</H6>
-          </Column>
-          <Column>
-            <H6>Children</H6>
-          </Column>
-          <Column>
-            <H6>Promo</H6>
-          </Column>
-          <Column>
-            <H6>Revenue</H6>
-          </Column>
-          <Column />
-        </OrderGridRow>
+      <Table>
+        <Tr>
+          <Th>Customer</Th>
+          <Th>Tickets</Th>
+          <Th>Children</Th>
+          <Th>Promo</Th>
+          <Th>Revenue</Th>
+        </Tr>
         {this.renderOrders()}
-        <OrderGridRow>
-          <Column>
-            <P bold>Total</P>
-          </Column>
-          <Column>
-            <P bold>{this.totalSales()}</P>
-          </Column>
-        </OrderGridRow>
-      </OrderGridWrapper>
+        <Tr totals>
+          <Td>Total</Td>
+          <Td>{this.totalSales()}</Td>
+        </Tr>
+      </Table>
     );
   }
 }

@@ -1,23 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { GridParent, H6, Table, Th, Tr, Td } from '../../style';
+import { Table, Th, Tr, Td } from '../../style';
 import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../../utils/dateFormats';
-
-const TripGridWrapper = styled.div`
-  margin-top: 25px;
-  margin-bottom: 10px;
-`;
-
-const TripGridRow = GridParent.extend`
-  font-size: 16px;
-`;
-
-const Column = styled.div`
-  grid-column: span 3;
-  padding-bottom: 20px;
-`;
 
 class TripGrid extends Component {
   renderTrip(trip) {
@@ -37,7 +23,7 @@ class TripGrid extends Component {
   render() {
     const { trips, showTickets } = this.props;
     return (
-      <Table>
+      <Table fixed>
         <Tr>
           <Th>Name</Th>
           <Th>Date</Th>

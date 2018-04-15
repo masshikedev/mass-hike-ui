@@ -1,26 +1,12 @@
 import React, { Component } from 'react';
-import { P, H6, GridParent } from '../../style';
+import { P, H6, GridParent, Table, Tr, Th, Td } from '../../style';
 import styled from 'styled-components';
 
-const PickupGridWrapper = styled.div`
-  margin-top: 25px;
-  margin-bottom: 10px;
-`;
-
-const HeaderRow = GridParent.extend`
-  font-size: 16px;
-  padding: 10px 0;
-`;
-
-const PickupGridRow = HeaderRow.extend`
+const Row = Tr.extend`
   cursor: pointer;
   &:hover {
     background-color: #dddddd;
   }
-`;
-
-const Column = styled.div`
-  grid-column: span 4;
 `;
 
 class PickupGrid extends Component {
@@ -35,11 +21,11 @@ class PickupGrid extends Component {
     const { orders, onClickOrder } = this.props;
     return orders.map((order, i) => {
       return (
-        <PickupGridRow key={i} onClick={() => onClickOrder(i)}>
-          <Column>{order.name}</Column>
-          <Column>{order.pickupLocation}</Column>
-          <Column>{this.preferredContact(order)}</Column>
-        </PickupGridRow>
+        <Row key={i} onClick={() => onClickOrder(i)}>
+          <Td>{order.name}</Td>
+          <Td>{order.pickupLocation}</Td>
+          <Td>{this.preferredContact(order)}</Td>
+        </Row>
       );
     });
   }
@@ -50,20 +36,14 @@ class PickupGrid extends Component {
       return <P>No tickets purchased yet</P>;
     }
     return (
-      <PickupGridWrapper>
-        <HeaderRow>
-          <Column>
-            <H6>Customer</H6>
-          </Column>
-          <Column>
-            <H6>Address</H6>
-          </Column>
-          <Column>
-            <H6>Contact</H6>
-          </Column>
-        </HeaderRow>
+      <Table>
+        <Tr>
+          <Th>Customer</Th>
+          <Th>Address</Th>
+          <Th>Contact</Th>
+        </Tr>
         {this.renderCustomers()}
-      </PickupGridWrapper>
+      </Table>
     );
   }
 }

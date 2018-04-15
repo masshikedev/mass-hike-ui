@@ -1,27 +1,9 @@
 import React, { Component } from 'react';
-import { GridParent, P, H6, Button } from '../../style';
+import { P, Button, Table, Tr, Th, Td } from '../../style';
 import styled from 'styled-components';
 
-const ColumnLarge = styled.div`
-  grid-column: span 3;
-  padding: 10px 0;
-`;
-
-const ColumnSmall = styled.div`
-  grid-column: span 2;
-  padding: 10px 0;
-`;
-
-const ButtonColumn = ColumnSmall.extend`
-  padding: 0;
-`;
-
-const PricingcodesRow = GridParent.extend`
-  font-size: 16px;
-`;
-
 const DeleteButton = Button.extend`
-  width: 100%;
+  width: 50%;
   height: 32px;
   font-size: 16px;
 `;
@@ -31,14 +13,14 @@ class PromoCodeGrid extends Component {
     const { codes, onDelete } = this.props;
     return codes.map((code, i) => {
       return (
-        <PricingcodesRow key={i}>
-          <ColumnLarge>{code.promoCode}</ColumnLarge>
-          <ColumnSmall>{`$${code.min}`}</ColumnSmall>
-          <ColumnSmall>{`$${code.max}`}</ColumnSmall>
-          <ColumnLarge>{`$${code.suggestion1}, $${code.suggestion2}, $${
+        <Tr key={i}>
+          <Td>{code.promoCode}</Td>
+          <Td>{`$${code.min}`}</Td>
+          <Td>{`$${code.max}`}</Td>
+          <Td>{`$${code.suggestion1}, $${code.suggestion2}, $${
             code.suggestion3
-          }`}</ColumnLarge>
-          <ButtonColumn>
+          }`}</Td>
+          <Td>
             <DeleteButton
               onClick={e => {
                 e.preventDefault();
@@ -47,8 +29,8 @@ class PromoCodeGrid extends Component {
             >
               delete
             </DeleteButton>
-          </ButtonColumn>
-        </PricingcodesRow>
+          </Td>
+        </Tr>
       );
     });
   }
@@ -59,24 +41,15 @@ class PromoCodeGrid extends Component {
       return <P>No promo codes set for this trip</P>;
     }
     return (
-      <div>
-        <GridParent>
-          <ColumnLarge>
-            <H6>Promo Code</H6>
-          </ColumnLarge>
-          <ColumnSmall>
-            <H6>Min Price</H6>
-          </ColumnSmall>
-          <ColumnSmall>
-            <H6>Max Price</H6>
-          </ColumnSmall>
-          <ColumnLarge>
-            <H6>Suggestions</H6>
-          </ColumnLarge>
-          <ColumnSmall />
-        </GridParent>
+      <Table>
+        <Tr>
+          <Th>Promo Code</Th>
+          <Th>Min Price</Th>
+          <Th>Max Price</Th>
+          <Th>Suggestions</Th>
+        </Tr>
         {this.renderPricingcodes()}
-      </div>
+      </Table>
     );
   }
 }
