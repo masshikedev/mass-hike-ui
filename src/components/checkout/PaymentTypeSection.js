@@ -7,8 +7,13 @@ import { P, H2, H4, H6, Input, Button, MediaQueries } from '../../style';
 import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import getCurrentPricing from '../../utils/getCurrentPricing';
-import ValidatedTextInput from '../forms/ValidatedTextInput';
-import Checkbox from '../forms/Checkbox';
+import {
+  Checkbox,
+  ValidatedTextInput,
+  NextButton,
+  BackButton,
+  ButtonSpacer,
+} from '../forms';
 import styled from 'styled-components';
 
 const CheckBoxWrapper = styled.div`
@@ -18,7 +23,7 @@ const CheckBoxWrapper = styled.div`
   align-items: center;
   padding: 5px;
   ${MediaQueries.small} {
-    ${'' /* flex-direction: column; */};
+    flex-direction: column;
   }
 `;
 
@@ -141,10 +146,17 @@ class PaymentTypeSection extends BaseCheckoutSection {
             text="Cash"
           />
         </CheckBoxWrapper>
-        <br />
-        {messages === 'valid' && (
-          <Button onClick={this.onCompleteSection}>Next</Button>
-        )}
+
+        <ButtonSpacer>
+          <BackButton
+            onClick={e => this.onBackSection(e, messages === 'valid')}
+            active={true}
+          />
+          <NextButton
+            onClick={this.onCompleteSection}
+            active={messages === 'valid'}
+          />
+        </ButtonSpacer>
       </div>
     );
   }
