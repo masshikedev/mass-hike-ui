@@ -14,6 +14,7 @@ import {
   CardCVCElement,
   PostalCodeElement,
 } from 'react-stripe-elements';
+import { NextButton, BackButton, ButtonSpacer } from '../../forms';
 
 class CardPayment extends BaseCheckoutSection {
   constructor(props) {
@@ -51,14 +52,20 @@ class CardPayment extends BaseCheckoutSection {
     const style = {
       base: {
         color: 'black',
-        fontSize: '16px',
+        fontSize: '20px',
+        padding: '5px 10px',
+        width: '100%',
+        borderRadius: '4px',
+        backgroundColor: '#ffffff',
+        border: 'solid 2px black',
+        maxWidth: '250px',
         fontSmoothing: 'antialiased',
         '::placeholder': {
           color: '#ccc',
         },
       },
       invalid: {
-        color: constants.red,
+        color: `${constants.red}`,
         ':focus': {
           color: 'black',
         },
@@ -74,7 +81,11 @@ class CardPayment extends BaseCheckoutSection {
             style={style}
             onChange={e => this.fieldChange(e)}
           />
-          {cardNumber.error && <P error>{cardNumber.error.message}</P>}
+          {cardNumber.error && (
+            <P proxima leftmargin size="medium" color="error">
+              {cardNumber.error.message}
+            </P>
+          )}
         </label>
         <label>
           <H6>Expiration</H6>
@@ -82,13 +93,21 @@ class CardPayment extends BaseCheckoutSection {
             style={style}
             onChange={e => this.fieldChange(e)}
           />
-          {cardExpiry.error && <P error>{cardExpiry.error.message}</P>}
+          {cardExpiry.error && (
+            <P proxima leftmargin size="medium" color="error">
+              {cardExpiry.error.message}
+            </P>
+          )}
         </label>
 
         <label>
           <H6>Security Code</H6>
           <CardCVCElement style={style} onChange={e => this.fieldChange(e)} />
-          {cardCvc.error && <P error>{cardCvc.error.message}</P>}
+          {cardCvc.error && (
+            <P proxima leftmargin size="medium" color="error">
+              {cardCvc.error.message}
+            </P>
+          )}
         </label>
         <label>
           <H6>Billing Zip</H6>
@@ -96,12 +115,23 @@ class CardPayment extends BaseCheckoutSection {
             style={style}
             onChange={e => this.fieldChange(e)}
           />
-          {postalCode.error && <P error>{postalCode.error.message}</P>}
+          {postalCode.error && (
+            <P proxima leftmargin size="medium" color="error">
+              {postalCode.error.message}
+            </P>
+          )}
         </label>
 
-        {this.allValid() && (
-          <Button onClick={this.onCompleteSection}>Next</Button>
-        )}
+        <ButtonSpacer>
+          <BackButton
+            onClick={e => this.onBackSection(e, this.allValid())}
+            active={true}
+          />
+          <NextButton
+            onClick={this.onCompleteSection}
+            active={this.allValid()}
+          />
+        </ButtonSpacer>
       </div>
     );
   }

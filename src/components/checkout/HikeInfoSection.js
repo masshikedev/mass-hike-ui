@@ -7,9 +7,14 @@ import { P, H2, H3, H6, Button, MediaQueries } from '../../style';
 import styled from 'styled-components';
 import { validate } from 'validate.js';
 import { hikeConstraints } from '../../utils/validationConstraints';
-import ValidatedTextInput from '../forms/ValidatedTextInput';
 import PlaceAutocomplete from '../forms/PlaceAutocomplete';
-import Checkbox from '../forms/Checkbox';
+import {
+  Checkbox,
+  ValidatedTextInput,
+  NextButton,
+  BackButton,
+  ButtonSpacer,
+} from '../forms';
 
 const Caption = P.extend`
   max-width: 500px;
@@ -22,7 +27,7 @@ const CheckBoxWrapper = styled.div`
   align-items: center;
   padding: 5px;
   ${MediaQueries.small} {
-    ${'' /* flex-direction: column; */};
+    flex-direction: column;
   }
 `;
 
@@ -133,10 +138,16 @@ class HikeInfoSection extends BaseCheckoutSection {
           callback={place => this.setZipCodeFromPlace(place)}
           error={messages['zipCode']}
         />
-
-        {messages === 'valid' && (
-          <Button onClick={this.onCompleteSection}>Next</Button>
-        )}
+        <ButtonSpacer>
+          <BackButton
+            onClick={e => this.onBackSection(e, messages === 'valid')}
+            active={true}
+          />
+          <NextButton
+            onClick={this.onCompleteSection}
+            active={messages === 'valid'}
+          />
+        </ButtonSpacer>
       </div>
     );
   }

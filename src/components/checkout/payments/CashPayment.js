@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from '../BaseCheckoutSection';
 import { setCurrentSection } from '../../../actions/CheckoutActions';
 import { P, H2, H6, Button } from '../../../style';
+import { NextButton, BackButton, ButtonSpacer } from '../../forms';
 
 class CashPayment extends BaseCheckoutSection {
   constructor(props) {
@@ -88,7 +89,13 @@ class CashPayment extends BaseCheckoutSection {
           </div>
         )}
         <br />
-        {true && <Button onClick={this.onCompleteSection}>Next</Button>}
+        <ButtonSpacer>
+          <BackButton
+            onClick={e => this.onBackSection(e, true)}
+            active={true}
+          />
+          <NextButton onClick={this.onCompleteSection} active={true} />
+        </ButtonSpacer>
       </div>
     );
   }
