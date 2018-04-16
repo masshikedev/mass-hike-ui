@@ -98,10 +98,10 @@ class Footer extends Component {
           <Social>
             <Logo>Mass Hike</Logo>
             <SMLinks>
-              <SMLink href="https://twitter.com/MassHike" target="blank">
+              <SMLink href="https://www.facebook.com/masshike/" target="blank">
                 <FontAwesome name="fab fa-facebook" />
               </SMLink>
-              <SMLink href="https://twitter.com/MassHike" target="blank">
+              <SMLink href="https://www.instagram.com/masshike/" target="blank">
                 <FontAwesome name="fab fa-instagram" />
               </SMLink>
               <SMLink href="https://twitter.com/MassHike" target="blank">
