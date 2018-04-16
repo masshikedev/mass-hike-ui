@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import FontAwesome from 'react-fontawesome';
 import PrismicPage from '../prismic/PrismicPage';
 import { RichText } from 'prismic-reactjs';
 import renderLinkSlices from '../utils/renderLinkSlices';
 import {
   Container,
+  P,
   H2,
   Input,
   H5,
@@ -22,7 +24,8 @@ const FooterWrap = Container.extend`
 `;
 
 const Contact = styled.div`
-  grid-column: span 4;
+  grid-column-start: 8;
+  grid-column-end: 13;
   ${MediaQueries.small} {
     grid-column: span 12;
     align-items: center;
@@ -31,37 +34,59 @@ const Contact = styled.div`
 
 const Links = styled.ul`
   display: grid;
-  grid-gap: 20px;
-  grid-column: span 4;
-  grid-template-columns: repeat(3, 1fr);
+  grid-column: span 3;
+  grid-template-columns: repeat(2, 1fr);
   font-family: 'proxima-nova';
   font-size: 18px;
-  font-weight: 500;
-  margin-left: 10px;
+  font-weight: 600;
+  height: 0;
 
   ${MediaQueries.small} {
     grid-template-columns: 1fr 1fr;
     grid-column: span 12;
+    height: auto;
   }
 `;
 
 const Logo = H2.extend`
-  grid-column: span 12;
+  grid-column: span 3;
   font-family: 'proxima-soft';
+  font-size: 35px;
   font-weight: 500;
   text-transform: uppercase;
 
   ${MediaQueries.small} {
     grid-column: span 12;
-    text-align: center;
+  }
+`;
+
+const Social = styled.div`
+  grid-column: span 3;
+  color: 'white';
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
   }
 `;
 
 const FootGrid = GridParent.extend`
-  padding: 40px 80px;
+  padding: 40px;
+`;
+
+const SMLink = styled.a`
+  color: white;
+  flex: 0.5;
+`;
+
+const SMLinks = styled.div`
+  display: flex;
 `;
 
 const ListItem = styled.li``;
+
+const Email = Input.extend`
+  margin-bottom: 10px;
+`;
 
 class Footer extends Component {
   static pageType = 'footer';
@@ -70,14 +95,32 @@ class Footer extends Component {
     return (
       <FooterWrap>
         <FootGrid>
-          <Logo>Mass Hike</Logo>
+          <Social>
+            <Logo>Mass Hike</Logo>
+            <SMLinks>
+              <SMLink href="https://twitter.com/MassHike" target="blank">
+                <FontAwesome name="fab fa-facebook" />
+              </SMLink>
+              <SMLink href="https://twitter.com/MassHike" target="blank">
+                <FontAwesome name="fab fa-instagram" />
+              </SMLink>
+              <SMLink href="https://twitter.com/MassHike" target="blank">
+                <FontAwesome name="fab fa-twitter" />
+              </SMLink>
+            </SMLinks>
+          </Social>
           <Links>{renderLinkSlices(this.props.doc.data.body, ListItem)}</Links>
           <Contact>
-            <H5>Sign up to receive newsletters!</H5>
+            <P proxima bold size="large" color="white">
+              Sign up to receive newsletters!
+            </P>
+            <P proxima size="medium" color="white">
+              Join the Mass Hike membership list
+            </P>
             <label>
-              <Input
+              <Email
                 type="text"
-                value="Email"
+                value="Email Address"
                 onChange={e => this.setState({ Email: e.target.value })}
               />
             </label>
