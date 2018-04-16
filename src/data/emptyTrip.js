@@ -135,12 +135,7 @@ export default {
       address: 'Roxbury',
     },
   ],
-  cashAvailability: [
-    {
-      date: 0,
-      times: [{ start: 0, end: 0 }],
-    },
-  ],
+  cashAvailability: [],
   pickupZipcodes: [
     '02108',
     '02109',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { P, H6, GridParent, Table, Tr, Th, Td } from '../../style';
+import { P, H6, GridParent, Table, Tr, Th, Td } from '../../../style';
 import styled from 'styled-components';
 
 const Row = Tr.extend`
@@ -37,12 +37,14 @@ class PickupGrid extends Component {
     }
     return (
       <Table>
-        <Tr>
-          <Th>Customer</Th>
-          <Th>Address</Th>
-          <Th>Contact</Th>
-        </Tr>
-        {this.renderCustomers()}
+        <thead>
+          <Tr>
+            <Th>Customer</Th>
+            <Th>Address</Th>
+            <Th>Contact</Th>
+          </Tr>
+        </thead>
+        <tbody>{this.renderCustomers()}</tbody>
       </Table>
     );
   }

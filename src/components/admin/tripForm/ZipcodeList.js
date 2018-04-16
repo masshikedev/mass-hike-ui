@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GridParent, Button } from '../../style';
+import { GridParent, Button } from '../../../style';
 import styled from 'styled-components';
 
 const Column = styled.div`
@@ -10,7 +10,7 @@ const Column = styled.div`
 
 const ZipColumn = styled.div`
   grid-column: span 4;
-  font-weight: bold;
+  font-weight: ${props => (props.bold ? 700 : 400)};
   padding-top: 2px;
 `;
 
@@ -31,23 +31,25 @@ const DeleteButton = Button.extend`
 
 class ZipcodeList extends Component {
   render() {
-    const { zipcodes, onDelete } = this.props;
+    const { zipcodes, onDelete, showDelete } = this.props;
     return (
       <GridParent>
         {zipcodes.map((zipcode, i) => {
           return (
             <Column key={i}>
               <GridParent>
-                <ZipColumn>{zipcode}</ZipColumn>
+                <ZipColumn bold={showDelete}>{zipcode}</ZipColumn>
                 <DeleteColumn>
-                  <DeleteButton
-                    onClick={e => {
-                      e.preventDefault();
-                      onDelete(i);
-                    }}
-                  >
-                    delete
-                  </DeleteButton>
+                  {showDelete && (
+                    <DeleteButton
+                      onClick={e => {
+                        e.preventDefault();
+                        onDelete(i);
+                      }}
+                    >
+                      delete
+                    </DeleteButton>
+                  )}
                 </DeleteColumn>
               </GridParent>
             </Column>

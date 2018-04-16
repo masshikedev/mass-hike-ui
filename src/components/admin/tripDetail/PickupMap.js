@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react';
-import { P, H6 } from '../../style';
+import { P, H6 } from '../../../style';
 import styled from 'styled-components';
-import { GOOGLE_MAPS_API_KEY } from '../../constants';
+import { GOOGLE_MAPS_API_KEY } from '../../../constants';
 
 const MapWrapper = styled.div`
   width: 100%;

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import DayPicker from 'react-day-picker';
-import TimePicker from '../TimePicker';
-import { P, H6, GridParent } from '../../style';
+import TimePicker from '../../forms/TimePicker';
+import { P, H6, GridParent } from '../../../style';
 import styled from 'styled-components';
 import moment from 'moment';
-import { DAY_PICKER_DATE_CORRECTION } from '../../constants';
-import { DAY_MONTH_DATE_YEAR } from '../../utils/dateFormats';
+import { DAY_PICKER_DATE_CORRECTION } from '../../../constants';
+import { DAY_MONTH_DATE_YEAR } from '../../../utils/dateFormats';
 
 const Column = styled.div`
   grid-column: span 4;

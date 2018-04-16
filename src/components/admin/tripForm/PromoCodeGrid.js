@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { P, Button, Table, Tr, Th, Td } from '../../style';
+import { P, Button, Table, Tr, Th, Td } from '../../../style';
 import styled from 'styled-components';
 
 const DeleteButton = Button.extend`
@@ -10,7 +10,7 @@ const DeleteButton = Button.extend`
 
 class PromoCodeGrid extends Component {
   renderPricingcodes() {
-    const { codes, onDelete } = this.props;
+    const { codes, showDelete, onDelete } = this.props;
     return codes.map((code, i) => {
       return (
         <Tr key={i}>
@@ -20,35 +20,39 @@ class PromoCodeGrid extends Component {
           <Td>{`$${code.suggestion1}, $${code.suggestion2}, $${
             code.suggestion3
           }`}</Td>
-          <Td>
-            <DeleteButton
-              onClick={e => {
-                e.preventDefault();
-                onDelete(i);
-              }}
-            >
-              delete
-            </DeleteButton>
-          </Td>
+          {showDelete && (
+            <Td>
+              <DeleteButton
+                onClick={e => {
+                  e.preventDefault();
+                  onDelete(i);
+                }}
+              >
+                delete
+              </DeleteButton>
+            </Td>
+          )}
         </Tr>
       );
     });
   }
 
   render() {
-    const { codes } = this.props;
+    const { codes, fixed } = this.props;
     if (codes.length === 0) {
       return <P>No promo codes set for this trip</P>;
     }
     return (
-      <Table>
-        <Tr>
-          <Th>Promo Code</Th>
-          <Th>Min Price</Th>
-          <Th>Max Price</Th>
-          <Th>Suggestions</Th>
-        </Tr>
-        {this.renderPricingcodes()}
+      <Table fixed={fixed}>
+        <thead>
+          <Tr>
+            <Th>Promo Code</Th>
+            <Th>Min Price</Th>
+            <Th>Max Price</Th>
+            <Th>Suggestions</Th>
+          </Tr>
+        </thead>
+        <tbody>{this.renderPricingcodes()}</tbody>
       </Table>
     );
   }

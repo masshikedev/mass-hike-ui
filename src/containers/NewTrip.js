@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { H2, AdminContainer } from '../style';
 import AdminPage from '../components/admin/AdminPage';
-import TripForm from '../components/admin/TripForm';
+import TripForm from '../components/admin/tripForm/TripForm';
 import { adminCreateTrip } from '../actions/CurrentTripActions';
 import buildTrip from '../utils/buildTrip';
 
@@ -17,7 +17,7 @@ class NewTrip extends Component {
     return (
       <AdminContainer>
         <H2>New Trip</H2>
-        <TripForm onConfirm={this.onConfirm} />
+        <TripForm onConfirm={this.onConfirm} buttonText="Create trip" />
       </AdminContainer>
     );
   }

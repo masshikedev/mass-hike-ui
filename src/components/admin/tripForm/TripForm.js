@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ImageDropzone from '../ImageDropzone';
+import ImageDropzone from '../../forms/ImageDropzone';
 import TripTimeSelector from './TripTimeSelector';
 import PricingForm from './PricingForm';
 import PromoCodeGrid from './PromoCodeGrid';
@@ -7,11 +7,11 @@ import ZipcodeList from './ZipcodeList';
 import CashLocationList from './CashLocationList';
 import ZipcodeForm from './ZipcodeForm';
 import AvailabilityForm from './AvailabilityForm';
-import ValidatedTextInput from '../forms/ValidatedTextInput';
+import ValidatedTextInput from '../../forms/ValidatedTextInput';
 import { validate } from 'validate.js';
-import { tripConstraints } from '../../utils/validationConstraints';
-import emptyTrip from '../../data/emptyTrip';
-import { P, H3, H6, Button, GridParent, Img } from '../../style';
+import { tripConstraints } from '../../../utils/validationConstraints';
+import emptyTrip from '../../../data/emptyTrip';
+import { P, H3, H6, Button, GridParent, Img } from '../../../style';
 import styled from 'styled-components';
 
 const TripFormSection = styled.div`
@@ -144,7 +144,9 @@ class TripForm extends Component {
       pickupZipcodes,
       cashLocations,
       uploadInProgress,
+      cashAvailability,
     } = this.state;
+    const { buttonText } = this.props;
     const imageUrl = detail.imageUrl;
     const messages =
       validate(this.state, tripConstraints(this.state)) || 'valid';
@@ -175,7 +177,11 @@ class TripForm extends Component {
         </TripFormSection>
         <TripFormSection>
           <H3>Promo Codes</H3>
-          <PromoCodeGrid codes={promoCodes} onDelete={this.onDeletePromoCode} />
+          <PromoCodeGrid
+            codes={promoCodes}
+            onDelete={this.onDeletePromoCode}
+            showDelete
+          />
           <PricingForm promo onAddPromoCode={this.onAddPromoCode} />
         </TripFormSection>
         <TripFormSection>
@@ -215,6 +221,7 @@ class TripForm extends Component {
           <ZipcodeList
             zipcodes={pickupZipcodes}
             onDelete={this.onDeleteZipcode}
+            showDelete
           />
           <ZipcodeForm
             onAddZipcode={this.onAddZipcode}
@@ -226,9 +233,12 @@ class TripForm extends Component {
           <CashLocationList
             locations={cashLocations}
             onDelete={this.onDeleteCashLocation}
+            showDelete
           />
           <H3>Availability</H3>
           <AvailabilityForm
+            editable
+            availability={cashAvailability}
             onChange={availability =>
               this.setState({ cashAvailability: availability })
             }
@@ -236,7 +246,13 @@ class TripForm extends Component {
         </TripFormSection>
         <TripFormSection>
           {messages === 'valid' && (
-            <Button onClick={this.onClickConfirm}>Create Trip</Button>
+            <Button onClick={this.onClickConfirm}>{buttonText}</Button>
+          )}
+          {messages !== 'valid ' && (
+            <P color="error">
+              Some selections are invalid. Please correct all invalid
+              information
+            </P>
           )}
         </TripFormSection>
       </form>

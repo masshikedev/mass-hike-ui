@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GridParent, Button, P, H6 } from '../../style';
+import { GridParent, Button, P, H6 } from '../../../style';
 import styled from 'styled-components';
 
 const Column = styled.div`
@@ -35,7 +35,7 @@ const LocationName = P.extend`
 
 class CashLocationList extends Component {
   render() {
-    const { locations, onDelete } = this.props;
+    const { locations, onDelete, showDelete } = this.props;
     return (
       <div>
         <H6>Available Locations</H6>
@@ -49,14 +49,16 @@ class CashLocationList extends Component {
                     <P size="small">{location.address}</P>
                   </LocationColumn>
                   <DeleteColumn>
-                    <DeleteButton
-                      onClick={e => {
-                        e.preventDefault();
-                        onDelete(i);
-                      }}
-                    >
-                      delete
-                    </DeleteButton>
+                    {showDelete && (
+                      <DeleteButton
+                        onClick={e => {
+                          e.preventDefault();
+                          onDelete(i);
+                        }}
+                      >
+                        delete
+                      </DeleteButton>
+                    )}
                   </DeleteColumn>
                 </GridParent>
               </Column>

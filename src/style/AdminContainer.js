@@ -6,7 +6,7 @@ const AdminContainer = styled.div`
   max-width: 900px;
   margin: 0 auto;
   padding-top: 30px;
-  background-color: ${constants.gray};
+  background-color: inherit;
 `;
 
 export default AdminContainer;
