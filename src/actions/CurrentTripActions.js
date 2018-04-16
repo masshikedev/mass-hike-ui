@@ -1,5 +1,10 @@
 import ActionTypes from './ActionTypes';
-import { fetchTripById, adminFetchTripById, createTrip } from '../api/trips';
+import {
+  fetchTripById,
+  adminFetchTripById,
+  createTrip,
+  updateTrip,
+} from '../api/trips';
 import { push } from 'react-router-redux';
 
 const getTripByIdSuccess = dispatch => {
@@ -60,7 +65,7 @@ const adminCreateTripSuccess = dispatch => {
       type: ActionTypes.ADMIN_CREATE_TRIP_SUCCESS,
     });
     const tripId = response.data.tripId;
-    dispatch(push(`/admin/trips/${tripId}`));
+    dispatch(push(`/admin/trips/${tripId}/details`));
   };
 };
 
@@ -76,5 +81,33 @@ export const adminCreateTrip = trip => {
     createTrip(trip)
       .then(adminCreateTripSuccess(dispatch))
       .catch(adminCreateTripError(dispatch));
+  };
+};
+
+const adminUpdateTripSuccess = dispatch => {
+  return response => {
+    dispatch({
+      type: ActionTypes.ADMIN_UPDATE_TRIP_SUCCESS,
+      payload: {
+        trip: response.data.value,
+      },
+    });
+    const tripId = response.data.value.tripId;
+    dispatch(push(`/admin/trips/${tripId}/details`));
+  };
+};
+
+const adminUpdateTripError = dispatch => {
+  return () => {
+    dispatch({ type: ActionTypes.ADMIN_UPDATE_TRIP_ERROR });
+  };
+};
+
+export const adminEditTrip = (tripId, attributes) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.ADMIN_UPDATE_TRIP_ATTEMPT });
+    updateTrip(tripId, attributes)
+      .then(adminUpdateTripSuccess(dispatch))
+      .catch(adminUpdateTripError(dispatch));
   };
 };

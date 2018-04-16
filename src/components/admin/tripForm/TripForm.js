@@ -248,7 +248,7 @@ class TripForm extends Component {
           {messages === 'valid' && (
             <Button onClick={this.onClickConfirm}>{buttonText}</Button>
           )}
-          {messages !== 'valid ' && (
+          {messages !== 'valid' && (
             <P color="error">
               Some selections are invalid. Please correct all invalid
               information

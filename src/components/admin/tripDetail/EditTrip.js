@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import TripForm from '../tripForm/TripForm';
+import { adminEditTrip } from '../../../actions/CurrentTripActions';
+import buildTrip from '../../../utils/buildTrip';
 
 const SECTION = 2;
 
@@ -11,8 +14,8 @@ class EditTrip extends Component {
   }
 
   onConfirm = attributes => {
-    const { createTrip } = this.props;
-    return null;
+    const { editTrip, trip } = this.props;
+    editTrip(trip.tripId, buildTrip(attributes));
   };
 
   render() {
@@ -27,6 +30,7 @@ class EditTrip extends Component {
   }
 }
 
-const mapDispatchToProps = () => null;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ editTrip: adminEditTrip }, dispatch);
 
 export default connect(null, mapDispatchToProps)(EditTrip);

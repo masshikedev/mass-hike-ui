@@ -30,7 +30,6 @@ class PickupMap extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.activeMarker !== null) {
       this.setState({ activeMarker: nextProps.activeMarker });
     }
