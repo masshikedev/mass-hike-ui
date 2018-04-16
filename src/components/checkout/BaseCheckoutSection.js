@@ -33,7 +33,9 @@ export default class BaseCheckoutSection extends Component {
       mobile,
     } = this.props;
     e.preventDefault();
-    const options = mobile ? { index } : { nextSectionPath: prev, save: save };
+    const options = mobile
+      ? { index, goBack: true }
+      : { nextSectionPath: prev, save: save };
     completeSection(this.state, options);
   };
 }
