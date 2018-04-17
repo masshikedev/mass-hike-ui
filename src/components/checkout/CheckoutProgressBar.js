@@ -91,7 +91,6 @@ class CheckoutProgressBar extends Component {
             grayscale={!isAvailable}
             big={isCurrentSection}
           />
-          {/* {!isCurrentSection && <P>{sectionOrder[i].name}</P>} */}
         </ProgressBarImgWrap>
       );
       key++;
