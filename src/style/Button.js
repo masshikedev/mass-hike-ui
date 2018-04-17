@@ -26,13 +26,17 @@ function getBgColor(props) {
 }
 
 const Button = styled.button`
+  width: ${({ small }) => (small ? '40px' : 'auto')};
+  height: ${({ small }) => (small ? '20px' : 'auto')};
   max-width: 300px;
-  min-height: ${({ primary }) => (primary ? '56px' : '36px')};
+  min-height: ${({ primary, small }) =>
+    primary ? '56px' : small ? '20px' : '36px'};
   background-color: ${getBgColor};
   border: none;
   border-radius: 30px;
   font-family: 'proxima-nova';
-  font-size: ${({ primary }) => (primary ? '21px' : '18px')};
+  font-size: ${({ primary, small }) =>
+    primary ? '21px' : small ? '12px' : '18px'};
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -43,13 +47,15 @@ const Button = styled.button`
   color: white;
   text-decoration: none;
   margin-bottom: 10px;
-  padding: ${({ primary }) => (primary ? '15px 30px' : '5px 20px')};
+  margin-left: ${({ small }) => (small ? '15px' : 'auto')};
+  padding: ${({ primary, small }) =>
+    primary ? '15px 30px' : small ? '0px' : '5px 20px'};
   > * {
     margin: 0;
     padding: 0;
     color: white;
   }
-  cursor: ${({ active }) => (active ? 'pointer' : 'default')};
+  cursor: ${({ active, small }) => (active || small ? 'pointer' : 'default')};
 `;
 
 export default Button;
