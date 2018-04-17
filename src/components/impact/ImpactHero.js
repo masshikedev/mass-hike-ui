@@ -10,6 +10,10 @@ const Text = styled.div`
   background: ${constants.orangeBg};
   color: #fff;
 
+  ${MediaQueries.medium} {
+    grid-column: span 7;
+  }
+
   ${MediaQueries.small} {
     grid-column: span 12;
     padding: 40px;
@@ -41,6 +45,10 @@ const Image = styled.div`
   background-repeat: no-repeat;
   min-height: 300px;
 
+  ${MediaQueries.medium} {
+    grid-column: span 5;
+  }
+
   ${MediaQueries.small} {
     grid-column: span 12;
     order: 0;
@@ -55,14 +63,12 @@ const Hero = GridParent.extend`
 const QuoteContent = P.extend`
   z-index: 1;
   position: relative;
-  text-align: center;
-
-  ${MediaQueries.small} {
-    font-size: 36px;
-  }
+  font-size: 36px;
 `;
 
 const QuoteAuthor = QuoteContent.extend`
+  text-align: left;
+
   ${MediaQueries.small} {
     text-align: right;
   }
@@ -77,7 +83,7 @@ function ImpactHero(props) {
         <QuoteContent color="white" size="xlarge">
           {RichText.asText(props.doc.data.testimonial)}
         </QuoteContent>
-        <QuoteAuthor color="white" size="xlarge">
+        <QuoteAuthor proxima bold color="white" size="xlarge">
           -{RichText.asText(props.doc.data.testimonial_author)}
         </QuoteAuthor>
       </Text>
