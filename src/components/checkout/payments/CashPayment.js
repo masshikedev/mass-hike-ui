@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from '../BaseCheckoutSection';
 import { setCurrentSection } from '../../../actions/CheckoutActions';
-import { P, H2, H6, Button } from '../../../style';
+
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+import { DAY_PICKER_DATE_CORRECTION } from '../../../constants';
+import Helmet from 'react-helmet';
+import { P, H2, H6, Button, constants } from '../../../style';
 import { NextButton, BackButton, ButtonSpacer } from '../../forms';
 import styled from 'styled-components';
 
@@ -16,6 +21,15 @@ const LocationLabel = styled.label`
 const LocationDetails = styled.div`
   margin-left: 10px;
 `;
+
+function Weekday({ weekday, className, localeUtils, locale }) {
+  const weekdayName = localeUtils.formatWeekdayLong(weekday, locale);
+  return (
+    <div className={className} title={weekdayName}>
+      {weekdayName.slice(0, 3)}
+    </div>
+  );
+}
 
 class CashPayment extends BaseCheckoutSection {
   constructor(props) {
@@ -38,6 +52,13 @@ class CashPayment extends BaseCheckoutSection {
   handleChooseDate(e, date) {
     e.preventDefault();
     this.setState(prevState => ({ meetingDate: date }));
+  }
+
+  availableDays() {
+    const { trip } = this.props;
+    return trip.cashAvailability.map(
+      dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
+    );
   }
 
   renderCashLocations(maxLoc) {
@@ -72,6 +93,52 @@ class CashPayment extends BaseCheckoutSection {
     return locList;
   }
 
+  renderCalendar() {
+    const { meetingDate, trip } = this.props;
+    return (
+      <div>
+        <Helmet>
+          <style>{`
+          .DayPicker-wrapper {
+            background: ${constants.green} ${constants.greenBg};
+            background-blend-mode: multiply;
+            border-radius: 15px;
+          }
+          .DayPicker-Caption {
+            text-align: center;
+            color: white;
+          }
+          .DayPicker-NavButton {
+            color: white;
+          }
+          .DayPicker-NavButton--prev {
+            left: 1.5rem;
+          }
+          .DayPicker-Weekday {
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.65em;
+          }
+          .DayPicker-Body {
+            background-color: ${constants.gray}
+          }
+          .DayPicker-Month {
+            margin: 1rem 0 0 0;
+          }
+          `}</style>
+        </Helmet>
+        <DayPicker
+          onDayClick={day => this.setState({ selectedDay: day })}
+          selectedDays={[meetingDate]}
+          modifiers={{ highlighted: this.availableDays() }}
+          weekdayElement={<Weekday />}
+        />
+      </div>
+    );
+  }
+
+  renderTime() {}
+
   render() {
     const { trip } = this.props;
     const { showMoreLocations, selectedLocationIndex } = this.state;
@@ -94,14 +161,7 @@ class CashPayment extends BaseCheckoutSection {
         <Button color="blue" onClick={e => this.handleToggle(e)}>
           {showMoreLocations ? 'See less' : 'See more'}
         </Button>
-
-        {selectedLocationIndex >= 0 && (
-          <div>
-            <Button onClick={e => this.handleChooseDate(e, 'March 2nd')}>
-              Choose March 2nd
-            </Button>
-          </div>
-        )}
+        {this.renderCalendar()}
         <br />
         <ButtonSpacer>
           <BackButton
