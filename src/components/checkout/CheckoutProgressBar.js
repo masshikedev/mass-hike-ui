@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { P, MediaQueries } from '../../style';
 
 const Wrapper = styled.div`
-  position: absolute;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
