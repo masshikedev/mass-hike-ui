@@ -34,7 +34,8 @@ const Contact = styled.div`
 
 const Links = styled.ul`
   display: grid;
-  grid-column: span 3;
+  grid-column-start: 4;
+  grid-column-end: 7;
   grid-template-columns: repeat(2, 1fr);
   font-family: 'proxima-nova';
   font-size: 18px;
@@ -51,7 +52,7 @@ const Links = styled.ul`
 const Logo = H2.extend`
   grid-column: span 3;
   font-family: 'proxima-soft';
-  font-size: 35px;
+  font-size: 28px;
   font-weight: 500;
   text-transform: uppercase;
 
@@ -61,7 +62,7 @@ const Logo = H2.extend`
 `;
 
 const Social = styled.div`
-  grid-column: span 3;
+  grid-column: span 2;
   color: 'white';
 
   ${MediaQueries.small} {
@@ -70,12 +71,21 @@ const Social = styled.div`
 `;
 
 const FootGrid = GridParent.extend`
-  padding: 40px;
+  padding: 60px;
+
+  ${MediaQueries.small} {
+    grid-gap: 20px;
+  }
 `;
 
 const SMLink = styled.a`
   color: white;
-  flex: 0.5;
+  padding-right: 20px;
+
+  ${MediaQueries.small} {
+    flex: 1;
+    padding: 0;
+  }
 `;
 
 const SMLinks = styled.div`

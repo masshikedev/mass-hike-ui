@@ -15,6 +15,7 @@ import styled from 'styled-components';
 
 const Column = styled.div`
   grid-column: span 12;
+  padding: 20px;
 `;
 
 const ColumnFlex = Column.extend`
