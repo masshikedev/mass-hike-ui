@@ -48,7 +48,6 @@ const hikeConstraints = trip => {
         notLessThanOrEqualTo: `^We have ${remaining} tickets remaining for this trip. Please enter a number up to ${remaining}`,
         onlyInteger: true,
         notInteger: '^Must be a whole number (1, 2, 3...)',
-        message: '^Please enter a number (1, 2, 3...)',
       },
     },
     kids: {
