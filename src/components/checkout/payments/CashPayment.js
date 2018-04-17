@@ -48,6 +48,13 @@ class CashPayment extends BaseCheckoutSection {
     );
   }
 
+  isDisabledDate(day) {
+    for (let d of this.availableDays()) {
+      if (d.getTime() === day.getTime()) return false;
+    }
+    return true;
+  }
+
   renderCashLocations(maxLoc) {
     const { trip } = this.props;
     const cashLocations = trip.cashLocations;
@@ -79,6 +86,7 @@ class CashPayment extends BaseCheckoutSection {
 
   renderCalendar() {
     const { meetingDate, trip } = this.props;
+    console.log(this.availableDays());
     return (
       <div>
         <Helmet>
@@ -91,6 +99,8 @@ class CashPayment extends BaseCheckoutSection {
           .DayPicker-Caption {
             text-align: center;
             color: white;
+            font-family: 'proxima-nova';
+            font-weight: 700;
           }
           .DayPicker-NavButton {
             color: white;
@@ -102,6 +112,8 @@ class CashPayment extends BaseCheckoutSection {
             color: white;
             text-transform: uppercase;
             font-size: 0.65em;
+            font-family: 'proxima-nova';
+            width: 35px;
           }
           .DayPicker-Body {
             background-color: ${constants.gray}
@@ -109,12 +121,24 @@ class CashPayment extends BaseCheckoutSection {
           .DayPicker-Month {
             margin: 1rem 0 0 0;
           }
+          .DayPicker-Day {
+           box-sizing: border-box;
+            border: 2px solid ${constants.lightgreen};
+            font-family: 'proxima-nova';
+            font-size: 16px;
+            padding: 15px 0px;
+          }
           `}</style>
         </Helmet>
         <DayPicker
-          onDayClick={day => this.setState({ selectedDay: day })}
+          onDayClick={(day, { selected }) =>
+            this.setState({
+              selectedDay: selected ? undefined : day,
+            })
+          }
           selectedDays={[meetingDate]}
           modifiers={{ highlighted: this.availableDays() }}
+          disabledDays={d => this.isDisabledDate(d)}
           weekdayElement={<Weekday />}
         />
       </div>
