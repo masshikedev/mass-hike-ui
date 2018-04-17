@@ -274,7 +274,8 @@ class CashPayment extends BaseCheckoutSection {
   }
 
   renderCalendar() {
-    const { meetingDate, trip } = this.props;
+    const { trip } = this.props;
+    const { meetingDate } = this.state;
     console.log(this.availableDays());
     return (
       <div>
