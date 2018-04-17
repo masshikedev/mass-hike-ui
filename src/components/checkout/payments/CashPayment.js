@@ -136,6 +136,13 @@ class CashPayment extends BaseCheckoutSection {
     );
   }
 
+  isDisabledDate(day) {
+    for (let d of this.availableDays()) {
+      if (d.getTime() === day.getTime()) return false;
+    }
+    return true;
+  }
+
   renderCashLocations(maxLoc) {
     const { trip } = this.props;
     const cashLocations = trip.cashLocations;
