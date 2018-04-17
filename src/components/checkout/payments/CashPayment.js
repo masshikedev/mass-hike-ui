@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from '../BaseCheckoutSection';
 import { setCurrentSection } from '../../../actions/CheckoutActions';
-import TimePicker from 'rc-time-picker';
-import moment from 'moment';
-import { TWELVE_HOUR_CORRECTION } from '../../../constants';
 import { P, H2, H6, Button, constants } from '../../../style';
 import { NextButton, BackButton, ButtonSpacer } from '../../forms';
 import styled from 'styled-components';
@@ -13,13 +10,8 @@ import DayPicker from 'react-day-picker';
 import TimePicker from 'rc-time-picker';
 import moment from 'moment';
 import 'react-day-picker/lib/style.css';
-import {
-  DAY_PICKER_DATE_CORRECTION,
-  TWELVE_HOUR_CORRECTION,
-} from '../../../constants';
-import { MONTH_DATE_YEAR, TIME } from '../../../utils/dateFormats';
+import { TWELVE_HOUR_CORRECTION } from '../../../constants';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
 
 function Weekday({ weekday, className, localeUtils, locale }) {
   const weekdayName = localeUtils.formatWeekdayLong(weekday, locale);
@@ -167,6 +159,13 @@ class CashPayment extends BaseCheckoutSection {
         const startHour = new Date();
       });
     }
+  }
+
+  availableDays() {
+    const { trip } = this.props;
+    return trip.cashAvailability.map(
+      dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
+    );
   }
 
   renderCashLocations(maxLoc) {
