@@ -43,12 +43,16 @@ class CheckoutSidebar extends Component {
           <div>
             {price ? (
               <div>
-                <SummaryP>{`${tickets} tickets x $${price} each`}</SummaryP>
+                <SummaryP>{`${tickets} ${
+                  tickets > 1 ? `tickets` : `ticket`
+                } x $${price} each`}</SummaryP>
                 <H6>Total</H6>
                 <SummaryP capitalize>{`$${tickets * price}`}</SummaryP>
               </div>
             ) : (
-              <SummaryP>{`${tickets} tickets`}</SummaryP>
+              <SummaryP>{`${tickets} ${
+                tickets > 1 ? `tickets` : `ticket`
+              }`}</SummaryP>
             )}
           </div>
         )}
