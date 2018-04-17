@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import DayPicker from 'react-day-picker';
-import TimePicker from '../TimePicker';
-import { P, H6, GridParent, Button, Label } from '../../style';
-import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
+import TimePicker from '../../forms/TimePicker';
+import { P, H6, GridParent, Button, Label } from '../../../style';
+import { MONTH_DATE_YEAR, TIME } from '../../../utils/dateFormats';
 import styled from 'styled-components';
 import moment from 'moment';
-import { DAY_PICKER_DATE_CORRECTION } from '../../constants';
+import { DAY_PICKER_DATE_CORRECTION } from '../../../constants';
 
 const DateColumn = styled.div`
   grid-column: span 6;
@@ -37,13 +37,12 @@ class AvailabilityForm extends Component {
       selectedDay: null,
       selectedStartTime: null,
       selectedEndTime: null,
-      availability: [],
       error: '',
     };
   }
 
   availableDays() {
-    return this.state.availability.map(
+    return this.props.availability.map(
       dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
     );
   }
@@ -53,7 +52,8 @@ class AvailabilityForm extends Component {
   };
 
   getCurrentDayData() {
-    const { availability, selectedDay } = this.state;
+    const { selectedDay } = this.state;
+    const { availability } = this.props;
     for (let i = 0; i < availability.length; i++) {
       if (
         availability[i].date ===
@@ -98,8 +98,8 @@ class AvailabilityForm extends Component {
 
   onAddAvailibility = e => {
     e.preventDefault();
-    const { selectedStartTime, selectedEndTime, availability } = this.state;
-    const { onChange } = this.props;
+    const { selectedStartTime, selectedEndTime } = this.state;
+    const { availability, onChange } = this.props;
     if (selectedStartTime.unix() > selectedEndTime.unix()) {
       return this.setState({
         error: 'Start time must be earlier than end time',
@@ -117,18 +117,16 @@ class AvailabilityForm extends Component {
       : availability;
     this.setState(
       {
-        availability: newAvailability,
         selectedStartTime: null,
         selectedEndTime: null,
         error: '',
       },
-      () => onChange(this.state.availability)
+      () => onChange(newAvailability)
     );
   };
 
   renderAvailibilityForDay = () => {
-    const { availability } = this.state;
-    const { onChange } = this.props;
+    const { onChange, availability, editable } = this.props;
     let dayData = this.getCurrentDayData();
     if (!dayData || dayData.times.length === 0) {
       return <P>Unavailable</P>;
@@ -143,16 +141,16 @@ class AvailabilityForm extends Component {
                 .format(TIME)}`}
             </P>
           </AvailabilityColumn>
-          <DeleteColumn
-            onClick={() => {
-              dayData.times.splice(i, 1);
-              this.setState({ availability }, () =>
-                onChange(this.state.availability)
-              );
-            }}
-          >
-            X
-          </DeleteColumn>
+          {editable && (
+            <DeleteColumn
+              onClick={() => {
+                dayData.times.splice(i, 1);
+                onChange(availability);
+              }}
+            >
+              X
+            </DeleteColumn>
+          )}
         </GridParent>
       );
     });
@@ -184,6 +182,7 @@ class AvailabilityForm extends Component {
 
   render() {
     const { selectedDay } = this.state;
+    const { editable } = this.props;
     return (
       <GridParent>
         <DateColumn>
@@ -197,7 +196,7 @@ class AvailabilityForm extends Component {
           <TimeColumn>
             <H6>{moment(selectedDay).format(MONTH_DATE_YEAR)}</H6>
             {this.renderAvailibilityForDay()}
-            {this.renderTimeEntryForm()}
+            {editable && this.renderTimeEntryForm()}
           </TimeColumn>
         )}
       </GridParent>

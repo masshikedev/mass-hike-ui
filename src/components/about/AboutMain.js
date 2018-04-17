@@ -41,7 +41,6 @@ const Image = styled.div`
 `;
 
 function AboutMain(props) {
-  console.log(props);
   return (
     <About>
       <Text>

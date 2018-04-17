@@ -58,6 +58,22 @@ export default (state = initialState, action) => {
         ...state,
         adminCreateStatus: RequestStatus.ERROR,
       };
+    case ActionTypes.ADMIN_UPDATE_TRIP_ATTEMPT:
+      return {
+        ...state,
+        adminCreateStatus: RequestStatus.PENDING,
+      };
+    case ActionTypes.ADMIN_UPDATE_TRIP_SUCCESS:
+      return {
+        ...state,
+        adminCreateStatus: RequestStatus.SUCCESS,
+        adminTrip: action.payload.trip,
+      };
+    case ActionTypes.ADMIN_UPDATE_TRIP_ERROR:
+      return {
+        ...state,
+        adminCreateStatus: RequestStatus.ERROR,
+      };
     default:
       return state;
   }

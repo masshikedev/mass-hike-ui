@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { P, Table, Tr, Th, Td } from '../../style';
+import { P, Table, Tr, Th, Td } from '../../../style';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -36,18 +36,22 @@ class OrderGrid extends Component {
     }
     return (
       <Table>
-        <Tr>
-          <Th>Customer</Th>
-          <Th>Tickets</Th>
-          <Th>Children</Th>
-          <Th>Promo</Th>
-          <Th>Revenue</Th>
-        </Tr>
-        {this.renderOrders()}
-        <Tr totals>
-          <Td>Total</Td>
-          <Td>{this.totalSales()}</Td>
-        </Tr>
+        <thead>
+          <Tr>
+            <Th>Customer</Th>
+            <Th>Tickets</Th>
+            <Th>Children</Th>
+            <Th>Promo</Th>
+            <Th>Revenue</Th>
+          </Tr>
+        </thead>
+        <tbody>
+          {this.renderOrders()}
+          <Tr totals>
+            <Td>Total</Td>
+            <Td>{this.totalSales()}</Td>
+          </Tr>
+        </tbody>
       </Table>
     );
   }

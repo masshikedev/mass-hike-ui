@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { P, H6, Input, GridParent, Button } from '../../style';
+import { P, H6, Input, GridParent, Button } from '../../../style';
 import styled from 'styled-components';
 
 const Column = styled.div`

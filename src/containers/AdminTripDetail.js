@@ -1,22 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import LoadableComponent from '../components/LoadableComponent';
 import AdminPage from '../components/admin/AdminPage';
-import OrderGrid from '../components/admin/OrderGrid';
-import PickupMap from '../components/admin/PickupMap';
-import PickupGrid from '../components/admin/PickupGrid';
+import Ticketing from '../components/admin/tripDetail/Ticketing';
+import TripDetailList from '../components/admin/tripDetail/TripDetailList';
+import EditTrip from '../components/admin/tripDetail/EditTrip';
+import TripTabBar from '../components/admin/tripDetail/TripTabBar';
 import { adminGetTripById } from '../actions/CurrentTripActions';
+import { AdminContainer, H2, P, constants } from '../style';
+import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../utils/dateFormats';
-import { AdminContainer, H2, H3, P } from '../style';
-import styled from 'styled-components';
+
+const SECTION_COMPONENTS = [
+  { path: 'ticketing', component: Ticketing },
+  { path: 'details', component: TripDetailList },
+  { path: 'edit', component: EditTrip },
+];
+
+const HeaderSection = styled.div`
+  background-color: ${constants.darkgray};
+  padding-bottom: 30px;
+`;
+
+const Header = H2.extend`
+  margin-bottom: 5px;
+`;
 
 class AdminTripDetail extends LoadableComponent {
   constructor(props) {
     super(props);
     this.state = {
       activeMapMarker: null,
+      currentSection: 0,
     };
   }
 
@@ -25,23 +43,47 @@ class AdminTripDetail extends LoadableComponent {
     getTripById(this.props.match.params.tripId);
   }
 
+  setCurrentSection = section => {
+    this.setState({ currentSection: section });
+  };
+
+  renderSectionRoutes() {
+    const { trip, match } = this.props;
+    return SECTION_COMPONENTS.map((data, i) => {
+      const SectionComponent = data.component;
+      return (
+        <Route
+          key={i}
+          exact
+          path={`${match.url}/${data.path}`}
+          render={() => (
+            <SectionComponent
+              trip={trip}
+              setCurrentSection={this.setCurrentSection}
+            />
+          )}
+        />
+      );
+    });
+  }
+
   renderSuccess = () => {
-    const { trip } = this.props;
-    const { activeMapMarker } = this.state;
+    const { trip, match } = this.props;
+    const { currentSection } = this.state;
     const dateString = moment.utc(trip.time.hikeStart).format(MONTH_DATE_YEAR);
     return (
-      <AdminContainer>
-        <H2>{trip.name}</H2>
-        <P large>{`${dateString} - ${trip.location}`}</P>
-        <H3>Ticket Sales</H3>
-        <OrderGrid orders={trip.orders} capacity={trip.capacity} />
-        <H3>Pickup Locations</H3>
-        <PickupMap orders={trip.orders} activeMarker={activeMapMarker} />
-        <PickupGrid
-          orders={trip.orders}
-          onClickOrder={index => this.setState({ activeMapMarker: index })}
-        />
-      </AdminContainer>
+      <div>
+        <HeaderSection>
+          <AdminContainer>
+            <Header>{trip.name}</Header>
+            <P>{`${dateString} - ${trip.location}`}</P>
+            <TripTabBar currentSection={currentSection} tripId={trip.tripId} />
+          </AdminContainer>
+        </HeaderSection>
+        <AdminContainer>
+          <Switch>{this.renderSectionRoutes()}</Switch>
+        </AdminContainer>
+      </div>
     );
   };
 }

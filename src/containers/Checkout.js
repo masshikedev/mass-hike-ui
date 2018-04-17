@@ -54,7 +54,6 @@ class Checkout extends LoadableComponent {
 
   stripeCreateToken = callback =>
     this.props.stripe.createToken().then(({ token }) => {
-      console.log('Received Stripe token:', token);
       callback(token);
     });
 

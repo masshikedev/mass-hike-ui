@@ -34,3 +34,14 @@ export const post = (endpoint, body) => {
 export const postFile = (endpoint, body) => {
   return basePost(endpoint, body, {});
 };
+
+export const put = (endpoint, body) => {
+  return fetch(`${BASE_URL}${endpoint}`, {
+    body,
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem('mh-login-token'),
+    },
+  }).then(formatResponse);
+};

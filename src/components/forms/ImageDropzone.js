@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import { uploadImage } from '../api/imageUploads';
-import { P } from '../style';
+import { uploadImage } from '../../api/imageUploads';
+import { P } from '../../style';
 
 const dropzoneStyle = {
   width: 400,
