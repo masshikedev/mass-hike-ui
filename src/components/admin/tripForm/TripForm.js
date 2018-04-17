@@ -156,18 +156,18 @@ class TripForm extends Component {
           {this.fieldFor('name', 'Name', messages)}
           {this.fieldFor('location', 'Location', messages)}
         </TripFormSection>
-        <TripFormSection>
+        <TripFormSection id="time">
           <H3>Date & Time</H3>
           <TripTimeSelector
             onChange={time => this.setState({ time })}
             errors={this.timeErrors(messages)}
           />
         </TripFormSection>
-        <TripFormSection>
+        <TripFormSection id="capacity">
           <H3>Capacity</H3>
           {this.fieldFor('capacity', 'Capacity', messages)}
         </TripFormSection>
-        <TripFormSection>
+        <TripFormSection id="pricing">
           <H3>Base Pricing</H3>
           <PricingForm
             pricing={pricing}
@@ -175,7 +175,7 @@ class TripForm extends Component {
             onChange={this.onChangePricing}
           />
         </TripFormSection>
-        <TripFormSection>
+        <TripFormSection id="promo-codes">
           <H3>Promo Codes</H3>
           <PromoCodeGrid
             codes={promoCodes}
@@ -184,7 +184,7 @@ class TripForm extends Component {
           />
           <PricingForm promo onAddPromoCode={this.onAddPromoCode} />
         </TripFormSection>
-        <TripFormSection>
+        <TripFormSection id="stats">
           <H3>Difficulty and Statistics</H3>
           {this.fieldFor('difficulty', 'Difficulty', messages)}
           <GridParent>
@@ -201,7 +201,7 @@ class TripForm extends Component {
             </Column>
           </GridParent>
         </TripFormSection>
-        <TripFormSection>
+        <TripFormSection id="content">
           <H3>Content</H3>
           {this.fieldFor('title', 'Title', messages, 'detail')}
           {this.fieldFor('body', 'Body', messages, 'detail', true)}
@@ -216,7 +216,7 @@ class TripForm extends Component {
           {uploadInProgress && <P>Loading...</P>}
           {imageUrl && <PreviewImage src={imageUrl} />}
         </TripFormSection>
-        <TripFormSection>
+        <TripFormSection id="pickup-radius">
           <H3>Pickup Radius</H3>
           <ZipcodeList
             zipcodes={pickupZipcodes}
@@ -228,13 +228,15 @@ class TripForm extends Component {
             error={messages.pickupZipcodes}
           />
         </TripFormSection>
-        <TripFormSection>
+        <TripFormSection id="cash-locations">
           <H3>Cash Locations</H3>
           <CashLocationList
             locations={cashLocations}
             onDelete={this.onDeleteCashLocation}
             showDelete
           />
+        </TripFormSection>
+        <TripFormSection id="availability">
           <H3>Availability</H3>
           <AvailabilityForm
             editable

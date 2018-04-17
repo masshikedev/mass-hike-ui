@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { HashLink as Link } from 'react-router-hash-link';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
 import PromoCodeGrid from '../tripForm/PromoCodeGrid';
 import ZipcodeList from '../tripForm/ZipcodeList';
 import CashLocationList from '../tripForm/CashLocationList';
@@ -17,6 +21,7 @@ import {
   Td,
   MediaQueries,
   Img,
+  Button,
 } from '../../../style';
 
 const TripDetailSection = styled.div`
@@ -34,6 +39,11 @@ const ContentColumn = styled.div`
   grid-column: span 8;
 `;
 
+const linkStyle = {
+  fontSize: 16,
+  marginLeft: 20,
+};
+
 const SECTION = 1;
 
 class TripDetailList extends Component {
@@ -42,12 +52,24 @@ class TripDetailList extends Component {
     setCurrentSection(SECTION);
   }
 
+  editLinkFor = sectionId => {
+    const tripId = this.props.trip.tripId;
+    return (
+      <Link to={`/admin/trips/${tripId}/edit#${sectionId}`} style={linkStyle}>
+        Edit
+      </Link>
+    );
+  };
+
   render() {
     const { trip } = this.props;
     return (
       <div>
         <TripDetailSection>
-          <H3>Date and Time</H3>
+          <H3>
+            Date and Time
+            {this.editLinkFor('time')}
+          </H3>
           <Table fixed>
             <thead>
               <Tr>
@@ -85,12 +107,18 @@ class TripDetailList extends Component {
           </Table>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>Capcity</H3>
+          <H3>
+            Capacity
+            {this.editLinkFor('capacity')}
+          </H3>
           <Subheading>Total Capacity</Subheading>
           <P>{trip.capacity}</P>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>Pricing</H3>
+          <H3>
+            Base Pricing
+            {this.editLinkFor('pricing')}
+          </H3>
           <Table fixed>
             <thead>
               <Tr>
@@ -112,11 +140,17 @@ class TripDetailList extends Component {
           </Table>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>Promo Codes</H3>
+          <H3>
+            Promo Codes
+            {this.editLinkFor('promo-codes')}
+          </H3>
           <PromoCodeGrid codes={trip.promoCodes} fixed />
         </TripDetailSection>
         <TripDetailSection>
-          <H3>Difficulty and Statistics</H3>
+          <H3>
+            Difficulty and Statistics
+            {this.editLinkFor('stats')}
+          </H3>
           <Subheading>Difficulty</Subheading>
           <P>{trip.difficulty}</P>
           <Table fixed>
@@ -137,7 +171,10 @@ class TripDetailList extends Component {
           </Table>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>Content</H3>
+          <H3>
+            Content
+            {this.editLinkFor('content')}
+          </H3>
           <GridParent>
             <ContentColumn>
               <Subheading>Title</Subheading>
@@ -150,15 +187,24 @@ class TripDetailList extends Component {
           </GridParent>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>Pickup Radius</H3>
+          <H3>
+            Pickup Radius
+            {this.editLinkFor('pickup-radius')}
+          </H3>
           <ZipcodeList zipcodes={trip.pickupZipcodes} />
         </TripDetailSection>
         <TripDetailSection>
-          <H3>Cash Locations</H3>
+          <H3>
+            Cash Locations
+            {this.editLinkFor('cash-locations')}
+          </H3>
           <CashLocationList locations={trip.cashLocations} />
         </TripDetailSection>
         <TripDetailSection>
-          <H3>Availability</H3>
+          <H3>
+            Availability
+            {this.editLinkFor('availability')}
+          </H3>
           <AvailabilityForm availability={trip.cashAvailability} />
         </TripDetailSection>
       </div>
@@ -166,4 +212,13 @@ class TripDetailList extends Component {
   }
 }
 
-export default TripDetailList;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      toEdit: (tripId, sectionId) =>
+        push(`/admin/trips/${tripId}/edit#${sectionId}`),
+    },
+    dispatch
+  );
+
+export default connect(null, mapDispatchToProps)(TripDetailList);
