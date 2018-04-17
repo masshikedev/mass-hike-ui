@@ -6,16 +6,6 @@ import { setCheckoutState } from '../../actions/CheckoutActions';
 import SectionOrder from '../../data/CheckoutSectionOrder';
 import { Button } from '../../style';
 
-const SmallButton = Button.extend`
-  cursor: pointer;
-  font-size: 12px;
-  width: 40px;
-  height: 20px;
-  min-height: 20px;
-  margin-left: 15px;
-  padding: 0px;
-`;
-
 class EditButton extends Component {
   onClickMobile = e => {
     const { section, setCurrentSection, toMobileCheckout, tripId } = this.props;
@@ -36,7 +26,11 @@ class EditButton extends Component {
     if (!display) {
       return null;
     }
-    return <SmallButton onClick={onClick}>edit</SmallButton>;
+    return (
+      <Button small onClick={onClick}>
+        edit
+      </Button>
+    );
   }
 }
 

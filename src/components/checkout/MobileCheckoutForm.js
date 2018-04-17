@@ -91,12 +91,14 @@ class MobileCheckoutForm extends Component {
       toConfirmation,
     } = this.props;
     setCheckoutState(fields);
-    console.log(options);
     if (options.index === SectionOrder.length - 1) {
       toConfirmation(match.url);
     } else {
-      if (options.goBack) prevCheckoutSection();
-      else nextCheckoutSection();
+      if (options.goBack) {
+        prevCheckoutSection();
+      } else {
+        nextCheckoutSection();
+      }
     }
   };
 
