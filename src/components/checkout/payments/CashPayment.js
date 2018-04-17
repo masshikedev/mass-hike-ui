@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import { DAY_PICKER_DATE_CORRECTION } from '../../../constants';
+import { MONTH_DATE_YEAR, TIME } from '../../../utils/dateFormats';
 import Helmet from 'react-helmet';
 
 function Weekday({ weekday, className, localeUtils, locale }) {
@@ -100,7 +101,8 @@ class CashPayment extends BaseCheckoutSection {
   }
 
   renderCalendar() {
-    const { meetingDate, trip } = this.props;
+    const { trip } = this.props;
+    const { meetingDate } = this.state;
     console.log(this.availableDays());
     return (
       <div>
@@ -137,21 +139,31 @@ class CashPayment extends BaseCheckoutSection {
             margin: 1rem 0 0 0;
           }
           .DayPicker-Day {
-           box-sizing: border-box;
+            box-sizing: border-box;
             border: 2px solid ${constants.lightgreen};
             font-family: 'proxima-nova';
             font-size: 16px;
             padding: 15px 0px;
+          }
+          .DayPicker-Day--highlighted {
+            background-color: ${constants.verylightgreen};
+          }
+          .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+            background-color: ${constants.lightergreen};
+            border-radius: 0;
+          }
+          .DayPicker-Day--today {
+            color: 'inherit';
           }
           `}</style>
         </Helmet>
         <DayPicker
           onDayClick={(day, { selected }) =>
             this.setState({
-              selectedDay: selected ? undefined : day,
+              meetingDate: selected ? undefined : day,
             })
           }
-          selectedDays={[meetingDate]}
+          selectedDays={meetingDate}
           modifiers={{ highlighted: this.availableDays() }}
           disabledDays={d => this.isDisabledDate(d)}
           weekdayElement={<Weekday />}
