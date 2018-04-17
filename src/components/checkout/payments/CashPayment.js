@@ -227,6 +227,13 @@ class CashPayment extends BaseCheckoutSection {
     }
   }
 
+  availableDays() {
+    const { trip } = this.props;
+    return trip.cashAvailability.map(
+      dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
+    );
+  }
+
   renderCashLocations(maxLoc) {
     const { trip } = this.props;
     const cashLocations = trip.cashLocations;
@@ -260,8 +267,7 @@ class CashPayment extends BaseCheckoutSection {
   }
 
   renderCalendar() {
-    const { trip } = this.props;
-    const { meetingDate } = this.state;
+    const { meetingDate, trip } = this.props;
     return (
       <div>
         <Helmet>
