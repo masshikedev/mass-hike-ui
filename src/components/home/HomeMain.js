@@ -119,9 +119,10 @@ function HomeMain(props) {
       </Images>
       <Column>
         <Title>{RichText.asText(props.doc.data.top_title)}</Title>
-        <Button primary>
-          <Link to="/trips">{RichText.asText(props.doc.data.main_cta)}</Link>
-        </Button>
+
+        <Link to="/trips">
+          <Button primary>{RichText.asText(props.doc.data.main_cta)}</Button>
+        </Link>
       </Column>
     </HomeSection>
   );

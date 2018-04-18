@@ -7,7 +7,7 @@ const Input = styled.input`
   text-transform: uppercase;
   font-weight: 600;
   line-height: 2;
-  color: #a3a3a3;
+  color: ${constants.darkgray};
   padding: 5px 10px;
   &[type='text'] {
     width: 100%;
