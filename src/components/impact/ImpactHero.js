@@ -64,6 +64,10 @@ const QuoteContent = P.extend`
   z-index: 1;
   position: relative;
   font-size: 36px;
+
+  ${MediaQueries.small} {
+    font-size: 28px;
+  }
 `;
 
 const QuoteAuthor = QuoteContent.extend`

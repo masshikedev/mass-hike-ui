@@ -23,13 +23,13 @@ const StatItem = styled.div`
 `;
 
 const StatLeft = StatItem.extend`
-  grid-column-start: 2;
+  grid-column-start: 3;
   grid-column-end: 7;
 `;
 
 const StatRight = StatItem.extend`
   grid-column-start: 7;
-  grid-column-end: 12;
+  grid-column-end: 11;
 `;
 
 const StatNum = H1.extend`
