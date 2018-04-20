@@ -18,6 +18,10 @@ injectGlobal`
     padding: 0;
   }
 
+  a:visited {
+    color:inherit;
+  }
+
   ul {
     list-style-image: url(${tree});
     list-style-position: inside;
