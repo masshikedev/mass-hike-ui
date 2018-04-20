@@ -12,6 +12,7 @@ export default {
   navHeight: '75px',
   footerMinHeight: '150px;',
   boxshadow: '0 2px 25px 0 rgba(51, 51, 51, 0.28)',
+
   offwhiteBg:
     'repeating-linear-gradient(135deg, #E8E9D9, #E8E9D9 10px, #DDE1CB 2px, #DDE1CB 12px)',
   yellowBg:
