@@ -18,7 +18,7 @@ const P = styled.p`
 
   font-weight: ${({ medium, bold, extrabold }) =>
     medium ? '500' : bold ? '700' : extrabold ? '800' : '400'};
-  margin-bottom: 10px;
+  margin-bottom: ${({ nobottom }) => (nobottom ? '' : '10px')};
   margin-left: ${({ leftmargin }) => (leftmargin ? '15px' : '')};
   line-height: 1.44;
   color: ${({ color }) =>
