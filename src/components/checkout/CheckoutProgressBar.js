@@ -73,33 +73,35 @@ class CheckoutProgressBar extends Component {
 
     const links = [];
     let key = 0;
-    for (let i in sectionOrder) {
+    return sectionOrder.map((section, i) => {
       const isCurrentSection = currentSection == i;
       const isAvailable = highestCompletedSection >= i;
-      const section = sectionOrder[i];
-      links.push(
-        <ProgressBarImgWrap
-          onClick={() => {
-            if (isAvailable)
-              setCurrentSection(`/trips/${tripId}/checkout/${section.path}`);
-          }}
-          key={key}
-          clickable={isAvailable}
-        >
-          <SectionImage
-            src={require(`../../images/${section.img}`)}
-            grayscale={!isAvailable}
-            big={isCurrentSection}
-          />
-        </ProgressBarImgWrap>
+      return (
+        <React.Fragment>
+          <ProgressBarImgWrap
+            onClick={() => {
+              if (isAvailable)
+                setCurrentSection(`/trips/${tripId}/checkout/${section.path}`);
+            }}
+            key={key++}
+            clickable={isAvailable}
+          >
+            <SectionImage
+              src={`/images/${section.img}`}
+              grayscale={!isAvailable}
+              big={isCurrentSection}
+            />
+          </ProgressBarImgWrap>
+
+          {i != sectionOrder.length - 1 && (
+            <React.Fragment>
+              <Dot key={key++} />
+              <Dot key={key++} />
+            </React.Fragment>
+          )}
+        </React.Fragment>
       );
-      key++;
-      if (i != sectionOrder.length - 1) {
-        links.push.apply(links, [<Dot key={key} />, <Dot key={key + 1} />]);
-        key += 2;
-      }
-    }
-    return links;
+    });
   }
   renderProgressBarSections() {
     const {
@@ -111,36 +113,34 @@ class CheckoutProgressBar extends Component {
     } = this.props;
     const sections = [];
     let key = 0;
-    for (let i in sectionOrder) {
+    return sectionOrder.map((section, i) => {
       const isAvailable = highestCompletedSection >= i;
       const isCurrentSection = currentSection == i;
-      const section = sectionOrder[i];
-      sections.push(
-        <ProgressBarTitle
-          key={key}
-          clickable={isAvailable}
-          onClick={() => {
-            if (isAvailable)
-              setCurrentSection(`/trips/${tripId}/checkout/${section.path}`);
-          }}
-        >
-          {!isCurrentSection && (
-            <P proxima size="small">
-              {section.name}
-            </P>
+      return (
+        <React.Fragment>
+          <ProgressBarTitle
+            key={key++}
+            clickable={isAvailable}
+            onClick={() => {
+              if (isAvailable)
+                setCurrentSection(`/trips/${tripId}/checkout/${section.path}`);
+            }}
+          >
+            {!isCurrentSection && (
+              <P proxima size="small">
+                {section.name}
+              </P>
+            )}
+          </ProgressBarTitle>
+          {i != sectionOrder.length - 1 && (
+            <React.Fragment>
+              <Space key={key++} />
+              <Space key={key++} />
+            </React.Fragment>
           )}
-        </ProgressBarTitle>
+        </React.Fragment>
       );
-      key++;
-      if (i != sectionOrder.length - 1) {
-        sections.push.apply(sections, [
-          <Space key={key} />,
-          <Space key={key + 1} />,
-        ]);
-        key += 2;
-      }
-    }
-    return sections;
+    });
   }
 
   render() {
