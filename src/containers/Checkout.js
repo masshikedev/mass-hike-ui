@@ -24,6 +24,10 @@ const FormWrapper = styled.div`
   }
 `;
 
+const ModifiedGridParent = GridParent.extend`
+  height: ${window.innerHeight - 75}px;
+`;
+
 class Checkout extends LoadableComponent {
   componentWillMount() {
     const { getTripById } = this.props;
@@ -110,7 +114,7 @@ class Checkout extends LoadableComponent {
     const showCardPayment = currentSection == 3 && paymentType === 'card';
     return (
       <div>
-        <GridParent>
+        <ModifiedGridParent>
           <FormWrapper>
             <CheckoutProgressBar sectionOrder={SectionOrder} />
             <form>
@@ -131,7 +135,7 @@ class Checkout extends LoadableComponent {
             </form>
           </FormWrapper>
           {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
-        </GridParent>
+        </ModifiedGridParent>
       </div>
     );
   };
