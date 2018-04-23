@@ -6,7 +6,7 @@ class LoadableComponent extends Component {
   renderLoading = () => {
     return (
       <Container>
-        <H3>Loading...</H3>
+        <H3 />
       </Container>
     );
   };

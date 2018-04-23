@@ -15,23 +15,20 @@ import {
 } from '../../style';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../../utils/dateFormats';
+import { RichText } from 'prismic-reactjs';
 
 const Preview = GridParent.extend`
-  grid-column: span 4;
+  grid-template-columns: repeat(24, 1fr);
   grid-gap: 0;
-
-  ${MediaQueries.small} {
-    grid-column: span 12;
-  }
 `;
 
 const Column = styled.div`
-  padding: 20px;
-  grid-column: span 12;
+  padding: 60px;
+  grid-column: span 10;
   background: ${constants.offwhiteBg};
 
   ${MediaQueries.small} {
-    grid-column: span 12;
+    grid-column: span 24;
   }
 `;
 
@@ -39,37 +36,42 @@ const ImgFH = Img.extend`
   max-height: 300px;
 `;
 
-const Title = P.extend`
-  min-height: 80px;
-
-  ${MediaQueries.medium} {
-    font-size: 16px;
-    min-height: 60px;
-  }
-`;
+const Title = P.extend``;
 
 const Image = Column.extend`
   background-image: url(${props => props.bg});
+  grid-column: span 13;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 300px;
-  border-bottom: solid ${constants.green} 20px;
+  min-height: 300px;
 `;
 
-class BlogPreview extends Component {
+const LeftBorder = styled.div`
+  grid-column: span 1;
+  min-height: 20px;
+  background: ${constants.orangeBg};
+
+  ${MediaQueries.small} {
+    grid-column: span 24;
+  }
+`;
+
+class BlogPreviewLarge extends Component {
   render() {
     return (
       <Preview>
+        <LeftBorder />
         <Image bg={this.props.image} />
         <Column>
-          <Title color="green" size="large" proxima bold>
+          <Title color="green" size="xlarge" proxima extrabold>
             {this.props.title}
           </Title>
-          <P proxima bold size="medium">
+          <P proxima bold size="large">
             {moment.utc(this.props.date).format(MONTH_DATE_YEAR)}
           </P>
-          <Button onClick={() => this.props.toFull(this.props.uid)}>
+          <P proxima>{RichText.asText(this.props.preview)}</P>
+          <Button primary onClick={() => this.props.toFull(this.props.uid)}>
             Read More
           </Button>
         </Column>
@@ -96,4 +98,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(null, mapDispatchToProps)(BlogPreview);
+export default connect(null, mapDispatchToProps)(BlogPreviewLarge);

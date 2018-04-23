@@ -4,6 +4,7 @@ import MediaQueries from './MediaQueries';
 const H2 = styled.h2`
   font-size: 40px;
   font-weight: bold;
+  color: inherit;
   margin-bottom: 15px;
 
   ${MediaQueries.small} {

@@ -81,7 +81,7 @@ class HomeNext extends Component {
   }
 
   renderLoading() {
-    return <H3>Loading...</H3>;
+    return <H3 />;
   }
 
   renderError() {

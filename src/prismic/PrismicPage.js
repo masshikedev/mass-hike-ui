@@ -41,7 +41,7 @@ export default Wrapped =>
       this.state.err ? (
         <NotFound />
       ) : (
-        <h3>Loading...</h3>
+        <h3 />
       );
     }
   };
