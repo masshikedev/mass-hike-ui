@@ -26,7 +26,7 @@ const Input = styled.input`
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 600;
-    line-height: 2;
+    padding: 8px 10px;
     color: ${constants.darkgray};
   }
   &[type='checkbox'] {
