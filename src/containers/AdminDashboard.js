@@ -4,19 +4,27 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import AdminPage from '../components/admin/AdminPage';
 import TripGrid from '../components/admin/TripGrid';
+import MemberGrid from '../components/admin/members/MemberGrid';
 import LoadableComponent from '../components/LoadableComponent';
-import { adminGetTripList } from '../actions/TripListActions';
+import { adminGetAllTrips } from '../actions/TripListActions';
+import { adminGetAllMembers } from '../actions/MemberActions';
 import { H2, AdminContainer, Button } from '../style';
 import { RequestStatus } from '../constants';
+import combineStatus from '../utils/combineStatus';
 
 const CreateButton = Button.extend`
   margin-bottom: 50px;
 `;
 
+const MemberLinkButton = Button.extend`
+  margin-right: 30px;
+`;
+
 class AdminDashboard extends LoadableComponent {
   componentWillMount() {
-    const { adminGetTripList } = this.props;
-    adminGetTripList();
+    const { adminGetAllTrips, adminGetAllMembers } = this.props;
+    adminGetAllTrips();
+    adminGetAllMembers();
   }
 
   onClickCreate = e => {
@@ -26,10 +34,11 @@ class AdminDashboard extends LoadableComponent {
   };
 
   renderSuccess = () => {
-    const { upcomingTrips, pastTrips, status } = this.props;
+    const { upcomingTrips, pastTrips, members, status } = this.props;
     if (status !== RequestStatus.SUCCESS) {
       return null;
     }
+    console.log(members);
     return (
       <AdminContainer>
         <H2>Upcoming Trips</H2>
@@ -37,6 +46,10 @@ class AdminDashboard extends LoadableComponent {
         <CreateButton onClick={this.onClickCreate}>Create New</CreateButton>
         <H2>Past Trips</H2>
         <TripGrid trips={pastTrips} showTickets={false} />
+        <H2>Recent Signups</H2>
+        <MemberGrid members={members} />
+        <MemberLinkButton>All Members</MemberLinkButton>
+        <MemberLinkButton>New Member</MemberLinkButton>
       </AdminContainer>
     );
   };
@@ -49,14 +62,21 @@ const mapStateToProps = state => ({
   pastTrips: state.tripList.adminTrips.filter(
     trip => trip.time.hikeStart < Date.now()
   ),
-  status: state.tripList.adminStatus,
+  members: state.members.members,
+  status: combineStatus(
+    state.tripList.adminStatus,
+    state.members.membersStatus
+  ),
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      adminGetTripList,
+      adminGetAllTrips,
+      adminGetAllMembers,
       toCreateTrip: () => push('/admin/trips/new'),
+      toMemberList: () => push('/admin/members'),
+      toMemberForm: () => push('/admin/members/new'),
     },
     dispatch
   );

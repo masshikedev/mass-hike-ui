@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table, Th, Tr, Td } from '../../style';
-import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../../utils/dateFormats';
 
@@ -13,7 +12,7 @@ class TripGrid extends Component {
         <Td>{trip.name}</Td>
         <Td>{moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}</Td>
         <Td>{showTickets && trip.capacity - trip.ticketsSold}</Td>
-        <Td>
+        <Td alignRight>
           <Link to={`/admin/trips/${trip.tripId}/ticketing`}>details</Link>
         </Td>
       </Tr>

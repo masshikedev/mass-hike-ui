@@ -16,6 +16,8 @@ import OrderConfirmation from './OrderConfirmation';
 import AdminDashboard from './AdminDashboard';
 import AdminTripDetail from './AdminTripDetail';
 import NewTrip from './NewTrip';
+import MemberList from './MemberList';
+import MemberDetail from './MemberDetail';
 import PrismicRoute from '../prismic/PrismicRoute';
 
 const Routes = props => (
@@ -93,6 +95,8 @@ const Routes = props => (
     <Route exact path="/admin" component={AdminDashboard} />
     <Route exact path="/admin/trips/new" component={NewTrip} />
     <Route path="/admin/trips/:tripId" component={AdminTripDetail} />
+    <Route exact path="/admin/members" component={MemberList} />
+    <Route exact path="/admin/members/:id" component={MemberDetail} />
     <Route component={NotFound} />
   </Switch>
 );

@@ -20,13 +20,13 @@ class PickupMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pickupCoordinates: [],
+      markerData: {},
       activeMarker: null,
     };
   }
 
   componentWillMount() {
-    this.setCordinates();
+    this.setAllMarkerData();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,28 +42,31 @@ class PickupMap extends Component {
     return order.phone;
   }
 
-  setCoordinatePair = (results, status) => {
+  setMarker = (results, status, order) => {
     const { google, orders } = this.props;
-    const { pickupCoordinates } = this.state;
+    const { markerData } = this.state;
     if (status === google.maps.GeocoderStatus.OK) {
-      pickupCoordinates.push({
-        lat: results[0].geometry.location.lat(),
-        lng: results[0].geometry.location.lng(),
+      this.setState({
+        markerData: {
+          ...markerData,
+          [order._id]: {
+            coordinates: {
+              lat: results[0].geometry.location.lat(),
+              lng: results[0].geometry.location.lng(),
+            },
+            order,
+          },
+        },
       });
-    }
-    if (pickupCoordinates.length === orders.length) {
-      this.setState({ pickupCoordinates });
     }
   };
 
-  setCordinates() {
+  setAllMarkerData() {
     const { google, orders } = this.props;
-    const { pickupCoordinates } = this.state;
     const geocoder = new google.maps.Geocoder();
     orders.forEach(order => {
-      geocoder.geocode(
-        { address: order.pickupLocation },
-        this.setCoordinatePair
+      geocoder.geocode({ address: order.pickupLocation }, (results, status) =>
+        this.setMarker(results, status, order)
       );
     });
   }
@@ -73,13 +76,17 @@ class PickupMap extends Component {
   };
 
   renderMarkers() {
-    const { pickupCoordinates } = this.state;
-    const { orders } = this.props;
-    return pickupCoordinates.map((coordinates, i) => {
-      const { activeMarker } = this.state;
-      const order = orders[i];
-      return [
-        <InfoWindow position={coordinates} visible={activeMarker === i}>
+    const { markerData, activeMarker } = this.state;
+    const markers = [];
+    for (let orderId in markerData) {
+      const currentMarkerData = markerData[orderId];
+      const { order, coordinates } = currentMarkerData;
+      markers.push([
+        <InfoWindow
+          position={coordinates}
+          visible={activeMarker === orderId}
+          onClose={() => this.setState({ activeMarker: null })}
+        >
           <div>
             <H6>{order.name}</H6>
             <P>{order.pickupLocation}</P>
@@ -87,12 +94,13 @@ class PickupMap extends Component {
           </div>
         </InfoWindow>,
         <Marker
-          key={i}
+          key={orderId}
           position={coordinates}
-          onClick={() => this.onClickMarker(i)}
+          onClick={() => this.onClickMarker(orderId)}
         />,
-      ];
-    });
+      ]);
+    }
+    return markers;
   }
 
   render() {
