@@ -37,7 +37,7 @@ const Button = styled.button`
   font-family: 'proxima-nova';
   font-size: ${({ primary, small }) =>
     primary ? '21px' : small ? '12px' : '18px'};
-  font-weight: normal;
+  font-weight: 500;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
