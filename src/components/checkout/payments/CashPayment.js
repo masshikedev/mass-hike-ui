@@ -5,6 +5,17 @@ import BaseCheckoutSection from '../BaseCheckoutSection';
 import { setCurrentSection } from '../../../actions/CheckoutActions';
 import { P, H2, H6, Button } from '../../../style';
 import { NextButton, BackButton, ButtonSpacer } from '../../forms';
+import styled from 'styled-components';
+
+const LocationLabel = styled.label`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const LocationDetails = styled.div`
+  margin-left: 10px;
+`;
 
 class CashPayment extends BaseCheckoutSection {
   constructor(props) {
@@ -36,23 +47,26 @@ class CashPayment extends BaseCheckoutSection {
     for (let i = 0; i < maxLoc && i < cashLocations.length; i++) {
       let loc = cashLocations[i];
       locList.push(
-        <label htmlFor={loc.name} key={i}>
+        <LocationLabel htmlFor={loc.name} key={i}>
           <input
             type="radio"
             id={loc.name}
             checked={this.state.selectedLocationIndex === i}
             onChange={e => this.setState({ selectedLocationIndex: i })}
           />
-          {'  '}
-          {loc.name}
-          <P small>
-            {loc.address}
-            {' - '}
-            <a href={loc.link} target="_blank">
-              Get Directions
-            </a>
-          </P>
-        </label>
+          <LocationDetails>
+            <P size="medium" bold proxima nobottom>
+              {loc.name}
+            </P>
+            <P size="medium" proxima>
+              {loc.address}
+              {' - '}
+              <a href={loc.link} target="_blank">
+                Get Directions
+              </a>
+            </P>
+          </LocationDetails>
+        </LocationLabel>
       );
     }
     return locList;
@@ -77,8 +91,8 @@ class CashPayment extends BaseCheckoutSection {
             showMoreLocations ? cashLocations.length : 3
           )}
         </fieldset>
-        <Button small color="blue" onClick={e => this.handleToggle(e)}>
-          {showMoreLocations ? 'See Less' : 'See More'}
+        <Button color="blue" onClick={e => this.handleToggle(e)}>
+          {showMoreLocations ? 'See less' : 'See more'}
         </Button>
 
         {selectedLocationIndex >= 0 && (
