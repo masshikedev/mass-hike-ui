@@ -16,10 +16,6 @@ import {
   ButtonSpacer,
 } from '../forms';
 
-const Caption = P.extend`
-  max-width: 500px;
-`;
-
 const CheckBoxWrapper = styled.div`
   display: flex;
   flex-direction: row;
