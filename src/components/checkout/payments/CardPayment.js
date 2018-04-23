@@ -52,17 +52,18 @@ class CardPayment extends BaseCheckoutSection {
     const style = {
       base: {
         color: 'black',
-        fontSize: '20px',
-        padding: '5px 10px',
-        width: '100%',
-        borderRadius: '4px',
-        backgroundColor: '#ffffff',
-        border: 'solid 2px black',
-        maxWidth: '250px',
+        fontSize: '16px',
+        fontWeight: '400',
         fontSmoothing: 'antialiased',
         '::placeholder': {
-          color: '#ccc',
+          padding: '12px 10px',
         },
+      },
+      empty: {
+        textTransform: 'uppercase',
+        fontSize: '16px',
+        fontWeight: '600',
+        color: `${constants.darkgray}`,
       },
       invalid: {
         color: `${constants.red}`,

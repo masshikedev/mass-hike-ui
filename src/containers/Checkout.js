@@ -129,7 +129,7 @@ class Checkout extends LoadableComponent {
               <CardPayment
                 index={3}
                 next={SectionOrder[4].path}
-                prev={SectionOrder[3].path}
+                prev={SectionOrder[2].path}
                 completeSection={this.completeSection}
                 show={showCardPayment}
               />
