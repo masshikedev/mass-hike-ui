@@ -23,10 +23,10 @@ class CheckoutSidebar extends Component {
     return (
       <Wrapper>
         <H2>Summary</H2>
-        <H4 color="white" size="small">
+        <P color="white" size="large" proxima extrabold spaced>
           Trip Details
-        </H4>
-        <P proxima color="white">
+        </P>
+        <P proxima medium color="white">
           {trip.name}
           <br />
           {moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}
