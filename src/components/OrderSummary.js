@@ -2,24 +2,27 @@ import React from 'react';
 import EditButton from './checkout/EditButton';
 import moment from 'moment';
 import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
-import { P, H2, H6, MediaQueries } from '../style';
+import { P, H2, H6, MediaQueries, constants } from '../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: grid;
+  grid-auto-flow: column;
   grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, auto);
   ${MediaQueries.small} {
     grid-template-columns: auto;
+    grid-template-rows: repeat(6, auto);
   }
   justify-content: stretch;
 `;
 
-const Column = styled.div`
-  grid-column: span 1;
-`;
-
 const HeadingContainer = styled.div`
   display: flex;
+`;
+
+const Section = styled.div`
+  grid-row: span 1;
 `;
 
 export default function OrderSummary(props) {
@@ -36,10 +39,10 @@ export default function OrderSummary(props) {
   const trip = order.trip;
   return (
     <div>
-      <H2>Trip Summary</H2>
       <Wrapper>
-        <Column>
-          <P large>
+        <Section>
+          <H6 color={constants.green}>Trip Summary</H6>
+          <P large proxima>
             {trip.name}
             <br />
             {moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}
@@ -49,66 +52,132 @@ export default function OrderSummary(props) {
             {moment(trip.time.hikeEnd).format(TIME)}
             <br />
           </P>
+        </Section>
+        <Section>
           <HeadingContainer>
-            <H6>Contact Info</H6>
+            <H6 color={constants.green}>Contact Info</H6>
             <EditButton display={showEditButtons} section={0} mobile={mobile} />
           </HeadingContainer>
-          <P large>{order.name} </P>
-          {errors && errors['name'] && <P error>{errors['name'][0]}</P>}
-          <P large>{order.email}</P>
-          {errors && errors['email'] && <P error>{errors['email'][0]}</P>}
-          <P large>{order.phone}</P>
-          {errors && errors['phone'] && <P error>{errors['phone'][0]}</P>}
+          <P large proxima>
+            {order.name}
+            <br />
+            {order.email}
+            <br />
+            {order.phone}
+          </P>
+          {errors &&
+            errors['name'] && (
+              <P color="error" proxima>
+                {errors['name'][0]}
+              </P>
+            )}
+          {errors &&
+            errors['email'] && (
+              <P color="error" proxima>
+                {errors['email'][0]}
+              </P>
+            )}
+          {errors &&
+            errors['phone'] && (
+              <P color="error" proxima>
+                {errors['phone'][0]}
+              </P>
+            )}
+        </Section>
+        <Section>
           <HeadingContainer>
-            <H6>Payment</H6>
+            <H6 color={constants.green}>Payment</H6>
             <EditButton display={showEditButtons} section={2} mobile={mobile} />
           </HeadingContainer>
-          <P>{order.paymentType}</P>
+          <P proxima>{order.paymentType}</P>
           {errors &&
-            errors['paymentType'] && <P error>{errors['paymentType'][0]}</P>}
+            errors['paymentType'] && (
+              <P color="error" proxima>
+                {errors['paymentType'][0]}
+              </P>
+            )}
           {order.paymentType === 'card' && (
             <div>
-              <H6>Credit Card</H6>
-              {cardNumberError && <P error>{cardNumberError.message}</P>}
-              {cardExpiryError && <P error>{cardExpiryError.message}</P>}
-              {cardCvcError && <P error>{cardCvcError.message}</P>}
-              {postalCodeError && <P error>{postalCodeError.message}</P>}
-              <P large capitalize>
+              <H6 color={constants.green}>Credit Card</H6>
+              {cardNumberError && (
+                <P color="error" proxima>
+                  {cardNumberError.message}
+                </P>
+              )}
+              {cardExpiryError && (
+                <P color="error" proxima>
+                  {cardExpiryError.message}
+                </P>
+              )}
+              {cardCvcError && (
+                <P color="error" proxima>
+                  {cardCvcError.message}
+                </P>
+              )}
+              {postalCodeError && (
+                <P color="error" proxima>
+                  {postalCodeError.message}
+                </P>
+              )}
+              <P large capitalize proxima>
                 {order.cardBrand}
               </P>
             </div>
           )}
           {order.paymentType === 'cash' && (
             <div>
-              <P large>{order.meetingDate}</P>
-              <P large>{order.meetingLocation.name}</P>
+              <P large proxima>
+                {order.meetingDate}
+              </P>
+              <P large proxima>
+                {order.meetingLocation.name}
+              </P>
             </div>
           )}
-        </Column>
-        <Column>
+        </Section>
+
+        <Section>
           <HeadingContainer>
-            <H6>Pickup</H6>
+            <H6 color={constants.green}>Pickup</H6>
             <EditButton display={showEditButtons} section={1} mobile={mobile} />
           </HeadingContainer>
-          <P large>{order.pickupLocation}</P>
+          <P large proxima>
+            {order.pickupLocation}
+          </P>
+        </Section>
+        <Section>
           <HeadingContainer>
-            <H6>Contact Method</H6>
+            <H6 color={constants.green}>Contact Method</H6>
             <EditButton display={showEditButtons} section={0} mobile={mobile} />
           </HeadingContainer>
-          <P large capitalize>
+          <P large capitalize proxima>
             {order.preferredContactMethods.join(', ')}
           </P>
           {errors &&
             errors['preferredContactMethods'] && (
-              <P error>{errors['preferredContactMethods'][0]}</P>
+              <P color="error" proxima>
+                {errors['preferredContactMethods'][0]}
+              </P>
             )}
-        </Column>
+        </Section>
       </Wrapper>
-      <P large>{`${order.tickets} Tickets x $${order.selectedPrice} each`}</P>
-      {errors && errors['tickets'] && <P error>{errors['tickets'][0]}</P>}
+      <P large proxima>
+        {`${order.tickets} Tickets x $${order.selectedPrice} each`}
+        <br />
+        {`Total: $${order.tickets * order.selectedPrice}`}
+      </P>
       {errors &&
-        errors['selectedPrice'] && <P error>{errors['selectedPrice'][0]}</P>}
-      <P large>{`Total: $${order.tickets * order.selectedPrice}`}</P>
+        errors['tickets'] && (
+          <P color="error" proxima>
+            {errors['tickets'][0]}
+          </P>
+        )}
+      {errors &&
+        errors['selectedPrice'] && (
+          <P color="error" proxima>
+            {errors['selectedPrice'][0]}
+          </P>
+        )}
     </div>
   );
 }
