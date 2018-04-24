@@ -76,8 +76,10 @@ class CheckoutConfirmation extends BaseCheckoutSection {
           postalCodeError={postalCodeError}
           showEditButtons
         />
-        {!this.cardDetailsValid() ? (
-          <P error>An error has occured. Please check your responses.</P>
+        {!this.cardDetailsValid() && errors !== 'valid' ? (
+          <P color="error" proxima>
+            An error has occured. Please check your responses.
+          </P>
         ) : (
           <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
         )}

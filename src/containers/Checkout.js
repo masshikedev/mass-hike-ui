@@ -10,7 +10,7 @@ import LoadableComponent from '../components/LoadableComponent';
 import { getTripById } from '../actions/CurrentTripActions';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import styled from 'styled-components';
-import { Container, GridParent, MediaQueries } from '../style';
+import { GridParent, MediaQueries } from '../style';
 import { injectStripe } from 'react-stripe-elements';
 import CardPayment from '../components/checkout/payments/CardPayment';
 
@@ -30,6 +30,11 @@ const ModifiedGridParent = GridParent.extend`
 `;
 
 class Checkout extends LoadableComponent {
+  constructor(props) {
+    super(props);
+    this.state = { initialized: false };
+  }
+
   componentWillMount() {
     const { getTripById } = this.props;
     getTripById(this.props.match.params.tripId);
@@ -107,12 +112,13 @@ class Checkout extends LoadableComponent {
   renderSuccess = () => {
     const {
       currentSection,
+      setCurrentSection,
       trip,
       match,
       checkoutInitialized,
       paymentType,
     } = this.props;
-    const showCardPayment = currentSection == 3 && paymentType === 'card';
+    const showCardPayment = currentSection === 3 && paymentType === 'card';
     return (
       <div>
         <ModifiedGridParent>
