@@ -77,7 +77,7 @@ class CheckoutProgressBar extends Component {
       const isCurrentSection = currentSection == i;
       const isAvailable = highestCompletedSection >= i;
       return (
-        <React.Fragment>
+        <React.Fragment key={key++}>
           <ProgressBarImgWrap
             onClick={() => {
               if (isAvailable)
@@ -117,7 +117,7 @@ class CheckoutProgressBar extends Component {
       const isAvailable = highestCompletedSection >= i;
       const isCurrentSection = currentSection == i;
       return (
-        <React.Fragment>
+        <React.Fragment key={key++}>
           <ProgressBarTitle
             key={key++}
             clickable={isAvailable}

@@ -149,6 +149,8 @@ const mapDispatchToProps = dispatch =>
     {
       setCurrentSection,
       setCheckoutState,
+      afterMount: () =>
+        setCheckoutState({ currentSection: 0, highestCompletedSection: 0 }),
     },
     dispatch
   );
