@@ -34,7 +34,14 @@ class AdminDashboard extends LoadableComponent {
   };
 
   renderSuccess = () => {
-    const { upcomingTrips, pastTrips, members, status } = this.props;
+    const {
+      upcomingTrips,
+      pastTrips,
+      members,
+      status,
+      toMemberList,
+      toMemberForm,
+    } = this.props;
     if (status !== RequestStatus.SUCCESS) {
       return null;
     }
@@ -48,7 +55,7 @@ class AdminDashboard extends LoadableComponent {
         <TripGrid trips={pastTrips} showTickets={false} />
         <H2>Recent Signups</H2>
         <MemberGrid members={members} />
-        <MemberLinkButton>All Members</MemberLinkButton>
+        <MemberLinkButton onClick={toMemberList}>All Members</MemberLinkButton>
         <MemberLinkButton>New Member</MemberLinkButton>
       </AdminContainer>
     );

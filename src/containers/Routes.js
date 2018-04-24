@@ -97,6 +97,7 @@ const Routes = props => (
     <Route path="/admin/trips/:tripId" component={AdminTripDetail} />
     <Route exact path="/admin/members" component={MemberList} />
     <Route exact path="/admin/members/:id" component={MemberDetail} />
+    <Route exact path="/admin/members/new" component={MemberDetail} />
     <Route component={NotFound} />
   </Switch>
 );

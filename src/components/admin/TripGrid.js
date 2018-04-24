@@ -9,12 +9,11 @@ class TripGrid extends Component {
     const { showTickets } = this.props;
     return (
       <Tr key={trip.tripId}>
-        <Td>{trip.name}</Td>
+        <Td>
+          <Link to={`/admin/trips/${trip.tripId}/ticketing`}>{trip.name}</Link>
+        </Td>
         <Td>{moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}</Td>
         <Td>{showTickets && trip.capacity - trip.ticketsSold}</Td>
-        <Td alignRight>
-          <Link to={`/admin/trips/${trip.tripId}/ticketing`}>details</Link>
-        </Td>
       </Tr>
     );
   }
@@ -28,7 +27,6 @@ class TripGrid extends Component {
             <Th>Name</Th>
             <Th>Date</Th>
             <Th>{showTickets && 'Remaining Tickets'}</Th>
-            <Th />
           </Tr>
         </thead>
         <tbody>{trips.map(trip => this.renderTrip(trip))}</tbody>
