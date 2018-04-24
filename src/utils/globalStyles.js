@@ -32,6 +32,28 @@ injectGlobal`
   	line-height: 2;
   }
 
+  h2 {
+    font-family: 'proxima-nova';
+    font-weight: bold;
+    padding-top: 20px;
+    color: ${constants.green};
+
+  }
+
+  h3 {
+    font-family: 'proxima-nova';
+    font-size: 14px;
+  }
+
+  p {
+    font-family: 'proxima-nova';
+    font-size: 16px;
+  }
+  
+  img {
+    width: 100%;
+  }
+
   .DayPicker-Day--highlighted {
     background-color: #eeeeee;
   }

@@ -3,34 +3,77 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { H2, H4, P, Button, MediaQueries, Img, GridParent } from '../../style';
+import {
+  H2,
+  H4,
+  P,
+  Button,
+  MediaQueries,
+  Img,
+  GridParent,
+  constants,
+} from '../../style';
+import moment from 'moment';
+import { MONTH_DATE_YEAR } from '../../utils/dateFormats';
 
-const Column = styled.div`
-  grid-column: span 6;
+const Preview = GridParent.extend`
+  grid-column: span 4;
+  grid-gap: 0;
 
   ${MediaQueries.small} {
     grid-column: span 12;
   }
 `;
 
+const Column = styled.div`
+  padding: 20px;
+  grid-column: span 12;
+  background: ${constants.offwhiteBg};
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
+`;
+
+const ImgFH = Img.extend`
+  max-height: 300px;
+`;
+
+const Title = P.extend`
+  min-height: 80px;
+
+  ${MediaQueries.medium} {
+    font-size: 16px;
+    min-height: 60px;
+  }
+`;
+
+const Image = Column.extend`
+  background-image: url(${props => props.bg});
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 300px;
+  border-bottom: solid ${constants.green} 20px;
+`;
+
 class BlogPreview extends Component {
   render() {
     return (
-      <GridParent>
+      <Preview>
+        <Image bg={this.props.image} />
         <Column>
-          <Img src={this.props.image} />
-        </Column>
-        <Column>
-          <H2>{this.props.title}</H2>
-          <H4>
-            {this.props.date} - by {this.props.author}
-          </H4>
-          <P>{trimPostContent(this.props.content)}...</P>
+          <Title color="green" size="large" proxima bold>
+            {this.props.title}
+          </Title>
+          <P proxima bold size="medium">
+            {moment.utc(this.props.date).format(MONTH_DATE_YEAR)}
+          </P>
           <Button onClick={() => this.props.toFull(this.props.uid)}>
             Read More
           </Button>
         </Column>
-      </GridParent>
+      </Preview>
     );
   }
 }

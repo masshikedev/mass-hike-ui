@@ -4,11 +4,7 @@ import { H3, Container } from '../style';
 
 class LoadableComponent extends Component {
   renderLoading = () => {
-    return (
-      <Container>
-        <H3>Loading...</H3>
-      </Container>
-    );
+    return null;
   };
 
   renderError = () => {
