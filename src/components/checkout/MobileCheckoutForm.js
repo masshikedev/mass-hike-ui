@@ -4,6 +4,7 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import {
   nextCheckoutSection,
+  prevCheckoutSection,
   setCheckoutState,
 } from '../../actions/CheckoutActions';
 import BaseSectionOrder from '../../data/CheckoutSectionOrder';
@@ -14,7 +15,12 @@ import { Container, GridParent } from '../../style';
 const SectionOrder = BaseSectionOrder.slice(0, 4);
 
 const Wrapper = styled.div`
+  position: absolute;
+  top: 76px;
   grid-column: span 12;
+  max-width: 800px;
+  margin: 5% 12%;
+  min-width: 200px;
 `;
 
 const BottomSpacer = styled.div`
@@ -22,7 +28,7 @@ const BottomSpacer = styled.div`
 `;
 
 const SectionWrapper = styled.div`
-  height: 75vh;
+  min-height: 75vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,6 +84,8 @@ class MobileCheckoutForm extends Component {
   completeSection = (fields, options) => {
     const {
       nextCheckoutSection,
+      prevCheckoutSection,
+      setCurrentSection,
       setCheckoutState,
       match,
       toConfirmation,
@@ -86,7 +94,11 @@ class MobileCheckoutForm extends Component {
     if (options.index === SectionOrder.length - 1) {
       toConfirmation(match.url);
     } else {
-      nextCheckoutSection();
+      if (options.goBack) {
+        prevCheckoutSection();
+      } else {
+        nextCheckoutSection();
+      }
     }
   };
 
@@ -97,12 +109,13 @@ class MobileCheckoutForm extends Component {
   scrollToCurrentSection() {
     const { currentSection } = this.props;
     const newSection = document.getElementById(`section ${currentSection}`);
-    if (newSection)
+    if (newSection) {
       newSection.scrollIntoView({
-        block: 'center',
+        block: 'start',
         inline: 'center',
         behavior: 'smooth',
       });
+    }
   }
 
   renderSections() {
@@ -153,6 +166,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       nextCheckoutSection,
+      prevCheckoutSection,
       setCheckoutState,
       setCurrentSection: section =>
         setCheckoutState({ currentSection: section }),

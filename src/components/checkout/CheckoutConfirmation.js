@@ -6,7 +6,7 @@ import { Button } from '../../style';
 import { setCurrentSection } from '../../actions/CheckoutActions';
 import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
-import { P, H3 } from '../../style';
+import { P, H2, H3 } from '../../style';
 import { RequestStatus } from '../../constants';
 import { validate } from 'validate.js';
 import { constraints } from '../../utils/validationConstraints';
@@ -65,6 +65,7 @@ class CheckoutConfirmation extends BaseCheckoutSection {
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
+        <H2>Order Summary</H2>
         <OrderSummary
           order={order}
           trip={trip}
@@ -76,8 +77,10 @@ class CheckoutConfirmation extends BaseCheckoutSection {
           postalCodeError={postalCodeError}
           showEditButtons
         />
-        {!this.cardDetailsValid() ? (
-          <P error>An error has occured. Please check your responses.</P>
+        {!this.cardDetailsValid() && errors !== 'valid' ? (
+          <P color="error" proxima>
+            An error has occured. Please check your responses.
+          </P>
         ) : (
           <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
         )}
@@ -96,6 +99,7 @@ const mapStateToProps = state => {
       preferredContactMethods: checkout.preferredContactMethods,
       paymentType: checkout.paymentType,
       tickets: +checkout.tickets,
+      kids: +checkout.kids,
       pickupLocation: checkout.pickupLocation,
       zipCode: checkout.zipCode,
       cardBrand: checkout.cardNumber.brand,
