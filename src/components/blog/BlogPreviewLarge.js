@@ -57,25 +57,46 @@ const LeftBorder = styled.div`
   }
 `;
 
+const Featured = styled.div`
+  position: relative;
+  height: 0;
+  background: #fff;
+  top: 20px;
+  left: 20px;
+`;
+
+const FeaturedText = P.extend`
+  background: #fff;
+  width: fit-content;
+  padding: 5px 10px;
+`;
+
 class BlogPreviewLarge extends Component {
   render() {
     return (
-      <Preview>
-        <LeftBorder />
-        <Image bg={this.props.image} />
-        <Column>
-          <Title color="green" size="xlarge" proxima extrabold>
-            {this.props.title}
-          </Title>
-          <P proxima bold size="large">
-            {moment.utc(this.props.date).format(MONTH_DATE_YEAR)}
-          </P>
-          <P proxima>{RichText.asText(this.props.preview)}</P>
-          <Button primary onClick={() => this.props.toFull(this.props.uid)}>
-            Read More
-          </Button>
-        </Column>
-      </Preview>
+      <div>
+        <Featured>
+          <FeaturedText proxima size="large" color="orange" bold uppercase>
+            Featured
+          </FeaturedText>
+        </Featured>
+        <Preview>
+          <LeftBorder />
+          <Image bg={this.props.image} />
+          <Column>
+            <Title color="green" size="xlarge" proxima extrabold>
+              {this.props.title}
+            </Title>
+            <P proxima bold size="large">
+              {moment.utc(this.props.date).format(MONTH_DATE_YEAR)}
+            </P>
+            <P proxima>{RichText.asText(this.props.preview)}</P>
+            <Button primary onClick={() => this.props.toFull(this.props.uid)}>
+              Read More
+            </Button>
+          </Column>
+        </Preview>
+      </div>
     );
   }
 }
