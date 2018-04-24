@@ -27,32 +27,6 @@ const CheckBoxWrapper = styled.div`
   }
 `;
 
-const CheckBoxWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 5px;
-  ${MediaQueries.small} {
-    ${'' /* flex-direction: column; */};
-  }
-`;
-
-const Caption = P.extend`
-  max-width: 500px;
-`;
-
-const CheckBoxWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 5px;
-  ${MediaQueries.small} {
-    flex-direction: column;
-  }
-`;
-
 const Caption = P.extend`
   max-width: 500px;
 `;
