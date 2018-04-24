@@ -175,6 +175,25 @@ class CashPayment extends BaseCheckoutSection {
     return true;
   }
 
+  getTimes() {
+    const { cashAvailability } = this.props.trip;
+    const { meetingDate } = this.state;
+    for (let { date, times } of cashAvailability) {
+      if (date === meetingDate) {
+        return times;
+      }
+    }
+  }
+
+  disabledHours() {
+    let hours = [...Array(24).keys()];
+    for (let { start, end } of this.getTimes()) {
+      return hours.map(hour => {
+        const startHour = new Date();
+      });
+    }
+  }
+
   renderCashLocations(maxLoc) {
     const { trip } = this.props;
     const cashLocations = trip.cashLocations;
