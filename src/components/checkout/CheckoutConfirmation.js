@@ -6,7 +6,7 @@ import { Button } from '../../style';
 import { setCurrentSection } from '../../actions/CheckoutActions';
 import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
-import { P, H3 } from '../../style';
+import { P, H2, H3 } from '../../style';
 import { RequestStatus } from '../../constants';
 import { validate } from 'validate.js';
 import { constraints } from '../../utils/validationConstraints';
@@ -65,6 +65,7 @@ class CheckoutConfirmation extends BaseCheckoutSection {
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
+        <H2>Order Summary</H2>
         <OrderSummary
           order={order}
           trip={trip}

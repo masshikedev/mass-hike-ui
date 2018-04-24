@@ -3,7 +3,7 @@ import { Button } from '../../style';
 import styled from 'styled-components';
 
 const Wrapper = Button.extend`
-  margin: 0px 15px;
+  margin: 0;
 `;
 
 const Arrow = styled.img`
