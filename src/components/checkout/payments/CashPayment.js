@@ -7,6 +7,8 @@ import { P, H2, H6, Button, constants } from '../../../style';
 import { NextButton, BackButton, ButtonSpacer } from '../../forms';
 import styled from 'styled-components';
 import DayPicker from 'react-day-picker';
+import TimePicker from 'rc-time-picker';
+import moment from 'moment';
 import 'react-day-picker/lib/style.css';
 import { TWELVE_HOUR_CORRECTION } from '../../../constants';
 import Helmet from 'react-helmet';
@@ -129,6 +131,25 @@ class CashPayment extends BaseCheckoutSection {
       if (d.getTime() === day.getTime()) return false;
     }
     return true;
+  }
+
+  getTimes() {
+    const { cashAvailability } = this.props.trip;
+    const { meetingDate } = this.state;
+    for (let { date, times } of cashAvailability) {
+      if (date === meetingDate) {
+        return times;
+      }
+    }
+  }
+
+  disabledHours() {
+    let hours = [...Array(24).keys()];
+    for (let { start, end } of this.getTimes()) {
+      return hours.map(hour => {
+        const startHour = new Date();
+      });
+    }
   }
 
   renderCashLocations(maxLoc) {
