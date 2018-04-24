@@ -28,6 +28,7 @@ const initialState = {
   // Pay cash
   selectedLocationIndex: -1,
   meetingDate: '',
+  meetTime: '',
 
   currentSection: 0,
   highestCompletedSection: 0,

@@ -5,6 +5,8 @@ import BaseCheckoutSection from '../BaseCheckoutSection';
 import { setCurrentSection } from '../../../actions/CheckoutActions';
 import { P, H3, Button, constants } from '../../../style';
 import DayPicker from 'react-day-picker';
+import TimePicker from 'rc-time-picker';
+import moment from 'moment';
 import 'react-day-picker/lib/style.css';
 import { DAY_PICKER_DATE_CORRECTION } from '../../../constants';
 import { MONTH_DATE_YEAR, TIME } from '../../../utils/dateFormats';
@@ -22,11 +24,12 @@ function Weekday({ weekday, className, localeUtils, locale }) {
 class CashPayment extends BaseCheckoutSection {
   constructor(props) {
     super(props);
-    const { selectedLocationIndex, meetingDate } = props;
+    const { selectedLocationIndex, meetingDate, meetTime } = props;
     this.state = {
       selectedLocationIndex,
       showMoreLocations: false,
       meetingDate,
+      meetTime,
     };
   }
 
@@ -37,9 +40,18 @@ class CashPayment extends BaseCheckoutSection {
     }));
   }
 
-  handleChooseDate(e, date) {
-    e.preventDefault();
-    this.setState(prevState => ({ meetingDate: date }));
+  handleChooseDate(date) {
+    if (!this.isDisabledDate(date)) {
+      this.setState(
+        {
+          meetingDate:
+            moment.unix(date - DAY_PICKER_DATE_CORRECTION).valueOf() / 1000,
+        },
+        () =>
+          this.getTimes() &&
+          this.setState({ meetTime: this.getTimes()[0].start })
+      );
+    }
   }
 
   availableDays() {
@@ -54,6 +66,25 @@ class CashPayment extends BaseCheckoutSection {
       if (d.getTime() === day.getTime()) return false;
     }
     return true;
+  }
+
+  getTimes() {
+    const { cashAvailability } = this.props.trip;
+    const { meetingDate } = this.state;
+    for (let { date, times } of cashAvailability) {
+      if (date === meetingDate) {
+        return times;
+      }
+    }
+  }
+
+  disabledHours() {
+    let hours = [...Array(24).keys()];
+    for (let { start, end } of this.getTimes()) {
+      return hours.map(hour => {
+        const startHour = new Date();
+      });
+    }
   }
 
   renderCashLocations(maxLoc) {
@@ -88,7 +119,6 @@ class CashPayment extends BaseCheckoutSection {
   renderCalendar() {
     const { trip } = this.props;
     const { meetingDate } = this.state;
-    console.log(this.availableDays());
     return (
       <div>
         <Helmet>
@@ -143,12 +173,8 @@ class CashPayment extends BaseCheckoutSection {
           `}</style>
         </Helmet>
         <DayPicker
-          onDayClick={(day, { selected }) =>
-            this.setState({
-              meetingDate: selected ? undefined : day,
-            })
-          }
-          selectedDays={meetingDate}
+          onDayClick={day => this.handleChooseDate(day)}
+          selectedDays={new Date(meetingDate + DAY_PICKER_DATE_CORRECTION)}
           modifiers={{ highlighted: this.availableDays() }}
           disabledDays={d => this.isDisabledDate(d)}
           weekdayElement={<Weekday />}
@@ -157,13 +183,29 @@ class CashPayment extends BaseCheckoutSection {
     );
   }
 
-  renderTime() {}
+  renderTime() {
+    const { meetTime } = this.state;
+    const { cashAvailability } = this.props.trip;
+    const defaultTime = cashAvailability[0].times[0].start;
+    return (
+      <TimePicker
+        value={moment.unix(meetTime)}
+        onChange={time => this.setState({ meetTime: time })}
+        // disabledHours={disabledHours}
+        // disabledMinutes={disabledMinutes}
+        showSecond={false}
+        use12Hours={true}
+        minuteStep={15}
+        hideDisabledOptions={true}
+      />
+    );
+  }
 
   render() {
     const { trip } = this.props;
     const { showMoreLocations, selectedLocationIndex } = this.state;
     const cashLocations = trip.cashLocations;
-
+    this.getTimes();
     return (
       <div>
         <H3>
@@ -181,6 +223,7 @@ class CashPayment extends BaseCheckoutSection {
           {showMoreLocations ? 'Show Less' : 'Show More'}
         </Button>
         {this.renderCalendar()}
+        {this.renderTime()}
         <br />
         {true && <Button onClick={this.onCompleteSection}>Next</Button>}
       </div>
@@ -191,6 +234,7 @@ class CashPayment extends BaseCheckoutSection {
 const mapStateToProps = state => ({
   selectedLocationIndex: state.checkout.selectedLocationIndex,
   meetingDate: state.checkout.meetingDate,
+  meetTime: state.checkout.meetTime,
   trip: state.currentTrip.trip,
 });
 
