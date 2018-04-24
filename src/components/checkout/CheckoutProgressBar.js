@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import { P, MediaQueries } from '../../style';
 
 const Wrapper = styled.div`
-  position: absolute;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  height: 50px;
-  bottom: 10px;
-  width: 80%;
+  grid-template-columns: repeat(4, 1fr minmax(15px, 5%) minmax(15px, 5%)) 1fr;
+  grid-template-rows: auto 1em;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
 
   ${MediaQueries.small} {
     display: none;
@@ -20,17 +20,45 @@ const Wrapper = styled.div`
   }
 `;
 
-const ProgressBarLink = styled.div`
+const ProgressBarImgWrap = styled.div`
+  width: 100%;
+  height: 100%;
   grid-column: span 1;
   grid-row: 1;
-  cursor: pointer;
+  cursor: ${({ clickable }) => (clickable ? 'pointer' : 'not-allowed')};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const ProgressBarSection = styled.div`
+const ProgressBarTitle = styled.div`
+  width: 100%;
   grid-column: span 1;
   grid-row: 2;
-  border: 3px solid white;
-  background-color: ${props => props.color};
+  text-align: center;
+  cursor: ${({ clickable }) => (clickable ? 'pointer' : 'not-allowed')};
+`;
+
+const SectionImage = styled.img`
+  width: ${({ big }) => (big ? '85px' : '50px')};
+  height: auto;
+  filter: ${({ grayscale }) => (grayscale ? 'grayscale(100%)' : 'none')};
+  margin: auto;
+`;
+
+const Dot = styled.span`
+  height: 7px;
+  width: 7px;
+  grid-column: span 1;
+  grid-row: 1;
+  background-color: darkgreen;
+  border-radius: 50%;
+  display: inline-block;
+`;
+
+const Space = styled.span`
+  grid-column: span 1;
+  grid-row: 2;
 `;
 
 class CheckoutProgressBar extends Component {
@@ -40,31 +68,79 @@ class CheckoutProgressBar extends Component {
       setCurrentSection,
       sectionOrder,
       tripId,
+      currentSection,
     } = this.props;
+
     const links = [];
-    for (let i = 0; i < highestCompletedSection + 1; i++) {
-      const nextSectionPath = sectionOrder[i].path;
-      links.push(
-        <ProgressBarLink
-          onClick={() =>
-            setCurrentSection(`/trips/${tripId}/checkout/${nextSectionPath}`)
-          }
-          key={i}
-        >
-          <P>{sectionOrder[i].name}</P>
-        </ProgressBarLink>
+    let key = 0;
+    return sectionOrder.map((section, i) => {
+      const isCurrentSection = currentSection == i;
+      const isAvailable = highestCompletedSection >= i;
+      return (
+        <React.Fragment key={key++}>
+          <ProgressBarImgWrap
+            onClick={() => {
+              if (isAvailable)
+                setCurrentSection(`/trips/${tripId}/checkout/${section.path}`);
+            }}
+            key={key++}
+            clickable={isAvailable}
+          >
+            <SectionImage
+              src={`/images/${section.img}`}
+              grayscale={!isAvailable}
+              big={isCurrentSection}
+            />
+          </ProgressBarImgWrap>
+
+          {i != sectionOrder.length - 1 && (
+            <React.Fragment>
+              <Dot key={key++} />
+              <Dot key={key++} />
+            </React.Fragment>
+          )}
+        </React.Fragment>
       );
-    }
-    return links;
+    });
   }
   renderProgressBarSections() {
-    const { currentSection, highestCompletedSection } = this.props;
+    const {
+      currentSection,
+      setCurrentSection,
+      highestCompletedSection,
+      sectionOrder,
+      tripId,
+    } = this.props;
     const sections = [];
-    for (let i = 0; i < highestCompletedSection + 1; i++) {
-      const color = i === currentSection ? '#000' : '#999';
-      sections.push(<ProgressBarSection color={color} key={i} />);
-    }
-    return sections;
+    let key = 0;
+    return sectionOrder.map((section, i) => {
+      const isAvailable = highestCompletedSection >= i;
+      const isCurrentSection = currentSection == i;
+      return (
+        <React.Fragment key={key++}>
+          <ProgressBarTitle
+            key={key++}
+            clickable={isAvailable}
+            onClick={() => {
+              if (isAvailable)
+                setCurrentSection(`/trips/${tripId}/checkout/${section.path}`);
+            }}
+          >
+            {!isCurrentSection && (
+              <P proxima size="small">
+                {section.name}
+              </P>
+            )}
+          </ProgressBarTitle>
+          {i != sectionOrder.length - 1 && (
+            <React.Fragment>
+              <Space key={key++} />
+              <Space key={key++} />
+            </React.Fragment>
+          )}
+        </React.Fragment>
+      );
+    });
   }
 
   render() {

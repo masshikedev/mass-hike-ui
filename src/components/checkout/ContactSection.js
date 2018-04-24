@@ -6,10 +6,11 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../actions/CheckoutActions';
-import { H2, H6, Input, Button } from '../../style';
+import { P, H1, H2, H6, Input, Button } from '../../style';
 import { validate } from 'validate.js';
 import { contactConstraints } from '../../utils/validationConstraints';
-import ValidatedTextInput from '../forms/ValidatedTextInput';
+import { ValidatedTextInput, NextButton, ButtonSpacer } from '../forms';
+import Checkbox from '../forms/Checkbox';
 import formatPhoneNumber from '../../utils/phoneFormatter';
 import styled from 'styled-components';
 import { MediaQueries } from '../../style';
@@ -40,7 +41,7 @@ class ContactSection extends BaseCheckoutSection {
     const messages = validate(this.state, contactConstraints()) || 'valid';
     return (
       <div>
-        <H2>Enter your contact information</H2>
+        <H2>Contact Information</H2>
 
         <ValidatedTextInput
           title="Name"
@@ -65,41 +66,36 @@ class ContactSection extends BaseCheckoutSection {
         />
         <H6>How should we contact you?</H6>
         <CheckBoxWrapper>
-          <label>
-            <Input
-              type="checkbox"
-              checked={preferredContactMethods.includes('email')}
-              onChange={e =>
-                this.setState({
-                  preferredContactMethods: e.target.checked
-                    ? preferredContactMethods.concat('email')
-                    : preferredContactMethods.filter(i => i !== 'email'),
-                })
-              }
-            />
-            Email
-          </label>
-          <label>
-            <Input
-              type="checkbox"
-              checked={preferredContactMethods.includes('phone')}
-              onChange={e =>
-                this.setState({
-                  preferredContactMethods: e.target.checked
-                    ? preferredContactMethods.concat('phone')
-                    : preferredContactMethods.filter(i => i !== 'phone'),
-                })
-              }
-            />
-            Text Message
-          </label>
+          <Checkbox
+            text="Email"
+            checked={preferredContactMethods.includes('email')}
+            onChange={e =>
+              this.setState({
+                preferredContactMethods: e.target.checked
+                  ? preferredContactMethods.concat('email')
+                  : preferredContactMethods.filter(i => i !== 'email'),
+              })
+            }
+          />
+          <Checkbox
+            text="Text Message"
+            checked={preferredContactMethods.includes('phone')}
+            onChange={e =>
+              this.setState({
+                preferredContactMethods: e.target.checked
+                  ? preferredContactMethods.concat('phone')
+                  : preferredContactMethods.filter(i => i !== 'phone'),
+              })
+            }
+          />
         </CheckBoxWrapper>
 
-        <br />
-
-        {messages === 'valid' && (
-          <Button onClick={this.onCompleteSection}>Next</Button>
-        )}
+        <ButtonSpacer>
+          <NextButton
+            onClick={this.onCompleteSection}
+            active={messages === 'valid'}
+          />
+        </ButtonSpacer>
       </div>
     );
   }

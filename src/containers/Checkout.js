@@ -10,29 +10,30 @@ import LoadableComponent from '../components/LoadableComponent';
 import { getTripById } from '../actions/CurrentTripActions';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import styled from 'styled-components';
-import { Container, GridParent, MediaQueries } from '../style';
+import { GridParent, MediaQueries } from '../style';
 import { injectStripe } from 'react-stripe-elements';
 import CardPayment from '../components/checkout/payments/CardPayment';
 
-const Divider = styled.div`
-  grid-column: span 1;
-  border-right: 3px solid #000;
-
-  ${MediaQueries.small} {
-    grid-column: 0;
-    display: none;
-  }
-`;
-
 const FormWrapper = styled.div`
   grid-column: span 8;
-
+  max-width: 800px;
+  margin: 5% 12%;
+  min-width: 200px;
   ${MediaQueries.small} {
     grid-column: span 12;
   }
 `;
 
+const ModifiedGridParent = GridParent.extend`
+  height: ${window.innerHeight - 75}px;
+`;
+
 class Checkout extends LoadableComponent {
+  constructor(props) {
+    super(props);
+    this.state = { initialized: false };
+  }
+
   componentWillMount() {
     const { getTripById } = this.props;
     getTripById(this.props.match.params.tripId);
@@ -48,7 +49,7 @@ class Checkout extends LoadableComponent {
   completeSection = (fields, options) => {
     const { nextCheckoutSection, setCheckoutState, match } = this.props;
     const { nextSectionPath } = options;
-    setCheckoutState(fields);
+    if (options.save !== false) setCheckoutState(fields);
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
 
@@ -87,6 +88,7 @@ class Checkout extends LoadableComponent {
       const Section = section.component;
       const next =
         i < SectionOrder.length - 1 ? SectionOrder[i + 1].path : null;
+      const prev = SectionOrder[i - 1].path;
       return (
         <Route
           exact
@@ -96,6 +98,7 @@ class Checkout extends LoadableComponent {
               completeSection={this.completeSection}
               index={i}
               next={next}
+              prev={prev}
               stripeCreateToken={this.stripeCreateToken}
             />
           )}
@@ -108,16 +111,18 @@ class Checkout extends LoadableComponent {
   renderSuccess = () => {
     const {
       currentSection,
+      setCurrentSection,
       trip,
       match,
       checkoutInitialized,
       paymentType,
     } = this.props;
-    const showCardPayment = currentSection == 3 && paymentType === 'card';
+    const showCardPayment = currentSection === 3 && paymentType === 'card';
     return (
       <div>
-        <GridParent>
+        <ModifiedGridParent>
           <FormWrapper>
+            <CheckoutProgressBar sectionOrder={SectionOrder} />
             <form>
               <Switch>
                 {this.renderDefaultSection()}
@@ -129,15 +134,14 @@ class Checkout extends LoadableComponent {
               <CardPayment
                 index={3}
                 next={SectionOrder[4].path}
+                prev={SectionOrder[2].path}
                 completeSection={this.completeSection}
                 show={showCardPayment}
               />
             </form>
           </FormWrapper>
-          {currentSection !== 4 && <Divider />}
           {currentSection !== 4 && <CheckoutSidebar trip={trip} />}
-        </GridParent>
-        <CheckoutProgressBar sectionOrder={SectionOrder} />
+        </ModifiedGridParent>
       </div>
     );
   };

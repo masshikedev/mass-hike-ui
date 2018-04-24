@@ -6,18 +6,20 @@ import {
   prevCheckoutSection,
 } from '../../actions/CheckoutActions';
 import styled from 'styled-components';
+import { P, constants } from '../../style';
 
 const Wrapper = styled.div`
   position: fixed;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-column-gap: 5px;
-  background-color: white;
+  display: flex;
+  background: ${constants.lightgreenBg};
+  background-blend-mode: multiply;
+  align-items: center;
+  justify-content: space-between;
 
+  padding: 0px 8%;
   height: 50px;
   bottom: 0px;
-  width: 100%;
-  border-top: 3px solid black;
+  width: 84%;
 `;
 
 const NavItem = styled.div`
@@ -26,24 +28,44 @@ const NavItem = styled.div`
   line-height: 50px;
 `;
 
+const ButtonWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
 const ButtonItem = styled(NavItem)`
   color: white;
-  background-color: ${props => (props.enable ? 'black' : 'gray')};
+  background-color: ${constants.yellow};
   cursor: ${props => (props.enable ? 'pointer' : 'not-allowed')};
+  opacity: ${props => (props.enable ? 1 : 0.5)};
   line-height: 40px;
+  border-radius: 10px;
   margin: 5px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
 `;
 
 const Title = styled(NavItem)`
   grid-column: span 3;
+  color: white;
+  margin-bottom: -10px;
 `;
 
-const UpButton = styled(ButtonItem)`
-  grid-column: 4;
+const UpImg = styled.img`
+  width: 60%;
+  height: auto;
+  display: block;
+  margin: auto;
 `;
 
-const DownButton = styled(ButtonItem)`
-  grid-column: 5;
+const DownImg = styled.img`
+  width: 60%;
+  height: : auto;
+  display: block;
+  margin: auto;
+  transform: rotate(180deg);
 `;
 
 class BottomNav extends Component {
@@ -78,19 +100,25 @@ class BottomNav extends Component {
     } = this.props;
     return (
       <Wrapper>
-        <Title>{names[currentSection]}</Title>
-        <UpButton
-          enable={this.canGoPrev()}
-          onClick={this.canGoPrev() ? prevCheckoutSection : null}
-        >
-          ^
-        </UpButton>
-        <DownButton
-          enable={this.canGoNext()}
-          onClick={this.canGoNext() ? nextCheckoutSection : null}
-        >
-          v
-        </DownButton>
+        <Title>
+          <P medium proxima size="large" color="white">
+            {names[currentSection]}
+          </P>
+        </Title>
+        <ButtonWrapper>
+          <ButtonItem
+            enable={this.canGoPrev()}
+            onClick={this.canGoPrev() ? prevCheckoutSection : null}
+          >
+            <UpImg src={require('../../images/white-arrow.png')} alt="Up" />
+          </ButtonItem>
+          <ButtonItem
+            enable={this.canGoNext()}
+            onClick={this.canGoNext() ? nextCheckoutSection : null}
+          >
+            <DownImg src={require('../../images/white-arrow.png')} alt="Down" />
+          </ButtonItem>
+        </ButtonWrapper>
       </Wrapper>
     );
   }

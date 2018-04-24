@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H6, MediaQueries } from '../../style';
+import { P, H2, H4, H6, constants, MediaQueries } from '../../style';
 import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 
 const Wrapper = styled.div`
-  grid-column: span 3;
-
+  color: white;
+  background: ${constants.lightgreenBg};
+  background-blend-mode: multiply;
+  grid-column: span 4;
+  padding: 15%;
   ${MediaQueries.small} {
     display: none;
     grid-column: 0;
@@ -19,8 +22,11 @@ class CheckoutSidebar extends Component {
     const { trip, tickets, price } = this.props;
     return (
       <Wrapper>
-        <H6>Trip Summary</H6>
-        <P large capitalize>
+        <H2>Summary</H2>
+        <P color="white" size="large" proxima extrabold spaced>
+          Trip Details
+        </P>
+        <P proxima medium color="white">
           {trip.name}
           <br />
           {moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}
@@ -32,12 +38,16 @@ class CheckoutSidebar extends Component {
           <div>
             {price ? (
               <div>
-                <P large>{`${tickets} tickets x $${price} each`}</P>
+                <P proxima color="white">{`${tickets} ${
+                  tickets > 1 ? `tickets` : `ticket`
+                } x $${price} each`}</P>
                 <H6>Total</H6>
-                <P large capitalize>{`$${tickets * price}`}</P>
+                <P proxima color="white" capitalize>{`$${tickets * price}`}</P>
               </div>
             ) : (
-              <P large capitalize>{`${tickets} tickets`}</P>
+              <P proxima color="white">{`${tickets} ${
+                tickets > 1 ? `tickets` : `ticket`
+              }`}</P>
             )}
           </div>
         )}

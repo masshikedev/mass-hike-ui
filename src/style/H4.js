@@ -3,7 +3,7 @@ import MediaQueries from './MediaQueries';
 
 const H4 = styled.h4`
   font-family: 'proxima-nova';
-  font-size: 36px;
+  font-size: ${({ size }) => (size === 'small' ? '26px' : '36px')};
   font-weight: 700;
 
   ${MediaQueries.small} {

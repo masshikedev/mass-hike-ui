@@ -6,7 +6,7 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../../actions/CheckoutActions';
-import { P, H3, H6, Input, Button, constants } from '../../../style';
+import { P, H2, H6, Input, Button, constants } from '../../../style';
 import {
   injectStripe,
   CardNumberElement,
@@ -14,6 +14,7 @@ import {
   CardCVCElement,
   PostalCodeElement,
 } from 'react-stripe-elements';
+import { NextButton, BackButton, ButtonSpacer } from '../../forms';
 
 class CardPayment extends BaseCheckoutSection {
   constructor(props) {
@@ -52,13 +53,20 @@ class CardPayment extends BaseCheckoutSection {
       base: {
         color: 'black',
         fontSize: '16px',
+        fontWeight: '400',
         fontSmoothing: 'antialiased',
         '::placeholder': {
-          color: '#ccc',
+          padding: '12px 10px',
         },
       },
+      empty: {
+        textTransform: 'uppercase',
+        fontSize: '16px',
+        fontWeight: '600',
+        color: `${constants.darkgray}`,
+      },
       invalid: {
-        color: constants.red,
+        color: `${constants.red}`,
         ':focus': {
           color: 'black',
         },
@@ -66,30 +74,41 @@ class CardPayment extends BaseCheckoutSection {
     };
     return (
       <div style={show ? {} : { display: 'none' }}>
-        <H3>Enter your credit card information</H3>
-        <div>
-          <label>
-            <H6>Card Number</H6>
-            <CardNumberElement
-              style={style}
-              onChange={e => this.fieldChange(e)}
-            />
-            {cardNumber.error && <P error>{cardNumber.error.message}</P>}
-          </label>
-          <label>
-            <H6>Expiration</H6>
-            <CardExpiryElement
-              style={style}
-              onChange={e => this.fieldChange(e)}
-            />
-            {cardExpiry.error && <P error>{cardExpiry.error.message}</P>}
-          </label>
-        </div>
+        <H2>Payment Info</H2>
+
+        <label>
+          <H6>Card Number</H6>
+          <CardNumberElement
+            style={style}
+            onChange={e => this.fieldChange(e)}
+          />
+          {cardNumber.error && (
+            <P proxima leftmargin size="medium" color="error">
+              {cardNumber.error.message}
+            </P>
+          )}
+        </label>
+        <label>
+          <H6>Expiration</H6>
+          <CardExpiryElement
+            style={style}
+            onChange={e => this.fieldChange(e)}
+          />
+          {cardExpiry.error && (
+            <P proxima leftmargin size="medium" color="error">
+              {cardExpiry.error.message}
+            </P>
+          )}
+        </label>
 
         <label>
           <H6>Security Code</H6>
           <CardCVCElement style={style} onChange={e => this.fieldChange(e)} />
-          {cardCvc.error && <P error>{cardCvc.error.message}</P>}
+          {cardCvc.error && (
+            <P proxima leftmargin size="medium" color="error">
+              {cardCvc.error.message}
+            </P>
+          )}
         </label>
         <label>
           <H6>Billing Zip</H6>
@@ -97,12 +116,23 @@ class CardPayment extends BaseCheckoutSection {
             style={style}
             onChange={e => this.fieldChange(e)}
           />
-          {postalCode.error && <P error>{postalCode.error.message}</P>}
+          {postalCode.error && (
+            <P proxima leftmargin size="medium" color="error">
+              {postalCode.error.message}
+            </P>
+          )}
         </label>
 
-        {this.allValid() && (
-          <Button onClick={this.onCompleteSection}>Next</Button>
-        )}
+        <ButtonSpacer>
+          <BackButton
+            onClick={e => this.onBackSection(e, this.allValid())}
+            active={true}
+          />
+          <NextButton
+            onClick={this.onCompleteSection}
+            active={this.allValid()}
+          />
+        </ButtonSpacer>
       </div>
     );
   }
@@ -119,6 +149,8 @@ const mapDispatchToProps = dispatch =>
     {
       setCurrentSection,
       setCheckoutState,
+      afterMount: () =>
+        setCheckoutState({ currentSection: 0, highestCompletedSection: 0 }),
     },
     dispatch
   );
