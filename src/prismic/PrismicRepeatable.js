@@ -37,8 +37,6 @@ export default Wrapped =>
       ) : // TODO: add better loading state
       this.state.err ? (
         <NotFound />
-      ) : (
-        <h3 />
-      );
+      ) : null;
     }
   };

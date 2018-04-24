@@ -44,10 +44,12 @@ const TitleContainer = GridParent.extend`
 `;
 
 const BlogContent = styled.div`
-  padding: 20px 10%;
+  max-width: 675px;
+  margin: 0 auto;
+  padding-bottom: 40px;
 
   ${MediaQueries.small} {
-    padding: 0 20px;
+    padding: 40px 20px;
   }
 `;
 

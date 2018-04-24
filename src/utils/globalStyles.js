@@ -40,9 +40,18 @@ injectGlobal`
 
   }
 
+  h3 {
+    font-family: 'proxima-nova';
+    font-size: 14px;
+  }
+
   p {
     font-family: 'proxima-nova';
     font-size: 16px;
+  }
+  
+  img {
+    width: 100%;
   }
 
   .DayPicker-Day--highlighted {

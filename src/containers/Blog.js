@@ -24,7 +24,7 @@ class Blog extends Component {
   static pageType = 'blogpost';
 
   renderBlogPreviews() {
-    var results = this.props.doc.results;
+    let results = this.props.doc.results;
     results = results.slice(1, results.length);
     const blogs = results.map(blog => {
       return (

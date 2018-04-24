@@ -29,22 +29,20 @@ const AuthorInfo = styled.div`
 
 const AuthorName = styled.div`
   display: flex;
-
-  ${MediaQueries.small} {
-    display: block;
-  }
+  padding: 0;
 `;
 
 const AuthorNameItem = P.extend`
+  padding: 0;
   padding-right: 10px;
   margin: 0;
-`;
 
-const Dash = AuthorNameItem.extend`
   ${MediaQueries.small} {
-    display: none;
+    font-size: 16px;
   }
 `;
+
+const Dash = AuthorNameItem.extend``;
 
 function BlogAuthor(props) {
   return (
@@ -59,11 +57,10 @@ function BlogAuthor(props) {
             -
           </Dash>
           <AuthorNameItem proxima bold size="large" color="yellow">
-            {' '}
             {moment.utc(props.blog_date).format(MONTH_DATE_YEAR)}
           </AuthorNameItem>
         </AuthorName>
-        <P proxima size="large">
+        <P proxima size="medium">
           {RichText.asText(props.author_bio)}
         </P>
       </AuthorInfo>
