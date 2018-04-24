@@ -83,17 +83,6 @@ const hikeConstraints = trip => {
         message: '^Please enter a number (1, 2, 3...)',
       },
     },
-    kids: {
-      presence: {
-        allowEmpty: false,
-        message: '^Please enter an amount',
-      },
-      numericality: {
-        onlyInteger: true,
-        notInteger: '^Must be a whole number (1, 2, 3...)',
-        message: '^Please enter a number (1, 2, 3...)',
-      },
-    },
     pickupLocation: {
       presence: {
         allowEmpty: false,
