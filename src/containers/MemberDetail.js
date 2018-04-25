@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import LoadableComponent from '../components/LoadableComponent';
 import { adminGetMemberById } from '../actions/MemberActions';
-import { AdminContainer, H2, H3, Table, Tr, Th, Td } from '../style';
+import { AdminContainer, P, H2, H3, Table, Tr, Th, Td } from '../style';
 import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../utils/dateFormats';
@@ -25,8 +25,28 @@ class MemberDetail extends LoadableComponent {
         </Td>
         <Td>{moment.utc(order.trip.time.hikeStart).format(MONTH_DATE_YEAR)}</Td>
         <Td>{order.tickets}</Td>
-        <Td>{order.trip.children}</Td>
+        <Td>{order.trip.children || 0}</Td>
       </Tr>
+    );
+  }
+
+  renderOrders() {
+    const { member } = this.props;
+    if (member.orders.length === 0) {
+      return <P>This member has not been on any trips yet</P>;
+    }
+    return (
+      <Table>
+        <thead>
+          <Tr>
+            <Th>Name</Th>
+            <Th>Date</Th>
+            <Th>Tickets</Th>
+            <Th>Children</Th>
+          </Tr>
+        </thead>
+        <tbody>{member.orders.map(order => this.renderOrder(order))}</tbody>
+      </Table>
     );
   }
 
@@ -37,11 +57,13 @@ class MemberDetail extends LoadableComponent {
         <H2>{`Member: ${member.name}`}</H2>
         <H3>Personal Information</H3>
         <Table fixed>
-          <Tr>
-            <Th>Name</Th>
-            <Th>Email</Th>
-            <Th>Phone</Th>
-          </Tr>
+          <thead>
+            <Tr>
+              <Th>Name</Th>
+              <Th>Email</Th>
+              <Th>Phone</Th>
+            </Tr>
+          </thead>
           <tbody>
             <Tr>
               <Td>{member.name}</Td>
@@ -51,11 +73,13 @@ class MemberDetail extends LoadableComponent {
           </tbody>
         </Table>
         <Table fixed>
-          <Tr>
-            <Th>Classification</Th>
-            <Th>Join Date</Th>
-            <Th />
-          </Tr>
+          <thead>
+            <Tr>
+              <Th>Classification</Th>
+              <Th>Join Date</Th>
+              <Th />
+            </Tr>
+          </thead>
           <tbody>
             <Tr>
               <Td>{member.classification || 'unclassified'}</Td>
@@ -64,15 +88,7 @@ class MemberDetail extends LoadableComponent {
           </tbody>
         </Table>
         <H3>Trips</H3>
-        <Table>
-          <Tr>
-            <Th>Name</Th>
-            <Th>Date</Th>
-            <Th>Tickets</Th>
-            <Th>Children</Th>
-          </Tr>
-          <tbody>{member.orders.map(order => this.renderOrder(order))}</tbody>
-        </Table>
+        {this.renderOrders()}
       </AdminContainer>
     );
   };

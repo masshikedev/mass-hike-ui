@@ -16,18 +16,20 @@ class MemberGrid extends Component {
     );
   }
 
+  memberFilter = (member, search) => {
+    return (
+      (member.name && member.name.includes(search)) ||
+      (member.email && member.email.includes(search)) ||
+      (member.phone && member.phone.includes(search))
+    );
+  };
+
   filteredMembers() {
     const { search, members } = this.props;
     if (!search) {
       return members;
     }
-    return members.filter(member => {
-      return (
-        member.name.includes(search) ||
-        member.email.includes(search) ||
-        member.phone.includes(search)
-      );
-    });
+    return members.filter(member => this.memberFilter(member, search));
   }
 
   render() {
