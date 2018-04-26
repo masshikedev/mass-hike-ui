@@ -4,6 +4,7 @@ import currentTrip from './currentTrip';
 import checkout from './checkout';
 import orders from './orders';
 import auth from './auth';
+import members from './members';
 import { routerReducer } from 'react-router-redux';
 
 export default combineReducers({
@@ -11,6 +12,7 @@ export default combineReducers({
   currentTrip,
   checkout,
   orders,
+  members,
   auth,
   routing: routerReducer,
 });

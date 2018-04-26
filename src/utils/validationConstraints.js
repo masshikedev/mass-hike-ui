@@ -292,10 +292,42 @@ const tripConstraints = trip => {
   };
 };
 
+const memberConstraints = () => {
+  return {
+    name: {
+      presence: {
+        allowEmpty: false,
+      },
+    },
+    email: {
+      presence: {
+        allowEmpty: false,
+        message: '^A member must have either an email or phone number',
+      },
+      email: { message: '^Please enter a valid email' },
+    },
+    phone: {
+      presence: {
+        allowEmpty: false,
+        message: '^A member must have either an email or phone number',
+      },
+      length: {
+        is: 16,
+        message: '^Phone number is not long enough',
+      },
+      format: {
+        pattern: /[(]\d{3}[)] \d{3} [-] \d{4}/,
+        message: '^Formatting error, please try again',
+      },
+    },
+  };
+};
+
 export {
   contactConstraints,
   hikeConstraints,
   paymentTypeConstraints,
   constraints,
   tripConstraints,
+  memberConstraints,
 };

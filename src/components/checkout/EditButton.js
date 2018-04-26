@@ -35,7 +35,7 @@ class EditButton extends Component {
 }
 
 const mapStateToProps = state => ({
-  tripId: state.currentTrip.trip.tripId,
+  tripId: state.currentTrip.trip ? state.currentTrip.trip.tripId : null,
 });
 
 const mapDispatchToProps = dispatch =>

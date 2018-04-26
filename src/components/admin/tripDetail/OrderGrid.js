@@ -22,7 +22,9 @@ class OrderGrid extends Component {
           <Td>{order.promoCode || 'none'}</Td>
           <Td>{order.selectedPrice * order.tickets}</Td>
           <Td>
-            <Link to="/">details</Link>
+            {order.memberId && (
+              <Link to={`/admin/members/${order.memberId}`}>details</Link>
+            )}
           </Td>
         </Tr>
       );
@@ -43,6 +45,7 @@ class OrderGrid extends Component {
             <Th>Children</Th>
             <Th>Promo</Th>
             <Th>Revenue</Th>
+            <Th>Member?</Th>
           </Tr>
         </thead>
         <tbody>

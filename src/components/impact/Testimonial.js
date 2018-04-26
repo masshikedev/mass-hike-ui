@@ -69,7 +69,6 @@ const QuoteText = P.extend`
 `;
 
 function Testimonial(props) {
-  console.log(props);
   return (
     <GridParent>
       <TitleWrapper>

@@ -44,7 +44,7 @@ const adminGetAllTripsFailure = dispatch => {
   };
 };
 
-export const adminGetTripList = () => {
+export const adminGetAllTrips = () => {
   return dispatch => {
     dispatch({ type: ActionTypes.ADMIN_GET_TRIP_LIST_ATTEMPT });
     adminFetchAllTrips()

@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createNewMember } from '../actions/MemberActions';
 import styled from 'styled-components';
 import FontAwesome from 'react-fontawesome';
 import PrismicPage from '../prismic/PrismicPage';
 import { RichText } from 'prismic-reactjs';
+import { validate } from 'validate.js';
+import { memberConstraints } from '../utils/validationConstraints';
 import renderLinkSlices from '../utils/renderLinkSlices';
 import {
   Container,
@@ -23,7 +28,7 @@ const FooterWrap = Container.extend`
   min-height: ${constants.footerMinHeight};
 `;
 
-const Contact = styled.div`
+const MembershipSection = styled.div`
   grid-column-start: 8;
   grid-column-end: 13;
   ${MediaQueries.small} {
@@ -94,12 +99,80 @@ const SMLinks = styled.div`
 
 const ListItem = styled.li``;
 
-const Email = Input.extend`
+const MemberInput = Input.extend`
   margin-bottom: 10px;
 `;
 
 class Footer extends Component {
   static pageType = 'footer';
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      error: false,
+      submitted: false,
+    };
+  }
+
+  onSubmit = e => {
+    const { createNewMember } = this.props;
+    const { name, email } = this.state;
+    e.preventDefault();
+    const messages = validate(this.state, memberConstraints());
+    if (messages.name || messages.email) {
+      this.setState({ error: true });
+    } else {
+      createNewMember({ name, email });
+      this.setState({ submitted: true });
+    }
+  };
+
+  renderMembershipSection() {
+    const { submitted, name, email, error } = this.state;
+    if (submitted) {
+      return (
+        <MembershipSection>
+          <P proxima size="large" color="white">
+            Thank you for signing up to be a member of Mass Hike!
+          </P>
+        </MembershipSection>
+      );
+    }
+    return (
+      <MembershipSection>
+        <P proxima bold size="large" color="white">
+          Sign up to receive newsletters!
+        </P>
+        <P proxima size="medium" color="white">
+          Join the Mass Hike membership list
+        </P>
+        <label>
+          <MemberInput
+            type="text"
+            value={name}
+            placeholder="Name"
+            onChange={e => this.setState({ name: e.target.value })}
+          />
+          <MemberInput
+            type="text"
+            value={email}
+            placeholder="Email Address"
+            onChange={e => this.setState({ email: e.target.value })}
+          />
+        </label>
+        {error && (
+          <P proxima color="white">
+            Please enter your name and a valid email address.
+          </P>
+        )}
+        <Button onClick={this.onSubmit}>
+          {RichText.asText(this.props.doc.data.submit_button)}
+        </Button>
+      </MembershipSection>
+    );
+  }
 
   render() {
     return (
@@ -120,28 +193,16 @@ class Footer extends Component {
             </SMLinks>
           </Social>
           <Links>{renderLinkSlices(this.props.doc.data.body, ListItem)}</Links>
-          <Contact>
-            <P proxima bold size="large" color="white">
-              Sign up to receive newsletters!
-            </P>
-            <P proxima size="medium" color="white">
-              Join the Mass Hike membership list
-            </P>
-            <label>
-              <Email
-                type="text"
-                value="Email Address"
-                onChange={e => this.setState({ Email: e.target.value })}
-              />
-            </label>
-            <Button>
-              {RichText.asText(this.props.doc.data.submit_button)}
-            </Button>
-          </Contact>
+          {this.renderMembershipSection()}
         </FootGrid>
       </FooterWrap>
     );
   }
 }
 
-export default PrismicPage(Footer);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ createNewMember }, dispatch);
+
+const connected = connect(null, mapDispatchToProps)(Footer);
+
+export default PrismicPage(connected);

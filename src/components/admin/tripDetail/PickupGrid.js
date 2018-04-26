@@ -21,7 +21,7 @@ class PickupGrid extends Component {
     const { orders, onClickOrder } = this.props;
     return orders.map((order, i) => {
       return (
-        <Row key={i} onClick={() => onClickOrder(i)}>
+        <Row key={i} onClick={() => onClickOrder(order._id)}>
           <Td>{order.name}</Td>
           <Td>{order.pickupLocation}</Td>
           <Td>{this.preferredContact(order)}</Td>
