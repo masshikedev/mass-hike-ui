@@ -58,6 +58,21 @@ export default (state = initialState, action) => {
         ...state,
         createMemberStatus: RequestStatus.ERROR,
       };
+    case ActionTypes.ADMIN_UPDATE_MEMBER_ATTEMPT:
+      return {
+        ...state,
+        createMemberStatus: RequestStatus.PENDING,
+      };
+    case ActionTypes.ADMIN_UPDATE_MEMBER_SUCCESS:
+      return {
+        ...state,
+        createMemberStatus: RequestStatus.SUCCESS,
+      };
+    case ActionTypes.ADMIN_UPDATE_MEMBER_ERROR:
+      return {
+        ...state,
+        createMemberStatus: RequestStatus.ERROR,
+      };
     default:
       return state;
   }

@@ -45,7 +45,6 @@ class AdminDashboard extends LoadableComponent {
     if (status !== RequestStatus.SUCCESS) {
       return null;
     }
-    console.log(members);
     return (
       <AdminContainer>
         <H2>Upcoming Trips</H2>
@@ -56,7 +55,7 @@ class AdminDashboard extends LoadableComponent {
         <H2>Recent Signups</H2>
         <MemberGrid members={members} />
         <MemberLinkButton onClick={toMemberList}>All Members</MemberLinkButton>
-        <MemberLinkButton>New Member</MemberLinkButton>
+        <MemberLinkButton onClick={toMemberForm}>New Member</MemberLinkButton>
       </AdminContainer>
     );
   };

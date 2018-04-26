@@ -1,5 +1,11 @@
 import ActionTypes from './ActionTypes';
-import { fetchMemberById, fetchAllMembers, createMember } from '../api/members';
+import {
+  fetchMemberById,
+  fetchAllMembers,
+  createMember,
+  updateMember,
+} from '../api/members';
+import { push } from 'react-router-redux';
 
 const adminGetAllMembersSuccess = dispatch => {
   return response => {
@@ -61,6 +67,16 @@ const createMemberSuccess = dispatch => {
   };
 };
 
+const adminCreateMemberSuccess = dispatch => {
+  return response => {
+    dispatch({
+      type: ActionTypes.CREATE_MEMBER_SUCCESS,
+    });
+    const id = response.data._id;
+    dispatch(push(`/admin/members/${id}`));
+  };
+};
+
 const createMemberFailure = dispatch => {
   return response => {
     dispatch({
@@ -69,11 +85,37 @@ const createMemberFailure = dispatch => {
   };
 };
 
-export const createNewMember = member => {
+export const createNewMember = (member, admin) => {
+  const success = admin ? adminCreateMemberSuccess : createMemberSuccess;
   return dispatch => {
     dispatch({ type: ActionTypes.CREATE_MEMBER_ATTEMPT });
     createMember(member)
-      .then(createMemberSuccess(dispatch))
+      .then(success(dispatch))
       .catch(createMemberFailure(dispatch));
+  };
+};
+
+const adminUpdateMemberSuccess = dispatch => {
+  return response => {
+    dispatch({
+      type: ActionTypes.ADMIN_UPDATE_MEMBER_SUCCESS,
+    });
+    const id = response.data.value._id;
+    dispatch(push(`/admin/members/${id}`));
+  };
+};
+
+const adminUpdateMemberError = dispatch => {
+  return () => {
+    dispatch({ type: ActionTypes.ADMIN_UPDATE_MEMBER_ERROR });
+  };
+};
+
+export const adminEditMember = (id, attributes) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.ADMIN_UPDATE_MEMBER_ATTEMPT });
+    updateMember(id, attributes)
+      .then(adminUpdateMemberSuccess(dispatch))
+      .catch(adminUpdateMemberError(dispatch));
   };
 };

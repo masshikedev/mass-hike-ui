@@ -1,4 +1,4 @@
-import { get, post } from '../utils/api';
+import { get, post, put } from '../utils/api';
 
 const BASE_URL = '/members';
 
@@ -12,4 +12,8 @@ export const fetchAllMembers = () => {
 
 export const createMember = member => {
   return post(BASE_URL, JSON.stringify(member));
+};
+
+export const updateMember = (id, attributes) => {
+  return put(`${BASE_URL}/${id}`, JSON.stringify(attributes));
 };

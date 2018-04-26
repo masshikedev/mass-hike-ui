@@ -10,17 +10,19 @@ class MemberGrid extends Component {
           <Link to={`/admin/members/${member._id}`}>{member.name}</Link>
         </Td>
         <Td>{member.email || member.phone}</Td>
-        <Td>{member.Classification || 'Unclassified'}</Td>
+        <Td>{member.classification || 'Unclassified'}</Td>
         <Td>{member.orders.length}</Td>
       </Tr>
     );
   }
 
   memberFilter = (member, search) => {
+    member.classification = member.classification || 'unclassified';
     return (
       (member.name && member.name.includes(search)) ||
       (member.email && member.email.includes(search)) ||
-      (member.phone && member.phone.includes(search))
+      (member.phone && member.phone.includes(search)) ||
+      (member.classification && member.classification.includes(search))
     );
   };
 

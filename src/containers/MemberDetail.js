@@ -3,11 +3,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import LoadableComponent from '../components/LoadableComponent';
+import AdminPage from '../components/admin/AdminPage';
 import { adminGetMemberById } from '../actions/MemberActions';
 import { AdminContainer, P, H2, H3, Table, Tr, Th, Td } from '../style';
 import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../utils/dateFormats';
+
+const EditSection = styled.span`
+  font-size: 18px;
+  margin-left: 20px;
+  font-weight: 400;
+  text-decoration: underline;
+`;
 
 class MemberDetail extends LoadableComponent {
   componentWillMount() {
@@ -54,7 +62,12 @@ class MemberDetail extends LoadableComponent {
     const { member } = this.props;
     return (
       <AdminContainer>
-        <H2>{`Member: ${member.name}`}</H2>
+        <H2>
+          {`Member: ${member.name}`}
+          <EditSection>
+            <Link to={`/admin/members/${member._id}/edit`}>Edit</Link>
+          </EditSection>
+        </H2>
         <H3>Personal Information</H3>
         <Table fixed>
           <thead>
@@ -102,4 +115,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ getMemberById: adminGetMemberById }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MemberDetail);
+export default AdminPage(
+  connect(mapStateToProps, mapDispatchToProps)(MemberDetail)
+);

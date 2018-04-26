@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import FontAwesome from 'react-fontawesome';
 import PrismicPage from '../prismic/PrismicPage';
 import { RichText } from 'prismic-reactjs';
+import { validate } from 'validate.js';
+import { memberConstraints } from '../utils/validationConstraints';
 import renderLinkSlices from '../utils/renderLinkSlices';
 import {
   Container,
@@ -109,6 +111,7 @@ class Footer extends Component {
     this.state = {
       name: '',
       email: '',
+      error: false,
       submitted: false,
     };
   }
@@ -117,12 +120,17 @@ class Footer extends Component {
     const { createNewMember } = this.props;
     const { name, email } = this.state;
     e.preventDefault();
-    createNewMember({ name, email });
-    this.setState({ submitted: true });
+    const messages = validate(this.state, memberConstraints());
+    if (messages.name || messages.email) {
+      this.setState({ error: true });
+    } else {
+      createNewMember({ name, email });
+      this.setState({ submitted: true });
+    }
   };
 
   renderMembershipSection() {
-    const { submitted, name, email } = this.state;
+    const { submitted, name, email, error } = this.state;
     if (submitted) {
       return (
         <MembershipSection>
@@ -154,6 +162,11 @@ class Footer extends Component {
             onChange={e => this.setState({ email: e.target.value })}
           />
         </label>
+        {error && (
+          <P proxima color="white">
+            Please enter your name and a valid email address.
+          </P>
+        )}
         <Button onClick={this.onSubmit}>
           {RichText.asText(this.props.doc.data.submit_button)}
         </Button>
