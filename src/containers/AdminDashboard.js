@@ -12,11 +12,8 @@ import { H2, AdminContainer, Button } from '../style';
 import { RequestStatus } from '../constants';
 import combineStatus from '../utils/combineStatus';
 
-const CreateButton = Button.extend`
+const DashboardButton = Button.extend`
   margin-bottom: 50px;
-`;
-
-const MemberLinkButton = Button.extend`
   margin-right: 30px;
 `;
 
@@ -27,12 +24,6 @@ class AdminDashboard extends LoadableComponent {
     adminGetAllMembers();
   }
 
-  onClickCreate = e => {
-    const { toCreateTrip } = this.props;
-    e.preventDefault();
-    toCreateTrip();
-  };
-
   renderSuccess = () => {
     const {
       upcomingTrips,
@@ -41,6 +32,8 @@ class AdminDashboard extends LoadableComponent {
       status,
       toMemberList,
       toMemberForm,
+      toTripList,
+      toTripForm,
     } = this.props;
     if (status !== RequestStatus.SUCCESS) {
       return null;
@@ -49,13 +42,12 @@ class AdminDashboard extends LoadableComponent {
       <AdminContainer>
         <H2>Upcoming Trips</H2>
         <TripGrid trips={upcomingTrips} showTickets={true} />
-        <CreateButton onClick={this.onClickCreate}>Create New</CreateButton>
-        <H2>Past Trips</H2>
-        <TripGrid trips={pastTrips} showTickets={false} />
+        <DashboardButton onClick={toTripList}>All Trips</DashboardButton>
+        <DashboardButton onClick={toTripForm}>New Trip</DashboardButton>
         <H2>Recent Signups</H2>
         <MemberGrid members={members} />
-        <MemberLinkButton onClick={toMemberList}>All Members</MemberLinkButton>
-        <MemberLinkButton onClick={toMemberForm}>New Member</MemberLinkButton>
+        <DashboardButton onClick={toMemberList}>All Members</DashboardButton>
+        <DashboardButton onClick={toMemberForm}>New Member</DashboardButton>
       </AdminContainer>
     );
   };
@@ -63,12 +55,9 @@ class AdminDashboard extends LoadableComponent {
 
 const mapStateToProps = state => ({
   upcomingTrips: state.tripList.adminTrips.filter(
-    trip => trip.time.hikeStart >= Date.now()
+    trip => !trip.cancelled && trip.time.hikeStart >= Date.now()
   ),
-  pastTrips: state.tripList.adminTrips.filter(
-    trip => trip.time.hikeStart < Date.now()
-  ),
-  members: state.members.members,
+  members: state.members.members.slice(0, 10),
   status: combineStatus(
     state.tripList.adminStatus,
     state.members.membersStatus
@@ -80,7 +69,8 @@ const mapDispatchToProps = dispatch =>
     {
       adminGetAllTrips,
       adminGetAllMembers,
-      toCreateTrip: () => push('/admin/trips/new'),
+      toTripList: () => push('/admin/trips'),
+      toTripForm: () => push('/admin/trips/new'),
       toMemberList: () => push('/admin/members'),
       toMemberForm: () => push('/admin/members/new'),
     },

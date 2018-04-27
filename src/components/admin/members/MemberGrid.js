@@ -16,15 +16,17 @@ class MemberGrid extends Component {
     );
   }
 
-  memberFilter = (member, search) => {
+  memberFilter(member, search) {
+    const query = search.toLowerCase();
     member.classification = member.classification || 'unclassified';
     return (
-      (member.name && member.name.includes(search)) ||
-      (member.email && member.email.includes(search)) ||
-      (member.phone && member.phone.includes(search)) ||
-      (member.classification && member.classification.includes(search))
+      (member.name && member.name.toLowerCase().includes(search)) ||
+      (member.email && member.email.toLowerCase().includes(search)) ||
+      (member.phone && member.phone.toLowerCase().includes(search)) ||
+      (member.classification &&
+        member.classification.toLowerCase().includes(search))
     );
-  };
+  }
 
   filteredMembers() {
     const { search, members } = this.props;

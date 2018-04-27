@@ -12,7 +12,7 @@ import moment from 'moment';
 import { TIME } from '../../../utils/dateFormats';
 import {
   P,
-  H3,
+  H5,
   H6,
   GridParent,
   Table,
@@ -73,10 +73,10 @@ class TripDetailList extends Component {
     return (
       <div>
         <TripDetailSection>
-          <H3>
+          <H5>
             Date and Time
             {this.editLinkFor('time')}
-          </H3>
+          </H5>
           <Table fixed>
             <thead>
               <Tr>
@@ -114,18 +114,18 @@ class TripDetailList extends Component {
           </Table>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Capacity
             {this.editLinkFor('capacity')}
-          </H3>
+          </H5>
           <Subheading>Total Capacity</Subheading>
           <P>{trip.capacity}</P>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Base Pricing
             {this.editLinkFor('pricing')}
-          </H3>
+          </H5>
           <Table fixed>
             <thead>
               <Tr>
@@ -147,17 +147,17 @@ class TripDetailList extends Component {
           </Table>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Promo Codes
             {this.editLinkFor('promo-codes')}
-          </H3>
+          </H5>
           <PromoCodeGrid codes={trip.promoCodes} fixed />
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Difficulty and Statistics
             {this.editLinkFor('stats')}
-          </H3>
+          </H5>
           <Subheading>Difficulty</Subheading>
           <P>{trip.difficulty}</P>
           <Table fixed>
@@ -178,10 +178,10 @@ class TripDetailList extends Component {
           </Table>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Content
             {this.editLinkFor('content')}
-          </H3>
+          </H5>
           <GridParent>
             <ContentColumn>
               <Subheading>Title</Subheading>
@@ -194,24 +194,24 @@ class TripDetailList extends Component {
           </GridParent>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Pickup Radius
             {this.editLinkFor('pickup-radius')}
-          </H3>
+          </H5>
           <ZipcodeList zipcodes={trip.pickupZipcodes} />
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Cash Locations
             {this.editLinkFor('cash-locations')}
-          </H3>
+          </H5>
           <CashLocationList locations={trip.cashLocations} />
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Availability
             {this.editLinkFor('availability')}
-          </H3>
+          </H5>
           <AvailabilityForm availability={trip.cashAvailability} />
         </TripDetailSection>
       </div>

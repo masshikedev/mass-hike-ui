@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 import { logout } from '../../actions/AuthActions';
 import styled from 'styled-components';
 
@@ -8,9 +9,10 @@ const AdminBarContainer = styled.div`
   position: fixed;
   top: 70px;
   right: 40px;
+  z-index: 9999;
 `;
 
-const LogoutButton = styled.button`
+const AdminBarItem = styled.button`
   border: none;
   text-decoration: underline;
   font-size: 14px;
@@ -23,13 +25,16 @@ const LogoutButton = styled.button`
 
 class AdminBar extends Component {
   render() {
-    const { loggedIn, logout } = this.props;
+    const { loggedIn, logout, toDashboard, toTrips, toMembers } = this.props;
     if (!loggedIn) {
       return null;
     }
     return (
       <AdminBarContainer>
-        <LogoutButton onClick={logout}>Logout</LogoutButton>
+        <AdminBarItem onClick={toDashboard}>Dashboard</AdminBarItem>
+        <AdminBarItem onClick={toTrips}>Trips</AdminBarItem>
+        <AdminBarItem onClick={toMembers}>Members</AdminBarItem>
+        <AdminBarItem onClick={logout}>Logout</AdminBarItem>
       </AdminBarContainer>
     );
   }
@@ -39,6 +44,15 @@ const mapStateToProps = state => ({
   loggedIn: state.auth.isAuthenticated,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      logout,
+      toDashboard: () => push('/admin'),
+      toTrips: () => push('/admin/trips'),
+      toMembers: () => push('/admin/members'),
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminBar);

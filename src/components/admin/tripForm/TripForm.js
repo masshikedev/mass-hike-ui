@@ -11,7 +11,7 @@ import ValidatedTextInput from '../../forms/ValidatedTextInput';
 import { validate } from 'validate.js';
 import { tripConstraints } from '../../../utils/validationConstraints';
 import emptyTrip from '../../../data/emptyTrip';
-import { P, H3, H6, Button, GridParent, Img } from '../../../style';
+import { P, H5, H6, Button, GridParent, Img } from '../../../style';
 import styled from 'styled-components';
 
 const TripFormSection = styled.div`
@@ -157,18 +157,18 @@ class TripForm extends Component {
           {this.fieldFor('location', 'Location', messages)}
         </TripFormSection>
         <TripFormSection id="time">
-          <H3>Date & Time</H3>
+          <H5>Date & Time</H5>
           <TripTimeSelector
             onChange={time => this.setState({ time })}
             errors={this.timeErrors(messages)}
           />
         </TripFormSection>
         <TripFormSection id="capacity">
-          <H3>Capacity</H3>
+          <H5>Capacity</H5>
           {this.fieldFor('capacity', 'Capacity', messages)}
         </TripFormSection>
         <TripFormSection id="pricing">
-          <H3>Base Pricing</H3>
+          <H5>Base Pricing</H5>
           <PricingForm
             pricing={pricing}
             errors={this.pricingErrors(messages)}
@@ -176,7 +176,7 @@ class TripForm extends Component {
           />
         </TripFormSection>
         <TripFormSection id="promo-codes">
-          <H3>Promo Codes</H3>
+          <H5>Promo Codes</H5>
           <PromoCodeGrid
             codes={promoCodes}
             onDelete={this.onDeletePromoCode}
@@ -185,7 +185,7 @@ class TripForm extends Component {
           <PricingForm promo onAddPromoCode={this.onAddPromoCode} />
         </TripFormSection>
         <TripFormSection id="stats">
-          <H3>Difficulty and Statistics</H3>
+          <H5>Difficulty and Statistics</H5>
           {this.fieldFor('difficulty', 'Difficulty', messages)}
           <GridParent>
             <Column>
@@ -202,7 +202,7 @@ class TripForm extends Component {
           </GridParent>
         </TripFormSection>
         <TripFormSection id="content">
-          <H3>Content</H3>
+          <H5>Content</H5>
           {this.fieldFor('title', 'Title', messages, 'detail')}
           {this.fieldFor('body', 'Body', messages, 'detail', true)}
           <H6>Image</H6>
@@ -217,7 +217,7 @@ class TripForm extends Component {
           {imageUrl && <PreviewImage src={imageUrl} />}
         </TripFormSection>
         <TripFormSection id="pickup-radius">
-          <H3>Pickup Radius</H3>
+          <H5>Pickup Radius</H5>
           <ZipcodeList
             zipcodes={pickupZipcodes}
             onDelete={this.onDeleteZipcode}
@@ -229,7 +229,7 @@ class TripForm extends Component {
           />
         </TripFormSection>
         <TripFormSection id="cash-locations">
-          <H3>Cash Locations</H3>
+          <H5>Cash Locations</H5>
           <CashLocationList
             locations={cashLocations}
             onDelete={this.onDeleteCashLocation}
@@ -237,7 +237,7 @@ class TripForm extends Component {
           />
         </TripFormSection>
         <TripFormSection id="availability">
-          <H3>Availability</H3>
+          <H5>Availability</H5>
           <AvailabilityForm
             editable
             availability={cashAvailability}

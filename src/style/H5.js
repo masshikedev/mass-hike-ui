@@ -5,6 +5,7 @@ const H5 = styled.h5`
   font-size: 28px;
   font-family: 'proxima-nova';
   font-weight: 300;
+  margin-bottom: 20px;
 
   ${MediaQueries.small} {
     font-size: 22px;

@@ -8,6 +8,7 @@ const MapWrapper = styled.div`
   width: 100%;
   height: 400px;
   position: relative;
+  margin-top: 20px;
 `;
 
 const ZOOM = 13;

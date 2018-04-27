@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import LoadableComponent from '../components/LoadableComponent';
 import AdminPage from '../components/admin/AdminPage';
 import { adminGetMemberById } from '../actions/MemberActions';
-import { AdminContainer, P, H2, H3, Table, Tr, Th, Td } from '../style';
+import { AdminContainer, P, H2, H5, Table, Tr, Th, Td } from '../style';
 import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../utils/dateFormats';
@@ -68,7 +68,7 @@ class MemberDetail extends LoadableComponent {
             <Link to={`/admin/members/${member._id}/edit`}>Edit</Link>
           </EditSection>
         </H2>
-        <H3>Personal Information</H3>
+        <H5>Personal Information</H5>
         <Table fixed>
           <thead>
             <Tr>
@@ -100,7 +100,7 @@ class MemberDetail extends LoadableComponent {
             </Tr>
           </tbody>
         </Table>
-        <H3>Trips</H3>
+        <H5>Trips</H5>
         {this.renderOrders()}
       </AdminContainer>
     );

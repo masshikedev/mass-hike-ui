@@ -14,6 +14,7 @@ import Checkout from './Checkout';
 import MobileCheckout from './MobileCheckout';
 import OrderConfirmation from './OrderConfirmation';
 import AdminDashboard from './AdminDashboard';
+import AdminTripList from './AdminTripList';
 import AdminTripDetail from './AdminTripDetail';
 import NewTrip from './NewTrip';
 import MemberList from './MemberList';
@@ -95,6 +96,7 @@ const Routes = props => (
     <Route path="/trips/:tripId/checkout-mobile" component={MobileCheckout} />
     <Route exact path="/order/:id" component={OrderConfirmation} />
     <Route exact path="/admin" component={AdminDashboard} />
+    <Route exact path="/admin/trips" component={AdminTripList} />
     <Route exact path="/admin/trips/new" component={NewTrip} />
     <Route path="/admin/trips/:tripId" component={AdminTripDetail} />
     <Route exact path="/admin/members" component={MemberList} />
