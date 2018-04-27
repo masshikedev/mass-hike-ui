@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import AdminPage from '../components/admin/AdminPage';
 import TripGrid from '../components/admin/TripGrid';
 import MemberGrid from '../components/admin/members/MemberGrid';
+import AppointmentGrid from '../components/admin/AppointmentGrid';
 import LoadableComponent from '../components/LoadableComponent';
 import { adminGetAllTrips } from '../actions/TripListActions';
 import { adminGetAllMembers } from '../actions/MemberActions';
@@ -44,6 +45,8 @@ class AdminDashboard extends LoadableComponent {
         <TripGrid trips={upcomingTrips} showTickets={true} />
         <DashboardButton onClick={toTripList}>All Trips</DashboardButton>
         <DashboardButton onClick={toTripForm}>New Trip</DashboardButton>
+        <H2>Cash Appointments</H2>
+        <AppointmentGrid />
         <H2>Recent Signups</H2>
         <MemberGrid members={members} />
         <DashboardButton onClick={toMemberList}>All Members</DashboardButton>
