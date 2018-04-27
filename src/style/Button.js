@@ -15,6 +15,8 @@ function getBgColor(props) {
         return constants.orange;
       case 'blue':
         return constants.blue;
+      case 'red':
+        return constants.red;
       default:
         return constants.yellow;
     }

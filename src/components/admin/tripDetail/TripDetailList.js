@@ -42,6 +42,7 @@ const ContentColumn = styled.div`
 const linkStyle = {
   fontSize: 16,
   marginLeft: 20,
+  textDecoration: 'underline',
 };
 
 const SECTION = 1;
@@ -53,9 +54,15 @@ class TripDetailList extends Component {
   }
 
   editLinkFor = sectionId => {
-    const tripId = this.props.trip.tripId;
+    const { trip } = this.props;
+    if (trip.cancelled || trip.time.hikeStart < Date.now()) {
+      return null;
+    }
     return (
-      <Link to={`/admin/trips/${tripId}/edit#${sectionId}`} style={linkStyle}>
+      <Link
+        to={`/admin/trips/${trip.tripId}/edit#${sectionId}`}
+        style={linkStyle}
+      >
         Edit
       </Link>
     );
