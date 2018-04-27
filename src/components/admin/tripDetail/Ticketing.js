@@ -19,17 +19,52 @@ class Ticketing extends Component {
     setCurrentSection(SECTION);
   }
 
+  paidOrders() {
+    const { trip } = this.props;
+    return trip.orders.filter(order => !order.cancelled && order.paid);
+  }
+
+  outstandingOrders() {
+    const { trip } = this.props;
+    return trip.orders.filter(order => !order.cancelled && !order.paid);
+  }
+
+  cancelledOrders() {
+    const { trip } = this.props;
+    return trip.orders.filter(order => order.cancelled);
+  }
+
+  ordersForPickup() {
+    const { trip } = this.props;
+    return trip.orders.filter(order => !order.cancelled);
+  }
+
   render() {
     const { activeMapMarker } = this.state;
     const { trip } = this.props;
     return (
       <div>
         <H5>Ticket Sales</H5>
-        <OrderGrid orders={trip.orders} capacity={trip.capacity} />
+        <OrderGrid orders={this.paidOrders()} capacity={trip.capacity} />
+        {this.outstandingOrders().length > 0 && (
+          <div>
+            <H5>Outstanding Orders</H5>
+            <OrderGrid orders={this.outstandingOrders()} />
+          </div>
+        )}
+        {this.cancelledOrders().length > 0 && (
+          <div>
+            <H5>Cancelled Orders</H5>
+            <OrderGrid cancelled orders={this.cancelledOrders()} />
+          </div>
+        )}
         <H5>Pickup Locations</H5>
-        <PickupMap orders={trip.orders} activeMarker={activeMapMarker} />
+        <PickupMap
+          orders={this.ordersForPickup()}
+          activeMarker={activeMapMarker}
+        />
         <PickupGrid
-          orders={trip.orders}
+          orders={this.ordersForPickup()}
           onClickOrder={index => this.setState({ activeMapMarker: index })}
         />
       </div>

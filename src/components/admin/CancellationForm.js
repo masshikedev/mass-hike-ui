@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { H3, P, Input, Button } from '../../../style';
+import { H5, P, Input, Button } from '../../style';
 
 const CancelInput = Input.extend`
   margin-bottom: 20px;
 `;
 
-class CancelTrip extends Component {
+class CancellationForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,11 +21,12 @@ class CancelTrip extends Component {
 
   render() {
     const { text } = this.state;
+    const { type } = this.props;
     return (
       <div>
-        <H3>Cancellation</H3>
+        <H5>Cancellation</H5>
         <P>
-          Confirm you want to cancel this trip by typing "cancel" in the text
+          Confirm you want to cancel this {type} by typing "cancel" in the text
           box.
         </P>
         <CancelInput
@@ -36,7 +37,7 @@ class CancelTrip extends Component {
         <br />
         {text.toLowerCase() === 'cancel' && (
           <Button color="red" onClick={this.onClick}>
-            Cancel trip
+            Cancel {type}
           </Button>
         )}
       </div>
@@ -44,4 +45,4 @@ class CancelTrip extends Component {
   }
 }
 
-export default CancelTrip;
+export default CancellationForm;

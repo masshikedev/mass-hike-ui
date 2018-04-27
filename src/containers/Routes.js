@@ -21,6 +21,7 @@ import MemberList from './MemberList';
 import MemberDetail from './MemberDetail';
 import NewMember from './NewMember';
 import EditMember from './EditMember';
+import OrderDetail from './OrderDetail';
 import PrismicRoute from '../prismic/PrismicRoute';
 
 const Routes = props => (
@@ -103,6 +104,7 @@ const Routes = props => (
     <Route exact path="/admin/members/new" component={NewMember} />
     <Route exact path="/admin/members/:id" component={MemberDetail} />
     <Route exact path="/admin/members/:id/edit" component={EditMember} />
+    <Route exact path="/admin/orders/:id" component={OrderDetail} />
     <Route component={NotFound} />
   </Switch>
 );

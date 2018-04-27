@@ -34,6 +34,9 @@ class MemberDetail extends LoadableComponent {
         <Td>{moment.utc(order.trip.time.hikeStart).format(MONTH_DATE_YEAR)}</Td>
         <Td>{order.tickets}</Td>
         <Td>{order.trip.children || 0}</Td>
+        <Td>
+          <Link to={`/admin/orders/${order._id}`}>view order</Link>
+        </Td>
       </Tr>
     );
   }
@@ -51,6 +54,7 @@ class MemberDetail extends LoadableComponent {
             <Th>Date</Th>
             <Th>Tickets</Th>
             <Th>Children</Th>
+            <Th />
           </Tr>
         </thead>
         <tbody>{member.orders.map(order => this.renderOrder(order))}</tbody>

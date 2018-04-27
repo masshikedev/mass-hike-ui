@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import TripForm from '../tripForm/TripForm';
-import CancelTrip from '../tripForm/CancelTrip';
+import CancellationForm from '../CancellationForm';
 import { adminEditTrip } from '../../../actions/CurrentTripActions';
 import buildTrip from '../../../utils/buildTrip';
 import { H3 } from '../../../style';
@@ -39,7 +39,7 @@ class EditTrip extends Component {
           onConfirm={this.onConfirm}
           buttonText="Confirm edits"
         />
-        <CancelTrip trip="trip" onCancel={this.onCancel} />
+        <CancellationForm type="trip" onCancel={this.onCancel} />
       </div>
     );
   }

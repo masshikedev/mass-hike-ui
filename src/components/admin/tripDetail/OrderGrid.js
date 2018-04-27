@@ -11,12 +11,21 @@ class OrderGrid extends Component {
       .reduce((acc, current) => acc + current);
   }
 
+  totalRevenue() {
+    const { orders } = this.props;
+    return orders
+      .map(order => order.tickets * order.selectedPrice)
+      .reduce((acc, current) => acc + current);
+  }
+
   renderOrders() {
     const { orders, capacity } = this.props;
     return orders.map((order, i) => {
       return (
         <Tr key={i}>
-          <Td>{order.name}</Td>
+          <Td>
+            <Link to={`/admin/orders/${order._id}`}>{order.name}</Link>
+          </Td>
           <Td>{order.tickets}</Td>
           <Td>0</Td>
           <Td>{order.promoCode || 'none'}</Td>
@@ -32,12 +41,12 @@ class OrderGrid extends Component {
   }
 
   render() {
-    const { orders } = this.props;
+    const { orders, cancelled } = this.props;
     if (orders.length === 0) {
       return <P>No tickets purchased yet</P>;
     }
     return (
-      <Table>
+      <Table fixed>
         <thead>
           <Tr>
             <Th>Customer</Th>
@@ -50,10 +59,15 @@ class OrderGrid extends Component {
         </thead>
         <tbody>
           {this.renderOrders()}
-          <Tr totals>
-            <Td>Total</Td>
-            <Td>{this.totalSales()}</Td>
-          </Tr>
+          {!cancelled && (
+            <Tr totals>
+              <Td>Total</Td>
+              <Td>{this.totalSales()}</Td>
+              <Td />
+              <Td />
+              <Td>{this.totalRevenue()}</Td>
+            </Tr>
+          )}
         </tbody>
       </Table>
     );
