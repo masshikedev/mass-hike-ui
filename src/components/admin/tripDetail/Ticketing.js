@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { AdminContainer, H5 } from '../../../style';
+import { AdminContainer, P, H5 } from '../../../style';
 import OrderGrid from './OrderGrid';
 import PickupMap from './PickupMap';
 import PickupGrid from './PickupGrid';
 
 const SECTION = 0;
+
+const UnsoldTickets = P.extend`
+  margin-bottom: 30px;
+`;
 
 class Ticketing extends Component {
   constructor(props) {
@@ -52,6 +56,8 @@ class Ticketing extends Component {
             <OrderGrid orders={this.outstandingOrders()} />
           </div>
         )}
+        <UnsoldTickets proxima bold>{`Total unsold tickets: ${trip.capacity -
+          trip.ticketsSold}`}</UnsoldTickets>
         {this.cancelledOrders().length > 0 && (
           <div>
             <H5>Cancelled Orders</H5>

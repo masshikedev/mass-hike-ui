@@ -5,7 +5,7 @@ import { P, Table, Tr, Th, Td } from '../../style';
 class AppointmentGrid extends Component {
   renderOrder(order) {
     return (
-      <Tr>
+      <Tr key={order._id}>
         <Td>
           <Link to={`/admin/orders/${order._id}`}>{order.name}</Link>
         </Td>
