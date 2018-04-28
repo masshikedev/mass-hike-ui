@@ -56,8 +56,11 @@ class Ticketing extends Component {
             <OrderGrid orders={this.outstandingOrders()} />
           </div>
         )}
-        <UnsoldTickets proxima bold>{`Total unsold tickets: ${trip.capacity -
-          trip.ticketsSold}`}</UnsoldTickets>
+        <UnsoldTickets proxima bold>
+          {`Total tickets sold: ${trip.ticketsSold}`}
+          <br />
+          {`Total unsold tickets: ${trip.capacity - trip.ticketsSold}`}
+        </UnsoldTickets>
         {this.cancelledOrders().length > 0 && (
           <div>
             <H5>Cancelled Orders</H5>

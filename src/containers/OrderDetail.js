@@ -68,6 +68,12 @@ class OrderDetail extends LoadableComponent {
           Cancelled
         </Subtitle>
       );
+    } else if (order.trip.cancelled) {
+      return (
+        <Subtitle proxima bold color="error" size="large">
+          Trip Cancelled
+        </Subtitle>
+      );
     } else if (order.paid) {
       return (
         <Subtitle proxima bold color="green" size="large">
@@ -205,6 +211,7 @@ class OrderDetail extends LoadableComponent {
         <P>{order.pickupLocation}</P>
         <PickupMap orders={[order]} />
         {!order.cancelled &&
+          !order.trip.cancelled &&
           editStatus !== RequestStatus.PENDING && (
             <CancellationForm type="order" onCancel={this.onCancel} />
           )}

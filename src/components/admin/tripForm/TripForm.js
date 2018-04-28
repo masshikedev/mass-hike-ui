@@ -146,6 +146,7 @@ class TripForm extends Component {
       uploadInProgress,
       cashAvailability,
     } = this.state;
+    console.log(cashAvailability);
     const { buttonText } = this.props;
     const imageUrl = detail.imageUrl;
     const messages =
