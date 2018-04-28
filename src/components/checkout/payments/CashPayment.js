@@ -16,6 +16,7 @@ import {
 } from '../../../constants';
 import { MONTH_DATE_YEAR, TIME } from '../../../utils/dateFormats';
 import Helmet from 'react-helmet';
+import styled from 'styled-components';
 
 function Weekday({ weekday, className, localeUtils, locale }) {
   const weekdayName = localeUtils.formatWeekdayLong(weekday, locale);
