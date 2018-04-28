@@ -121,14 +121,14 @@ class CashPayment extends BaseCheckoutSection {
 
   availableDays() {
     const { trip } = this.props;
-    return trip.cashAvailability.map(
-      dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
-    );
+    return trip.cashAvailability.map(({ date }) => {
+      return new Date(this.toLocal(date));
+    });
   }
 
   isDisabledDate(day) {
     for (let d of this.availableDays()) {
-      if (d.getTime() === day.getTime()) return false;
+      if (d.getTime() === day.getTime() - TWELVE_HOUR_CORRECTION) return false;
     }
     return true;
   }
