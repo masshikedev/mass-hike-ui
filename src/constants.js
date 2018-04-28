@@ -6,5 +6,6 @@ export const RequestStatus = {
 };
 
 export const DAY_PICKER_DATE_CORRECTION = 57600000;
+export const TWELVE_HOUR_CORRECTION = 43200000;
 
 export const GOOGLE_MAPS_API_KEY = 'AIzaSyDDHSAqyK_6c7QwEF2tKAnGaY7Hk_7u-Bk';
