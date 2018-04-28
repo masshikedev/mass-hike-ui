@@ -227,39 +227,6 @@ class CashPayment extends BaseCheckoutSection {
     }
   }
 
-  availableDays() {
-    const { trip } = this.props;
-    return trip.cashAvailability.map(
-      dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
-    );
-  }
-
-  isDisabledDate(day) {
-    for (let d of this.availableDays()) {
-      if (d.getTime() === day.getTime()) return false;
-    }
-    return true;
-  }
-
-  getTimes() {
-    const { cashAvailability } = this.props.trip;
-    const { meetingDate } = this.state;
-    for (let { date, times } of cashAvailability) {
-      if (date === meetingDate) {
-        return times;
-      }
-    }
-  }
-
-  disabledHours() {
-    let hours = [...Array(24).keys()];
-    for (let { start, end } of this.getTimes()) {
-      return hours.map(hour => {
-        const startHour = new Date();
-      });
-    }
-  }
-
   renderCashLocations(maxLoc) {
     const { trip } = this.props;
     const cashLocations = trip.cashLocations;
