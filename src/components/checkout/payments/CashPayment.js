@@ -13,7 +13,10 @@ import DayPicker from 'react-day-picker';
 import TimePicker from 'rc-time-picker';
 import moment from 'moment';
 import 'react-day-picker/lib/style.css';
-import { DAY_PICKER_DATE_CORRECTION } from '../../../constants';
+import {
+  DAY_PICKER_DATE_CORRECTION,
+  TWELVE_HOUR_CORRECTION,
+} from '../../../constants';
 import { MONTH_DATE_YEAR, TIME } from '../../../utils/dateFormats';
 import Helmet from 'react-helmet';
 
@@ -134,14 +137,14 @@ class CashPayment extends BaseCheckoutSection {
 
   availableDays() {
     const { trip } = this.props;
-    return trip.cashAvailability.map(
-      dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
-    );
+    return trip.cashAvailability.map(({ date }) => {
+      return new Date(this.toLocal(date));
+    });
   }
 
   isDisabledDate(day) {
     for (let d of this.availableDays()) {
-      if (d.getTime() === day.getTime()) return false;
+      if (d.getTime() === day.getTime() - TWELVE_HOUR_CORRECTION) return false;
     }
     return true;
   }
