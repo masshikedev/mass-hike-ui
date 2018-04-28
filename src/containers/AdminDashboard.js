@@ -6,10 +6,12 @@ import AdminPage from '../components/admin/AdminPage';
 import TripGrid from '../components/admin/TripGrid';
 import MemberGrid from '../components/admin/members/MemberGrid';
 import AppointmentGrid from '../components/admin/AppointmentGrid';
+import AvailabilityForm from '../components/admin/AvailabilityForm';
 import LoadableComponent from '../components/LoadableComponent';
 import { adminGetAllTrips } from '../actions/TripListActions';
 import { adminGetAllMembers } from '../actions/MemberActions';
 import { adminGetUnpaidOrders } from '../actions/OrderActions';
+import { getAvailability } from '../actions/AvailabilityActions';
 import { H2, AdminContainer, Button } from '../style';
 import { RequestStatus } from '../constants';
 import combineStatus from '../utils/combineStatus';
@@ -25,10 +27,12 @@ class AdminDashboard extends LoadableComponent {
       adminGetAllTrips,
       adminGetAllMembers,
       adminGetUnpaidOrders,
+      getAvailability,
     } = this.props;
     adminGetAllTrips();
     adminGetUnpaidOrders();
     adminGetAllMembers();
+    getAvailability();
   }
 
   renderSuccess = () => {
@@ -37,6 +41,7 @@ class AdminDashboard extends LoadableComponent {
       pastTrips,
       members,
       unpaidOrders,
+      availableTimes,
       status,
       toMemberList,
       toMemberForm,
@@ -51,6 +56,8 @@ class AdminDashboard extends LoadableComponent {
         <DashboardButton onClick={toTripForm}>New Trip</DashboardButton>
         <H2>Cash Appointments</H2>
         <AppointmentGrid orders={unpaidOrders} />
+        <H2>Cash Availability</H2>
+        <AvailabilityForm availability={availableTimes} />
         <H2>Recent Signups</H2>
         <MemberGrid members={members} />
         <DashboardButton onClick={toMemberList}>All Members</DashboardButton>
@@ -64,13 +71,19 @@ const mapStateToProps = state => ({
   upcomingTrips: state.tripList.adminTrips.filter(
     trip => !trip.cancelled && trip.time.hikeStart >= Date.now()
   ),
-  unpaidOrders: state.orders.unpaidOrders,
+  unpaidOrders: state.orders.unpaidOrders.filter(
+    order => !order.trip.cancelled
+  ),
   members: state.members.members.slice(0, 10),
+  availableTimes: state.availability.times,
+  availableLocations: state.availability.locations,
   status: combineStatus(
     state.tripList.adminStatus,
     state.orders.unpaidOrdersStatus,
-    state.members.membersStatus
+    state.members.membersStatus,
+    state.availability.status
   ),
+  test: console.log(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -79,6 +92,7 @@ const mapDispatchToProps = dispatch =>
       adminGetAllTrips,
       adminGetAllMembers,
       adminGetUnpaidOrders,
+      getAvailability,
       toTripList: () => push('/admin/trips'),
       toTripForm: () => push('/admin/trips/new'),
       toMemberList: () => push('/admin/members'),

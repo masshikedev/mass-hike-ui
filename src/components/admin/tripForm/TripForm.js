@@ -6,7 +6,6 @@ import PromoCodeGrid from './PromoCodeGrid';
 import ZipcodeList from './ZipcodeList';
 import CashLocationList from './CashLocationList';
 import ZipcodeForm from './ZipcodeForm';
-import AvailabilityForm from './AvailabilityForm';
 import ValidatedTextInput from '../../forms/ValidatedTextInput';
 import { validate } from 'validate.js';
 import { tripConstraints } from '../../../utils/validationConstraints';
@@ -235,16 +234,6 @@ class TripForm extends Component {
             locations={cashLocations}
             onDelete={this.onDeleteCashLocation}
             showDelete
-          />
-        </TripFormSection>
-        <TripFormSection id="availability">
-          <H5>Availability</H5>
-          <AvailabilityForm
-            editable
-            availability={cashAvailability}
-            onChange={availability =>
-              this.setState({ cashAvailability: availability })
-            }
           />
         </TripFormSection>
         <TripFormSection>

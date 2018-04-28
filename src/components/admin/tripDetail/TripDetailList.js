@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import PromoCodeGrid from '../tripForm/PromoCodeGrid';
 import ZipcodeList from '../tripForm/ZipcodeList';
 import CashLocationList from '../tripForm/CashLocationList';
-import AvailabilityForm from '../tripForm/AvailabilityForm';
 import styled from 'styled-components';
 import moment from 'moment';
 import { TIME } from '../../../utils/dateFormats';
@@ -212,7 +211,6 @@ class TripDetailList extends Component {
             Availability
             {this.editLinkFor('availability')}
           </H5>
-          <AvailabilityForm availability={trip.cashAvailability} />
         </TripDetailSection>
       </div>
     );
