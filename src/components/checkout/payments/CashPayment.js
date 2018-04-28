@@ -10,7 +10,10 @@ import DayPicker from 'react-day-picker';
 import TimePicker from 'rc-time-picker';
 import moment from 'moment';
 import 'react-day-picker/lib/style.css';
-import { DAY_PICKER_DATE_CORRECTION } from '../../../constants';
+import {
+  DAY_PICKER_DATE_CORRECTION,
+  TWELVE_HOUR_CORRECTION,
+} from '../../../constants';
 import { MONTH_DATE_YEAR, TIME } from '../../../utils/dateFormats';
 import Helmet from 'react-helmet';
 
@@ -56,26 +59,47 @@ class CashPayment extends BaseCheckoutSection {
     if (!this.isDisabledDate(date)) {
       this.setState(
         {
-          meetingDate:
-            moment.unix(date - DAY_PICKER_DATE_CORRECTION).valueOf() / 1000,
+          meetingDate: moment(date.getTime())
+            .utc()
+            .valueOf(),
         },
-        () =>
-          this.getTimes() &&
-          this.setState({ meetTime: this.getTimes()[0].start })
+        () => {
+          if (this.getTimes()) {
+            let time = this.getTimes()[0].start;
+            this.setState(
+              {
+                meetingDate:
+                  moment(date.getTime())
+                    .utc()
+                    .hour(0)
+                    .minute(0)
+                    .second(0)
+                    .millisecond(0)
+                    .valueOf() + time,
+              },
+              () => console.log(this.state.meetingDate)
+            );
+          }
+        }
       );
     }
   }
 
+  toLocal(date) {
+    let z = moment().utcOffset();
+    return moment(date).valueOf() - z * 60000;
+  }
+
   availableDays() {
     const { trip } = this.props;
-    return trip.cashAvailability.map(
-      dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
-    );
+    return trip.cashAvailability.map(({ date }) => {
+      return new Date(this.toLocal(date));
+    });
   }
 
   isDisabledDate(day) {
     for (let d of this.availableDays()) {
-      if (d.getTime() === day.getTime()) return false;
+      if (d.getTime() === day.getTime() - TWELVE_HOUR_CORRECTION) return false;
     }
     return true;
   }
@@ -189,8 +213,10 @@ class CashPayment extends BaseCheckoutSection {
         </Helmet>
         <DayPicker
           onDayClick={day => this.handleChooseDate(day)}
-          selectedDays={new Date(meetingDate + DAY_PICKER_DATE_CORRECTION)}
-          modifiers={{ highlighted: this.availableDays() }}
+          selectedDays={[new Date(meetingDate)]}
+          modifiers={{
+            highlighted: this.availableDays(),
+          }}
           disabledDays={d => this.isDisabledDate(d)}
           weekdayElement={<Weekday />}
         />
@@ -199,13 +225,15 @@ class CashPayment extends BaseCheckoutSection {
   }
 
   renderTime() {
-    const { meetTime } = this.state;
+    const { meetingDate } = this.state;
     const { cashAvailability } = this.props.trip;
     const defaultTime = cashAvailability[0].times[0].start;
     return (
       <TimePicker
-        value={moment.unix(meetTime)}
-        onChange={time => this.setState({ meetTime: time })}
+        value={moment(meetingDate)}
+        onChange={time => {
+          this.setState({ meetingDate: time.valueOf() });
+        }}
         // disabledHours={disabledHours}
         // disabledMinutes={disabledMinutes}
         showSecond={false}
