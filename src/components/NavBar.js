@@ -27,7 +27,7 @@ const Nav = styled.div`
   transition: box-shadow 0.1s ease;
   box-shadow: ${({ scrolledToTop }) =>
     scrolledToTop ? 'none' : constants.boxshadow};
-  z-index: 9999;
+  z-index: 9998;
 `;
 
 const Logo = Img.extend`
@@ -132,11 +132,6 @@ class NavBar extends Component {
           </Link>
         </NavLeft>
         <NavRight>
-          {loggedIn && (
-            <Link to="/admin">
-              <NavLink>Admin</NavLink>
-            </Link>
-          )}
           {this.renderNavLinks(
             renderLinkSlices(this.props.doc.data.body, NavLink)
           )}

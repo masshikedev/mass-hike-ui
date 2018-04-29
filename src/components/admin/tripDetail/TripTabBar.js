@@ -23,27 +23,30 @@ const Tab = styled.div`
 
 class TripTabBar extends Component {
   render() {
-    const { currentSection, tripId, toSection } = this.props;
+    const { currentSection, trip, toSection } = this.props;
     return (
       <TabBarContainer>
         <Tab
           active={currentSection === 0}
-          onClick={() => toSection('ticketing', tripId)}
+          onClick={() => toSection('ticketing', trip.tripId)}
         >
           Tickets & Pickup
         </Tab>
         <Tab
           active={currentSection === 1}
-          onClick={() => toSection('details', tripId)}
+          onClick={() => toSection('details', trip.tripId)}
         >
           Trip Details
         </Tab>
-        <Tab
-          active={currentSection === 2}
-          onClick={() => toSection('edit', tripId)}
-        >
-          Edit Trip
-        </Tab>
+        {!trip.cancelled &&
+          trip.time.hikeStart > Date.now() && (
+            <Tab
+              active={currentSection === 2}
+              onClick={() => toSection('edit', trip.tripId)}
+            >
+              Edit Trip
+            </Tab>
+          )}
       </TabBarContainer>
     );
   }

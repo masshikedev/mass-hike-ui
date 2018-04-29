@@ -5,14 +5,12 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import PromoCodeGrid from '../tripForm/PromoCodeGrid';
 import ZipcodeList from '../tripForm/ZipcodeList';
-import CashLocationList from '../tripForm/CashLocationList';
-import AvailabilityForm from '../tripForm/AvailabilityForm';
 import styled from 'styled-components';
 import moment from 'moment';
 import { TIME } from '../../../utils/dateFormats';
 import {
   P,
-  H3,
+  H5,
   H6,
   GridParent,
   Table,
@@ -42,6 +40,7 @@ const ContentColumn = styled.div`
 const linkStyle = {
   fontSize: 16,
   marginLeft: 20,
+  textDecoration: 'underline',
 };
 
 const SECTION = 1;
@@ -53,9 +52,15 @@ class TripDetailList extends Component {
   }
 
   editLinkFor = sectionId => {
-    const tripId = this.props.trip.tripId;
+    const { trip } = this.props;
+    if (trip.cancelled || trip.time.hikeStart < Date.now()) {
+      return null;
+    }
     return (
-      <Link to={`/admin/trips/${tripId}/edit#${sectionId}`} style={linkStyle}>
+      <Link
+        to={`/admin/trips/${trip.tripId}/edit#${sectionId}`}
+        style={linkStyle}
+      >
         Edit
       </Link>
     );
@@ -66,10 +71,10 @@ class TripDetailList extends Component {
     return (
       <div>
         <TripDetailSection>
-          <H3>
+          <H5>
             Date and Time
             {this.editLinkFor('time')}
-          </H3>
+          </H5>
           <Table fixed>
             <thead>
               <Tr>
@@ -107,18 +112,18 @@ class TripDetailList extends Component {
           </Table>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Capacity
             {this.editLinkFor('capacity')}
-          </H3>
+          </H5>
           <Subheading>Total Capacity</Subheading>
           <P>{trip.capacity}</P>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Base Pricing
             {this.editLinkFor('pricing')}
-          </H3>
+          </H5>
           <Table fixed>
             <thead>
               <Tr>
@@ -140,17 +145,17 @@ class TripDetailList extends Component {
           </Table>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Promo Codes
             {this.editLinkFor('promo-codes')}
-          </H3>
+          </H5>
           <PromoCodeGrid codes={trip.promoCodes} fixed />
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Difficulty and Statistics
             {this.editLinkFor('stats')}
-          </H3>
+          </H5>
           <Subheading>Difficulty</Subheading>
           <P>{trip.difficulty}</P>
           <Table fixed>
@@ -171,10 +176,10 @@ class TripDetailList extends Component {
           </Table>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Content
             {this.editLinkFor('content')}
-          </H3>
+          </H5>
           <GridParent>
             <ContentColumn>
               <Subheading>Title</Subheading>
@@ -187,25 +192,17 @@ class TripDetailList extends Component {
           </GridParent>
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
+          <H5>
             Pickup Radius
             {this.editLinkFor('pickup-radius')}
-          </H3>
+          </H5>
           <ZipcodeList zipcodes={trip.pickupZipcodes} />
         </TripDetailSection>
         <TripDetailSection>
-          <H3>
-            Cash Locations
-            {this.editLinkFor('cash-locations')}
-          </H3>
-          <CashLocationList locations={trip.cashLocations} />
-        </TripDetailSection>
-        <TripDetailSection>
-          <H3>
+          <H5>
             Availability
             {this.editLinkFor('availability')}
-          </H3>
-          <AvailabilityForm availability={trip.cashAvailability} />
+          </H5>
         </TripDetailSection>
       </div>
     );

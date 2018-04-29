@@ -5,6 +5,7 @@ const Th = styled.th`
   font-weight: bold;
   font-family: 'proxima-nova';
   text-align: left;
+  padding-right: 10px;
 `;
 
 export default Th;

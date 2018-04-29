@@ -4,7 +4,10 @@ import { RequestStatus } from '../constants';
 const initialState = {
   currentOrderStatus: RequestStatus.UNITIALIZED,
   confirmOrderStatus: RequestStatus.UNITIALIZED,
+  unpaidOrdersStatus: RequestStatus.UNITIALIZED,
+  updateOrderStatus: RequestStatus.UNITIALIZED,
   currentOrder: null,
+  unpaidOrders: [],
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +42,41 @@ export default (state = initialState, action) => {
       return {
         ...state,
         confirmOrderStatus: RequestStatus.ERROR,
+      };
+    case ActionTypes.ADMIN_GET_UNPAID_ORDERS_ATTEMPT:
+      return {
+        ...state,
+        unpaidOrdersStatus: RequestStatus.PENDING,
+      };
+    case ActionTypes.ADMIN_GET_UNPAID_ORDERS_SUCCESS:
+      return {
+        ...state,
+        unpaidOrdersStatus: RequestStatus.SUCCESS,
+        unpaidOrders: action.payload.orders,
+      };
+    case ActionTypes.ADMIN_GET_UNPAID_ORDERS_ERROR:
+      return {
+        ...state,
+        unpaidOrdersStatus: RequestStatus.ERROR,
+      };
+    case ActionTypes.ADMIN_UPDATE_ORDER_ATTEMPT:
+      return {
+        ...state,
+        updateOrderStatus: RequestStatus.UNITIALIZED,
+      };
+    case ActionTypes.ADMIN_UPDATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        updateOrderStatus: RequestStatus.SUCCESS,
+        currentOrder: {
+          ...state.currentOrder,
+          ...action.payload.order,
+        },
+      };
+    case ActionTypes.ADMIN_UPDATE_ORDER_ERROR:
+      return {
+        ...state,
+        updateOrderStatus: RequestStatus.ERROR,
       };
     default:
       return state;

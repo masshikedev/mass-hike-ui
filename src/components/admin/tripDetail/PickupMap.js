@@ -8,9 +8,11 @@ const MapWrapper = styled.div`
   width: 100%;
   height: 400px;
   position: relative;
+  margin-top: 20px;
+  margin-bottom: 40px;
 `;
 
-const ZOOM = 13;
+const ZOOM = 12;
 const INITIAL_CENTER = {
   lat: 42.3493142,
   lng: -71.0676855,

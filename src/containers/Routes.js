@@ -14,12 +14,15 @@ import Checkout from './Checkout';
 import MobileCheckout from './MobileCheckout';
 import OrderConfirmation from './OrderConfirmation';
 import AdminDashboard from './AdminDashboard';
+import AdminTripList from './AdminTripList';
 import AdminTripDetail from './AdminTripDetail';
 import NewTrip from './NewTrip';
 import MemberList from './MemberList';
 import MemberDetail from './MemberDetail';
 import NewMember from './NewMember';
 import EditMember from './EditMember';
+import OrderDetail from './OrderDetail';
+import EditAvailability from './EditAvailability';
 import PrismicRoute from '../prismic/PrismicRoute';
 
 const Routes = props => (
@@ -95,12 +98,15 @@ const Routes = props => (
     <Route path="/trips/:tripId/checkout-mobile" component={MobileCheckout} />
     <Route exact path="/order/:id" component={OrderConfirmation} />
     <Route exact path="/admin" component={AdminDashboard} />
+    <Route exact path="/admin/trips" component={AdminTripList} />
     <Route exact path="/admin/trips/new" component={NewTrip} />
     <Route path="/admin/trips/:tripId" component={AdminTripDetail} />
     <Route exact path="/admin/members" component={MemberList} />
     <Route exact path="/admin/members/new" component={NewMember} />
     <Route exact path="/admin/members/:id" component={MemberDetail} />
     <Route exact path="/admin/members/:id/edit" component={EditMember} />
+    <Route exact path="/admin/orders/:id" component={OrderDetail} />
+    <Route exact path="/admin/availability" component={EditAvailability} />
     <Route component={NotFound} />
   </Switch>
 );

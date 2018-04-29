@@ -5,57 +5,67 @@ import { push } from 'react-router-redux';
 import AdminPage from '../components/admin/AdminPage';
 import TripGrid from '../components/admin/TripGrid';
 import MemberGrid from '../components/admin/members/MemberGrid';
+import AppointmentGrid from '../components/admin/AppointmentGrid';
+import AvailabilityForm from '../components/admin/AvailabilityForm';
 import LoadableComponent from '../components/LoadableComponent';
 import { adminGetAllTrips } from '../actions/TripListActions';
 import { adminGetAllMembers } from '../actions/MemberActions';
+import { adminGetUnpaidOrders } from '../actions/OrderActions';
+import { getAvailability } from '../actions/AvailabilityActions';
 import { H2, AdminContainer, Button } from '../style';
 import { RequestStatus } from '../constants';
 import combineStatus from '../utils/combineStatus';
 
-const CreateButton = Button.extend`
+const DashboardButton = Button.extend`
   margin-bottom: 50px;
-`;
-
-const MemberLinkButton = Button.extend`
   margin-right: 30px;
 `;
 
 class AdminDashboard extends LoadableComponent {
   componentWillMount() {
-    const { adminGetAllTrips, adminGetAllMembers } = this.props;
+    const {
+      adminGetAllTrips,
+      adminGetAllMembers,
+      adminGetUnpaidOrders,
+      getAvailability,
+    } = this.props;
     adminGetAllTrips();
+    adminGetUnpaidOrders();
     adminGetAllMembers();
+    getAvailability();
   }
-
-  onClickCreate = e => {
-    const { toCreateTrip } = this.props;
-    e.preventDefault();
-    toCreateTrip();
-  };
 
   renderSuccess = () => {
     const {
       upcomingTrips,
       pastTrips,
       members,
+      unpaidOrders,
+      availableTimes,
       status,
       toMemberList,
       toMemberForm,
+      toTripList,
+      toTripForm,
+      toEditAvailability,
     } = this.props;
-    if (status !== RequestStatus.SUCCESS) {
-      return null;
-    }
     return (
       <AdminContainer>
         <H2>Upcoming Trips</H2>
         <TripGrid trips={upcomingTrips} showTickets={true} />
-        <CreateButton onClick={this.onClickCreate}>Create New</CreateButton>
-        <H2>Past Trips</H2>
-        <TripGrid trips={pastTrips} showTickets={false} />
+        <DashboardButton onClick={toTripList}>All Trips</DashboardButton>
+        <DashboardButton onClick={toTripForm}>New Trip</DashboardButton>
+        <H2>Cash Appointments</H2>
+        <AppointmentGrid orders={unpaidOrders} />
+        <H2>Cash Availability</H2>
+        <AvailabilityForm availability={availableTimes} />
+        <DashboardButton onClick={toEditAvailability}>
+          Edit Availability
+        </DashboardButton>
         <H2>Recent Signups</H2>
         <MemberGrid members={members} />
-        <MemberLinkButton onClick={toMemberList}>All Members</MemberLinkButton>
-        <MemberLinkButton onClick={toMemberForm}>New Member</MemberLinkButton>
+        <DashboardButton onClick={toMemberList}>All Members</DashboardButton>
+        <DashboardButton onClick={toMemberForm}>New Member</DashboardButton>
       </AdminContainer>
     );
   };
@@ -63,15 +73,19 @@ class AdminDashboard extends LoadableComponent {
 
 const mapStateToProps = state => ({
   upcomingTrips: state.tripList.adminTrips.filter(
-    trip => trip.time.hikeStart >= Date.now()
+    trip => !trip.cancelled && trip.time.hikeStart >= Date.now()
   ),
-  pastTrips: state.tripList.adminTrips.filter(
-    trip => trip.time.hikeStart < Date.now()
+  unpaidOrders: state.orders.unpaidOrders.filter(
+    order => !order.trip.cancelled
   ),
-  members: state.members.members,
+  members: state.members.members.slice(0, 10),
+  availableTimes: state.availability.times,
+  availableLocations: state.availability.locations,
   status: combineStatus(
     state.tripList.adminStatus,
-    state.members.membersStatus
+    state.orders.unpaidOrdersStatus,
+    state.members.membersStatus,
+    state.availability.status
   ),
 });
 
@@ -80,9 +94,13 @@ const mapDispatchToProps = dispatch =>
     {
       adminGetAllTrips,
       adminGetAllMembers,
-      toCreateTrip: () => push('/admin/trips/new'),
+      adminGetUnpaidOrders,
+      getAvailability,
+      toTripList: () => push('/admin/trips'),
+      toTripForm: () => push('/admin/trips/new'),
       toMemberList: () => push('/admin/members'),
       toMemberForm: () => push('/admin/members/new'),
+      toEditAvailability: () => push('/admin/availability'),
     },
     dispatch
   );

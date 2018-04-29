@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import DayPicker from 'react-day-picker';
-import TimePicker from '../../forms/TimePicker';
-import { P, H6, GridParent, Button, Label } from '../../../style';
-import { MONTH_DATE_YEAR, TIME } from '../../../utils/dateFormats';
+import TimePicker from '../forms/TimePicker';
+import { P, H6, GridParent, Button, Label } from '../../style';
+import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';
 import styled from 'styled-components';
 import moment from 'moment';
-import { DAY_PICKER_DATE_CORRECTION } from '../../../constants';
+import { DAY_PICKER_DATE_CORRECTION } from '../../constants';
 
 const DateColumn = styled.div`
   grid-column: span 6;
@@ -42,7 +42,11 @@ class AvailabilityForm extends Component {
   }
 
   availableDays() {
-    return this.props.availability.map(
+    const { availability } = this.props;
+    const daysWithAvailability = availability.filter(day => {
+      return day.times.length > 0;
+    });
+    return daysWithAvailability.map(
       dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
     );
   }

@@ -67,17 +67,29 @@ class AdminTripDetail extends LoadableComponent {
     });
   }
 
+  renderSubtitle() {
+    const { trip } = this.props;
+    const dateString = moment.utc(trip.time.hikeStart).format(MONTH_DATE_YEAR);
+    if (trip.cancelled) {
+      return (
+        <P bold proxima color="error">
+          Cancelled
+        </P>
+      );
+    }
+    return <P>{`${dateString} - ${trip.location}`}</P>;
+  }
+
   renderSuccess = () => {
     const { trip, match } = this.props;
     const { currentSection } = this.state;
-    const dateString = moment.utc(trip.time.hikeStart).format(MONTH_DATE_YEAR);
     return (
       <div>
         <HeaderSection>
           <AdminContainer>
             <Header>{trip.name}</Header>
-            <P>{`${dateString} - ${trip.location}`}</P>
-            <TripTabBar currentSection={currentSection} tripId={trip.tripId} />
+            {this.renderSubtitle()}
+            <TripTabBar currentSection={currentSection} trip={trip} />
           </AdminContainer>
         </HeaderSection>
         <AdminContainer>
