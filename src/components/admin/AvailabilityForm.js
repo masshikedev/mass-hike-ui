@@ -42,7 +42,11 @@ class AvailabilityForm extends Component {
   }
 
   availableDays() {
-    return this.props.availability.map(
+    const { availability } = this.props;
+    const daysWithAvailability = availability.filter(day => {
+      return day.times.length > 0;
+    });
+    return daysWithAvailability.map(
       dayData => new Date(dayData.date + DAY_PICKER_DATE_CORRECTION)
     );
   }

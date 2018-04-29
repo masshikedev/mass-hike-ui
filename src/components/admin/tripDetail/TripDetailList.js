@@ -5,7 +5,6 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import PromoCodeGrid from '../tripForm/PromoCodeGrid';
 import ZipcodeList from '../tripForm/ZipcodeList';
-import CashLocationList from '../tripForm/CashLocationList';
 import styled from 'styled-components';
 import moment from 'moment';
 import { TIME } from '../../../utils/dateFormats';
@@ -198,13 +197,6 @@ class TripDetailList extends Component {
             {this.editLinkFor('pickup-radius')}
           </H5>
           <ZipcodeList zipcodes={trip.pickupZipcodes} />
-        </TripDetailSection>
-        <TripDetailSection>
-          <H5>
-            Cash Locations
-            {this.editLinkFor('cash-locations')}
-          </H5>
-          <CashLocationList locations={trip.cashLocations} />
         </TripDetailSection>
         <TripDetailSection>
           <H5>

@@ -47,6 +47,7 @@ class AdminDashboard extends LoadableComponent {
       toMemberForm,
       toTripList,
       toTripForm,
+      toEditAvailability,
     } = this.props;
     return (
       <AdminContainer>
@@ -58,6 +59,9 @@ class AdminDashboard extends LoadableComponent {
         <AppointmentGrid orders={unpaidOrders} />
         <H2>Cash Availability</H2>
         <AvailabilityForm availability={availableTimes} />
+        <DashboardButton onClick={toEditAvailability}>
+          Edit Availability
+        </DashboardButton>
         <H2>Recent Signups</H2>
         <MemberGrid members={members} />
         <DashboardButton onClick={toMemberList}>All Members</DashboardButton>
@@ -83,7 +87,6 @@ const mapStateToProps = state => ({
     state.members.membersStatus,
     state.availability.status
   ),
-  test: console.log(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -97,6 +100,7 @@ const mapDispatchToProps = dispatch =>
       toTripForm: () => push('/admin/trips/new'),
       toMemberList: () => push('/admin/members'),
       toMemberForm: () => push('/admin/members/new'),
+      toEditAvailability: () => push('/admin/availability'),
     },
     dispatch
   );

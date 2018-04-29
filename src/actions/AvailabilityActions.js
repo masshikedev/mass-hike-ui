@@ -3,7 +3,6 @@ import { fetchAvailability, updateAvailability } from '../api/availability';
 
 const getAvailabilitySuccess = dispatch => {
   return response => {
-    console.log(response);
     dispatch({
       type: ActionTypes.GET_AVAILABILITY_SUCCESS,
       payload: {

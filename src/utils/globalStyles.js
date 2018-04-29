@@ -49,12 +49,12 @@ injectGlobal`
     font-family: 'proxima-nova';
     font-size: 16px;
   }
-  
+
   img {
     width: 100%;
   }
 
   .DayPicker-Day--highlighted {
-    background-color: #eeeeee;
+    background-color: #dddddd;
   }
 `;

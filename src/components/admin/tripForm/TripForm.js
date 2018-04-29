@@ -4,7 +4,6 @@ import TripTimeSelector from './TripTimeSelector';
 import PricingForm from './PricingForm';
 import PromoCodeGrid from './PromoCodeGrid';
 import ZipcodeList from './ZipcodeList';
-import CashLocationList from './CashLocationList';
 import ZipcodeForm from './ZipcodeForm';
 import ValidatedTextInput from '../../forms/ValidatedTextInput';
 import { validate } from 'validate.js';
@@ -145,7 +144,6 @@ class TripForm extends Component {
       uploadInProgress,
       cashAvailability,
     } = this.state;
-    console.log(cashAvailability);
     const { buttonText } = this.props;
     const imageUrl = detail.imageUrl;
     const messages =
@@ -226,14 +224,6 @@ class TripForm extends Component {
           <ZipcodeForm
             onAddZipcode={this.onAddZipcode}
             error={messages.pickupZipcodes}
-          />
-        </TripFormSection>
-        <TripFormSection id="cash-locations">
-          <H5>Cash Locations</H5>
-          <CashLocationList
-            locations={cashLocations}
-            onDelete={this.onDeleteCashLocation}
-            showDelete
           />
         </TripFormSection>
         <TripFormSection>

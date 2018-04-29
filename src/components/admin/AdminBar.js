@@ -25,7 +25,14 @@ const AdminBarItem = styled.button`
 
 class AdminBar extends Component {
   render() {
-    const { loggedIn, logout, toDashboard, toTrips, toMembers } = this.props;
+    const {
+      loggedIn,
+      logout,
+      toDashboard,
+      toTrips,
+      toMembers,
+      toAvailability,
+    } = this.props;
     if (!loggedIn) {
       return null;
     }
@@ -34,6 +41,7 @@ class AdminBar extends Component {
         <AdminBarItem onClick={toDashboard}>Dashboard</AdminBarItem>
         <AdminBarItem onClick={toTrips}>Trips</AdminBarItem>
         <AdminBarItem onClick={toMembers}>Members</AdminBarItem>
+        <AdminBarItem onClick={toAvailability}>Availability</AdminBarItem>
         <AdminBarItem onClick={logout}>Logout</AdminBarItem>
       </AdminBarContainer>
     );
@@ -51,6 +59,7 @@ const mapDispatchToProps = dispatch =>
       toDashboard: () => push('/admin'),
       toTrips: () => push('/admin/trips'),
       toMembers: () => push('/admin/members'),
+      toAvailability: () => push('/admin/availability'),
     },
     dispatch
   );

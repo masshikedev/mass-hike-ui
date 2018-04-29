@@ -44,7 +44,6 @@ export default (state = initialState, action) => {
         confirmOrderStatus: RequestStatus.ERROR,
       };
     case ActionTypes.ADMIN_GET_UNPAID_ORDERS_ATTEMPT:
-      console.log('there was an attempt');
       return {
         ...state,
         unpaidOrdersStatus: RequestStatus.PENDING,
@@ -61,13 +60,11 @@ export default (state = initialState, action) => {
         unpaidOrdersStatus: RequestStatus.ERROR,
       };
     case ActionTypes.ADMIN_UPDATE_ORDER_ATTEMPT:
-      console.log('attempt');
       return {
         ...state,
         updateOrderStatus: RequestStatus.UNITIALIZED,
       };
     case ActionTypes.ADMIN_UPDATE_ORDER_SUCCESS:
-      console.log('success');
       return {
         ...state,
         updateOrderStatus: RequestStatus.SUCCESS,
