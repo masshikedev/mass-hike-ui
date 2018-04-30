@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
+import MobileNav from './MobileNav';
 import hamburger from '../images/hamburger.png';
+import xIcon from '../images/mobile_nav_x.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
 import { A, constants, Button, Img, MediaQueries } from '../style';
 import logo from '../images/mh_large.png';
@@ -79,6 +81,7 @@ const Hamburger = styled.div`
   ${MediaQueries.small} {
     display: block;
   }
+  padding-top: 5px;
 `;
 
 class NavBar extends Component {
@@ -88,6 +91,7 @@ class NavBar extends Component {
     super(props);
     this.state = {
       scrolledToTop: true,
+      showMobileNav: false,
     };
     document.addEventListener('scroll', this.onScroll);
   }
@@ -121,25 +125,36 @@ class NavBar extends Component {
 
   render() {
     const { loggedIn } = this.props;
+    const { showMobileNav } = this.state;
     return (
-      <Nav scrolledToTop={this.state.scrolledToTop}>
-        <NavLeft>
-          <Link to="/">
-            <LogoMark>
-              <Logo src={logo} />
-              <NavLink>Mass Hike</NavLink>
-            </LogoMark>
-          </Link>
-        </NavLeft>
-        <NavRight>
-          {this.renderNavLinks(
-            renderLinkSlices(this.props.doc.data.body, NavLink)
-          )}
-        </NavRight>
-        <Hamburger>
-          <Img src={hamburger} />
-        </Hamburger>
-      </Nav>
+      <div>
+        <MobileNav
+          show={showMobileNav}
+          closeNav={() => this.setState({ showMobileNav: false })}
+        />
+        <Nav scrolledToTop={this.state.scrolledToTop}>
+          <NavLeft>
+            <Link to="/">
+              <LogoMark>
+                <Logo src={logo} />
+                <NavLink>Mass Hike</NavLink>
+              </LogoMark>
+            </Link>
+          </NavLeft>
+          <NavRight>
+            {this.renderNavLinks(
+              renderLinkSlices(this.props.doc.data.body, NavLink)
+            )}
+          </NavRight>
+          <Hamburger
+            onClick={() =>
+              this.setState({ showMobileNav: !this.state.showMobileNav })
+            }
+          >
+            <Img src={showMobileNav ? xIcon : hamburger} />
+          </Hamburger>
+        </Nav>
+      </div>
     );
   }
 }
