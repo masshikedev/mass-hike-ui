@@ -184,6 +184,8 @@ class TripDetailList extends Component {
             <ContentColumn>
               <Subheading>Title</Subheading>
               <P>{trip.detail.title}</P>
+              <Subheading>Subtitle</Subheading>
+              <P>{trip.detail.subtitle}</P>
               <Subheading>Body</Subheading>
               <P>{trip.detail.body}</P>
               <Subheading>Image</Subheading>

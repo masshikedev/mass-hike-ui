@@ -271,6 +271,11 @@ const tripConstraints = trip => {
         allowEmpty: false,
       },
     },
+    'detail.subtitle': {
+      presence: {
+        allowEmpty: false,
+      },
+    },
     'detail.body': {
       presence: {
         allowEmpty: false,

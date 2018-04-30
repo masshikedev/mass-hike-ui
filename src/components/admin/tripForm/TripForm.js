@@ -100,7 +100,6 @@ class TripForm extends Component {
   }
 
   onAddZipcode = zipcode => {
-    console.log(zipcode);
     this.setState({
       pickupZipcodes: this.state.pickupZipcodes.concat([zipcode]),
     });
@@ -202,8 +201,15 @@ class TripForm extends Component {
         </TripFormSection>
         <TripFormSection id="content">
           <H5>Content</H5>
-          {this.fieldFor('title', 'Title', messages, 'detail')}
-          {this.fieldFor('body', 'Body', messages, 'detail', true)}
+          {this.fieldFor('subheader', 'Subheader', messages, 'detail', true)}
+          {this.fieldFor('bodyTitle', 'Body Title', messages, 'detail')}
+          {this.fieldFor(
+            'bodyContent',
+            'Body Content',
+            messages,
+            'detail',
+            true
+          )}
           <H6>Image</H6>
           <ImageDropzone
             onUploadAttempt={this.onUploadAttempt}

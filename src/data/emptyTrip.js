@@ -4,8 +4,9 @@ export default {
   capacity: '15',
   difficulty: '',
   detail: {
-    title: '',
-    body: '',
+    subheader: '',
+    bodyTitle: '',
+    bodyContent: '',
     imageUrl: '',
   },
   location: '',
