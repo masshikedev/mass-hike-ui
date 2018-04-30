@@ -70,7 +70,6 @@ class CashPayment extends BaseCheckoutSection {
               {
                 meetingDate:
                   moment(date.getTime())
-                    .utc()
                     .hour(0)
                     .minute(0)
                     .second(0)
@@ -108,8 +107,9 @@ class CashPayment extends BaseCheckoutSection {
     const { cashAvailability } = this.props.trip;
     const { meetingDate } = this.state;
     for (let { date, times } of cashAvailability) {
-      if (date === meetingDate) {
-        return times;
+      if (this.toLocal(date) === meetingDate - TWELVE_HOUR_CORRECTION) {
+        console.log('success! :' + times);
+        return times.sort((a, b) => a.start - b.start);
       }
     }
   }
