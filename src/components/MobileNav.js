@@ -2,25 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
-import { P, constants } from '../style';
+import { P, MediaQueries, constants } from '../style';
 import styled from 'styled-components';
 
 const NavBackground = styled.div`
   width: 100%;
   height: calc(100% - ${constants.navHeight});
+  overflow: scroll;
   position: fixed;
   background: ${constants.lightgreenBg};
   background-blend-mode: multiply;
   z-index: 9997;
   top: ${props => (props.show ? constants.navHeight : '-100%')};
   transition: top 0.5s;
+  display: none;
+  ${MediaQueries.small} {
+    display: block;
+  }
 `;
 
 const NavWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 500px;
   width: 100%;
+  position: relative;
 `;
 
 const NavItem = styled.div`
