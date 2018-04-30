@@ -5,6 +5,7 @@ export default {
   difficulty: '',
   detail: {
     title: '',
+    subtitle: '',
     body: '',
     imageUrl: '',
   },

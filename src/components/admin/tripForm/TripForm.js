@@ -203,6 +203,7 @@ class TripForm extends Component {
         <TripFormSection id="content">
           <H5>Content</H5>
           {this.fieldFor('title', 'Title', messages, 'detail')}
+          {this.fieldFor('subtitle', 'Subtitle', messages, 'detail', true)}
           {this.fieldFor('body', 'Body', messages, 'detail', true)}
           <H6>Image</H6>
           <ImageDropzone
