@@ -57,9 +57,9 @@ function DetailDescription(props) {
   return (
     <Wrapper>
       <P proxima size="xlarge" bold>
-        What you need to know
+        {detail.bodyTitle}
       </P>
-      <P>{detail.body}</P>
+      <P>{detail.bodyContent}</P>
       <Timeline>
         <SmallTime>
           <H6>pickup</H6>

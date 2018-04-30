@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import LoadableComponent from '../components/LoadableComponent';
@@ -9,7 +10,7 @@ import TripDetailList from '../components/admin/tripDetail/TripDetailList';
 import EditTrip from '../components/admin/tripDetail/EditTrip';
 import TripTabBar from '../components/admin/tripDetail/TripTabBar';
 import { adminGetTripById } from '../actions/CurrentTripActions';
-import { AdminContainer, H2, P, constants } from '../style';
+import { AdminContainer, H2, P, GridParent, constants } from '../style';
 import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../utils/dateFormats';
@@ -27,6 +28,20 @@ const HeaderSection = styled.div`
 
 const Header = H2.extend`
   margin-bottom: 5px;
+`;
+
+const SubtitleInfo = styled.div`
+  grid-column: span 8;
+`;
+
+const SubtitleLink = styled.div`
+  grid-column: span 4;
+  text-align: right;
+  > a {
+    color: #000000;
+    text-decoration: underline;
+    font-size: 16px;
+  }
 `;
 
 class AdminTripDetail extends LoadableComponent {
@@ -72,12 +87,18 @@ class AdminTripDetail extends LoadableComponent {
     const dateString = moment.utc(trip.time.hikeStart).format(MONTH_DATE_YEAR);
     if (trip.cancelled) {
       return (
-        <P bold proxima color="error">
-          Cancelled
-        </P>
+        <SubtitleInfo>
+          <P bold proxima color="error">
+            Cancelled
+          </P>
+        </SubtitleInfo>
       );
     }
-    return <P>{`${dateString} - ${trip.location}`}</P>;
+    return (
+      <SubtitleInfo>
+        <P>{`${dateString} - ${trip.location}`}</P>
+      </SubtitleInfo>
+    );
   }
 
   renderSuccess = () => {
@@ -88,7 +109,14 @@ class AdminTripDetail extends LoadableComponent {
         <HeaderSection>
           <AdminContainer>
             <Header>{trip.name}</Header>
-            {this.renderSubtitle()}
+            <GridParent>
+              {this.renderSubtitle()}
+              <SubtitleLink>
+                <Link to={`/trips/${trip.tripId}`}>
+                  View on booking platform
+                </Link>
+              </SubtitleLink>
+            </GridParent>
             <TripTabBar currentSection={currentSection} trip={trip} />
           </AdminContainer>
         </HeaderSection>

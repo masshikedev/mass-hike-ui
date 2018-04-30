@@ -102,7 +102,7 @@ class TripDetail extends LoadableComponent {
               </P>
               <Title>{trip.name}</Title>
               <P proxima size="medium" color="white">
-                {trip.detail.subtitle}
+                {trip.detail.subheader}
               </P>
             </MainInfo>
             <TripImage bg={trip.detail.imageUrl} />

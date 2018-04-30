@@ -46,7 +46,6 @@ class ZipcodeForm extends Component {
     const { onAddZipcode } = this.props;
     if (!isNaN(currentZipcode) && currentZipcode.length === 5) {
       this.getZipcodeData(currentZipcode, results => {
-        console.log(results[0]);
         onAddZipcode({
           zipcode: currentZipcode,
           location: results[0].formatted_address,
