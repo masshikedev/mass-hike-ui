@@ -9,15 +9,13 @@ const About = GridParent.extend`
 
 const Text = styled.div`
   grid-column: span 7;
-  padding: 40px 80px;
-  padding-top: 80px;
+  padding: 120px 80px;
   background: ${constants.lightgreenBg};
   color: #fff;
 
   ${MediaQueries.small} {
     grid-column: span 12;
     padding: 40px;
-    text-align: center;
   }
 `;
 

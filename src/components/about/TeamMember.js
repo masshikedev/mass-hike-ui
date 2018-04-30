@@ -28,10 +28,10 @@ const Name = P.extend`
 `;
 
 const Text = styled.div`
-  padding: 0 40px;
+  padding: 20px 40px 70px;
 
   ${MediaQueries.small} {
-    padding: 0 10px;
+    padding: 20px 10px 70px;
   }
 `;
 
