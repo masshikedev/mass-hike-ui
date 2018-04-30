@@ -12,7 +12,6 @@ import moment from 'moment';
 import 'react-day-picker/lib/style.css';
 import { TWELVE_HOUR_CORRECTION } from '../../../constants';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
 
 function Weekday({ weekday, className, localeUtils, locale }) {
   const weekdayName = localeUtils.formatWeekdayLong(weekday, locale);
