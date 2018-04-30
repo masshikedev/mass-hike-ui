@@ -96,7 +96,7 @@ const hikeConstraints = trip => {
           '^Sorry, we could not determine a zip code for this place. Try selecting a specific street address.',
       },
       inclusion: {
-        within: trip.pickupZipcodes,
+        within: trip.pickupZipcodes.map(zipcode => zipcode.zipcode),
         message: '^Sorry, this trip will not be serving the zipcode %{value}.',
       },
     },

@@ -100,6 +100,7 @@ class TripForm extends Component {
   }
 
   onAddZipcode = zipcode => {
+    console.log(zipcode);
     this.setState({
       pickupZipcodes: this.state.pickupZipcodes.concat([zipcode]),
     });

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PlaceAutocomplete from '../../forms/PlaceAutocomplete';
+import { GoogleApiWrapper } from 'google-maps-react';
+import { GOOGLE_MAPS_API_KEY } from '../../../constants';
 import { P, GridParent, Input, Button, H6 } from '../../../style';
 import styled from 'styled-components';
 
@@ -10,13 +13,31 @@ const ZipcodeFormContainer = GridParent.extend`
   margin-top: 20px;
 `;
 
+const AddButton = Button.extend`
+  margin-top: 20px;
+`;
+
 class ZipcodeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentZipcode: '',
       validationError: '',
+      service: this.getService(props.google),
     };
+  }
+
+  getService(google) {
+    const map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: -33.866, lng: 151.196 },
+      zoom: 15,
+    });
+    return new google.maps.places.PlacesService(map);
+  }
+
+  getZipcodeData(zipcode, callback) {
+    const { service } = this.state;
+    service.textSearch({ query: zipcode }, callback);
   }
 
   onClickAdd = e => {
@@ -24,7 +45,13 @@ class ZipcodeForm extends Component {
     const { currentZipcode } = this.state;
     const { onAddZipcode } = this.props;
     if (!isNaN(currentZipcode) && currentZipcode.length === 5) {
-      onAddZipcode(currentZipcode);
+      this.getZipcodeData(currentZipcode, results => {
+        console.log(results[0]);
+        onAddZipcode({
+          zipcode: currentZipcode,
+          location: results[0].formatted_address,
+        });
+      });
       this.setState({ currentZipcode: '', validationError: '' });
     } else {
       this.setState({ validationError: 'Invalid Zipcode' });
@@ -46,7 +73,7 @@ class ZipcodeForm extends Component {
             />
           </Column>
           <Column>
-            <Button onClick={this.onClickAdd}>Add zipcode</Button>
+            <AddButton onClick={this.onClickAdd}>Add zipcode</AddButton>
           </Column>
         </ZipcodeFormContainer>
         {error && <P error>{error}</P>}
@@ -56,4 +83,4 @@ class ZipcodeForm extends Component {
   }
 }
 
-export default ZipcodeForm;
+export default GoogleApiWrapper({ apiKey: GOOGLE_MAPS_API_KEY })(ZipcodeForm);
