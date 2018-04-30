@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
-import { GridParent, Button } from '../../../style';
+import { P, GridParent, Button } from '../../../style';
 import styled from 'styled-components';
 
 const Column = styled.div`
-  grid-column: span 4;
+  grid-column: span 6;
   font-size: 16px;
   padding: 10px 0;
 `;
 
 const ZipColumn = styled.div`
-  grid-column: span 4;
+  grid-column: span 8;
   font-weight: ${props => (props.bold ? 700 : 400)};
   padding-top: 2px;
 `;
 
+const ZipcodeText = P.extend`
+  margin-bottom: 0;
+`;
+
 const DeleteColumn = styled.div`
-  grid-column: span 8;
+  grid-column: span 4;
 `;
 
 const DeleteButton = Button.extend`
@@ -30,6 +34,11 @@ const DeleteButton = Button.extend`
 `;
 
 class ZipcodeList extends Component {
+  concatLocation(location) {
+    const stop = location.indexOf(', MA');
+    return location.substring(0, stop);
+  }
+
   render() {
     const { zipcodes, onDelete, showDelete } = this.props;
     return (
@@ -38,7 +47,10 @@ class ZipcodeList extends Component {
           return (
             <Column key={i}>
               <GridParent>
-                <ZipColumn bold={showDelete}>{zipcode}</ZipColumn>
+                <ZipColumn bold={showDelete}>
+                  <ZipcodeText bold>{zipcode.zipcode}</ZipcodeText>
+                  <P>{this.concatLocation(zipcode.location)}</P>
+                </ZipColumn>
                 <DeleteColumn>
                   {showDelete && (
                     <DeleteButton

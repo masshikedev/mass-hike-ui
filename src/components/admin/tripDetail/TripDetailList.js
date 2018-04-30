@@ -198,12 +198,6 @@ class TripDetailList extends Component {
           </H5>
           <ZipcodeList zipcodes={trip.pickupZipcodes} />
         </TripDetailSection>
-        <TripDetailSection>
-          <H5>
-            Availability
-            {this.editLinkFor('availability')}
-          </H5>
-        </TripDetailSection>
       </div>
     );
   }
