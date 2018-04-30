@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { H1, Button, Img, constants, MediaQueries } from '../../style';
 import { RichText } from 'prismic-reactjs';
-import hero from '../../images/home-hero2.png';
+import hero from '../../images/home-hero.png';
 import bus from '../../images/bus1.png';
 import cloud1 from '../../images/cloud.png';
 
@@ -79,15 +79,15 @@ const Cloud5 = Cloud.extend`
 `;
 
 const Column = styled.div`
-  padding: 7%;
+  padding-top: 100px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 2;
-
-  ${MediaQueries.small} {
-    padding: 7% 22%;
-  }
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
 `;
 
 const Title = H1.extend`
@@ -118,7 +118,7 @@ function HomeMain(props) {
         </Drawing>
       </Images>
       <Column>
-        <Title>{RichText.asText(props.doc.data.top_title)}</Title>
+        <Title center>{RichText.asText(props.doc.data.top_title)}</Title>
 
         <Link to="/trips">
           <Button primary>{RichText.asText(props.doc.data.main_cta)}</Button>

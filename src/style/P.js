@@ -21,7 +21,7 @@ const P = styled.p`
   margin-bottom: ${({ nobottom }) => (nobottom ? '' : '10px')};
   margin-left: ${({ leftmargin }) => (leftmargin ? '15px' : '')};
   line-height: 1.44;
-  letter-spacing: ${({ spaced }) => (spaced ? '1px' : '')};
+  letter-spacing: ${({ spaced }) => (spaced ? '1px' : '.5px')};
   color: ${({ color }) =>
     color === 'error'
       ? constants.red

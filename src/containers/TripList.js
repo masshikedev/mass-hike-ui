@@ -57,7 +57,7 @@ class TripList extends LoadableComponent {
             <P proxima size="large" bold>
               Take a look at our
             </P>
-            <TitleContent>Upcoming Trips</TitleContent>
+            <TitleContent center>Upcoming Trips</TitleContent>
           </Title>
           <Trips>{tripComponents}</Trips>
         </div>

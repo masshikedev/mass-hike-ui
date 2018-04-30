@@ -17,6 +17,8 @@ function getBgColor(props) {
         return constants.blue;
       case 'red':
         return constants.red;
+      case 'transparent':
+        return 'transparent';
       default:
         return constants.yellow;
     }
@@ -34,30 +36,36 @@ const Button = styled.button`
   min-height: ${({ primary, small }) =>
     primary ? '56px' : small ? '20px' : '36px'};
   background-color: ${getBgColor};
-  border: none;
-  border-radius: 30px;
+  border: ${props =>
+    props.color === 'transparent' ? '3px solid #fff' : 'none'};
+  border-radius: ${props => (props.primary ? '40px' : '30px')};
   font-family: 'proxima-nova';
   font-size: ${({ primary, small }) =>
     primary ? '21px' : small ? '12px' : '18px'};
-  font-weight: 500;
+  font-weight: ${props =>
+    props.primary || props.color === 'transparent' ? 700 : 500};
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
-  letter-spacing: 0.3px;
+  letter-spacing: ${props => (props.primary ? '1px' : '0.3px')};
   text-align: center;
   align-items: center;
   color: white;
   text-decoration: none;
   margin-bottom: 10px;
   margin-left: ${({ small }) => (small ? '15px' : 'auto')};
-  padding: ${({ primary, small }) =>
-    primary ? '15px 30px' : small ? '0px' : '5px 20px'};
+  padding: ${({ primary, small, color }) =>
+    primary
+      ? '20px 35px'
+      : small ? '0px' : color === 'transparent' ? '15px 20px' : '5px 20px'};
   > * {
     margin: 0;
     padding: 0;
     color: white;
   }
   cursor: ${({ active, small }) => (active || small ? 'pointer' : 'default')};
+  text-transform: ${props =>
+    props.primary || props.color === 'transparent' ? 'uppercase' : 'auto'};
 `;
 
 export default Button;
