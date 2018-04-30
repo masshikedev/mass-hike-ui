@@ -72,17 +72,6 @@ const hikeConstraints = trip => {
         message: '^Please enter a number (1, 2, 3...)',
       },
     },
-    kids: {
-      presence: {
-        allowEmpty: false,
-        message: '^Please enter an amount',
-      },
-      numericality: {
-        onlyInteger: true,
-        notInteger: '^Must be a whole number (1, 2, 3...)',
-        message: '^Please enter a number (1, 2, 3...)',
-      },
-    },
     pickupLocation: {
       presence: {
         allowEmpty: false,
@@ -96,7 +85,7 @@ const hikeConstraints = trip => {
           '^Sorry, we could not determine a zip code for this place. Try selecting a specific street address.',
       },
       inclusion: {
-        within: trip.pickupZipcodes,
+        within: trip.pickupZipcodes.map(z => z.zipcode),
         message: '^Sorry, this trip will not be serving the zipcode %{value}.',
       },
     },
