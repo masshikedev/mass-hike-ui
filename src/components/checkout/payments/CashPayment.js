@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from '../BaseCheckoutSection';
 import { setCurrentSection } from '../../../actions/CheckoutActions';
-import { P, H2, H6, Button, constants } from '../../../style';
+import { P, H2, H6, Button, MediaQueries, constants } from '../../../style';
 import { NextButton, BackButton, ButtonSpacer } from '../../forms';
 import styled from 'styled-components';
 import DayPicker from 'react-day-picker';
@@ -12,6 +12,9 @@ import moment from 'moment';
 import 'react-day-picker/lib/style.css';
 import { TWELVE_HOUR_CORRECTION } from '../../../constants';
 import Helmet from 'react-helmet';
+import { cashPaymentContraints } from '../../../utils/validationConstraints';
+import { MONTH_DATE_YEAR } from '../../../utils/dateFormats';
+import { validate } from 'validate.js';
 
 function Weekday({ weekday, className, localeUtils, locale }) {
   const weekdayName = localeUtils.formatWeekdayLong(weekday, locale);
@@ -32,6 +35,19 @@ const LocationDetails = styled.div`
   margin-left: 10px;
 `;
 
+const DirectionsLink = styled.a`
+  color: ${constants.blue};
+  &:visited {
+    color: ${constants.blue};
+  }
+`;
+
+const CalWrapper = styled.div`
+  ${MediaQueries.small} {
+    margin: 0 5% 0 -5%;
+  }
+`;
+
 function Weekday({ weekday, className, localeUtils, locale }) {
   const weekdayName = localeUtils.formatWeekdayLong(weekday, locale);
   return (
@@ -44,12 +60,12 @@ function Weekday({ weekday, className, localeUtils, locale }) {
 class CashPayment extends BaseCheckoutSection {
   constructor(props) {
     super(props);
-    const { selectedLocationIndex, meetingDate, meetTime } = props;
+    const { selectedLocationIndex, meetingDate } = props;
     this.state = {
       selectedLocationIndex,
       showMoreLocations: false,
       meetingDate,
-      meetTime,
+      times: [],
     };
   }
 
@@ -69,20 +85,19 @@ class CashPayment extends BaseCheckoutSection {
             .valueOf(),
         },
         () => {
-          if (this.getTimes()) {
-            let time = this.getTimes()[0].start;
-            this.setState(
-              {
-                meetingDate:
-                  moment(date.getTime())
-                    .hour(0)
-                    .minute(0)
-                    .second(0)
-                    .millisecond(0)
-                    .valueOf() + time,
-              },
-              () => console.log(this.state.meetingDate)
-            );
+          const times = this.getTimes();
+          if (times[0]) {
+            let time = times[0].start;
+            this.setState({
+              meetingDate:
+                moment(date.getTime())
+                  .hour(0)
+                  .minute(0)
+                  .second(0)
+                  .millisecond(0)
+                  .valueOf() + time,
+              times,
+            });
           }
         }
       );
@@ -94,11 +109,19 @@ class CashPayment extends BaseCheckoutSection {
     return moment(date).valueOf() - z * 60000;
   }
 
+  toUTC(date) {
+    let z = moment().utcOffset();
+    return moment(date).valueOf() + z * 60000;
+  }
+
   availableDays() {
-    const { trip } = this.props;
-    return trip.cashAvailability.map(({ date }) => {
-      return new Date(this.toLocal(date));
-    });
+    const { availableTimes, trip } = this.props;
+    return availableTimes
+      .filter(({ times }) => times.length)
+      .filter(
+        ({ date }) => date >= moment().valueOf() && date < trip.time.pickupStart
+      )
+      .map(({ date }) => new Date(this.toLocal(date)));
   }
 
   isDisabledDate(day) {
@@ -109,38 +132,55 @@ class CashPayment extends BaseCheckoutSection {
   }
 
   getTimes() {
-    const { cashAvailability } = this.props.trip;
+    const { availableTimes } = this.props;
     const { meetingDate } = this.state;
-    for (let { date, times } of cashAvailability) {
+    for (let { date, times } of availableTimes) {
       if (this.toLocal(date) === meetingDate - TWELVE_HOUR_CORRECTION) {
-        console.log('success! :' + times);
         return times.sort((a, b) => a.start - b.start);
       }
     }
   }
 
   disabledHours() {
+    const { times } = this.state;
+    if (!times) return [];
     let hours = [...Array(24).keys()];
-    for (let { start, end } of this.getTimes()) {
-      return hours.map(hour => {
-        const startHour = new Date();
-      });
-    }
+    return hours.filter(
+      hour =>
+        !times.reduce((acc, { start, end }) => {
+          const startHr = Math.floor(start / 3600000);
+          const endHr = Math.floor(end / 3600000);
+          return acc || (hour >= startHr && hour <= endHr);
+        }, false)
+    );
+  }
+
+  disabledMinutes() {
+    const { times, meetingDate } = this.state;
+    if (!times) return [];
+    const hour = moment(meetingDate).hour() * 3600000;
+    let minutes = [...Array(4).keys()].map(n => n * 15);
+    return minutes.filter(
+      minute =>
+        !times.reduce((acc, { start, end }) => {
+          const timestamp = hour + minute * 60000;
+          return acc || (timestamp >= start && timestamp <= end);
+        }, false)
+    );
   }
 
   renderCashLocations(maxLoc) {
-    const { trip } = this.props;
-    const cashLocations = trip.cashLocations;
+    const { availableLocations } = this.props;
     let locList = [];
-    for (let i = 0; i < maxLoc && i < cashLocations.length; i++) {
-      let loc = cashLocations[i];
+    for (let i = 0; i < maxLoc && i < availableLocations.length; i++) {
+      let loc = availableLocations[i];
       locList.push(
         <LocationLabel htmlFor={loc.name} key={i}>
           <input
             type="radio"
             id={loc.name}
             checked={this.state.selectedLocationIndex === i}
-            onChange={e => this.setState({ selectedLocationIndex: i })}
+            onChange={e => this.setState({ selectedLocationIndex: loc.index })}
           />
           <LocationDetails>
             <P size="medium" bold proxima nobottom>
@@ -149,9 +189,14 @@ class CashPayment extends BaseCheckoutSection {
             <P size="medium" proxima>
               {loc.address}
               {' - '}
-              <a href={loc.link} target="_blank">
+              <DirectionsLink
+                href={`https://www.google.com/maps/dir/?api=1&destination=${escape(
+                  loc.address
+                )}`}
+                target="_blank"
+              >
                 Get Directions
-              </a>
+              </DirectionsLink>
             </P>
           </LocationDetails>
         </LocationLabel>
@@ -163,8 +208,9 @@ class CashPayment extends BaseCheckoutSection {
   renderCalendar() {
     const { trip } = this.props;
     const { meetingDate } = this.state;
+    const avDays = this.availableDays();
     return (
-      <div>
+      <CalWrapper>
         <Helmet>
           <style>{`
           .DayPicker-wrapper {
@@ -178,11 +224,16 @@ class CashPayment extends BaseCheckoutSection {
             font-family: 'proxima-nova';
             font-weight: 700;
           }
-          .DayPicker-NavButton {
-            color: white;
+          .DayPicker-NavButton--next {
+            background-image: url(/images/white-arrow.png);
+            transform: rotate(90deg) scale(2);
+            user-select: none;
           }
           .DayPicker-NavButton--prev {
             left: 1.5rem;
+            background-image: url(/images/white-arrow.png);
+            transform: rotate(-90deg) scale(2);
+            user-select: none;
           }
           .DayPicker-Weekday {
             color: white;
@@ -217,30 +268,31 @@ class CashPayment extends BaseCheckoutSection {
           `}</style>
         </Helmet>
         <DayPicker
+          initialMonth={avDays ? avDays[0] : null}
           onDayClick={day => this.handleChooseDate(day)}
           selectedDays={[new Date(meetingDate)]}
           modifiers={{
-            highlighted: this.availableDays(),
+            highlighted: avDays,
           }}
           disabledDays={d => this.isDisabledDate(d)}
           weekdayElement={<Weekday />}
         />
-      </div>
+      </CalWrapper>
     );
   }
 
   renderTime() {
     const { meetingDate } = this.state;
-    const { cashAvailability } = this.props.trip;
-    const defaultTime = cashAvailability[0].times[0].start;
+    const { availableTimes } = this.props;
+    const defaultTime = availableTimes[0].times[0].start;
     return (
       <TimePicker
         value={moment(meetingDate)}
         onChange={time => {
-          this.setState({ meetingDate: time.valueOf() });
+          time && this.setState({ meetingDate: time.valueOf() });
         }}
-        // disabledHours={disabledHours}
-        // disabledMinutes={disabledMinutes}
+        disabledHours={() => this.disabledHours()}
+        disabledMinutes={() => this.disabledMinutes()}
         showSecond={false}
         use12Hours={true}
         minuteStep={15}
@@ -250,10 +302,23 @@ class CashPayment extends BaseCheckoutSection {
   }
 
   render() {
-    const { trip } = this.props;
-    const { showMoreLocations, selectedLocationIndex } = this.state;
-    const cashLocations = trip.cashLocations;
-    this.getTimes();
+    const {
+      showMoreLocations,
+      selectedLocationIndex,
+      meetingDate,
+    } = this.state;
+    const { availableLocations, availableTimes } = this.props;
+    const messages =
+      validate(
+        {
+          meetingDate: this.toUTC(meetingDate),
+          selectedLocationIndex,
+        },
+        cashPaymentContraints({
+          locations: availableLocations,
+          times: availableTimes,
+        })
+      ) || 'valid';
     return (
       <div>
         <H2>Payment Info</H2>
@@ -265,21 +330,45 @@ class CashPayment extends BaseCheckoutSection {
         <H6>Please select the center most convient for you.</H6>
         <fieldset>
           {this.renderCashLocations(
-            showMoreLocations ? cashLocations.length : 3
+            showMoreLocations ? availableLocations.length : 3
           )}
         </fieldset>
         <Button color="blue" onClick={e => this.handleToggle(e)}>
           {showMoreLocations ? 'See less' : 'See more'}
         </Button>
-        {this.renderCalendar()}
-        {this.renderTime()}
+        <br />
+
+        {selectedLocationIndex >= 0 && (
+          <div>
+            <H6>Please choose a date and time.</H6>
+            {this.renderCalendar()}
+            {meetingDate && (
+              <div>
+                <br />
+                <H6>{moment(meetingDate).format(MONTH_DATE_YEAR)}</H6>
+                {this.renderTime()}
+                <P>
+                  A Mass Hike team member will reach out to you confirming this
+                  time and location.
+                </P>
+                <P color="error" proxima>
+                  {messages.meetingDate}
+                </P>
+              </div>
+            )}
+          </div>
+        )}
+
         <br />
         <ButtonSpacer>
           <BackButton
             onClick={e => this.onBackSection(e, true)}
             active={true}
           />
-          <NextButton onClick={this.onCompleteSection} active={true} />
+          <NextButton
+            onClick={this.onCompleteSection}
+            active={messages === 'valid'}
+          />
         </ButtonSpacer>
       </div>
     );
@@ -289,8 +378,10 @@ class CashPayment extends BaseCheckoutSection {
 const mapStateToProps = state => ({
   selectedLocationIndex: state.checkout.selectedLocationIndex,
   meetingDate: state.checkout.meetingDate,
-  meetTime: state.checkout.meetTime,
   trip: state.currentTrip.trip,
+  availableTimes: state.availability.times,
+  availableLocations: state.availability.locations,
+  status: state.availability.status,
 });
 
 const mapDispatchToProps = dispatch =>

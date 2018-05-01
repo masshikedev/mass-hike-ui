@@ -8,11 +8,23 @@ import CheckoutConfirmation from '../components/checkout/CheckoutConfirmation';
 import MobileCheckoutForm from '../components/checkout/MobileCheckoutForm';
 import { H3, Container, GridParent } from '../style';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
+import { getAvailability } from '../actions/AvailabilityActions';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  position: absolute;
+  top: 76px;
+  grid-column: span 12;
+  max-width: 800px;
+  margin: 5% 12%;
+  min-width: 200px;
+`;
 
 class MobileCheckout extends LoadableComponent {
   componentWillMount() {
-    const { getTripById, match } = this.props;
+    const { getTripById, match, getAvailability } = this.props;
     getTripById(match.params.tripId);
+    getAvailability();
   }
 
   componentWillReceiveProps() {
@@ -34,7 +46,9 @@ class MobileCheckout extends LoadableComponent {
           render={() => (
             <Container>
               <GridParent>
-                <CheckoutConfirmation mobile />
+                <Wrapper>
+                  <CheckoutConfirmation mobile />
+                </Wrapper>
               </GridParent>
             </Container>
           )}
@@ -56,6 +70,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getTripById,
+      getAvailability,
       resetCheckout,
       setCurrentSection: section =>
         setCheckoutState({ currentSection: section }),

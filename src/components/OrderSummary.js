@@ -1,7 +1,11 @@
 import React from 'react';
 import EditButton from './checkout/EditButton';
 import moment from 'moment';
-import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
+import {
+  MONTH_DATE_YEAR,
+  DAY_MONTH_DATE_TIME,
+  TIME,
+} from '../utils/dateFormats';
 import { P, H2, H6, MediaQueries, constants } from '../style';
 import styled from 'styled-components';
 
@@ -127,7 +131,7 @@ export default function OrderSummary(props) {
           {order.paymentType === 'cash' && (
             <div>
               <P large proxima>
-                {order.meetingDate}
+                {moment(order.meetingDate).format(DAY_MONTH_DATE_TIME)}
               </P>
               <P large proxima>
                 {order.meetingLocation.name}

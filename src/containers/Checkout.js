@@ -9,10 +9,12 @@ import CheckoutProgressBar from '../components/checkout/CheckoutProgressBar';
 import LoadableComponent from '../components/LoadableComponent';
 import { getTripById } from '../actions/CurrentTripActions';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
+import { getAvailability } from '../actions/AvailabilityActions';
 import styled from 'styled-components';
 import { GridParent, MediaQueries } from '../style';
 import { injectStripe } from 'react-stripe-elements';
 import CardPayment from '../components/checkout/payments/CardPayment';
+import combineStatus from '../utils/combineStatus';
 
 const FormWrapper = styled.div`
   grid-column: span 8;
@@ -35,8 +37,9 @@ class Checkout extends LoadableComponent {
   }
 
   componentWillMount() {
-    const { getTripById } = this.props;
+    const { getAvailability, getTripById } = this.props;
     getTripById(this.props.match.params.tripId);
+    getAvailability();
   }
 
   componentWillReceiveProps() {
@@ -151,7 +154,7 @@ const mapStateToProps = state => ({
   currentSection: state.checkout.currentSection,
   checkoutInitialized: state.checkout.initialized,
   trip: state.currentTrip.trip,
-  status: state.currentTrip.status,
+  status: combineStatus(state.currentTrip.status, state.availability.status),
   checkoutTripId: state.checkout.tripId,
   paymentType: state.checkout.paymentType,
 });
@@ -160,6 +163,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getTripById,
+      getAvailability,
       setCheckoutState,
       resetCheckout,
       nextCheckoutSection: nextSectionUrl => push(nextSectionUrl),

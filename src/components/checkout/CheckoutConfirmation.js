@@ -90,7 +90,7 @@ class CheckoutConfirmation extends BaseCheckoutSection {
 }
 
 const mapStateToProps = state => {
-  const { checkout, orders, currentTrip } = state;
+  const { checkout, orders, currentTrip, availability } = state;
   return {
     order: {
       name: checkout.name,
@@ -104,8 +104,7 @@ const mapStateToProps = state => {
       zipCode: checkout.zipCode,
       cardBrand: checkout.cardNumber.brand,
       selectedPrice: checkout.selectedPrice,
-      meetingLocation:
-        currentTrip.trip.cashLocations[checkout.selectedLocationIndex],
+      meetingLocation: availability.locations[checkout.selectedLocationIndex],
       meetingDate: checkout.meetingDate,
       tripId: currentTrip.trip.tripId,
       trip: currentTrip.trip,

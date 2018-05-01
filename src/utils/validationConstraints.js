@@ -1,3 +1,23 @@
+import { validate } from 'validate.js';
+
+validate.validators.dateAvailability = function(
+  value,
+  options,
+  key,
+  attributes
+) {
+  for (let { date, times } of options.dates) {
+    for (let { start, end } of times) {
+      const start_ts = date + start;
+      const end_ts = date + end;
+      if (start_ts <= value && value <= end_ts) {
+        return null;
+      }
+    }
+  }
+  return options.message || ' is invalid';
+};
+
 const contactConstraints = () => {
   return {
     name: {
@@ -102,6 +122,30 @@ const paymentTypeConstraints = (trip, currentPricing) => {
         notLessThanOrEqualTo: `^ Sorry, we will not accept more than $${
           currentPricing.max
         } per ticket.`,
+      },
+    },
+  };
+};
+
+const cashPaymentContraints = availability => {
+  return {
+    meetingDate: {
+      presence: {
+        allowEmpty: false,
+      },
+      dateAvailability: {
+        dates: availability.times,
+        message: '^The time you selected is invalid.',
+      },
+    },
+    selectedLocationIndex: {
+      presence: {
+        allowEmpty: false,
+        message: '^Please select a location.',
+      },
+      numericality: {
+        onlyInteger: true,
+        message: '^Location select error.',
       },
     },
   };
@@ -310,6 +354,7 @@ export {
   contactConstraints,
   hikeConstraints,
   paymentTypeConstraints,
+  cashPaymentContraints,
   constraints,
   tripConstraints,
   memberConstraints,
