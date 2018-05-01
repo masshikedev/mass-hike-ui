@@ -3,21 +3,26 @@ import { RichText } from 'prismic-reactjs';
 import PrismicRepeatable from '../prismic/PrismicRepeatable';
 import BlogPreview from '../components/blog/BlogPreview';
 import BlogPreviewLarge from '../components/blog/BlogPreviewLarge';
-import { GridParent, H1, Container } from '../style';
+import { GridParent, H1, Container, MediaQueries } from '../style';
 
 const Previews = GridParent.extend`
-  padding: 60px;
-  grid-gap: 20px;
+  padding: 60px 0;
+  grid-gap: 60px;
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+
+  ${MediaQueries.small} {
+    width: 100%;
+    min-width: 0;
+    grid-column-gap: 0;
+  }
 `;
 
 const Title = H1.extend`
   text-align: center;
   margin: 0;
-  padding-top: 30px;
-`;
-
-const BlogContainer = Container.extend`
-  margin-top: 150px;
+  padding-top: 70px;
 `;
 
 class Blog extends Component {
@@ -46,7 +51,7 @@ class Blog extends Component {
     const first = this.props.doc.results[0];
 
     return (
-      <BlogContainer>
+      <Container>
         <BlogPreviewLarge
           uid={first.uid}
           title={RichText.asText(first.data.blog_title)}
@@ -58,7 +63,7 @@ class Blog extends Component {
         />
         <Title>Our Blog</Title>
         <Previews>{this.renderBlogPreviews()}</Previews>
-      </BlogContainer>
+      </Container>
     );
   }
 }

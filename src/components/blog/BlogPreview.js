@@ -20,6 +20,10 @@ const Preview = GridParent.extend`
   grid-column: span 4;
   grid-gap: 0;
 
+  ${MediaQueries.medium} {
+    grid-column: span 6;
+  }
+
   ${MediaQueries.small} {
     grid-column: span 12;
   }
@@ -39,12 +43,11 @@ const ImgFH = Img.extend`
   max-height: 300px;
 `;
 
-const Title = P.extend`
-  min-height: 80px;
+const Title = styled.div`
+  min-height: 140px;
 
-  ${MediaQueries.medium} {
-    font-size: 16px;
-    min-height: 60px;
+  ${MediaQueries.small} {
+    min-height: auto;
   }
 `;
 
@@ -63,12 +66,14 @@ class BlogPreview extends Component {
       <Preview>
         <Image bg={this.props.image} />
         <Column>
-          <Title color="green" size="large" proxima bold>
-            {this.props.title}
+          <Title>
+            <P color="green" size="large" proxima bold>
+              {this.props.title}
+            </P>
+            <P proxima bold size="medium">
+              {moment.utc(this.props.date).format(MONTH_DATE_YEAR)}
+            </P>
           </Title>
-          <P proxima bold size="medium">
-            {moment.utc(this.props.date).format(MONTH_DATE_YEAR)}
-          </P>
           <Button onClick={() => this.props.toFull(this.props.uid)}>
             Read More
           </Button>
