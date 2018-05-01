@@ -83,7 +83,7 @@ const SideBar = styled.div`
   top: 100px;
 
   ${MediaQueries.small} {
-    postiion: relative;
+    position: static;
     display: flex;
     flex-flow: row wrap;
     grid-column: 2 / span 10;
