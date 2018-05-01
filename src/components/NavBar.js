@@ -51,6 +51,10 @@ const LogoMark = styled.div`
     font-weight: 700;
     text-transform: uppercase;
     font-size: 36px;
+
+    ${MediaQueries.medium} {
+      font-size: 30px;
+    }
   }
 `;
 
@@ -84,6 +88,10 @@ const Hamburger = styled.div`
   padding-top: 5px;
 `;
 
+const CtaButton = Button.extend`
+  margin-top: 10px;
+`;
+
 class NavBar extends Component {
   static pageType = 'header';
 
@@ -112,11 +120,11 @@ class NavBar extends Component {
     links.map(link => {
       if (link.props.children.props.to === '/trips') {
         return (
-          <Button key="cta">
+          <CtaButton key="cta">
             <A color="white" href={link.props.children.props.to}>
               {link.props.children.props.children}
             </A>
-          </Button>
+          </CtaButton>
         );
       } else {
         return link;

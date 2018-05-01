@@ -12,7 +12,7 @@ const HomeSection = styled.div`
   height: 600px;
   background: url(${hero}), ${constants.grayBg};
   background-size: cover;
-  background-position: center;
+  background-position: center bottom;
   overflow: hidden;
 
   ${MediaQueries.small} {
