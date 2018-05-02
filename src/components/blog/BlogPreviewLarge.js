@@ -19,6 +19,10 @@ import { RichText } from 'prismic-reactjs';
 
 const Wrapper = styled.div`
   position: relative;
+
+  ${MediaQueries.small} {
+    padding-top: 10px;
+  }
 `;
 
 const Preview = GridParent.extend`
@@ -58,17 +62,23 @@ const LeftBorder = styled.div`
 
   ${MediaQueries.small} {
     grid-column: span 24;
+    height: 50px;
   }
 `;
 
 const FeaturedText = P.extend`
   position: absolute;
   top: 30px;
-  left: 0px;
   background: #fff;
-  background: #fff;
-  width: fit-content;
   padding: 10px 40px;
+
+  ${MediaQueries.small} {
+    position: relative;
+    width: fit-content;
+    display: block;
+    margin: 0 auto;
+    top: 80px;
+  }
 `;
 
 const ReadMoreButton = Button.extend`

@@ -23,6 +23,11 @@ const Title = H1.extend`
   text-align: center;
   margin: 0;
   padding-top: 70px;
+  display: ${props => (props.showSmall ? 'none' : 'block')};
+  ${MediaQueries.small} {
+    padding-top: 50px;
+    display: ${props => (props.showLarge ? 'none' : 'block')};
+  }
 `;
 
 class Blog extends Component {
@@ -52,6 +57,9 @@ class Blog extends Component {
 
     return (
       <Container>
+        <Title showSmall center>
+          Our Blog
+        </Title>
         <BlogPreviewLarge
           uid={first.uid}
           title={RichText.asText(first.data.blog_title)}
@@ -61,7 +69,7 @@ class Blog extends Component {
           content={RichText.asText(first.data.blog_content)}
           preview={first.data.preview_text}
         />
-        <Title>Our Blog</Title>
+        <Title showLarge>Our Blog</Title>
         <Previews>{this.renderBlogPreviews()}</Previews>
       </Container>
     );
