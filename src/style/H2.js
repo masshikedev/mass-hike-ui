@@ -6,7 +6,8 @@ const H2 = styled.h2`
   font-weight: bold;
   color: inherit;
   margin-bottom: 15px;
-
+  font-family: ${({ proxima }) =>
+    proxima ? 'proxima-nova' : 'Source Serif Pro'};
   ${MediaQueries.small} {
     font-size: 30px;
   }
