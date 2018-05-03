@@ -46,9 +46,10 @@ class MobileCheckout extends LoadableComponent {
           render={() => (
             <Container>
               <GridParent>
-                <Wrapper>
-                  <CheckoutConfirmation mobile />
-                </Wrapper>
+                <CheckoutConfirmation
+                  stripeCreateToken={this.stripeCreateToken}
+                  mobile
+                />
               </GridParent>
             </Container>
           )}

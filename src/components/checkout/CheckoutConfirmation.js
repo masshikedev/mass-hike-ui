@@ -104,7 +104,10 @@ const mapStateToProps = state => {
       zipCode: checkout.zipCode,
       cardBrand: checkout.cardNumber.brand,
       selectedPrice: checkout.selectedPrice,
-      meetingLocation: availability.locations[checkout.selectedLocationIndex],
+      meetingLocation:
+        availability.locations && checkout.selectedLocationIndex >= 0
+          ? availability.locations[checkout.selectedLocationIndex]
+          : '',
       meetingDate: checkout.meetingDate,
       tripId: currentTrip.trip.tripId,
       trip: currentTrip.trip,
