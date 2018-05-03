@@ -28,17 +28,20 @@ class MobileCheckout extends LoadableComponent {
       <Switch>
         <Route exact path={match.url} component={MobileCheckoutForm} />
         {!checkoutInitialized && <Redirect to={`${match.url}`} />}
-        <Route
+        {/* <Route
           exact
           path={`${match.url}/confirmation`}
           render={() => (
             <Container>
               <GridParent>
-                <CheckoutConfirmation mobile />
+                <CheckoutConfirmation
+                  stripeCreateToken={this.stripeCreateToken}
+                  mobile
+                />
               </GridParent>
             </Container>
           )}
-        />
+        /> */}
       </Switch>
     );
   };

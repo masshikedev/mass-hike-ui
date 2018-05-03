@@ -105,7 +105,9 @@ const mapStateToProps = state => {
       cardBrand: checkout.cardNumber.brand,
       selectedPrice: checkout.selectedPrice,
       meetingLocation:
-        currentTrip.trip.cashLocations[checkout.selectedLocationIndex],
+        currentTrip.trip.cashLocations && checkout.selectedLocationIndex >= 0
+          ? currentTrip.trip.cashLocations[checkout.selectedLocationIndex]
+          : '',
       meetingDate: checkout.meetingDate,
       tripId: currentTrip.trip.tripId,
       trip: currentTrip.trip,
