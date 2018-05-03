@@ -176,7 +176,7 @@ class FAQ extends Component {
               <React.Fragment>
                 <FAQWrapper key={secId}>
                   <HR />
-                  <FAQTitle id={this.getSectionTitle(section)}>
+                  <FAQTitle id={this.getSectionTitle(section)} proxima>
                     {this.getSectionTitle(section)}
                   </FAQTitle>
                   <HR />
