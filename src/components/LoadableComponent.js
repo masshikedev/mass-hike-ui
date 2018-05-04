@@ -1,10 +1,33 @@
 import React, { Component } from 'react';
 import renderByStatus from '../utils/renderByStatus';
-import { H3, Container } from '../style';
+import { P, H3, Container } from '../style';
+import styled from 'styled-components';
+
+const LoadingWrapper = styled.div`
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LoadingImage = styled.img`
+  width: 60%;
+  height: auto;
+  max-width: 130px;
+`;
 
 class LoadableComponent extends Component {
   renderLoading = () => {
-    return null;
+    return (
+      <LoadingWrapper>
+        <LoadingImage src="/images/loading.gif" alt="Loading..." />
+        <P size="large" proxima>
+          One moment...
+        </P>
+      </LoadingWrapper>
+    );
   };
 
   renderError = () => {
