@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
 import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
 import MobileNav from './MobileNav';
@@ -8,11 +10,24 @@ import hamburger from '../images/hamburger.png';
 import xIcon from '../images/mobile_nav_x.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
 import { A, constants, Button, Img, MediaQueries } from '../style';
+import styleConstants from '../style/constants';
 import logo from '../images/mh_large.png';
 
-const NavLink = A.extend`
-  color: ${({ color }) => color || 'black'};
+const NavLink = styled.div`
+  color: ${({ active }) =>
+    active ? styleConstants.orange : styleConstants.black};
+  font-size: 16px;
   margin: 20px;
+  position: relative;
+  &::after {
+    width: 100%;
+    height: ${props => (props.active ? '2px' : '0')};
+    background-color: ${styleConstants.orange};
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 25px;
+  }
 `;
 
 const Nav = styled.div`
@@ -35,10 +50,12 @@ const Nav = styled.div`
 const Logo = Img.extend`
   height: 60px;
   width: 60px;
+  margin-right: 15px;
 
   ${MediaQueries.small} {
     width: 43px;
     height: 43px;
+    margin-right: 8px;
   }
 `;
 
@@ -46,15 +63,13 @@ const LogoMark = styled.div`
   display: flex;
   align-items: center;
 
-  a {
-    font-family: 'proxima-soft';
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 36px;
+  font-family: 'proxima-soft';
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 36px;
 
-    ${MediaQueries.medium} {
-      font-size: 30px;
-    }
+  ${MediaQueries.medium} {
+    font-size: 30px;
   }
 `;
 
@@ -90,6 +105,7 @@ const Hamburger = styled.div`
 
 const CtaButton = Button.extend`
   margin-top: 10px;
+  font-size: 16px;
 `;
 
 class NavBar extends Component {
@@ -119,11 +135,10 @@ class NavBar extends Component {
   renderNavLinks = links =>
     links.map(link => {
       if (link.props.children.props.to === '/trips') {
+        const { toTrips } = this.props;
         return (
-          <CtaButton key="cta">
-            <A color="white" href={link.props.children.props.to}>
-              {link.props.children.props.children}
-            </A>
+          <CtaButton key="cta" onClick={toTrips}>
+            {link.props.children.props.children}
           </CtaButton>
         );
       } else {
@@ -132,7 +147,7 @@ class NavBar extends Component {
     });
 
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, currentPath } = this.props;
     const { showMobileNav } = this.state;
     return (
       <div>
@@ -142,16 +157,18 @@ class NavBar extends Component {
         />
         <Nav scrolledToTop={this.state.scrolledToTop}>
           <NavLeft>
-            <Link to="/">
-              <LogoMark>
-                <Logo src={logo} />
-                <NavLink>Mass Hike</NavLink>
-              </LogoMark>
-            </Link>
+            <NavLink>
+              <Link to="/">
+                <LogoMark>
+                  <Logo src={logo} />
+                  Mass Hike
+                </LogoMark>
+              </Link>
+            </NavLink>
           </NavLeft>
           <NavRight>
             {this.renderNavLinks(
-              renderLinkSlices(this.props.doc.data.body, NavLink)
+              renderLinkSlices(this.props.doc.data.body, NavLink, currentPath)
             )}
           </NavRight>
           <Hamburger
@@ -169,7 +186,16 @@ class NavBar extends Component {
 
 const mapStateToProps = state => ({
   loggedIn: state.auth.isAuthenticated,
+  currentPath: state.routing.location.pathname,
 });
 
-const connected = connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      toTrips: () => push('/trips'),
+    },
+    dispatch
+  );
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(NavBar);
 export default PrismicPage(connected);
