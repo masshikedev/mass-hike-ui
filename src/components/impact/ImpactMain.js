@@ -5,7 +5,7 @@ import { RichText } from 'prismic-reactjs';
 
 const Text = styled.div`
   grid-column: span 7;
-  padding: 40px 80px;
+  padding: 80px;
   padding-top: 80px;
   background: ${constants.lightgreenBg};
   color: #fff;
@@ -13,7 +13,6 @@ const Text = styled.div`
   ${MediaQueries.small} {
     grid-column: span 12;
     padding: 40px;
-    text-align: center;
   }
 `;
 
@@ -58,7 +57,7 @@ function ImpactMain(props) {
         </P>
         <Title>{RichText.asText(props.doc.data.impact_title)}</Title>
         <P color="white" proxima size="medium">
-          {RichText.render(props.doc.data.main_content)}
+          {RichText.asText(props.doc.data.main_content)}
         </P>
       </Text>
       <Image bg={props.doc.data.impact_main_image.url} />

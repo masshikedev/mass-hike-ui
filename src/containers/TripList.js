@@ -20,6 +20,11 @@ const Title = styled.div`
   padding-top: 40px;
 `;
 
+const NoTrips = styled.div`
+  text-align: center;
+  padding-top: 40px;
+`;
+
 const TitleContent = H1.extend`
   margin-bottom: 20px;
 `;
@@ -32,6 +37,16 @@ class TripList extends LoadableComponent {
 
   spotsRemaining(trip) {
     return trip.capacity - trip.ticketsSold;
+  }
+
+  renderEmpty() {
+    return (
+      <NoTrips>
+        <P proxima bold size="large" color="error">
+          Currently no trips are scheduled. Please check back later!
+        </P>
+      </NoTrips>
+    );
   }
 
   renderSuccess = () => {
@@ -57,9 +72,11 @@ class TripList extends LoadableComponent {
             <P proxima size="large" bold>
               Take a look at our
             </P>
-            <TitleContent>Upcoming Trips</TitleContent>
+            <TitleContent center>Upcoming Trips</TitleContent>
           </Title>
-          <Trips>{tripComponents}</Trips>
+          <Trips>
+            {trips.length > 0 ? tripComponents : this.renderEmpty()}
+          </Trips>
         </div>
       </Container>
     );

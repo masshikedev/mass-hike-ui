@@ -46,8 +46,7 @@ injectGlobal`
   }
 
   p {
-    font-family: 'proxima-nova';
-    font-size: 16px;
+    font-family: 'inherit';
   }
 
   img {

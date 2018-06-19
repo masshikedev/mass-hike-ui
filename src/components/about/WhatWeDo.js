@@ -13,6 +13,7 @@ const Column = styled.div`
 
 const Title = styled.div`
   grid-column: span 12;
+  margin-bottom: 20px;
 `;
 
 const Tree = P.extend`
@@ -24,11 +25,17 @@ const Content = GridParent.extend`
   background-blend-mode: multiply;
   color: #fff;
   padding: 80px;
+  grid-column-gap: 40px;
 
   ${MediaQueries.small} {
     padding: 40px;
   }
 `;
+
+const ListItem = styled.li`
+  margin-left: -16px;
+`;
+
 function WhatWeDo(props) {
   return (
     <Content>
@@ -39,11 +46,11 @@ function WhatWeDo(props) {
       </Title>
       <Column>
         <ul>
-          <li>
-            <Tree proxima bold uppercase color="white">
+          <ListItem>
+            <Tree proxima bold uppercase spaced color="white">
               {RichText.asText(props.doc.data.wwd_title1)}
             </Tree>
-          </li>
+          </ListItem>
         </ul>
         <P size="large" color="white">
           {RichText.asText(props.doc.data.wwd_content1)}
@@ -51,11 +58,11 @@ function WhatWeDo(props) {
       </Column>
       <Column>
         <ul>
-          <li>
-            <Tree proxima bold uppercase color="white">
+          <ListItem>
+            <Tree proxima bold uppercase spaced color="white">
               {RichText.asText(props.doc.data.wwd_title2)}
             </Tree>
-          </li>
+          </ListItem>
         </ul>
         <P size="large" color="white">
           {RichText.asText(props.doc.data.wwd_content2)}
@@ -63,11 +70,11 @@ function WhatWeDo(props) {
       </Column>
       <Column>
         <ul>
-          <li>
-            <Tree proxima bold uppercase color="white">
+          <ListItem>
+            <Tree proxima bold uppercase spaced color="white">
               {RichText.asText(props.doc.data.wwd_title3)}
             </Tree>
-          </li>
+          </ListItem>
         </ul>
         <P size="large" color="white">
           {RichText.asText(props.doc.data.wwd_content3)}

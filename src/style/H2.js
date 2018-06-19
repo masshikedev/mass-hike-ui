@@ -8,9 +8,7 @@ const H2 = styled.h2`
   margin-bottom: 15px;
   font-family: ${({ proxima }) =>
     proxima ? 'proxima-nova' : 'Source Serif Pro'};
-  ${MediaQueries.small} {
-    font-size: 30px;
-  }
+  font-size: 30px;
 `;
 
 export default H2;

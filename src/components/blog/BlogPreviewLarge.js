@@ -17,6 +17,14 @@ import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../../utils/dateFormats';
 import { RichText } from 'prismic-reactjs';
 
+const Wrapper = styled.div`
+  position: relative;
+
+  ${MediaQueries.small} {
+    padding-top: 10px;
+  }
+`;
+
 const Preview = GridParent.extend`
   grid-template-columns: repeat(24, 1fr);
   grid-gap: 0;
@@ -54,49 +62,56 @@ const LeftBorder = styled.div`
 
   ${MediaQueries.small} {
     grid-column: span 24;
+    height: 50px;
   }
 `;
 
-const Featured = styled.div`
-  position: relative;
-  height: 0;
+const FeaturedText = P.extend`
+  position: absolute;
+  top: 30px;
   background: #fff;
-  top: 20px;
-  left: 20px;
+  padding: 10px 40px;
+
+  ${MediaQueries.small} {
+    position: relative;
+    width: fit-content;
+    display: block;
+    margin: 0 auto;
+    top: 80px;
+  }
 `;
 
-const FeaturedText = P.extend`
-  background: #fff;
-  width: fit-content;
-  padding: 5px 10px;
+const ReadMoreButton = Button.extend`
+  margin-top: 30px;
 `;
 
 class BlogPreviewLarge extends Component {
   render() {
     return (
-      <div>
-        <Featured>
-          <FeaturedText proxima size="large" color="orange" bold uppercase>
-            Featured
-          </FeaturedText>
-        </Featured>
+      <Wrapper>
+        <FeaturedText proxima spaced size="large" color="orange" bold uppercase>
+          Featured
+        </FeaturedText>
         <Preview>
           <LeftBorder />
           <Image bg={this.props.image} />
           <Column>
-            <Title color="green" size="xlarge" proxima extrabold>
+            <Title color="green" size="large" proxima extrabold>
               {this.props.title}
             </Title>
-            <P proxima bold size="large">
+            <P proxima bold>
               {moment.utc(this.props.date).format(MONTH_DATE_YEAR)}
             </P>
             <P proxima>{RichText.asText(this.props.preview)}</P>
-            <Button primary onClick={() => this.props.toFull(this.props.uid)}>
+            <ReadMoreButton
+              primary
+              onClick={() => this.props.toFull(this.props.uid)}
+            >
               Read More
-            </Button>
+            </ReadMoreButton>
           </Column>
         </Preview>
-      </div>
+      </Wrapper>
     );
   }
 }
