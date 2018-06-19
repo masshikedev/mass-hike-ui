@@ -34,6 +34,10 @@ const Title = styled.div`
   color: #fff;
   padding: 40px;
   padding-top: 60px;
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
 `;
 
 const TitleContainer = GridParent.extend`
