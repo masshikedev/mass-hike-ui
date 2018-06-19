@@ -33,7 +33,9 @@ const P = styled.p`
             ? constants.orange
             : color === 'white'
               ? '#fff'
-              : color === 'blue' ? constants.blue : constants.black};
+              : color === 'blue'
+                ? constants.blue
+                : constants.black};
 `;
 
 export default P;
