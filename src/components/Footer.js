@@ -46,6 +46,11 @@ const Links = styled.ul`
   font-size: 18px;
   font-weight: 600;
   height: 0;
+  list-style-image: none;
+
+  ${MediaQueries.medium} {
+    grid-column: span 4;
+  }
 
   ${MediaQueries.small} {
     grid-template-columns: 1fr 1fr;
@@ -59,6 +64,7 @@ const Logo = H2.extend`
   font-family: 'proxima-soft';
   font-size: 28px;
   font-weight: 500;
+  padding-top: 0;
   text-transform: uppercase;
 
   ${MediaQueries.small} {
@@ -67,11 +73,11 @@ const Logo = H2.extend`
 `;
 
 const Social = styled.div`
-  grid-column: span 2;
+  grid-column: span 3;
   color: 'white';
 
   ${MediaQueries.small} {
-    grid-column: span 12;
+    grid-column: span 8;
   }
 `;
 
