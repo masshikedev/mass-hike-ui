@@ -17,7 +17,7 @@ const NavLink = styled.div`
   color: ${({ active }) =>
     active ? styleConstants.orange : styleConstants.black};
   font-size: 16px;
-  margin: 20px;
+  margin: 20px 14px;
   position: relative;
   &::after {
     width: 100%;
@@ -72,8 +72,12 @@ const LogoMark = styled.div`
   text-transform: uppercase;
   font-size: 36px;
 
+  &:hover {
+    color: ${constants.black};
+  }
+
   ${MediaQueries.medium} {
-    font-size: 30px;
+    font-size: 28px;
   }
 `;
 
