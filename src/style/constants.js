@@ -11,6 +11,7 @@ export default {
   gray: '#f8f8f8',
   darkgray: '#e6e6e6',
   paleblue: '#E6EFF6',
+  black: '#000000',
   offwhite: '#F2F2F2',
   navHeight: '75px',
   footerMinHeight: '150px;',

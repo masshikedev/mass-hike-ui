@@ -97,6 +97,9 @@ class HomeNext extends Component {
   }
 
   renderSuccess = () => {
+    if (this.props.trips.length === 0) {
+      return null;
+    }
     const trip = this.props.trips[0];
     const { push } = this.props;
     return (
