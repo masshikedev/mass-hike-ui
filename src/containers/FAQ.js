@@ -37,7 +37,7 @@ const Button = _Button.extend`
 
 const TitleWrapper = GridParent.extend`
   grid-column: span 12;
-  padding: 125px 0;
+  padding: 60px 0;
   background: ${constants.lightgreenBg};
   background-blend-mode: multiply;
   margin-bottom: 50px;
@@ -107,6 +107,7 @@ const SideBar = styled.div`
       width: 40%;
       flex-grow: 1;
       margin: 10px 0;
+      color
     }
   }
 `;
