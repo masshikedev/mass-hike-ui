@@ -28,6 +28,10 @@ const NavLink = styled.div`
     left: 0;
     top: 25px;
   }
+
+  &:hover {
+    color: ${constants.orange};
+  }
 `;
 
 const Nav = styled.div`

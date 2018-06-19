@@ -53,7 +53,6 @@ const NavText = P.extend`
     position: absolute;
     bottom: -20px;
     right: calc(50% - 30px);
-    left: 0;
   }
 `;
 
