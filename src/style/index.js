@@ -16,6 +16,7 @@ import AdminContainer from './AdminContainer';
 import Container from './Container';
 import GridParent from './GridParent';
 import Img from './Img';
+import ResponsiveImg from './ResponsiveImg';
 import Table from './Table';
 import Tr from './Tr';
 import Th from './Th';
@@ -41,6 +42,7 @@ export {
   AdminContainer,
   GridParent,
   Img,
+  ResponsiveImg,
   constants,
   MediaQueries,
   TextArea,

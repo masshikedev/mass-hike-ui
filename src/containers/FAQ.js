@@ -37,8 +37,8 @@ const Button = _Button.extend`
 
 const TitleWrapper = GridParent.extend`
   grid-column: span 12;
-  padding: 125px 0;
-  background: ${constants.green} ${constants.greenBg};
+  padding: 60px 0;
+  background: ${constants.lightgreenBg};
   background-blend-mode: multiply;
   margin-bottom: 50px;
 
@@ -83,7 +83,7 @@ const SideBar = styled.div`
   top: 100px;
 
   ${MediaQueries.small} {
-    postiion: relative;
+    position: static;
     display: flex;
     flex-flow: row wrap;
     grid-column: 2 / span 10;
@@ -107,6 +107,7 @@ const SideBar = styled.div`
       width: 40%;
       flex-grow: 1;
       margin: 10px 0;
+      color
     }
   }
 `;
@@ -115,6 +116,7 @@ const Search = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%:
 
   ${MediaQueries.small} {
     display: none;

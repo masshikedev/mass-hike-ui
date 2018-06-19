@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { P, Img, constants, MediaQueries, GridParent } from '../../style';
+import {
+  P,
+  ResponsiveImg,
+  constants,
+  MediaQueries,
+  GridParent,
+} from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Top = styled.div`
@@ -55,7 +61,7 @@ function HomeSummary(props) {
     <Summary>
       <Column>
         <ColumnContent>
-          <P uppercase bold proxima color="white">
+          <P uppercase bold proxima spaced color="white">
             {RichText.asText(props.doc.data.about_title)}
           </P>
           <P color="white" size="large">
@@ -63,13 +69,13 @@ function HomeSummary(props) {
           </P>
           <Lists>
             <List>
-              <P uppercase bold proxima color="white">
+              <P uppercase bold proxima spaced color="white">
                 {RichText.asText(props.doc.data.list1_title)}
               </P>
               {RichText.render(props.doc.data.list1)}
             </List>
             <List>
-              <P uppercase bold proxima color="white">
+              <P uppercase bold proxima spaced color="white">
                 {RichText.asText(props.doc.data.list2_title)}
               </P>
               {RichText.render(props.doc.data.list2)}
@@ -78,7 +84,7 @@ function HomeSummary(props) {
         </ColumnContent>
       </Column>
       <Top>
-        <Img src={props.doc.data.about_image.url} />
+        <ResponsiveImg src={props.doc.data.about_image.url} />
       </Top>
     </Summary>
   );

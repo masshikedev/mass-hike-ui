@@ -38,7 +38,10 @@ const Decoration = HR.extend`
 `;
 
 const TeamWrapper = styled.div`
-  padding-bottom: 80px;
+  padding-bottom: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 class TeamList extends Component {

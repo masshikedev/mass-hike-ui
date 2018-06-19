@@ -13,6 +13,7 @@ import {
   constants,
   MediaQueries,
 } from '../style';
+import '../style/blogPostStyles';
 
 const Image = styled.div`
   background-image: url(${props => props.bg});
@@ -32,7 +33,7 @@ const Title = styled.div`
   background: ${constants.lightgreenBg};
   color: #fff;
   padding: 40px;
-  padding-top: 120px;
+  padding-top: 60px;
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -41,6 +42,17 @@ const Title = styled.div`
 
 const TitleContainer = GridParent.extend`
   grid-gap: 0;
+`;
+
+const TitleText = H1.extend`
+  font-size: 60px;
+  ${MediaQueries.medium} {
+    font-size: 48px;
+  }
+
+  ${MediaQueries.small} {
+    grid-column: span 12;
+  }
 `;
 
 const BlogContent = styled.div`
@@ -61,7 +73,9 @@ class BlogPost extends Component {
       <Container>
         <TitleContainer>
           <Title>
-            <H1>{RichText.asText(this.props.doc.data.blog_title)}</H1>
+            <TitleText>
+              {RichText.asText(this.props.doc.data.blog_title)}
+            </TitleText>
             <P proxima extrabold size="large" color="white">
               {RichText.asText(this.props.doc.data.blog_subtitle)}
             </P>
@@ -70,7 +84,9 @@ class BlogPost extends Component {
         </TitleContainer>
         <BlogContent>
           <BlogAuthor {...this.props.doc.data} />
-          {RichText.render(this.props.doc.data.blog_content)}
+          <div className="blog-text">
+            {RichText.render(this.props.doc.data.blog_content)}
+          </div>
         </BlogContent>
       </Container>
     );

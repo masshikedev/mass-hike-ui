@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTripList } from '../../actions/TripListActions';
@@ -9,6 +10,7 @@ import {
   H3,
   H6,
   P,
+  Button,
   GridParent,
   constants,
   MediaQueries,
@@ -26,7 +28,6 @@ const Text = styled.div`
   ${MediaQueries.small} {
     grid-column: span 12;
     order: 1;
-    text-align: center;
     padding: 10px;
   }
 `;
@@ -48,7 +49,10 @@ const Date = styled.div`
   color: ${constants.orange};
   background-color: #fff;
   margin-bottom: 20px;
-  padding: 8px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 16px;
 
   ${MediaQueries.small} {
     left: 50%;
@@ -74,6 +78,10 @@ const Next = GridParent.extend`
   grid-column-gap: 0;
 `;
 
+const GoButton = Button.extend`
+  margin-top: 20px;
+`;
+
 class HomeNext extends Component {
   componentWillMount() {
     const { getTripList } = this.props;
@@ -89,21 +97,34 @@ class HomeNext extends Component {
   }
 
   renderSuccess = () => {
+    if (this.props.trips.length === 0) {
+      return null;
+    }
     const trip = this.props.trips[0];
-
+    const { push } = this.props;
     return (
       <Next>
         <Text>
           <Date>{format(trip.time.hikeStart, MONTH_DATE)}</Date>
           <Summary>
-            <H6 color="white">Let's go to </H6>
-            <H2>{trip.name}</H2>
-            <P proxima medium large color="white">
-              {trip.detail.body}
+            <H2>
+              <P proxima size="large" bold color="white">
+                Let's go to{' '}
+              </P>
+              {trip.name}
+            </H2>
+            <P proxima size="medium" color="white">
+              {trip.detail.subheader}
             </P>
+            <GoButton
+              onClick={() => push(`/trips/${trip.tripId}`)}
+              color="transparent"
+            >
+              Let's go!
+            </GoButton>
           </Summary>
         </Text>
-        <Image bg={previewImage} />
+        <Image bg={trip.detail.imageUrl} />
       </Next>
     );
   };
@@ -132,6 +153,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getTripList,
+      push,
     },
     dispatch
   );

@@ -12,6 +12,22 @@ import {
 } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
+const SectionWrapper = styled.div`
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  ${MediaQueries.small} {
+    width: 80%;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+`;
+
 const Title = P.extend`
   flex-shrink: 0;
   width: fit-content;
@@ -19,7 +35,6 @@ const Title = P.extend`
 `;
 
 const TitleWrapper = styled.div`
-  grid-column: span 12;
   display: flex;
   align-items: center;
   width: 100%;
@@ -27,6 +42,21 @@ const TitleWrapper = styled.div`
   flex-grow: 0.5;
   :not(:first-child) {
     margin: 30px 0;
+  }
+`;
+
+const BlockQuote = P.extend`
+  font-size: 120px;
+  color: ${constants.yellow};
+  position: relative;
+  margin-bottom: 0;
+  height: 0;
+  top: -50px;
+  left: -50px;
+  z-index: 0;
+
+  ${MediaQueries.medium} {
+    left: -30px;
   }
 `;
 
@@ -39,38 +69,30 @@ const SmallHR = HR.extend`
   }
 `;
 
-const Quotes = GridParent.extend`
-  padding: 40px 80px;
-  grid-column: span 12;
+const QuoteSection = styled.div`
+  padding: 40px 0;
 
   ${MediaQueries.small} {
-    padding: 20px 40px;
+    padding: 20px 0;
   }
 `;
 
-const QuoteAuthor = Img.extend`
-  grid-column: span 3;
-  margin-top: 7%;
-  border-radius: 100%;
-
-  ${MediaQueries.small} {
-    grid-column: span 12;
-  }
+const Quote = styled.div`
+  margin-bottom: 100px;
 `;
 
 const QuoteText = P.extend`
-  padding: 7%;
-  grid-column: span 9;
+  position: relative;
+  z-index: 1;
+`;
 
-  ${MediaQueries.small} {
-    grid-column: span 12;
-    order: ${({ right }) => (right ? '20' : '0')};
-  }
+const Author = P.extend`
+  text-align: right;
 `;
 
 function Testimonial(props) {
   return (
-    <GridParent>
+    <SectionWrapper>
       <TitleWrapper>
         <SmallHR />
         <Title proxima size="xlarge" bold>
@@ -78,17 +100,29 @@ function Testimonial(props) {
         </Title>
         <SmallHR />
       </TitleWrapper>
-      <Quotes>
-        <QuoteAuthor src={props.doc.data.testimonial2_image.url} />
-        <QuoteText size="large">
-          "{RichText.asText(props.doc.data.testimonial2)}"
-        </QuoteText>
-        <QuoteText right size="large">
-          "{RichText.asText(props.doc.data.testimonial2)}"
-        </QuoteText>
-        <QuoteAuthor src={props.doc.data.testimonial3_image.url} />
-      </Quotes>
-    </GridParent>
+      <ContentWrapper>
+        <QuoteSection>
+          <Quote>
+            <BlockQuote>“</BlockQuote>
+            <QuoteText size="large">
+              "{RichText.asText(props.doc.data.testimonial2)}"
+            </QuoteText>
+            <Author proxima bold size="large">
+              - {RichText.asText(props.doc.data.testimonial_author2)}
+            </Author>
+          </Quote>
+          <Quote size="large">
+            <BlockQuote>“</BlockQuote>
+            <QuoteText size="large">
+              "{RichText.asText(props.doc.data.testimonial2)}"
+            </QuoteText>
+            <Author proxima bold size="large">
+              - {RichText.asText(props.doc.data.testimonial_author3)}
+            </Author>
+          </Quote>
+        </QuoteSection>
+      </ContentWrapper>
+    </SectionWrapper>
   );
 }
 

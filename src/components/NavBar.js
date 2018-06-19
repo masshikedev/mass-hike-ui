@@ -1,16 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
 import styled from 'styled-components';
 import PrismicPage from '../prismic/PrismicPage';
+import MobileNav from './MobileNav';
 import hamburger from '../images/hamburger.png';
+import xIcon from '../images/mobile_nav_x.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
 import { A, constants, Button, Img, MediaQueries } from '../style';
+import styleConstants from '../style/constants';
 import logo from '../images/mh_large.png';
 
-const NavLink = A.extend`
-  color: ${({ color }) => color || 'black'};
-  margin: 20px;
+const NavLink = styled.div`
+  color: ${({ active }) =>
+    active ? styleConstants.orange : styleConstants.black};
+  font-size: 16px;
+  margin: 20px 14px;
+  position: relative;
+  &::after {
+    width: 100%;
+    height: ${props => (props.active ? '2px' : '0')};
+    background-color: ${styleConstants.orange};
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 25px;
+  }
+
+  &:hover {
+    color: ${constants.orange};
+  }
 `;
 
 const Nav = styled.div`
@@ -33,10 +54,12 @@ const Nav = styled.div`
 const Logo = Img.extend`
   height: 60px;
   width: 60px;
+  margin-right: 15px;
 
   ${MediaQueries.small} {
     width: 43px;
     height: 43px;
+    margin-right: 8px;
   }
 `;
 
@@ -44,11 +67,17 @@ const LogoMark = styled.div`
   display: flex;
   align-items: center;
 
-  a {
-    font-family: 'proxima-soft';
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 36px;
+  font-family: 'proxima-soft';
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 36px;
+
+  &:hover {
+    color: ${constants.black};
+  }
+
+  ${MediaQueries.medium} {
+    font-size: 28px;
   }
 `;
 
@@ -79,6 +108,12 @@ const Hamburger = styled.div`
   ${MediaQueries.small} {
     display: block;
   }
+  padding-top: 5px;
+`;
+
+const CtaButton = Button.extend`
+  margin-top: 10px;
+  font-size: 16px;
 `;
 
 class NavBar extends Component {
@@ -88,6 +123,7 @@ class NavBar extends Component {
     super(props);
     this.state = {
       scrolledToTop: true,
+      showMobileNav: false,
     };
     document.addEventListener('scroll', this.onScroll);
   }
@@ -107,12 +143,11 @@ class NavBar extends Component {
   renderNavLinks = links =>
     links.map(link => {
       if (link.props.children.props.to === '/trips') {
+        const { toTrips } = this.props;
         return (
-          <Button key="cta">
-            <A color="white" href={link.props.children.props.to}>
-              {link.props.children.props.children}
-            </A>
-          </Button>
+          <CtaButton key="cta" onClick={toTrips}>
+            {link.props.children.props.children}
+          </CtaButton>
         );
       } else {
         return link;
@@ -120,33 +155,56 @@ class NavBar extends Component {
     });
 
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, currentPath, doc } = this.props;
+    const { showMobileNav } = this.state;
     return (
-      <Nav scrolledToTop={this.state.scrolledToTop}>
-        <NavLeft>
-          <Link to="/">
-            <LogoMark>
-              <Logo src={logo} />
-              <NavLink>Mass Hike</NavLink>
-            </LogoMark>
-          </Link>
-        </NavLeft>
-        <NavRight>
-          {this.renderNavLinks(
-            renderLinkSlices(this.props.doc.data.body, NavLink)
-          )}
-        </NavRight>
-        <Hamburger>
-          <Img src={hamburger} />
-        </Hamburger>
-      </Nav>
+      <div>
+        <MobileNav
+          show={showMobileNav}
+          links={doc.data.body}
+          closeNav={() => this.setState({ showMobileNav: false })}
+        />
+        <Nav scrolledToTop={this.state.scrolledToTop}>
+          <NavLeft>
+            <NavLink>
+              <Link to="/">
+                <LogoMark>
+                  <Logo src={logo} />
+                  Mass Hike
+                </LogoMark>
+              </Link>
+            </NavLink>
+          </NavLeft>
+          <NavRight>
+            {this.renderNavLinks(
+              renderLinkSlices(doc.data.body, NavLink, currentPath)
+            )}
+          </NavRight>
+          <Hamburger
+            onClick={() =>
+              this.setState({ showMobileNav: !this.state.showMobileNav })
+            }
+          >
+            <Img src={showMobileNav ? xIcon : hamburger} />
+          </Hamburger>
+        </Nav>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
   loggedIn: state.auth.isAuthenticated,
+  currentPath: state.routing.location.pathname,
 });
 
-const connected = connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      toTrips: () => push('/trips'),
+    },
+    dispatch
+  );
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(NavBar);
 export default PrismicPage(connected);

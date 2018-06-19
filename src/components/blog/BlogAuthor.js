@@ -15,16 +15,16 @@ import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../../utils/dateFormats';
 
 const AuthorContainer = GridParent.extend`
-  padding: 40px 20px;
+  padding: 40px 0;
 `;
 
 const AuthorImg = Img.extend`
   border-radius: 100%;
-  grid-column: span 3;
+  grid-column: span 2;
 `;
 
 const AuthorInfo = styled.div`
-  grid-column: span 9;
+  grid-column: span 10;
 `;
 
 const AuthorName = styled.div`
@@ -46,7 +46,7 @@ const Dash = AuthorNameItem.extend``;
 
 function BlogAuthor(props) {
   return (
-    <AuthorContainer>
+    <AuthorContainer className="blog-author">
       <AuthorImg src={props.author_image.url} />
       <AuthorInfo>
         <AuthorName>

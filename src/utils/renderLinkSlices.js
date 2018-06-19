@@ -5,14 +5,14 @@ import styled from 'styled-components';
 
 const DefaultWrapper = styled.div``;
 
-const renderLinkSlices = (body, wrapper) => {
+const renderLinkSlices = (body, wrapper, currentPath) => {
   const Wrapper = wrapper ? wrapper : DefaultWrapper;
   return body.map((link, id) => {
     if (link.slice_type && link.slice_type === 'link') {
       if (link.primary.destination.uid) {
         const destination = '/' + link.primary.destination.uid;
         return (
-          <Wrapper key={id}>
+          <Wrapper active={destination === currentPath} key={id}>
             <Link to={destination}>{RichText.asText(link.primary.label)}</Link>
           </Wrapper>
         );

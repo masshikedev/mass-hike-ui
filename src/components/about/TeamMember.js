@@ -6,6 +6,10 @@ import { RichText } from 'prismic-reactjs';
 const Member = styled.div`
   grid-column: span 4;
 
+  ${MediaQueries.medium} {
+    grid-column: span 6;
+  }
+
   ${MediaQueries.small} {
     grid-column: span 12;
   }
@@ -28,10 +32,10 @@ const Name = P.extend`
 `;
 
 const Text = styled.div`
-  padding: 0 40px;
+  padding: 20px 40px 70px;
 
   ${MediaQueries.small} {
-    padding: 0 10px;
+    padding: 20px 10px 70px;
   }
 `;
 

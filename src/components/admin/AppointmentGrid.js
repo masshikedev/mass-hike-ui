@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
+import { DAY_MONTH_DATE_TIME } from '../../utils/dateFormats';
 import { P, Table, Tr, Th, Td } from '../../style';
 
 class AppointmentGrid extends Component {
@@ -14,7 +16,7 @@ class AppointmentGrid extends Component {
             ? order.phone
             : order.email}
         </Td>
-        <Td>{order.meetingDate}</Td>
+        <Td>{moment(order.meetingDate).format(DAY_MONTH_DATE_TIME)}</Td>
         <Td>{order.meetingLocation.name}</Td>
       </Tr>
     );
