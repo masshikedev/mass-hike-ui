@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
+import renderLinkSlices from '../utils/renderLinkSlices';
 import { P, MediaQueries, constants } from '../style';
 import styled from 'styled-components';
 
@@ -36,39 +37,38 @@ const NavItem = styled.div`
   flex-grow: 1;
   text-align: center;
   justify-content: center;
-`;
 
-const NavText = P.extend`
-  font-size: 30px;
-  letter-spacing: 1.5px;
-  color: ${constants.offwhite};
-  position: relative;
-  &::after {
-    width: 60px;
-    height: 6px;
-    border-radius: 3px;
-    background-color: ${props =>
-      props.active ? constants.yellow : 'transparent'};
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    right: calc(50% - 30px);
+  a {
+    font-size: 30px;
+    letter-spacing: 1.5px;
+    color: ${constants.offwhite};
+    font-weight: 700;
+    position: relative;
+    &:visited {
+      color: ${constants.offwhite};
+    }
+    &::after {
+      width: 60px;
+      height: 6px;
+      border-radius: 3px;
+      background-color: ${props =>
+        props.active ? constants.yellow : 'transparent'};
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      right: calc(50% - 30px);
+    }
   }
 `;
 
 class MobileNav extends Component {
-  onClickNavItem(destination) {
-    const { closeNav, push } = this.props;
-    push(destination);
-    closeNav();
-  }
-
   render() {
-    const { show, currentPath } = this.props;
+    const { show, currentPath, closeNav, links } = this.props;
     return (
       <NavBackground show={show}>
-        <NavWrapper>
-          <NavItem onClick={() => this.onClickNavItem('/')}>
+        <NavWrapper onClick={() => closeNav()}>
+          {renderLinkSlices(links, NavItem, currentPath)}
+          {/* <NavItem onClick={() => this.onClickNavItem('/')}>
             <NavText bold color="white" active={currentPath === '/'}>
               Home
             </NavText>
@@ -102,7 +102,7 @@ class MobileNav extends Component {
             <NavText bold color="white" active={currentPath === '/donate'}>
               Donate
             </NavText>
-          </NavItem>
+          </NavItem> */}
         </NavWrapper>
       </NavBackground>
     );

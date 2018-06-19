@@ -151,12 +151,13 @@ class NavBar extends Component {
     });
 
   render() {
-    const { loggedIn, currentPath } = this.props;
+    const { loggedIn, currentPath, doc } = this.props;
     const { showMobileNav } = this.state;
     return (
       <div>
         <MobileNav
           show={showMobileNav}
+          links={doc.data.body}
           closeNav={() => this.setState({ showMobileNav: false })}
         />
         <Nav scrolledToTop={this.state.scrolledToTop}>
@@ -172,7 +173,7 @@ class NavBar extends Component {
           </NavLeft>
           <NavRight>
             {this.renderNavLinks(
-              renderLinkSlices(this.props.doc.data.body, NavLink, currentPath)
+              renderLinkSlices(doc.data.body, NavLink, currentPath)
             )}
           </NavRight>
           <Hamburger
