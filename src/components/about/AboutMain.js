@@ -9,7 +9,7 @@ const About = GridParent.extend`
 
 const Text = styled.div`
   grid-column: span 7;
-  padding: 120px 80px;
+  padding: 80px;
   background: ${constants.lightgreenBg};
   color: #fff;
 

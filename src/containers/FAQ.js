@@ -38,7 +38,7 @@ const Button = _Button.extend`
 const TitleWrapper = GridParent.extend`
   grid-column: span 12;
   padding: 125px 0;
-  background: ${constants.green} ${constants.greenBg};
+  background: ${constants.lightgreenBg};
   background-blend-mode: multiply;
   margin-bottom: 50px;
 
@@ -115,6 +115,7 @@ const Search = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%:
 
   ${MediaQueries.small} {
     display: none;

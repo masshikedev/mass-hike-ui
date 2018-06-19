@@ -5,7 +5,7 @@ import { RichText } from 'prismic-reactjs';
 
 const Text = styled.div`
   grid-column: span 7;
-  padding: 40px 80px;
+  padding: 80px;
   padding-top: 80px;
   background: ${constants.lightgreenBg};
   color: #fff;
