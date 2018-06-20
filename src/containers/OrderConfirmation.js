@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import OrderSummary from '../components/OrderSummary';
 import { getOrderById } from '../actions/OrderActions';
@@ -89,7 +90,7 @@ class OrderConfirmation extends LoadableComponent {
   }
 
   renderSuccess = () => {
-    const { order } = this.props;
+    const { order, toTrips } = this.props;
     const { trip } = order;
     return (
       <Container>
@@ -107,7 +108,7 @@ class OrderConfirmation extends LoadableComponent {
             <MainContent>
               <ContentTitle>Order Summary</ContentTitle>
               <OrderSummary order={order} />
-              <BackButton>Back to trips</BackButton>
+              <BackButton onClick={toTrips}>Back to trips</BackButton>
             </MainContent>
           </ContentColumn>
           <ImageColumn image={trip.detail.imageUrl} />
@@ -126,6 +127,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getOrderById,
+      toTrips: () => push('/trips'),
     },
     dispatch
   );
