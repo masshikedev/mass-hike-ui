@@ -19,6 +19,7 @@ const Wrapper = styled.div`
     grid-template-rows: repeat(6, auto);
   }
   justify-content: stretch;
+  grid-column-gap: 15px;
 `;
 
 const HeadingContainer = styled.div`
@@ -27,6 +28,8 @@ const HeadingContainer = styled.div`
 
 const Section = styled.div`
   grid-row: span 1;
+  grid-column: span 1;
+  margin-bottom: 15px;
 `;
 
 export default function OrderSummary(props) {
@@ -46,7 +49,7 @@ export default function OrderSummary(props) {
       <Wrapper>
         <Section>
           <H6 color={constants.green}>Trip Summary</H6>
-          <P large proxima>
+          <P proxima>
             {trip.name}
             <br />
             {moment(trip.time.hikeStart).format(MONTH_DATE_YEAR)}
@@ -62,7 +65,7 @@ export default function OrderSummary(props) {
             <H6 color={constants.green}>Contact Info</H6>
             <EditButton display={showEditButtons} section={0} mobile={mobile} />
           </HeadingContainer>
-          <P large proxima>
+          <P proxima>
             {order.name}
             <br />
             {order.email}
@@ -93,16 +96,46 @@ export default function OrderSummary(props) {
             <H6 color={constants.green}>Payment</H6>
             <EditButton display={showEditButtons} section={2} mobile={mobile} />
           </HeadingContainer>
-          <P proxima>{order.paymentType}</P>
+          <P proxima>{order.paymentType === 'cash' ? 'Cash' : 'Credit Card'}</P>
           {errors &&
             errors['paymentType'] && (
               <P color="error" proxima>
                 {errors['paymentType'][0]}
               </P>
             )}
+        </Section>
+
+        <Section>
+          <HeadingContainer>
+            <H6 color={constants.green}>Preferred Pickup</H6>
+            <EditButton display={showEditButtons} section={1} mobile={mobile} />
+          </HeadingContainer>
+          <P proxima>{order.pickupLocation}</P>
+          <P size="small" proxima>
+            Your final pickup location will be sent to you before the date of
+            your hike.
+          </P>
+        </Section>
+        <Section>
+          <HeadingContainer>
+            <H6 color={constants.green}>Contact Method</H6>
+            <EditButton display={showEditButtons} section={0} mobile={mobile} />
+          </HeadingContainer>
+          <P capitalize proxima>
+            {order.preferredContactMethods.join(', ')}
+          </P>
+          {errors &&
+            errors['preferredContactMethods'] && (
+              <P color="error" proxima>
+                {errors['preferredContactMethods'][0]}
+              </P>
+            )}
+        </Section>
+
+        <Section>
           {order.paymentType === 'card' && (
             <div>
-              <H6 color={constants.green}>Credit Card</H6>
+              <H6 color={constants.green}>Card Details</H6>
               {cardNumberError && (
                 <P color="error" proxima>
                   {cardNumberError.message}
@@ -123,49 +156,23 @@ export default function OrderSummary(props) {
                   {postalCodeError.message}
                 </P>
               )}
-              <P large capitalize proxima>
-                {order.cardBrand}
+              <P capitalize proxima>
+                {order.cardBrand || `${order.cardType} ${order.cardNumber}`}
               </P>
             </div>
           )}
           {order.paymentType === 'cash' && (
             <div>
-              <P large proxima>
+              <H6 color={constants.green}>Payment Location</H6>
+              <P proxima>
+                BCYF {order.meetingLocation.name} on{' '}
                 {moment(order.meetingDate).format(DAY_MONTH_DATE_TIME)}
-              </P>
-              <P large proxima>
-                {order.meetingLocation.name}
               </P>
             </div>
           )}
         </Section>
-
-        <Section>
-          <HeadingContainer>
-            <H6 color={constants.green}>Pickup</H6>
-            <EditButton display={showEditButtons} section={1} mobile={mobile} />
-          </HeadingContainer>
-          <P large proxima>
-            {order.pickupLocation}
-          </P>
-        </Section>
-        <Section>
-          <HeadingContainer>
-            <H6 color={constants.green}>Contact Method</H6>
-            <EditButton display={showEditButtons} section={0} mobile={mobile} />
-          </HeadingContainer>
-          <P large capitalize proxima>
-            {order.preferredContactMethods.join(', ')}
-          </P>
-          {errors &&
-            errors['preferredContactMethods'] && (
-              <P color="error" proxima>
-                {errors['preferredContactMethods'][0]}
-              </P>
-            )}
-        </Section>
       </Wrapper>
-      <P large proxima>
+      <P proxima>
         {`${order.tickets} Tickets x $${order.selectedPrice} each`}
         <br />
         {`Total: $${order.tickets * order.selectedPrice}`}
