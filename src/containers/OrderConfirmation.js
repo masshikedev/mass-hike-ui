@@ -72,7 +72,11 @@ const TitleSection = styled.div`
 `;
 
 const MainContent = styled.div`
-  padding: 20px 30px;
+  padding: 20px 60px;
+
+  ${MediaQueries.small} {
+    padding: 20px 30px;
+  }
 `;
 
 const ContentTitle = H4.extend`

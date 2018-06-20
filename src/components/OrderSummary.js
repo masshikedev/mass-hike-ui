@@ -157,7 +157,7 @@ export default function OrderSummary(props) {
                 </P>
               )}
               <P capitalize proxima>
-                {order.cardBrand}
+                {order.cardBrand || `${order.cardType} ${order.cardNumber}`}
               </P>
             </div>
           )}
