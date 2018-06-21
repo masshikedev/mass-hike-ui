@@ -148,6 +148,7 @@ class TripForm extends Component {
     const imageUrl = detail.imageUrl;
     const messages =
       validate(this.state, tripConstraints(this.state)) || 'valid';
+    console.log(messages);
     return (
       <form>
         <TripFormSection>

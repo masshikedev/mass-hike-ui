@@ -23,7 +23,7 @@ class AppointmentGrid extends Component {
   }
 
   render() {
-    const { orders } = this.props;
+    const orders = this.props.orders.filter(order => !order.cancelled);
     if (orders.length === 0) {
       return <P>No cash appointments are scheduled at this time.</P>;
     }

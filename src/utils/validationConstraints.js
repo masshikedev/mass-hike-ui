@@ -290,17 +290,17 @@ const tripConstraints = trip => {
     'stats.elevation': {
       numericality: true,
     },
-    'detail.title': {
+    'detail.subheader': {
       presence: {
         allowEmpty: false,
       },
     },
-    'detail.subtitle': {
+    'detail.bodyTitle': {
       presence: {
         allowEmpty: false,
       },
     },
-    'detail.body': {
+    'detail.bodyContent': {
       presence: {
         allowEmpty: false,
       },
