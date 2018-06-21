@@ -97,10 +97,13 @@ class HomeNext extends Component {
   }
 
   renderSuccess = () => {
-    if (this.props.trips.length === 0) {
+    const trips = this.props.trips.filter(
+      trip => trip.capacity !== trip.ticketsSold
+    );
+    if (trips.length === 0) {
       return null;
     }
-    const trip = this.props.trips[0];
+    const trip = trips[0];
     const { push } = this.props;
     return (
       <Next>
