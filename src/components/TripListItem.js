@@ -33,6 +33,7 @@ const Date = P.extend`
   top: 90px;
   left: 50px;
   text-transform: uppercase;
+  z-index: 1;
 
   ${MediaQueries.small} {
     left: 50%;
@@ -46,6 +47,7 @@ const TripImage = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  filter: ${props => (props.soldOut ? 'grayscale(100%)' : 'none')};
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -109,7 +111,7 @@ class TripListItem extends Component {
         </Date>
         <Wrapper>
           <Margin />
-          <TripImage bg={imageUrl} />
+          <TripImage bg={imageUrl} soldOut={spotsRemaining === 0} />
           <InfoWrapper>
             <P proxima bold color="green" size="xlarge">
               {name}
