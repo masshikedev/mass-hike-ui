@@ -61,7 +61,7 @@ class CheckoutConfirmation extends BaseCheckoutSection {
     const { promoCode, trip } = order;
     const pricing = this.currentPricing();
     const errors =
-      validate({ ...order }, constraints(trip, pricing)) || 'valid';
+      validate({ ...order }, constraints(trip, pricing, order)) || 'valid';
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}

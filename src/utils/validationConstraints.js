@@ -153,9 +153,9 @@ const cashPaymentContraints = availability => {
   };
 };
 
-const constraints = (trip, priceData) => {
+const constraints = (trip, priceData, order) => {
   return {
-    ...contactConstraints(),
+    ...contactConstraints(order),
     ...hikeConstraints(trip),
     ...paymentTypeConstraints(trip, priceData),
   };
