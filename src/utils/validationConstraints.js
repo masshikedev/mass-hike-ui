@@ -18,7 +18,9 @@ validate.validators.dateAvailability = function(
   return options.message || ' is invalid';
 };
 
-const contactConstraints = () => {
+const contactConstraints = state => {
+  let needEmail = state.preferredContactMethods.includes('email');
+  let needPhone = state.preferredContactMethods.includes('phone');
   return {
     name: {
       presence: {
@@ -28,21 +30,21 @@ const contactConstraints = () => {
     },
     email: {
       presence: {
-        allowEmpty: false,
+        allowEmpty: !needEmail,
         message: '^Please enter your email',
       },
-      email: { message: '^Please enter a valid email' },
+      email: needEmail && { message: '^Please enter a valid email' },
     },
     phone: {
       presence: {
-        allowEmpty: false,
+        allowEmpty: !needPhone,
         message: '^Please enter your phone number',
       },
-      length: {
+      length: needPhone && {
         is: 16,
         message: '^Phone number is not long enough',
       },
-      format: {
+      format: needPhone && {
         pattern: /[(]\d{3}[)] \d{3} [-] \d{4}/,
         message: '^Formatting error, please try again',
       },

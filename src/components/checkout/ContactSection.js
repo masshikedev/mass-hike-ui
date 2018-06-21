@@ -38,7 +38,8 @@ class ContactSection extends BaseCheckoutSection {
 
   render() {
     const { name, email, phone, preferredContactMethods } = this.state;
-    const messages = validate(this.state, contactConstraints()) || 'valid';
+    const messages =
+      validate(this.state, contactConstraints(this.state)) || 'valid';
     return (
       <div>
         <H2>Contact Information</H2>
