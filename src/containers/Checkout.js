@@ -123,6 +123,9 @@ class Checkout extends LoadableComponent {
     const showCardPayment = currentSection === 3 && paymentType === 'card';
     return (
       <div>
+        {trip.capacity === trip.ticketsSold && (
+          <Redirect to={`/trips/${trip.tripId}`} />
+        )}
         <ModifiedGridParent>
           <FormWrapper>
             <CheckoutProgressBar sectionOrder={SectionOrder} />

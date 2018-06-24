@@ -18,24 +18,39 @@ const Margin = styled.div`
   }
 `;
 
-const TripWrapper = styled.div``;
+const TripWrapper = styled.div`
+  position: relative;
+  margin-bottom: 50px;
+`;
 
 const Wrapper = GridParent.extend`
   grid-gap: 0;
 `;
 
-const Date = P.extend`
-  position: relative;
+const TripDate = P.extend`
+  position: absolute;
   background-color: #fff;
   width: fit-content;
   padding: 5px 10px;
   margin: 0;
-  top: 90px;
+  top: 30px;
   left: 50px;
+  text-transform: uppercase;
+  z-index: 1;
 
   ${MediaQueries.small} {
     left: 50%;
     transform: translate(-50%, 30%);
+    display: none;
+  }
+`;
+
+const SoldOut = TripDate.extend`
+  background-color: ${constants.orange};
+  top: 100px;
+  ${MediaQueries.small} {
+    top: 45px;
+    display: block;
   }
 `;
 
@@ -45,6 +60,7 @@ const TripImage = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  filter: ${props => (props.soldOut ? 'grayscale(100%)' : 'none')};
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -54,6 +70,7 @@ const TripImage = styled.div`
 
 const InfoWrapper = styled.div`
   grid-column: span 5;
+  display: grid;
   padding: 40px;
   background: ${constants.offwhiteBg};
   p {
@@ -61,8 +78,30 @@ const InfoWrapper = styled.div`
   }
   ${MediaQueries.small} {
     grid-column: span 12;
-    text-align: center;
   }
+`;
+
+const InfoSection = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 20px;
+  margin-top: 20px;
+`;
+
+const InfoSectionColumn = styled.div`
+  grid-column: span 1;
+  ${MediaQueries.medium} {
+    grid-column: span 2;
+  }
+`;
+
+const InfoSectionItem = styled.div`
+  margin-bottom: 20px;
+`;
+
+const LearnMore = Button.extend`
+  margin-left: 0;
+  margin-right: auto;
 `;
 
 class TripListItem extends Component {
@@ -80,36 +119,54 @@ class TripListItem extends Component {
     const timeString = moment.utc(date).format(TIME);
     return (
       <TripWrapper>
-        <Date proxima bold size="large" color="orange">
+        <TripDate proxima bold size="large" color="orange">
           {dateString}
-        </Date>
+        </TripDate>
+        {spotsRemaining === 0 && (
+          <SoldOut proxima bold size="large" color="white">
+            Sold out
+          </SoldOut>
+        )}
         <Wrapper>
           <Margin />
-          <TripImage bg={imageUrl} />
+          <TripImage bg={imageUrl} soldOut={spotsRemaining === 0} />
           <InfoWrapper>
             <P proxima bold color="green" size="xlarge">
               {name}
             </P>
-            <P proxima bold uppercase size="medium">
-              Location
-            </P>
-            <P proxima>{location}</P>
-            <P proxima bold uppercase size="medium">
-              Time
-            </P>
-            <P proxima>{timeString}</P>
-            <P proxima bold uppercase size="medium">
-              Availability
-            </P>
-            <P proxima>{`${spotsRemaining} spots left`}</P>
-            <P proxima bold uppercase size="medium">
-              Difficulty
-            </P>
-            <P proxima capitalize>{`${difficulty}`}</P>
-            <br />
-            <Button primary onClick={() => this.props.toDetail(tripId)}>
+            <InfoSection>
+              <InfoSectionColumn>
+                <InfoSectionItem>
+                  <P proxima bold uppercase size="medium">
+                    Location
+                  </P>
+                  <P proxima>{location}</P>
+                </InfoSectionItem>
+                <InfoSectionItem>
+                  <P proxima bold uppercase size="medium">
+                    Availability
+                  </P>
+                  <P proxima>{`${spotsRemaining} spots left`}</P>
+                </InfoSectionItem>
+              </InfoSectionColumn>
+              <InfoSectionColumn>
+                <InfoSectionItem>
+                  <P proxima bold uppercase size="medium">
+                    Time
+                  </P>
+                  <P proxima>{timeString}</P>
+                </InfoSectionItem>
+                <InfoSectionItem>
+                  <P proxima bold uppercase size="medium">
+                    Difficulty
+                  </P>
+                  <P proxima capitalize>{`${difficulty}`}</P>
+                </InfoSectionItem>
+              </InfoSectionColumn>
+            </InfoSection>
+            <LearnMore primary onClick={() => this.props.toDetail(tripId)}>
               Learn More
-            </Button>
+            </LearnMore>
           </InfoWrapper>
         </Wrapper>
       </TripWrapper>

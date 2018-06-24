@@ -44,6 +44,7 @@ const TripImage = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  filter: ${props => (props.soldOut ? 'grayscale(100%)' : 'none')};
 
   ${MediaQueries.small} {
     grid-column: span 12;
@@ -89,11 +90,12 @@ class TripDetail extends LoadableComponent {
   renderSuccess = () => {
     const { trip } = this.props;
     const dateString = moment.utc(trip.time.hikeStart).format(MONTH_DATE);
+    const soldOut = trip.capacity === trip.ticketsSold;
     return (
       <Container>
         <TripWrapper>
           <Date uppercase proxima color="orange" bold size="large">
-            {dateString}
+            {soldOut ? 'Sold Out' : dateString}
           </Date>
           <Summary>
             <MainInfo>
@@ -105,7 +107,7 @@ class TripDetail extends LoadableComponent {
                 {trip.detail.subheader}
               </P>
             </MainInfo>
-            <TripImage bg={trip.detail.imageUrl} />
+            <TripImage bg={trip.detail.imageUrl} soldOut={soldOut} />
           </Summary>
           <DetailSection>
             <DetailDescription {...trip} />

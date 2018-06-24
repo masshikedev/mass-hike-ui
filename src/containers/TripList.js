@@ -18,6 +18,7 @@ const Trips = styled.div`
 const Title = styled.div`
   text-align: center;
   padding-top: 40px;
+  margin-bottom: 70px;
 `;
 
 const NoTrips = styled.div`

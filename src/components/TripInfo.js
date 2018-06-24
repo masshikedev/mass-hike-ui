@@ -47,6 +47,7 @@ function TripInfo(props) {
   const pickupString = moment
     .utc(props.time.pickupStart)
     .format(DAY_MONTH_DATE_TIME);
+  const soldOut = props.capacity === props.ticketsSold;
   return (
     <Wrapper>
       <BorderWrapper>
@@ -75,9 +76,15 @@ function TripInfo(props) {
           {props.capacity - props.ticketsSold}/{props.capacity} Tickets
           remaining
         </P>
-        <BookButton primary onClick={() => props.toCheckout(props.tripId)}>
-          Book Now
-        </BookButton>
+        {soldOut ? (
+          <P proxima>
+            Tickets for this trip may open up. Please check back later.
+          </P>
+        ) : (
+          <BookButton primary onClick={() => props.toCheckout(props.tripId)}>
+            Book Now
+          </BookButton>
+        )}
       </BorderWrapper>
     </Wrapper>
   );
