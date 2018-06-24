@@ -18,19 +18,22 @@ const Margin = styled.div`
   }
 `;
 
-const TripWrapper = styled.div``;
+const TripWrapper = styled.div`
+  position: relative;
+  margin-bottom: 50px;
+`;
 
 const Wrapper = GridParent.extend`
   grid-gap: 0;
 `;
 
-const Date = P.extend`
-  position: relative;
+const TripDate = P.extend`
+  position: absolute;
   background-color: #fff;
   width: fit-content;
   padding: 5px 10px;
   margin: 0;
-  top: 90px;
+  top: 30px;
   left: 50px;
   text-transform: uppercase;
   z-index: 1;
@@ -38,6 +41,16 @@ const Date = P.extend`
   ${MediaQueries.small} {
     left: 50%;
     transform: translate(-50%, 30%);
+    display: none;
+  }
+`;
+
+const SoldOut = TripDate.extend`
+  background-color: ${constants.orange};
+  top: 100px;
+  ${MediaQueries.small} {
+    top: 45px;
+    display: block;
   }
 `;
 
@@ -106,9 +119,14 @@ class TripListItem extends Component {
     const timeString = moment.utc(date).format(TIME);
     return (
       <TripWrapper>
-        <Date proxima bold size="large" color="orange">
-          {spotsRemaining === 0 ? 'Sold Out' : dateString}
-        </Date>
+        <TripDate proxima bold size="large" color="orange">
+          {dateString}
+        </TripDate>
+        {spotsRemaining === 0 && (
+          <SoldOut proxima bold size="large" color="white">
+            Sold out
+          </SoldOut>
+        )}
         <Wrapper>
           <Margin />
           <TripImage bg={imageUrl} soldOut={spotsRemaining === 0} />
