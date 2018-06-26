@@ -123,11 +123,6 @@ class MobileCheckoutForm extends Component {
         left: 0,
         behavior: 'smooth',
       });
-      // newSection.scrollIntoView({
-      //   block: 'start',
-      //   inline: 'center',
-      //   behavior: 'smooth',
-      // });
     }
   }
 
