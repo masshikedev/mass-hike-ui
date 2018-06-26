@@ -93,6 +93,7 @@ class MobileCheckoutForm extends Component {
       toConfirmation,
     } = this.props;
     setCheckoutState(fields);
+    setCurrentSection(options.index);
     if (options.index === SectionOrder.length - 1) {
       toConfirmation(match.url);
     } else {
@@ -117,9 +118,9 @@ class MobileCheckoutForm extends Component {
     const { currentSection } = this.props;
     const newSection = document.getElementById(`section ${currentSection}`);
     if (newSection) {
-      newSection.scrollIntoView({
-        block: 'start',
-        inline: 'center',
+      window.scroll({
+        top: newSection.offsetTop,
+        left: 0,
         behavior: 'smooth',
       });
     }
@@ -133,6 +134,7 @@ class MobileCheckoutForm extends Component {
     const Payment = SectionOrder[3].component;
     const Confirm = SectionOrder[4].component;
     const showCard = highestCompletedSection >= 3 && paymentType === 'card';
+
     return (
       <React.Fragment>
         <SectionWrapper key={0} id={`section 0`}>
@@ -155,7 +157,7 @@ class MobileCheckoutForm extends Component {
         ) : (
           <SectionWrapper
             key={3}
-            id={`section ${3}`}
+            id={`section 3`}
             hidden={highestCompletedSection < 3}
           >
             <CardPayment
@@ -185,7 +187,7 @@ class MobileCheckoutForm extends Component {
         <Container>
           <GridParent>
             <Wrapper>
-              <form>{this.renderSections()}</form>
+              <form id="mobile-form-wrapper">{this.renderSections()}</form>
               <BottomSpacer />
             </Wrapper>
           </GridParent>
