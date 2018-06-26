@@ -20,7 +20,7 @@ const CheckBoxWrapper = styled.div`
   flex-direction: row;
   padding: 5px;
   ${MediaQueries.small} {
-    flex-direction: column;
+    justify-content: space-between;
   }
 `;
 

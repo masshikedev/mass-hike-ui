@@ -23,7 +23,7 @@ const CheckBoxWrapper = styled.div`
   align-items: center;
   padding: 5px;
   ${MediaQueries.small} {
-    flex-direction: column;
+    justify-content: space-between;
   }
 `;
 
@@ -45,6 +45,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
       promoCode,
       paymentType,
       selectedPrice,
+      customPriceEditted: false,
     };
   }
 
@@ -72,7 +73,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
     });
   }
 
-  renderOtherPrice(messages) {
+  renderOtherPrice() {
     const { selectedPrice } = this.state;
     const prices = this.pricingSuggestions();
     return (
@@ -93,8 +94,9 @@ class PaymentTypeSection extends BaseCheckoutSection {
           value={!prices.includes(selectedPrice) ? selectedPrice : ''}
           onChange={e => this.setState({ selectedPrice: e.target.value })}
           onFocus={e => this.setState({ selectedPrice: e.target.value })}
-          error={messages['selectedPrice']}
+          onBlur={e => this.setState({ customPriceEditted: true })}
           short
+          smallBottomMargin
         />
       </OtherWrapper>
     );
@@ -125,12 +127,15 @@ class PaymentTypeSection extends BaseCheckoutSection {
             pricing.min
           } and $${pricing.max}.`}
         </Caption>
-
         <CheckBoxWrapper>
           {this.renderPrices()}
-          {this.renderOtherPrice(messages)}
+          {this.renderOtherPrice()}
         </CheckBoxWrapper>
-
+        {this.state.customPriceEditted && (
+          <P proxima leftmargin size="medium" color="error">
+            {messages['selectedPrice']}
+          </P>
+        )}
         <H6>How would you like to pay?</H6>
         <CheckBoxWrapper>
           <Checkbox
@@ -146,7 +151,6 @@ class PaymentTypeSection extends BaseCheckoutSection {
             text="Cash"
           />
         </CheckBoxWrapper>
-
         <ButtonSpacer>
           <BackButton
             onClick={e => this.onBackSection(e, messages === 'valid')}
