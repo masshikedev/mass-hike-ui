@@ -3,7 +3,8 @@ import { P, H6, Input, TextArea } from '../../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: ${({ smallBottomMargin }) =>
+    smallBottomMargin ? '5px' : '15px'};
 `;
 
 class ValidatedTextInput extends Component {
@@ -17,19 +18,21 @@ class ValidatedTextInput extends Component {
       title,
       onChange,
       onFocus,
+      onBlur,
       error,
       value,
       id,
       textarea,
       short,
       medium,
+      smallBottomMargin,
     } = this.props;
     const { editing } = this.state;
     const transform = this.props.transform || (v => v);
     const placeholder = this.props.placeholder || '';
     const InputComponent = textarea ? TextArea : Input;
     return (
-      <Wrapper>
+      <Wrapper smallBottomMargin={smallBottomMargin}>
         <label>
           <H6>{title}</H6>
           <InputComponent
@@ -40,7 +43,8 @@ class ValidatedTextInput extends Component {
             onChange={e => {
               onChange(e);
             }}
-            onBlur={() => {
+            onBlur={e => {
+              if (onBlur) onBlur(e);
               this.setState({ editing: false });
             }}
             onFocus={e => {

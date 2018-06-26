@@ -23,7 +23,7 @@ const CheckBoxWrapper = styled.div`
   align-items: center;
   padding: 5px;
   ${MediaQueries.small} {
-    flex-direction: column;
+    justify-content: space-between;
   }
 `;
 
@@ -93,6 +93,7 @@ class HikeInfoSection extends BaseCheckoutSection {
                 this.setState({ kids: e.target.value, edited: true });
               }}
               short
+              smallBottomMargin
             />
           )}
           <Checkbox
