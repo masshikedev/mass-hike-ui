@@ -3,12 +3,14 @@ import { createDonation } from '../api/donations';
 
 const donateSuccess = dispatch => {
   return () => {
+    console.log('success');
     dispatch({ type: ActionTypes.DONATE_SUCCESS });
   };
 };
 
 const donateError = dispatch => {
-  return () => {
+  return error => {
+    console.log(error);
     dispatch({ type: ActionTypes.DONATE_ERROR });
   };
 };

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PrismicPage from '../prismic/PrismicPage';
 import { RichText } from 'prismic-reactjs';
 import DonationForm from '../components/donate/DonationForm';
+import { RequestStatus } from '../constants';
+import { reset } from '../actions/DonationActions';
 import { H1, P, constants } from '../style';
 import styled from 'styled-components';
 
@@ -25,8 +29,17 @@ const Title = H1.extend`
 
 class Donate extends Component {
   static pageType = 'donate';
+  componentWillMount() {
+    this.props.reset();
+  }
+
   render() {
-    const { doc } = this.props;
+    const { doc, status } = this.props;
+    if (status === RequestStatus.SUCCESS) {
+      return <P>Success</P>;
+    } else if (status === RequestStatus.ERROR) {
+      return <P>Error</P>;
+    }
     return (
       <Background>
         <Content>
@@ -41,4 +54,12 @@ class Donate extends Component {
   }
 }
 
-export default PrismicPage(Donate);
+const mapStateToProps = state => ({
+  status: state.donations.status,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ reset }, dispatch);
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(Donate);
+
+export default PrismicPage(connected);
