@@ -10,31 +10,16 @@ import getCurrentPricing from '../../utils/getCurrentPricing';
 import {
   Checkbox,
   ValidatedTextInput,
+  CustomPrice,
   NextButton,
   BackButton,
   ButtonSpacer,
+  CheckBoxWrapper,
 } from '../forms';
 import styled from 'styled-components';
 
-const CheckBoxWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 5px;
-  ${MediaQueries.small} {
-    justify-content: space-between;
-  }
-`;
-
 const Caption = P.extend`
   max-width: 500px;
-`;
-
-const OtherWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 `;
 
 class PaymentTypeSection extends BaseCheckoutSection {
@@ -73,35 +58,6 @@ class PaymentTypeSection extends BaseCheckoutSection {
     });
   }
 
-  renderOtherPrice() {
-    const { selectedPrice } = this.state;
-    const prices = this.pricingSuggestions();
-    return (
-      <OtherWrapper>
-        <Checkbox
-          type="radio"
-          checked={!prices.includes(selectedPrice)}
-          onChange={() => {
-            document.getElementById('customPrice').focus();
-            document.getElementById('customPrice').select();
-          }}
-          text="Other:"
-        />
-        <ValidatedTextInput
-          type="number"
-          id="customPrice"
-          placeholder="Amount"
-          value={!prices.includes(selectedPrice) ? selectedPrice : ''}
-          onChange={e => this.setState({ selectedPrice: e.target.value })}
-          onFocus={e => this.setState({ selectedPrice: e.target.value })}
-          onBlur={e => this.setState({ customPriceEditted: true })}
-          short
-          smallBottomMargin
-        />
-      </OtherWrapper>
-    );
-  }
-
   render() {
     const { trip } = this.props;
     const { paymentType, selectedPrice } = this.state;
@@ -129,7 +85,12 @@ class PaymentTypeSection extends BaseCheckoutSection {
         </Caption>
         <CheckBoxWrapper>
           {this.renderPrices()}
-          {this.renderOtherPrice()}
+          <CustomPrice
+            prices={this.pricingSuggestions()}
+            selectedPrice={selectedPrice}
+            onChange={e => this.setState({ selectedPrice: e.target.value })}
+            onBlur={e => this.setState({ customPriceEditted: true })}
+          />
         </CheckBoxWrapper>
         {this.state.customPriceEditted && (
           <P proxima leftmargin size="medium" color="error">
