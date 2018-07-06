@@ -114,7 +114,9 @@ class DonationForm extends Component {
             error={messages.email}
           />
         </Section>
-        <DonateButton primary>Donate</DonateButton>
+        <DonateButton primary disabled={messages !== 'valid'}>
+          Donate
+        </DonateButton>
       </Form>
     );
   }
