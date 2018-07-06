@@ -39,6 +39,7 @@ class DonationForm extends Component {
     super(props);
     this.state = {
       selectedPrice: null,
+      customPriceEdited: false,
       email: '',
     };
   }
@@ -59,7 +60,7 @@ class DonationForm extends Component {
   }
 
   render() {
-    const { selectedPrice, email } = this.state;
+    const { selectedPrice, customPriceEdited, email } = this.state;
     const messages = validate(this.state, donationConstraints()) || 'valid';
     return (
       <Form>
@@ -71,10 +72,10 @@ class DonationForm extends Component {
               prices={SUGGESTIONS}
               selectedPrice={selectedPrice}
               onChange={e => this.setState({ selectedPrice: e.target.value })}
-              onBlur={e => this.setState({ customPriceEditted: true })}
+              onBlur={e => this.setState({ customPriceEdited: true })}
             />
           </CheckBoxWrapper>
-          {selectedPrice !== null &&
+          {customPriceEdited &&
             messages.selectedPrice && (
               <P proxima leftmargin size="medium" color="error">
                 {messages.selectedPrice[0]}
