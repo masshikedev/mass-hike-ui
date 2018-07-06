@@ -16,6 +16,7 @@ const Content = styled.div`
   width: 80%;
   margin: 0 auto;
   padding-top: 100px;
+  padding-bottom: 100px;
 `;
 
 const Title = H1.extend`

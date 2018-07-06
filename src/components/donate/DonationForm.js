@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { validate } from 'validate.js';
 import { donationConstraints } from '../../utils/validationConstraints';
-import { P, H4, H6 } from '../../style';
+import { P, H4, H6, Button } from '../../style';
 import stripeStyle from '../../style/stripeStyle';
 import {
   injectStripe,
@@ -30,6 +30,10 @@ const Section = styled.div`
   h6 {
     margin-top: 10px;
   }
+`;
+
+const DonateButton = Button.extend`
+  margin-top: 10px;
 `;
 
 const SUGGESTIONS = [5, 10, 25, 50, 100];
@@ -110,6 +114,7 @@ class DonationForm extends Component {
             error={messages.email}
           />
         </Section>
+        <DonateButton primary>Donate</DonateButton>
       </Form>
     );
   }
