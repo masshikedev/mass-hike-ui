@@ -270,7 +270,7 @@ class CashLocationList extends Component {
   }
 
   render() {
-    const { locations, onDelete, showDelete, changesSaved } = this.props;
+    const { changesSaved } = this.props;
     const {
       newLocationName,
       newLocationAddress,

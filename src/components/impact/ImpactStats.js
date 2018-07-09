@@ -1,15 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  MediaQueries,
-  Img,
-  H1,
-  H2,
-  P,
-  HR,
-  constants,
-  GridParent,
-} from '../../style';
+import { MediaQueries, H1, P, HR, constants, GridParent } from '../../style';
 import hero from '../../images/impact-hero.png';
 import { RichText } from 'prismic-reactjs';
 

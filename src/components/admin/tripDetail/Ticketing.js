@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AdminContainer, P, H5 } from '../../../style';
+import { P, H5 } from '../../../style';
 import OrderGrid from './OrderGrid';
 import PickupMap from './PickupMap';
 import PickupGrid from './PickupGrid';

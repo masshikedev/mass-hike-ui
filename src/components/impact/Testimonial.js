@@ -1,15 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  MediaQueries,
-  Img,
-  H1,
-  H2,
-  HR,
-  P,
-  constants,
-  GridParent,
-} from '../../style';
+import { MediaQueries, HR, P, constants } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const SectionWrapper = styled.div`

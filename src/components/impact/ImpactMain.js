@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H1, MediaQueries, P, constants, Img, GridParent } from '../../style';
+import { H1, MediaQueries, P, constants, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 
 const Text = styled.div`
@@ -13,14 +13,6 @@ const Text = styled.div`
   ${MediaQueries.small} {
     grid-column: span 12;
     padding: 40px;
-  }
-`;
-
-const ImpactImg = styled.div`
-  grid-column: span 4;
-
-  ${MediaQueries.small} {
-    grid-column: span 12;
   }
 `;
 

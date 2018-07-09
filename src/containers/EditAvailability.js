@@ -54,7 +54,7 @@ class EditAvailability extends LoadableComponent {
   };
 
   onConfirmTimeChange = () => {
-    const { updateAvailability, availability } = this.props;
+    const { updateAvailability } = this.props;
     const { currentAvailableTimes, timesChanged } = this.state;
     if (!timesChanged) {
       return null;
@@ -69,12 +69,7 @@ class EditAvailability extends LoadableComponent {
   };
 
   renderSuccess = () => {
-    const {
-      currentAvailableTimes,
-      currentAvailableLocations,
-      timesChanged,
-      changesSaved,
-    } = this.state;
+    const { currentAvailableTimes, timesChanged, changesSaved } = this.state;
     const { availability } = this.props;
     return (
       <AdminContainer>

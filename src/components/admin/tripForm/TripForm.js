@@ -140,15 +140,12 @@ class TripForm extends Component {
       detail,
       promoCodes,
       pickupZipcodes,
-      cashLocations,
       uploadInProgress,
-      cashAvailability,
     } = this.state;
     const { buttonText } = this.props;
     const imageUrl = detail.imageUrl;
     const messages =
       validate(this.state, tripConstraints(this.state)) || 'valid';
-    console.log(messages);
     return (
       <form>
         <TripFormSection>

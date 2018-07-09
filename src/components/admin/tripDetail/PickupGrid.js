@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { P, H6, GridParent, Table, Tr, Th, Td } from '../../../style';
-import styled from 'styled-components';
+import { P, Table, Tr, Th, Td } from '../../../style';
 
 const Row = Tr.extend`
   cursor: pointer;

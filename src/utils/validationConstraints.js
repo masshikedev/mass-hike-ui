@@ -161,6 +161,25 @@ const constraints = (trip, priceData, order) => {
   };
 };
 
+const donationConstraints = () => {
+  return {
+    selectedPrice: {
+      presence: {
+        allowEmpty: false,
+      },
+      numericality: {
+        greaterThan: 0,
+      },
+    },
+    email: {
+      presence: {
+        allowEmpty: false,
+      },
+      email: true,
+    },
+  };
+};
+
 const tripConstraints = trip => {
   const { time, pricing } = trip;
   return {
@@ -358,6 +377,7 @@ export {
   paymentTypeConstraints,
   cashPaymentContraints,
   constraints,
+  donationConstraints,
   tripConstraints,
   memberConstraints,
 };

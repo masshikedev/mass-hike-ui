@@ -6,9 +6,9 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../../actions/CheckoutActions';
-import { P, H2, H6, Input, Button, constants } from '../../../style';
+import { P, H2, H6 } from '../../../style';
+import stripeStyle from '../../../style/stripeStyle';
 import {
-  injectStripe,
   CardNumberElement,
   CardExpiryElement,
   CardCVCElement,
@@ -29,7 +29,6 @@ class CardPayment extends BaseCheckoutSection {
   }
 
   fieldChange(change) {
-    const { fields } = this.state;
     const { setCheckoutState } = this.props;
     const element = change['elementType'];
     this.setState({ [element]: change });
@@ -47,31 +46,8 @@ class CardPayment extends BaseCheckoutSection {
   }
 
   render() {
-    const { stripeCreateToken, show } = this.props;
+    const { show } = this.props;
     const { cardNumber, cardExpiry, cardCvc, postalCode } = this.state;
-    const style = {
-      base: {
-        color: 'black',
-        fontSize: '16px',
-        fontWeight: '400',
-        fontSmoothing: 'antialiased',
-        '::placeholder': {
-          padding: '12px 10px',
-        },
-      },
-      empty: {
-        textTransform: 'uppercase',
-        fontSize: '16px',
-        fontWeight: '600',
-        color: `${constants.darkgray}`,
-      },
-      invalid: {
-        color: `${constants.red}`,
-        ':focus': {
-          color: 'black',
-        },
-      },
-    };
     return (
       <div style={show ? {} : { display: 'none' }}>
         <H2>Payment Info</H2>
@@ -79,7 +55,7 @@ class CardPayment extends BaseCheckoutSection {
         <label>
           <H6>Card Number</H6>
           <CardNumberElement
-            style={style}
+            style={stripeStyle}
             onChange={e => this.fieldChange(e)}
           />
           {cardNumber.error && (
@@ -91,7 +67,7 @@ class CardPayment extends BaseCheckoutSection {
         <label>
           <H6>Expiration</H6>
           <CardExpiryElement
-            style={style}
+            style={stripeStyle}
             onChange={e => this.fieldChange(e)}
           />
           {cardExpiry.error && (
@@ -103,7 +79,10 @@ class CardPayment extends BaseCheckoutSection {
 
         <label>
           <H6>Security Code</H6>
-          <CardCVCElement style={style} onChange={e => this.fieldChange(e)} />
+          <CardCVCElement
+            style={stripeStyle}
+            onChange={e => this.fieldChange(e)}
+          />
           {cardCvc.error && (
             <P proxima leftmargin size="medium" color="error">
               {cardCvc.error.message}
@@ -113,7 +92,7 @@ class CardPayment extends BaseCheckoutSection {
         <label>
           <H6>Billing Zip</H6>
           <PostalCodeElement
-            style={style}
+            style={stripeStyle}
             onChange={e => this.fieldChange(e)}
           />
           {postalCode.error && (

@@ -6,7 +6,7 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../actions/CheckoutActions';
-import { P, H1, H2, H6, Input, Button } from '../../style';
+import { H2, H6 } from '../../style';
 import { validate } from 'validate.js';
 import { contactConstraints } from '../../utils/validationConstraints';
 import { ValidatedTextInput, NextButton, ButtonSpacer } from '../forms';

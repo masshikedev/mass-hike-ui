@@ -14,7 +14,7 @@ class CancellationForm extends Component {
   }
 
   onClick = e => {
-    e.preventDefault;
+    e.preventDefault();
     const { onCancel } = this.props;
     onCancel();
   };

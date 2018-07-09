@@ -1,15 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  MediaQueries,
-  Img,
-  H1,
-  H2,
-  P,
-  HR,
-  constants,
-  GridParent,
-} from '../../style';
+import { MediaQueries, Img, P, GridParent } from '../../style';
 import { RichText } from 'prismic-reactjs';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../../utils/dateFormats';

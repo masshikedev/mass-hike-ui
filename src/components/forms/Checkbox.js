@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { P, H6, Input, MediaQueries } from '../../style';
+import { P, Input } from '../../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -68,7 +68,6 @@ class Checkbox extends Component {
 
   renderForMobile() {
     const { onChange, checked, id, type } = this.props;
-    const { editing } = this.state;
     const text = this.props.text || '';
     if (checked) {
       return (
@@ -107,7 +106,6 @@ class Checkbox extends Component {
 
   renderForDesktop() {
     const { onChange, checked, id, type } = this.props;
-    const { editing } = this.state;
     const text = this.props.text || '';
     return (
       <Wrapper>

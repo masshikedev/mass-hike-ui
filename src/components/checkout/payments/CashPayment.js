@@ -16,15 +16,6 @@ import { cashPaymentContraints } from '../../../utils/validationConstraints';
 import { MONTH_DATE_YEAR } from '../../../utils/dateFormats';
 import { validate } from 'validate.js';
 
-function Weekday({ weekday, className, localeUtils, locale }) {
-  const weekdayName = localeUtils.formatWeekdayLong(weekday, locale);
-  return (
-    <div className={className} title={weekdayName}>
-      {weekdayName.slice(0, 3)}
-    </div>
-  );
-}
-
 const LocationLabel = styled.label`
   display: flex;
   flex-direction: row;
@@ -206,7 +197,6 @@ class CashPayment extends BaseCheckoutSection {
   }
 
   renderCalendar() {
-    const { trip } = this.props;
     const { meetingDate } = this.state;
     const avDays = this.availableDays();
     return (
@@ -283,8 +273,6 @@ class CashPayment extends BaseCheckoutSection {
 
   renderTime() {
     const { meetingDate } = this.state;
-    const { availableTimes } = this.props;
-    const defaultTime = availableTimes[0].times[0].start;
     return (
       <TimePicker
         value={moment(meetingDate)}

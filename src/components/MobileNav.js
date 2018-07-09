@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import renderLinkSlices from '../utils/renderLinkSlices';
-import { P, MediaQueries, constants } from '../style';
+import { MediaQueries, constants } from '../style';
 import styled from 'styled-components';
 
 const NavBackground = styled.div`

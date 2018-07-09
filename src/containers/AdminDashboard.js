@@ -13,7 +13,6 @@ import { adminGetAllMembers } from '../actions/MemberActions';
 import { adminGetUnpaidOrders } from '../actions/OrderActions';
 import { getAvailability } from '../actions/AvailabilityActions';
 import { H2, AdminContainer, Button } from '../style';
-import { RequestStatus } from '../constants';
 import combineStatus from '../utils/combineStatus';
 
 const DashboardButton = Button.extend`
@@ -38,11 +37,9 @@ class AdminDashboard extends LoadableComponent {
   renderSuccess = () => {
     const {
       upcomingTrips,
-      pastTrips,
       members,
       unpaidOrders,
       availableTimes,
-      status,
       toMemberList,
       toMemberForm,
       toTripList,

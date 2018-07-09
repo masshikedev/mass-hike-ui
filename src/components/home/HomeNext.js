@@ -4,11 +4,9 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTripList } from '../../actions/TripListActions';
-import previewImage from '../../images/square.png';
 import {
   H2,
   H3,
-  H6,
   P,
   Button,
   GridParent,

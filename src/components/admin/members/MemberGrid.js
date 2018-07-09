@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { P, Table, Th, Tr, Td } from '../../../style';
+import { Table, Th, Tr, Td } from '../../../style';
 
 class MemberGrid extends Component {
   renderMember(member) {
@@ -20,11 +20,11 @@ class MemberGrid extends Component {
     const query = search.toLowerCase();
     member.classification = member.classification || 'unclassified';
     return (
-      (member.name && member.name.toLowerCase().includes(search)) ||
-      (member.email && member.email.toLowerCase().includes(search)) ||
-      (member.phone && member.phone.toLowerCase().includes(search)) ||
+      (member.name && member.name.toLowerCase().includes(query)) ||
+      (member.email && member.email.toLowerCase().includes(query)) ||
+      (member.phone && member.phone.toLowerCase().includes(query)) ||
       (member.classification &&
-        member.classification.toLowerCase().includes(search))
+        member.classification.toLowerCase().includes(query))
     );
   }
 

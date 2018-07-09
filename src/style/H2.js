@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import MediaQueries from './MediaQueries';
 
 const H2 = styled.h2`
   font-size: 40px;

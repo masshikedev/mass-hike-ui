@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
 import { setCurrentSection } from '../../actions/CheckoutActions';
-import { P, H2, H3, H6, Button, MediaQueries } from '../../style';
+import { P, H2, H6, MediaQueries } from '../../style';
 import styled from 'styled-components';
 import { validate } from 'validate.js';
 import { hikeConstraints } from '../../utils/validationConstraints';
@@ -57,7 +57,7 @@ class HikeInfoSection extends BaseCheckoutSection {
   }
 
   render() {
-    const { showNextButton, onClickNextButton, trip } = this.props;
+    const { trip } = this.props;
     const { tickets, kids, pickupLocation, edited } = this.state;
     const messages = validate(this.state, hikeConstraints(trip)) || 'valid';
 

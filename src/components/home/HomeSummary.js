@@ -65,7 +65,7 @@ function HomeSummary(props) {
             {RichText.asText(props.doc.data.about_title)}
           </P>
           <P color="white" size="large">
-            {RichText.render(props.doc.data.about_content)}
+            {RichText.asText(props.doc.data.about_content)}
           </P>
           <Lists>
             <List>
