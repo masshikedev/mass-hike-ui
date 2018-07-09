@@ -14,8 +14,6 @@ import styleConstants from '../style/constants';
 import logo from '../images/mh_large.png';
 
 const NavLink = styled.div`
-  color: ${({ active }) =>
-    active ? styleConstants.orange : styleConstants.black};
   font-size: 16px;
   margin: 20px 14px;
   position: relative;
@@ -29,8 +27,15 @@ const NavLink = styled.div`
     top: 25px;
   }
 
+  a {
+    color: ${({ active }) =>
+      active ? styleConstants.orange : styleConstants.black};
+  }
+
   &:hover {
-    color: ${constants.orange};
+    a {
+      color: ${constants.orange};
+    }
   }
 `;
 

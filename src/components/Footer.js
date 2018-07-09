@@ -102,7 +102,11 @@ const SMLinks = styled.div`
   display: flex;
 `;
 
-const ListItem = styled.li``;
+const ListItem = styled.li`
+  a {
+    color: white;
+  }
+`;
 
 const MemberInput = Input.extend`
   margin-bottom: 10px;
