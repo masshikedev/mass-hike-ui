@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PlaceAutocomplete from '../../forms/PlaceAutocomplete';
 import { GoogleApiWrapper } from 'google-maps-react';
 import { GOOGLE_MAPS_API_KEY } from '../../../constants';
 import { P, GridParent, Input, Button, H6 } from '../../../style';

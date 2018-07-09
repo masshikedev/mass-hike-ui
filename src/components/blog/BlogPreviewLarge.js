@@ -3,16 +3,7 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  H2,
-  H4,
-  P,
-  Button,
-  MediaQueries,
-  Img,
-  GridParent,
-  constants,
-} from '../../style';
+import { P, Button, MediaQueries, GridParent, constants } from '../../style';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../../utils/dateFormats';
 import { RichText } from 'prismic-reactjs';
@@ -38,10 +29,6 @@ const Column = styled.div`
   ${MediaQueries.small} {
     grid-column: span 24;
   }
-`;
-
-const ImgFH = Img.extend`
-  max-height: 300px;
 `;
 
 const Title = P.extend``;
@@ -114,16 +101,6 @@ class BlogPreviewLarge extends Component {
       </Wrapper>
     );
   }
-}
-
-function trimPostContent(post) {
-  let maxLength = 375;
-  let trimmedString = post.substr(0, maxLength);
-  trimmedString = trimmedString.substr(
-    0,
-    Math.min(trimmedString.length, trimmedString.lastIndexOf(' '))
-  );
-  return trimmedString;
 }
 
 const mapDispatchToProps = dispatch =>

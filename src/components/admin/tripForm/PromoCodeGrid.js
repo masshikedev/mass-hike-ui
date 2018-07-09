@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { P, Button, Table, Tr, Th, Td } from '../../../style';
-import styled from 'styled-components';
 
 const DeleteButton = Button.extend`
   width: 50%;

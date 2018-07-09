@@ -45,7 +45,7 @@ class MemberForm extends Component {
   render() {
     const messages = validate(this.state, memberConstraints()) || 'valid';
     const { name, email, phone, classification } = this.state;
-    const { buttonText, onSubmit, status } = this.props;
+    const { buttonText, status } = this.props;
     return (
       <div>
         <ValidatedTextInput

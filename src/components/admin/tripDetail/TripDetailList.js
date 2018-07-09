@@ -19,7 +19,6 @@ import {
   Td,
   MediaQueries,
   Img,
-  Button,
 } from '../../../style';
 
 const TripDetailSection = styled.div`

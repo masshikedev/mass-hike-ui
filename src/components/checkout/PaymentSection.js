@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import CashPayment from './payments/CashPayment';
-import CardPayment from './payments/CardPayment';
 import BaseCheckoutSection from './BaseCheckoutSection';
 import { setCurrentSection } from '../../actions/CheckoutActions';
 import { bindActionCreators } from 'redux';

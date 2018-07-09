@@ -62,7 +62,7 @@ class Checkout extends LoadableComponent {
     });
 
   renderDefaultSection() {
-    const { match, stripe } = this.props;
+    const { match } = this.props;
     const section = SectionOrder[0];
     const next = SectionOrder[1];
     const Section = section.component;
@@ -83,7 +83,7 @@ class Checkout extends LoadableComponent {
   }
 
   renderRemainingSections() {
-    const { match, stripe } = this.props;
+    const { match } = this.props;
     return SectionOrder.map((section, i) => {
       if (i === 0) {
         return null;
@@ -114,7 +114,6 @@ class Checkout extends LoadableComponent {
   renderSuccess = () => {
     const {
       currentSection,
-      setCurrentSection,
       trip,
       match,
       checkoutInitialized,

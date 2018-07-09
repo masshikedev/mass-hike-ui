@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import constants from './constants';
 
 const AdminContainer = styled.div`
   width: 85%;

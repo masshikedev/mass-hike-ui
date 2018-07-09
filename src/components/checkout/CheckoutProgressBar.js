@@ -71,10 +71,9 @@ class CheckoutProgressBar extends Component {
       currentSection,
     } = this.props;
 
-    const links = [];
     let key = 0;
     return sectionOrder.map((section, i) => {
-      const isCurrentSection = currentSection == i;
+      const isCurrentSection = currentSection === i;
       const isAvailable = highestCompletedSection >= i;
       return (
         <React.Fragment key={key++}>
@@ -93,7 +92,7 @@ class CheckoutProgressBar extends Component {
             />
           </ProgressBarImgWrap>
 
-          {i != sectionOrder.length - 1 && (
+          {i !== sectionOrder.length - 1 && (
             <React.Fragment>
               <Dot key={key++} />
               <Dot key={key++} />
@@ -111,11 +110,10 @@ class CheckoutProgressBar extends Component {
       sectionOrder,
       tripId,
     } = this.props;
-    const sections = [];
     let key = 0;
     return sectionOrder.map((section, i) => {
       const isAvailable = highestCompletedSection >= i;
-      const isCurrentSection = currentSection == i;
+      const isCurrentSection = currentSection === i;
       return (
         <React.Fragment key={key++}>
           <ProgressBarTitle
@@ -132,7 +130,7 @@ class CheckoutProgressBar extends Component {
               </P>
             )}
           </ProgressBarTitle>
-          {i != sectionOrder.length - 1 && (
+          {i !== sectionOrder.length - 1 && (
             <React.Fragment>
               <Space key={key++} />
               <Space key={key++} />

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import LoadableComponent from '../components/LoadableComponent';
 import AdminPage from '../components/admin/AdminPage';
 import Ticketing from '../components/admin/tripDetail/Ticketing';
@@ -102,7 +102,7 @@ class AdminTripDetail extends LoadableComponent {
   }
 
   renderSuccess = () => {
-    const { trip, match } = this.props;
+    const { trip } = this.props;
     const { currentSection } = this.state;
     return (
       <div>

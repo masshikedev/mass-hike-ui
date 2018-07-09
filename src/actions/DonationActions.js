@@ -3,7 +3,6 @@ import { createDonation } from '../api/donations';
 
 const donateSuccess = dispatch => {
   return response => {
-    console.log(response);
     dispatch({
       type: ActionTypes.DONATE_SUCCESS,
       payload: { donation: response.data },

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { P, Table, Tr, Th, Td } from '../../../style';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 
 class OrderGrid extends Component {
   totalSales() {
@@ -19,7 +18,7 @@ class OrderGrid extends Component {
   }
 
   renderOrders() {
-    const { orders, capacity } = this.props;
+    const { orders } = this.props;
     return orders.map((order, i) => {
       return (
         <Tr key={i}>

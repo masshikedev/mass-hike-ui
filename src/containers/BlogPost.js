@@ -5,9 +5,7 @@ import { RichText } from 'prismic-reactjs';
 import BlogAuthor from '../components/blog/BlogAuthor';
 import {
   H1,
-  H4,
   P,
-  Img,
   Container,
   GridParent,
   constants,

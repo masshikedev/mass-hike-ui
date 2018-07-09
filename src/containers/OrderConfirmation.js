@@ -9,7 +9,6 @@ import LoadableComponent from '../components/LoadableComponent';
 import {
   P,
   H2,
-  H3,
   H4,
   Button,
   MediaQueries,

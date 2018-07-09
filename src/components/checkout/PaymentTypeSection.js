@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
 import { setCurrentSection } from '../../actions/CheckoutActions';
-import { P, H2, H4, H6, Input, Button, MediaQueries } from '../../style';
+import { P, H2, H6 } from '../../style';
 import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import getCurrentPricing from '../../utils/getCurrentPricing';
@@ -16,7 +16,6 @@ import {
   ButtonSpacer,
   CheckBoxWrapper,
 } from '../forms';
-import styled from 'styled-components';
 
 const Caption = P.extend`
   max-width: 500px;
@@ -44,7 +43,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
   }
 
   renderPrices() {
-    const { selectedPrice, promoCode } = this.state;
+    const { selectedPrice } = this.state;
     return this.pricingSuggestions().map((p, i) => {
       return (
         <Checkbox

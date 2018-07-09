@@ -6,10 +6,9 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../../actions/CheckoutActions';
-import { P, H2, H6, Input, Button, constants } from '../../../style';
+import { P, H2, H6 } from '../../../style';
 import stripeStyle from '../../../style/stripeStyle';
 import {
-  injectStripe,
   CardNumberElement,
   CardExpiryElement,
   CardCVCElement,
@@ -30,7 +29,6 @@ class CardPayment extends BaseCheckoutSection {
   }
 
   fieldChange(change) {
-    const { fields } = this.state;
     const { setCheckoutState } = this.props;
     const element = change['elementType'];
     this.setState({ [element]: change });
@@ -48,7 +46,7 @@ class CardPayment extends BaseCheckoutSection {
   }
 
   render() {
-    const { stripeCreateToken, show } = this.props;
+    const { show } = this.props;
     const { cardNumber, cardExpiry, cardCvc, postalCode } = this.state;
     return (
       <div style={show ? {} : { display: 'none' }}>

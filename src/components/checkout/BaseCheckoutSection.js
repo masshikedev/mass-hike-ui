@@ -26,13 +26,7 @@ export default class BaseCheckoutSection extends Component {
   };
 
   onBackSection = (e, save) => {
-    const {
-      completeSection,
-      prev,
-      index,
-      setCheckoutState,
-      mobile,
-    } = this.props;
+    const { completeSection, prev, index, mobile } = this.props;
     e.preventDefault();
     const options = mobile
       ? { index, goBack: true }

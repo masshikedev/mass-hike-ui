@@ -60,7 +60,6 @@ class DonationForm extends Component {
     const { selectedPrice, email } = this.state;
     if (!validate(this.state, donationConstraints()) && this.paymentValid()) {
       this.stripeCreateToken(token => {
-        console.log(token);
         donate({
           stripeToken: token,
           amount: selectedPrice,

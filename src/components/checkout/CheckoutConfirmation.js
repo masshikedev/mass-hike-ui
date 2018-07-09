@@ -58,7 +58,7 @@ class CheckoutConfirmation extends BaseCheckoutSection {
       cardCvcError,
       postalCodeError,
     } = this.props;
-    const { promoCode, trip } = order;
+    const { trip } = order;
     const pricing = this.currentPricing();
     const errors =
       validate({ ...order }, constraints(trip, pricing, order)) || 'valid';

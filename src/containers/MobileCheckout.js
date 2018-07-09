@@ -4,21 +4,9 @@ import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { getTripById } from '../actions/CurrentTripActions';
 import LoadableComponent from '../components/LoadableComponent';
-import CheckoutConfirmation from '../components/checkout/CheckoutConfirmation';
 import MobileCheckoutForm from '../components/checkout/MobileCheckoutForm';
-import { H3, Container, GridParent } from '../style';
 import { setCheckoutState, resetCheckout } from '../actions/CheckoutActions';
 import { getAvailability } from '../actions/AvailabilityActions';
-import styled from 'styled-components';
-
-const Wrapper = styled.div`
-  position: absolute;
-  top: 76px;
-  grid-column: span 12;
-  max-width: 800px;
-  margin: 5% 12%;
-  min-width: 200px;
-`;
 
 class MobileCheckout extends LoadableComponent {
   componentWillMount() {
@@ -40,20 +28,6 @@ class MobileCheckout extends LoadableComponent {
       <Switch>
         <Route exact path={match.url} component={MobileCheckoutForm} />
         {!checkoutInitialized && <Redirect to={`${match.url}`} />}
-        {/* <Route
-          exact
-          path={`${match.url}/confirmation`}
-          render={() => (
-            <Container>
-              <GridParent>
-                <CheckoutConfirmation
-                  stripeCreateToken={this.stripeCreateToken}
-                  mobile
-                />
-              </GridParent>
-            </Container>
-          )}
-        /> */}
       </Switch>
     );
   };

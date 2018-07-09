@@ -45,7 +45,7 @@ class PickupMap extends Component {
   }
 
   setMarker = (results, status, order) => {
-    const { google, orders } = this.props;
+    const { google } = this.props;
     const { markerData } = this.state;
     if (status === google.maps.GeocoderStatus.OK) {
       this.setState({
@@ -106,7 +106,7 @@ class PickupMap extends Component {
   }
 
   render() {
-    const { google, zoom, center } = this.props;
+    const { google } = this.props;
     return (
       <MapWrapper>
         <Map google={google} zoom={ZOOM} initialCenter={INITIAL_CENTER}>

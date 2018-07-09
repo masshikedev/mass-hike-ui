@@ -98,7 +98,7 @@ class PlaceAutocomplete extends Component {
                 placeId: pid,
               },
               (place, status) => {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
                   callback(place);
                 }
               }

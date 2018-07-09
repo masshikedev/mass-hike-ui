@@ -9,7 +9,7 @@ import MobileNav from './MobileNav';
 import hamburger from '../images/hamburger.png';
 import xIcon from '../images/mobile_nav_x.png';
 import renderLinkSlices from '../utils/renderLinkSlices';
-import { A, constants, Button, Img, MediaQueries } from '../style';
+import { constants, Button, Img, MediaQueries } from '../style';
 import styleConstants from '../style/constants';
 import logo from '../images/mh_large.png';
 
@@ -155,7 +155,7 @@ class NavBar extends Component {
     });
 
   render() {
-    const { loggedIn, currentPath, doc } = this.props;
+    const { currentPath, doc } = this.props;
     const { showMobileNav } = this.state;
     return (
       <div>
@@ -194,7 +194,6 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.isAuthenticated,
   currentPath: state.routing.location.pathname,
 });
 

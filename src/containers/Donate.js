@@ -6,7 +6,6 @@ import LoadableComponent from '../components/LoadableComponent';
 import { RichText } from 'prismic-reactjs';
 import DonationForm from '../components/donate/DonationForm';
 import DonationSummary from '../components/donate/DonationSummary';
-import { RequestStatus } from '../constants';
 import { reset } from '../actions/DonationActions';
 import { H1, P, constants } from '../style';
 import styled from 'styled-components';

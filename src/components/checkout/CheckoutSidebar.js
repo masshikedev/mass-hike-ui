@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { P, H2, H4, H6, constants, MediaQueries } from '../../style';
+import { P, H2, H6, constants, MediaQueries } from '../../style';
 import styled from 'styled-components';
 import moment from 'moment';
 import { MONTH_DATE_YEAR, TIME } from '../../utils/dateFormats';

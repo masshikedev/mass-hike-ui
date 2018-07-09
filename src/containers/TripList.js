@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getTripList } from '../actions/TripListActions';
 import TripListItem from '../components/TripListItem';
 import LoadableComponent from '../components/LoadableComponent';
-import { H1, P, H3, MediaQueries, Container } from '../style';
+import { H1, P, MediaQueries, Container } from '../style';
 import styled from 'styled-components';
 
 const Trips = styled.div`

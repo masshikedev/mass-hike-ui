@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import LoadableComponent from '../components/LoadableComponent';
 import {
   H1,
-  H3,
   P,
   Container,
   constants,

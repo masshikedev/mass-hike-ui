@@ -6,7 +6,7 @@ import {
   DAY_MONTH_DATE_TIME,
   TIME,
 } from '../utils/dateFormats';
-import { P, H2, H6, MediaQueries, constants } from '../style';
+import { P, H6, MediaQueries, constants } from '../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
