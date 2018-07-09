@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PrismicPage from '../prismic/PrismicPage';
+import LoadableComponent from '../components/LoadableComponent';
 import { RichText } from 'prismic-reactjs';
 import DonationForm from '../components/donate/DonationForm';
+import DonationSummary from '../components/donate/DonationSummary';
 import { RequestStatus } from '../constants';
 import { reset } from '../actions/DonationActions';
 import { H1, P, constants } from '../style';
@@ -27,19 +29,14 @@ const Title = H1.extend`
   margin-bottom: 20px;
 `;
 
-class Donate extends Component {
+class Donate extends LoadableComponent {
   static pageType = 'donate';
   componentWillMount() {
     this.props.reset();
   }
 
-  render() {
-    const { doc, status } = this.props;
-    if (status === RequestStatus.SUCCESS) {
-      return <P>Success</P>;
-    } else if (status === RequestStatus.ERROR) {
-      return <P>Error</P>;
-    }
+  renderLoading = () => {
+    const { doc } = this.props;
     return (
       <Background>
         <Content>
@@ -51,11 +48,27 @@ class Donate extends Component {
         </Content>
       </Background>
     );
-  }
+  };
+
+  renderSuccess = () => {
+    const { donation, doc } = this.props;
+    return (
+      <Background>
+        <Content>
+          <Title>{RichText.asText(doc.data.thank_you_header)}</Title>
+          <P proxima bold size="large" color="green">
+            {RichText.asText(doc.data.thank_you_subheader)}
+          </P>
+          <DonationSummary donation={donation} />
+        </Content>
+      </Background>
+    );
+  };
 }
 
 const mapStateToProps = state => ({
   status: state.donations.status,
+  donation: state.donations.currentDonation,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ reset }, dispatch);

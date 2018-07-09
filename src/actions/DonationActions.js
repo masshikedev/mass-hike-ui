@@ -2,15 +2,17 @@ import ActionTypes from './ActionTypes';
 import { createDonation } from '../api/donations';
 
 const donateSuccess = dispatch => {
-  return () => {
-    console.log('success');
-    dispatch({ type: ActionTypes.DONATE_SUCCESS });
+  return response => {
+    console.log(response);
+    dispatch({
+      type: ActionTypes.DONATE_SUCCESS,
+      payload: { donation: response.data },
+    });
   };
 };
 
 const donateError = dispatch => {
-  return error => {
-    console.log(error);
+  return () => {
     dispatch({ type: ActionTypes.DONATE_ERROR });
   };
 };
