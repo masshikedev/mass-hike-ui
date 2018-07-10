@@ -137,7 +137,6 @@ class Checkout extends LoadableComponent {
                 {this.renderRemainingSections()}
               </Switch>
               <CardPayment
-                index={3}
                 next={SectionOrder[4].path}
                 prev={SectionOrder[2].path}
                 completeSection={this.completeSection}
