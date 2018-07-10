@@ -9,9 +9,9 @@ const Wrapper = Button.extend`
 const Arrow = styled.img`
   margin-left: 10px;
   margin-right: 5px;
-  height: 10px;
-  width: auto;
-  transform: rotate(90deg);
+  margin-bottom: -3px;
+  height: auto;
+  width: 9px;
 `;
 
 const Title = styled.span`
@@ -31,7 +31,7 @@ const NextButton = props => {
       active={active}
     >
       <Title>next</Title>
-      <Arrow src={require('../../images/white-arrow.png')} />
+      <Arrow src={require('../../images/white-arrow-right.png')} />
     </Wrapper>
   );
 };
