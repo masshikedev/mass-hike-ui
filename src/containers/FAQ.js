@@ -4,7 +4,8 @@ import { fromJS } from 'immutable';
 import PrismicPage from '../prismic/PrismicPage';
 import {
   A,
-  Button as _Button,
+  Button,
+  P,
   H1,
   H2,
   H4,
@@ -31,8 +32,12 @@ const Main = styled.div`
   }
 `;
 
-const Button = _Button.extend`
+const TopClearButton = Button.extend`
   margin-left: 30px;
+`;
+
+const BottomClearButton = Button.extend`
+  margin-top: 10px;
 `;
 
 const TitleWrapper = GridParent.extend`
@@ -115,11 +120,15 @@ const SideBar = styled.div`
 const Search = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: left;
   width: 100%:
 
   ${MediaQueries.small} {
     display: none;
+  }
+
+  label {
+    width: 450px;
   }
 `;
 
@@ -169,33 +178,44 @@ class FAQ extends Component {
                     onChange={this.updateSearch}
                   />
                 </label>
-                <Button onClick={this.clearSearch}>Clear</Button>
+                <TopClearButton onClick={this.clearSearch}>
+                  Clear
+                </TopClearButton>
               </Search>
             </TitleContent>
           </TitleWrapper>
           <Main>
-            {filteredFAQs.map((section, secId) => (
-              <React.Fragment>
-                <FAQWrapper key={secId}>
-                  <HR />
-                  <FAQTitle id={this.getSectionTitle(section)} proxima>
-                    {this.getSectionTitle(section)}
-                  </FAQTitle>
-                  <HR />
-                </FAQWrapper>
-                {section.get('items').map((question, faqId) => {
-                  return !this.state.search ||
-                    question
-                      .getIn(['faq', 0, 'text'])
-                      .includes(this.state.search) ||
-                    question
-                      .getIn(['faq_response', 0, 'text'])
-                      .includes(this.state.search) ? (
-                    <QuestionAnswer key={faqId} {...question.toJS()} />
-                  ) : null;
-                })}
-              </React.Fragment>
-            ))}
+            {filteredFAQs.size === 0 ? (
+              <div>
+                <P size="large">No results found.</P>
+                <BottomClearButton onClick={this.clearSearch}>
+                  Clear search
+                </BottomClearButton>
+              </div>
+            ) : (
+              filteredFAQs.map((section, secId) => (
+                <React.Fragment>
+                  <FAQWrapper key={secId}>
+                    <HR />
+                    <FAQTitle id={this.getSectionTitle(section)} proxima>
+                      {this.getSectionTitle(section)}
+                    </FAQTitle>
+                    <HR />
+                  </FAQWrapper>
+                  {section.get('items').map((question, faqId) => {
+                    return !this.state.search ||
+                      question
+                        .getIn(['faq', 0, 'text'])
+                        .includes(this.state.search) ||
+                      question
+                        .getIn(['faq_response', 0, 'text'])
+                        .includes(this.state.search) ? (
+                      <QuestionAnswer key={faqId} {...question.toJS()} />
+                    ) : null;
+                  })}
+                </React.Fragment>
+              ))
+            )}
           </Main>
           {!this.state.search && (
             <SideBar>

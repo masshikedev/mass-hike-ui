@@ -30,4 +30,9 @@ export default {
     'repeating-linear-gradient(135deg, #f05a28, #f05a28 10px, #da5323 2px, #da5323 12px)',
   grayBg:
     'repeating-linear-gradient(135deg, #f8f8f8, #f8f8f8 10px, #f2f4f0 2px, #f2f4f0 12px)',
+
+  yellowHover: '#E79214',
+  orangeHover: '#CF4213',
+  blueHover: '#118FC4',
+  redHover: '#A22539',
 };
