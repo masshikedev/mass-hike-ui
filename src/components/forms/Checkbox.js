@@ -1,9 +1,34 @@
 import React, { Component } from 'react';
-import { P, Input } from '../../style';
+import { P, Input, constants } from '../../style';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
   margin-bottom: 15px;
+`;
+
+const DesktopLabel = styled.label`
+  display: block;
+  position: relative;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+`;
+
+const DesktopCheckbox = styled.span`
+  width: 20px;
+  height: 20px;
+  border-radius: ${props => (props.type === 'radio' ? '100%' : 0)};
+  position: absolute;
+  top: 3px;
+  left: 0;
+  background-color: ${props =>
+    props.checked ? constants.green : 'transparent'};
+  outline-offset: -2px;
+  border: 2px solid #000;
+  ${props => (props.checked ? 'box-shadow: inset 0 0 0 3px #fff' : 'none')};
 `;
 
 const MobileWrapper = styled.div`
@@ -29,6 +54,7 @@ const Text = styled.span`
   font-weight: 400;
   color: black;
   margin-right: 20px;
+  margin-left: 30px;
 `;
 const TextMobile = P.extend`
   width: 100%;
@@ -109,7 +135,7 @@ class Checkbox extends Component {
     const text = this.props.text || '';
     return (
       <Wrapper>
-        <label>
+        <DesktopLabel>
           <Input
             type={type || 'checkbox'}
             id={id}
@@ -118,8 +144,9 @@ class Checkbox extends Component {
               onChange(e);
             }}
           />
+          <DesktopCheckbox checked={checked} type={type || 'checkbox'} />
           <Text>{text}</Text>
-        </label>
+        </DesktopLabel>
       </Wrapper>
     );
   }
