@@ -70,7 +70,13 @@ const FAQWrapper = styled.div`
   width: 100%;
   flex-grow: 0.5;
   :not(:first-child) {
-    margin: 30px 0;
+    margin: 30px inherit;
+  }
+
+  ${MediaQueries.small} {
+    align-items: left;
+    width: 80%;
+    margin: 10px auto;
   }
 `;
 
@@ -78,6 +84,21 @@ const FAQTitle = H2.extend`
   flex-shrink: 0;
   width: fit-content;
   margin: 0 50px;
+  padding-top: 0;
+
+  ${MediaQueries.small} {
+    margin: 0;
+  }
+`;
+
+const TitleLine = HR.extend`
+  ${MediaQueries.small} {
+    display: none;
+  }
+`;
+
+const Category = styled.div`
+  margin-bottom: 50px;
 `;
 
 const SideBar = styled.div`
@@ -91,7 +112,7 @@ const SideBar = styled.div`
     position: static;
     display: flex;
     flex-flow: row wrap;
-    grid-column: 2 / span 10;
+    grid-column: 2/ 12;
     order: 0;
     margin-bottom: 40px;
     justify-content: center;
@@ -194,13 +215,13 @@ class FAQ extends Component {
               </div>
             ) : (
               filteredFAQs.map((section, secId) => (
-                <React.Fragment>
-                  <FAQWrapper key={secId}>
-                    <HR />
+                <Category key={secId}>
+                  <FAQWrapper>
+                    <TitleLine />
                     <FAQTitle id={this.getSectionTitle(section)} proxima>
                       {this.getSectionTitle(section)}
                     </FAQTitle>
-                    <HR />
+                    <TitleLine />
                   </FAQWrapper>
                   {section.get('items').map((question, faqId) => {
                     return !this.state.search ||
@@ -213,7 +234,7 @@ class FAQ extends Component {
                       <QuestionAnswer key={faqId} {...question.toJS()} />
                     ) : null;
                   })}
-                </React.Fragment>
+                </Category>
               ))
             )}
           </Main>
