@@ -267,7 +267,7 @@ class CashPayment extends BaseCheckoutSection {
             }
 
             .DayPicker-Weekday {
-              font-size: 11px;
+              font-size: 11px !important;
               width: 28px;
             }
           }
