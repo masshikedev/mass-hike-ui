@@ -23,10 +23,6 @@ const Wrapper = styled.div`
   min-width: 200px;
 `;
 
-const BottomSpacer = styled.div`
-  height: 50px;
-`;
-
 const SectionWrapper = styled.div`
   min-height: ${({ hidden }) => (hidden ? '' : '75vh')};
   display: flex;
@@ -36,50 +32,11 @@ const SectionWrapper = styled.div`
 `;
 
 class MobileCheckoutForm extends Component {
-  componentWillMount() {
-    // Setup isScrolling variable
-    let isScrolling;
-
-    const scrollListener = event => {
-      // Clear our timeout throughout the scroll
-      window.clearTimeout(isScrolling);
-
-      // Set a timeout to run after scrolling ends
-      isScrolling = setTimeout(() => this.handleScroll(), 66);
-    };
-
-    // Listen for scroll events
-    this.setState({ scrollListener });
-    window.addEventListener('scroll', scrollListener);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.state.scrollListener);
-  }
-
-  componentDidMount() {
-    this.scrollToCurrentSection();
-  }
-
-  handleScroll() {
-    const { highestCompletedSection, setCurrentSection } = this.props;
-    const scroll = window.scrollY;
-    const scrollBottom = scroll + window.innerHeight;
-    const scrollCenter = (scroll + scrollBottom) / 2;
-
-    let y = 0;
-    for (
-      let i = 0;
-      i <= highestCompletedSection && i < SectionOrder.length;
-      i++
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.highestCompletedSection !== prevProps.highestCompletedSection
     ) {
-      const targetSection = document.getElementById(`section ${i}`);
-      if (!targetSection) return;
-      let newY = y + targetSection.clientHeight;
-      if (y < scrollCenter && scrollCenter < newY) {
-        setCurrentSection(i);
-      }
-      y = newY;
+      this.scrollToNextSection();
     }
   }
 
@@ -105,18 +62,16 @@ class MobileCheckoutForm extends Component {
     }
   };
 
-  componentDidUpdate() {
-    this.scrollToCurrentSection();
-  }
-
   stripeCreateToken = callback =>
     this.props.stripe.createToken().then(({ token }) => {
       callback(token);
     });
 
-  scrollToCurrentSection() {
-    const { currentSection } = this.props;
-    const newSection = document.getElementById(`section ${currentSection}`);
+  scrollToNextSection() {
+    const { highestCompletedSection } = this.props;
+    const newSection = document.getElementById(
+      `section ${highestCompletedSection}`
+    );
     if (newSection) {
       window.scroll({
         top: newSection.offsetTop,
@@ -188,11 +143,9 @@ class MobileCheckoutForm extends Component {
           <GridParent>
             <Wrapper>
               <form id="mobile-form-wrapper">{this.renderSections()}</form>
-              <BottomSpacer />
             </Wrapper>
           </GridParent>
         </Container>
-        <BottomNav names={SectionOrder.map(s => s.name)} />
       </div>
     );
   }
