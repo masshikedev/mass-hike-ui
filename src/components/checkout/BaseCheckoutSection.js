@@ -9,6 +9,13 @@ export default class BaseCheckoutSection extends Component {
     if (afterMount) afterMount();
   }
 
+  componentDidUpdate() {
+    const { mobile, setCheckoutState } = this.props;
+    if (mobile && setCheckoutState) {
+      setCheckoutState(this.state);
+    }
+  }
+
   onCompleteSection = e => {
     const {
       completeSection,

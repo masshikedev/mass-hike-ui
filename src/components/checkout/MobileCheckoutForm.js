@@ -50,7 +50,6 @@ class MobileCheckoutForm extends Component {
       match,
       toConfirmation,
     } = this.props;
-    setCheckoutState(fields);
     setCurrentSection(options.index);
     if (options.index === SectionOrder.length - 1) {
       toConfirmation(match.url);

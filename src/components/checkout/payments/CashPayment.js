@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from '../BaseCheckoutSection';
-import { setCurrentSection } from '../../../actions/CheckoutActions';
+import {
+  setCurrentSection,
+  setCheckoutState,
+} from '../../../actions/CheckoutActions';
 import { P, H2, H6, Button, MediaQueries, constants } from '../../../style';
 import { NextButton, BackButton, ButtonSpacer } from '../../forms';
 import styled from 'styled-components';
@@ -380,6 +383,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setCurrentSection,
+      setCheckoutState,
     },
     dispatch
   );
