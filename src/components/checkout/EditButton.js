@@ -10,8 +10,14 @@ class EditButton extends Component {
   onClickMobile = e => {
     const { section, setCurrentSection, toMobileCheckout, tripId } = this.props;
     e.preventDefault();
-    setCurrentSection(section);
-    toMobileCheckout(tripId);
+    const newSection = document.getElementById(`section ${section}`);
+    if (newSection) {
+      window.scroll({
+        top: newSection.offsetTop,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
   };
 
   onClickDesktop = e => {
