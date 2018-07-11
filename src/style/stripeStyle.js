@@ -6,9 +6,6 @@ const stripeStyle = {
     fontSize: '16px',
     fontWeight: '400',
     fontSmoothing: 'antialiased',
-    '::placeholder': {
-      padding: '12px 10px',
-    },
   },
   empty: {
     textTransform: 'uppercase',
