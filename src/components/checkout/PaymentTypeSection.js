@@ -7,6 +7,7 @@ import { P, H2, H6 } from '../../style';
 import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import getCurrentPricing from '../../utils/getCurrentPricing';
+import cashPaymentAvailable from '../../utils/cashPaymentAvailable';
 import {
   Checkbox,
   ValidatedTextInput,
@@ -58,9 +59,13 @@ class PaymentTypeSection extends BaseCheckoutSection {
   }
 
   render() {
-    const { trip } = this.props;
+    const { trip, availableTimes } = this.props;
     const { paymentType, selectedPrice } = this.state;
     const pricing = this.currentPricing();
+    const showCashPayment = cashPaymentAvailable(
+      availableTimes,
+      trip.time.pickupStart
+    );
     const messages =
       validate(this.state, paymentTypeConstraints(trip, pricing)) || 'valid';
     return (
@@ -105,13 +110,20 @@ class PaymentTypeSection extends BaseCheckoutSection {
             onChange={() => this.setState({ paymentType: 'card' })}
             text="Credit/Debit"
           />
-          <Checkbox
-            type="radio"
-            checked={paymentType !== 'card'}
-            onChange={() => this.setState({ paymentType: 'cash' })}
-            text="Cash"
-          />
+          {showCashPayment && (
+            <Checkbox
+              type="radio"
+              checked={paymentType !== 'card'}
+              onChange={() => this.setState({ paymentType: 'cash' })}
+              text="Cash"
+            />
+          )}
         </CheckBoxWrapper>
+        {!showCashPayment && (
+          <P proxima size="small">
+            Cash payment is not available for this trip.
+          </P>
+        )}
         <ButtonSpacer>
           <BackButton
             onClick={e => this.onBackSection(e, messages === 'valid')}
@@ -132,6 +144,7 @@ const mapStateToProps = state => ({
   promoCode: state.checkout.promoCode,
   selectedPrice: state.checkout.selectedPrice,
   trip: state.currentTrip.trip,
+  availableTimes: state.availability.times,
 });
 
 const mapDispatchToProps = dispatch =>

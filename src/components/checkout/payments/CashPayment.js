@@ -10,7 +10,7 @@ import DayPicker from 'react-day-picker';
 import TimePicker from 'rc-time-picker';
 import moment from 'moment';
 import 'react-day-picker/lib/style.css';
-import { TWELVE_HOUR_CORRECTION } from '../../../constants';
+import { TWELVE_HOUR_CORRECTION, ONE_DAY_CORRECTION } from '../../../constants';
 import Helmet from 'react-helmet';
 import { cashPaymentContraints } from '../../../utils/validationConstraints';
 import { MONTH_DATE_YEAR } from '../../../utils/dateFormats';
@@ -110,7 +110,9 @@ class CashPayment extends BaseCheckoutSection {
     return availableTimes
       .filter(({ times }) => times.length)
       .filter(
-        ({ date }) => date >= moment().valueOf() && date < trip.time.pickupStart
+        ({ date }) =>
+          date >= moment().valueOf() &&
+          date < trip.time.pickupStart - ONE_DAY_CORRECTION
       )
       .map(({ date }) => new Date(this.toLocal(date)));
   }
