@@ -29,6 +29,7 @@ const Content = GridParent.extend`
 
   ${MediaQueries.small} {
     padding: 40px;
+    grid-column-gap: 0;
   }
 `;
 
