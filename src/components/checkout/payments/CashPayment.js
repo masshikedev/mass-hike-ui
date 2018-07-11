@@ -36,11 +36,7 @@ const DirectionsLink = styled.a`
   }
 `;
 
-const CalWrapper = styled.div`
-  ${MediaQueries.small} {
-    margin: 0 5% 0 -5%;
-  }
-`;
+const CalWrapper = styled.div``;
 
 function Weekday({ weekday, className, localeUtils, locale }) {
   const weekdayName = localeUtils.formatWeekdayLong(weekday, locale);
@@ -212,6 +208,7 @@ class CashPayment extends BaseCheckoutSection {
             background: ${constants.green} ${constants.greenBg};
             background-blend-mode: multiply;
             border-radius: 15px;
+            max-width: 100%;
           }
           .DayPicker-Caption {
             text-align: center;
@@ -259,6 +256,20 @@ class CashPayment extends BaseCheckoutSection {
           }
           .DayPicker-Day--today {
             color: 'inherit';
+          }
+          ${MediaQueries.small} {
+            .DayPicker-Day {
+              box-sizing: border-box;
+              border: 2px solid ${constants.lightgreen};
+              font-family: 'proxima-nova';
+              font-size: 11px;
+              padding: 15px 0px;
+            }
+
+            .DayPicker-Weekday {
+              font-size: 11px;
+              width: 28px;
+            }
           }
           `}</style>
         </Helmet>

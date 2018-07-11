@@ -18,8 +18,8 @@ const Wrapper = styled.div`
   position: absolute;
   top: 76px;
   grid-column: span 12;
-  max-width: 800px;
-  margin: 5% 12%;
+  max-width: 80%;
+  margin: 5% 10%;
   min-width: 200px;
 `;
 
