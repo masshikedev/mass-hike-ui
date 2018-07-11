@@ -297,7 +297,7 @@ class CashPayment extends BaseCheckoutSection {
       selectedLocationIndex,
       meetingDate,
     } = this.state;
-    const { availableLocations, availableTimes } = this.props;
+    const { availableLocations, availableTimes, index } = this.props;
     const messages =
       validate(
         {
@@ -358,6 +358,7 @@ class CashPayment extends BaseCheckoutSection {
           <NextButton
             onClick={this.onCompleteSection}
             active={messages === 'valid'}
+            hideOnMobile={!this.onFurthestSection()}
           />
         </ButtonSpacer>
       </div>
@@ -372,6 +373,7 @@ const mapStateToProps = state => ({
   availableTimes: state.availability.times,
   availableLocations: state.availability.locations,
   status: state.availability.status,
+  highestCompletedSection: state.checkout.highestCompletedSection,
 });
 
 const mapDispatchToProps = dispatch =>

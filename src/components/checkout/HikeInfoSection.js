@@ -14,18 +14,8 @@ import {
   NextButton,
   BackButton,
   ButtonSpacer,
+  CheckBoxWrapper,
 } from '../forms';
-
-const CheckBoxWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 5px;
-  ${MediaQueries.small} {
-    justify-content: space-between;
-  }
-`;
 
 const Caption = P.extend`
   max-width: 500px;
@@ -57,7 +47,7 @@ class HikeInfoSection extends BaseCheckoutSection {
   }
 
   render() {
-    const { trip } = this.props;
+    const { trip, index } = this.props;
     const { tickets, kids, pickupLocation, edited } = this.state;
     const messages = validate(this.state, hikeConstraints(trip)) || 'valid';
 
@@ -132,6 +122,7 @@ class HikeInfoSection extends BaseCheckoutSection {
           <NextButton
             onClick={this.onCompleteSection}
             active={messages === 'valid'}
+            hideOnMobile={!this.onFurthestSection()}
           />
         </ButtonSpacer>
       </div>
@@ -145,6 +136,7 @@ const mapStateToProps = state => ({
   pickupLocation: state.checkout.pickupLocation,
   zipCode: state.checkout.zipCode,
   trip: state.currentTrip.trip,
+  highestCompletedSection: state.checkout.highestCompletedSection,
 });
 
 const mapDispatchToProps = dispatch =>

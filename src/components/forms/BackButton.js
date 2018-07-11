@@ -1,9 +1,12 @@
 import React from 'react';
-import { Button } from '../../style';
+import { Button, MediaQueries } from '../../style';
 import styled from 'styled-components';
 
 const Wrapper = Button.extend`
   margin: 0px 30px 0px 0px;
+  ${MediaQueries.small} {
+    display: none;
+  }
 `;
 
 const Arrow = styled.img`

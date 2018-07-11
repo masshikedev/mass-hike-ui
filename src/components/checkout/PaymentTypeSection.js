@@ -59,7 +59,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
   }
 
   render() {
-    const { trip, availableTimes } = this.props;
+    const { trip, availableTimes, index } = this.props;
     const { paymentType, selectedPrice } = this.state;
     const pricing = this.currentPricing();
     const showCashPayment = cashPaymentAvailable(
@@ -132,6 +132,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
           <NextButton
             onClick={this.onCompleteSection}
             active={messages === 'valid'}
+            hideOnMobile={!this.onFurthestSection()}
           />
         </ButtonSpacer>
       </div>
@@ -145,6 +146,7 @@ const mapStateToProps = state => ({
   selectedPrice: state.checkout.selectedPrice,
   trip: state.currentTrip.trip,
   availableTimes: state.availability.times,
+  highestCompletedSection: state.checkout.highestCompletedSection,
 });
 
 const mapDispatchToProps = dispatch =>

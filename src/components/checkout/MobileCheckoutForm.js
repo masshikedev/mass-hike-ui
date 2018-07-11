@@ -26,9 +26,10 @@ const Wrapper = styled.div`
 const SectionWrapper = styled.div`
   min-height: ${({ hidden }) => (hidden ? '' : '75vh')};
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px 0px;
+  justify-content: left;
+  align-items: normal;
+  margin-top: 10px;
+  margin-bottom: 20px;
 `;
 
 class MobileCheckoutForm extends Component {

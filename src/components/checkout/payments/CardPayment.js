@@ -110,6 +110,7 @@ class CardPayment extends BaseCheckoutSection {
           <NextButton
             onClick={this.onCompleteSection}
             active={this.allValid()}
+            hideOnMobile={!this.onFurthestSection()}
           />
         </ButtonSpacer>
       </div>
@@ -121,6 +122,7 @@ const mapStateToProps = state => ({
   cardExpiry: state.checkout.cardExpiry,
   cardCvc: state.checkout.cardCvc,
   postalCode: state.checkout.postalCode,
+  highestCompletedSection: state.checkout.highestCompletedSection,
 });
 
 const mapDispatchToProps = dispatch =>

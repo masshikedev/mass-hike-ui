@@ -33,4 +33,9 @@ export default class BaseCheckoutSection extends Component {
       : { nextSectionPath: prev, save: save };
     completeSection(this.state, options);
   };
+
+  onFurthestSection() {
+    const { index, highestCompletedSection } = this.props;
+    return index === highestCompletedSection;
+  }
 }
