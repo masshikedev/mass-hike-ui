@@ -51,7 +51,9 @@ const TripImage = styled.div`
   }
 `;
 
-const TripWrapper = GridParent.extend``;
+const TripWrapper = GridParent.extend`
+  padding-bottom: 30px;
+`;
 
 const Summary = GridParent.extend`
   grid-gap: 0;
