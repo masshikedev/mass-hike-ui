@@ -75,7 +75,6 @@ class Checkout extends LoadableComponent {
             completeSection={this.completeSection}
             index={0}
             next={next.path}
-            stripeCreateToken={this.stripeCreateToken}
           />
         )}
       />

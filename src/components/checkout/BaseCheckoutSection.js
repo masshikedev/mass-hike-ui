@@ -3,7 +3,7 @@ import { Component } from 'react';
 export default class BaseCheckoutSection extends Component {
   componentDidMount() {
     const { setCurrentSection, index, mobile, afterMount } = this.props;
-    if (!mobile && index) {
+    if (!mobile && index !== null) {
       setCurrentSection(index);
     }
     if (afterMount) afterMount();
