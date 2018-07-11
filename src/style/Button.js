@@ -91,7 +91,8 @@ const Button = styled.button`
     padding: 0;
     color: white;
   }
-  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  cursor: ${({ disabled, color }) =>
+    disabled || color === 'lightyellow' ? 'default' : 'pointer'};
   text-transform: ${props =>
     props.primary || props.color === 'transparent' ? 'uppercase' : 'auto'};
 
