@@ -89,6 +89,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
             selectedPrice={selectedPrice}
             onChange={e => this.setState({ selectedPrice: e.target.value })}
             onBlur={e => this.setState({ customPriceEditted: true })}
+            error={messages['selectedPrice'] ? true : false}
           />
         </CheckBoxWrapper>
         {this.state.customPriceEditted && (
