@@ -57,11 +57,13 @@ class CheckoutConfirmation extends BaseCheckoutSection {
       cardExpiryError,
       cardCvcError,
       postalCodeError,
+      availability,
     } = this.props;
     const { trip } = order;
     const pricing = this.currentPricing();
     const errors =
-      validate({ ...order }, constraints(trip, pricing, order)) || 'valid';
+      validate({ ...order }, constraints(trip, pricing, availability, order)) ||
+      'valid';
     return (
       <div>
         {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
@@ -79,7 +81,10 @@ class CheckoutConfirmation extends BaseCheckoutSection {
         />
         {!this.cardDetailsValid() || errors !== 'valid' ? (
           <P color="error" proxima>
-            An error has occured. Please check your responses.
+            One or more of your responses is missing or incorect.
+            {(errors.meetingDate !== null ||
+              errors.selectedLocationIndex !== null) &&
+              " Please assure you've filled out the cash payment section."}
           </P>
         ) : (
           <Button onClick={this.handleConfirmOrder}>Confirm Order</Button>
@@ -118,6 +123,7 @@ const mapStateToProps = state => {
     cardCvcError: checkout.cardCvc.error,
     postalCodeError: checkout.postalCode.error,
     status: orders.confirmOrderStatus,
+    availability,
   };
 };
 

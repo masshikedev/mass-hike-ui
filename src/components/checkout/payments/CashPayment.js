@@ -308,16 +308,18 @@ class CashPayment extends BaseCheckoutSection {
   messages() {
     const { selectedLocationIndex, meetingDate } = this.state;
     const { availableLocations, availableTimes } = this.props;
-    validate(
-      {
-        meetingDate: this.toUTC(meetingDate),
-        selectedLocationIndex,
-      },
-      cashPaymentContraints({
-        locations: availableLocations,
-        times: availableTimes,
-      })
-    ) || 'valid';
+    return (
+      validate(
+        {
+          meetingDate: this.toUTC(meetingDate),
+          selectedLocationIndex,
+        },
+        cashPaymentContraints({
+          locations: availableLocations,
+          times: availableTimes,
+        })
+      ) || 'valid'
+    );
   }
 
   render() {
@@ -326,7 +328,7 @@ class CashPayment extends BaseCheckoutSection {
       selectedLocationIndex,
       meetingDate,
     } = this.state;
-    const { availableLocations, availableTimes, index } = this.props;
+    const { availableLocations } = this.props;
     const messages = this.messages();
     return (
       <div>

@@ -18,7 +18,6 @@ import {
 import Checkbox from '../forms/Checkbox';
 import formatPhoneNumber from '../../utils/phoneFormatter';
 import styled from 'styled-components';
-import { MediaQueries } from '../../style';
 
 const Contact = styled.div`
   margin-top: 30px;

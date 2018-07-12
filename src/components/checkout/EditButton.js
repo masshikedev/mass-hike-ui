@@ -8,7 +8,7 @@ import { Button } from '../../style';
 
 class EditButton extends Component {
   onClickMobile = e => {
-    const { section, setCurrentSection, toMobileCheckout, tripId } = this.props;
+    const { section } = this.props;
     e.preventDefault();
     const newSection = document.getElementById(`section ${section}`);
     if (newSection) {

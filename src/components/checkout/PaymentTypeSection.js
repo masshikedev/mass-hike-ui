@@ -72,7 +72,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
   }
 
   render() {
-    const { trip, availableTimes, index } = this.props;
+    const { trip, availableTimes } = this.props;
     const { paymentType, selectedPrice } = this.state;
     const pricing = this.currentPricing();
     const showCashPayment = cashPaymentAvailable(

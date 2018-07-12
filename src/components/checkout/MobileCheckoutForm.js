@@ -8,7 +8,6 @@ import {
   setCheckoutState,
 } from '../../actions/CheckoutActions';
 import SectionOrder from '../../data/CheckoutSectionOrder';
-import BottomNav from './BottomNav';
 import styled from 'styled-components';
 import { Container, GridParent } from '../../style';
 import CardPayment from './payments/CardPayment';
@@ -46,7 +45,6 @@ class MobileCheckoutForm extends Component {
       nextCheckoutSection,
       prevCheckoutSection,
       setCurrentSection,
-      setCheckoutState,
       match,
       toConfirmation,
     } = this.props;
@@ -162,7 +160,6 @@ const mapDispatchToProps = dispatch =>
     {
       nextCheckoutSection,
       prevCheckoutSection,
-      setCheckoutState,
       setCurrentSection: section =>
         setCheckoutState({ currentSection: section }),
       toConfirmation: basePath => push(`${basePath}/confirmation`),

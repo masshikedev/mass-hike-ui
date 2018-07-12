@@ -6,8 +6,7 @@ import {
   setCurrentSection,
   setCheckoutState,
 } from '../../actions/CheckoutActions';
-import { P, H2, H6, MediaQueries } from '../../style';
-import styled from 'styled-components';
+import { P, H2, H6 } from '../../style';
 import { validate } from 'validate.js';
 import { hikeConstraints } from '../../utils/validationConstraints';
 import PlaceAutocomplete from '../forms/PlaceAutocomplete';
@@ -55,7 +54,7 @@ class HikeInfoSection extends BaseCheckoutSection {
   }
 
   render() {
-    const { trip, index } = this.props;
+    const { trip } = this.props;
     const { tickets, kids, pickupLocation, edited } = this.state;
     const messages = this.messages();
 
