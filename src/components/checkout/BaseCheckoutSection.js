@@ -11,7 +11,7 @@ export default class BaseCheckoutSection extends Component {
 
   componentDidUpdate() {
     const { mobile, setCheckoutState } = this.props;
-    if (mobile && setCheckoutState) {
+    if (setCheckoutState && (mobile || this.messages() === 'valid')) {
       setCheckoutState(this.state);
     }
   }

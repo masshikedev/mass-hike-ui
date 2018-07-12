@@ -49,10 +49,15 @@ class HikeInfoSection extends BaseCheckoutSection {
     this.setState({ zipCode: '' });
   }
 
+  messages() {
+    const { trip } = this.props;
+    return validate(this.state, hikeConstraints(trip)) || 'valid';
+  }
+
   render() {
     const { trip, index } = this.props;
     const { tickets, kids, pickupLocation, edited } = this.state;
-    const messages = validate(this.state, hikeConstraints(trip)) || 'valid';
+    const messages = this.messages();
 
     return (
       <div>

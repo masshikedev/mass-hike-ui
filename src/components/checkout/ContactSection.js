@@ -36,10 +36,13 @@ class ContactSection extends BaseCheckoutSection {
     };
   }
 
+  messages() {
+    return validate(this.state, contactConstraints(this.state)) || 'valid';
+  }
+
   render() {
     const { name, email, phone, preferredContactMethods } = this.state;
-    const messages =
-      validate(this.state, contactConstraints(this.state)) || 'valid';
+    const messages = this.messages();
     return (
       <div>
         <H2>Contact Information</H2>

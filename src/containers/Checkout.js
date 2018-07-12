@@ -50,9 +50,8 @@ class Checkout extends LoadableComponent {
   }
 
   completeSection = (fields, options) => {
-    const { nextCheckoutSection, setCheckoutState, match } = this.props;
+    const { nextCheckoutSection, match } = this.props;
     const { nextSectionPath } = options;
-    if (options.save !== false) setCheckoutState(fields);
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
 

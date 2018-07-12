@@ -61,6 +61,16 @@ class PaymentTypeSection extends BaseCheckoutSection {
     });
   }
 
+  messages() {
+    const { trip } = this.props;
+    return (
+      validate(
+        this.state,
+        paymentTypeConstraints(trip, this.currentPricing())
+      ) || 'valid'
+    );
+  }
+
   render() {
     const { trip, availableTimes, index } = this.props;
     const { paymentType, selectedPrice } = this.state;
@@ -69,8 +79,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
       availableTimes,
       trip.time.pickupStart
     );
-    const messages =
-      validate(this.state, paymentTypeConstraints(trip, pricing)) || 'valid';
+    const messages = this.messages();
     return (
       <div>
         <H2>Payment Options</H2>
