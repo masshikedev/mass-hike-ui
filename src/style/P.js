@@ -20,7 +20,7 @@ const P = styled.p`
     medium ? '500' : bold ? '700' : extrabold ? '800' : '400'};
   margin-bottom: ${({ nobottom }) => (nobottom ? '' : '10px')};
   margin-left: ${({ leftmargin }) => (leftmargin ? '15px' : '')};
-  line-height: 1.44;
+  line-height: ${({ size }) => (size === 'xlarge' ? 1 : 1.44)};
   letter-spacing: ${({ spaced }) => (spaced ? '1px' : '.5px')};
   color: ${({ color }) =>
     color === 'error'
@@ -33,9 +33,7 @@ const P = styled.p`
             ? constants.orange
             : color === 'white'
               ? '#fff'
-              : color === 'blue'
-                ? constants.blue
-                : constants.black};
+              : color === 'blue' ? constants.blue : constants.black};
 `;
 
 export default P;

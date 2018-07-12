@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from '../BaseCheckoutSection';
-import { setCurrentSection } from '../../../actions/CheckoutActions';
+import {
+  setCurrentSection,
+  setCheckoutState,
+} from '../../../actions/CheckoutActions';
 import { P, H2, H6, Button, MediaQueries, constants } from '../../../style';
 import { NextButton, BackButton, ButtonSpacer } from '../../forms';
 import styled from 'styled-components';
@@ -10,7 +13,7 @@ import DayPicker from 'react-day-picker';
 import TimePicker from 'rc-time-picker';
 import moment from 'moment';
 import 'react-day-picker/lib/style.css';
-import { TWELVE_HOUR_CORRECTION } from '../../../constants';
+import { TWELVE_HOUR_CORRECTION, ONE_DAY_CORRECTION } from '../../../constants';
 import Helmet from 'react-helmet';
 import { cashPaymentContraints } from '../../../utils/validationConstraints';
 import { MONTH_DATE_YEAR } from '../../../utils/dateFormats';
@@ -33,11 +36,7 @@ const DirectionsLink = styled.a`
   }
 `;
 
-const CalWrapper = styled.div`
-  ${MediaQueries.small} {
-    margin: 0 5% 0 -5%;
-  }
-`;
+const CalWrapper = styled.div``;
 
 function Weekday({ weekday, className, localeUtils, locale }) {
   const weekdayName = localeUtils.formatWeekdayLong(weekday, locale);
@@ -110,7 +109,9 @@ class CashPayment extends BaseCheckoutSection {
     return availableTimes
       .filter(({ times }) => times.length)
       .filter(
-        ({ date }) => date >= moment().valueOf() && date < trip.time.pickupStart
+        ({ date }) =>
+          date >= moment().valueOf() &&
+          date < trip.time.pickupStart - ONE_DAY_CORRECTION
       )
       .map(({ date }) => new Date(this.toLocal(date)));
   }
@@ -207,6 +208,7 @@ class CashPayment extends BaseCheckoutSection {
             background: ${constants.green} ${constants.greenBg};
             background-blend-mode: multiply;
             border-radius: 15px;
+            max-width: 100%;
           }
           .DayPicker-Caption {
             text-align: center;
@@ -255,6 +257,20 @@ class CashPayment extends BaseCheckoutSection {
           .DayPicker-Day--today {
             color: 'inherit';
           }
+          ${MediaQueries.small} {
+            .DayPicker-Day {
+              box-sizing: border-box;
+              border: 2px solid ${constants.lightgreen};
+              font-family: 'proxima-nova';
+              font-size: 11px;
+              padding: 15px 0px;
+            }
+
+            .DayPicker-Weekday {
+              font-size: 11px !important;
+              width: 28px;
+            }
+          }
           `}</style>
         </Helmet>
         <DayPicker
@@ -289,14 +305,10 @@ class CashPayment extends BaseCheckoutSection {
     );
   }
 
-  render() {
-    const {
-      showMoreLocations,
-      selectedLocationIndex,
-      meetingDate,
-    } = this.state;
+  messages() {
+    const { selectedLocationIndex, meetingDate } = this.state;
     const { availableLocations, availableTimes } = this.props;
-    const messages =
+    return (
       validate(
         {
           meetingDate: this.toUTC(meetingDate),
@@ -306,7 +318,18 @@ class CashPayment extends BaseCheckoutSection {
           locations: availableLocations,
           times: availableTimes,
         })
-      ) || 'valid';
+      ) || 'valid'
+    );
+  }
+
+  render() {
+    const {
+      showMoreLocations,
+      selectedLocationIndex,
+      meetingDate,
+    } = this.state;
+    const { availableLocations } = this.props;
+    const messages = this.messages();
     return (
       <div>
         <H2>Payment Info</H2>
@@ -356,6 +379,7 @@ class CashPayment extends BaseCheckoutSection {
           <NextButton
             onClick={this.onCompleteSection}
             active={messages === 'valid'}
+            hideOnMobile={!this.onFurthestSection()}
           />
         </ButtonSpacer>
       </div>
@@ -370,12 +394,14 @@ const mapStateToProps = state => ({
   availableTimes: state.availability.times,
   availableLocations: state.availability.locations,
   status: state.availability.status,
+  highestCompletedSection: state.checkout.highestCompletedSection,
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setCurrentSection,
+      setCheckoutState,
     },
     dispatch
   );

@@ -5,11 +5,13 @@ import { RichText } from 'prismic-reactjs';
 import hero from '../../images/home-hero2.png';
 import cloud1 from '../../images/cloud2.png';
 
-const Text = P.extend`
+const Text = styled.div`
   grid-column: span 8;
   padding: 0 80px;
   padding-top: 20px;
   z-index: 10;
+  font-size: 16px;
+  line-height: 1.44;
 
   ${MediaQueries.small} {
     grid-column: span 12;

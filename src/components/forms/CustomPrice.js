@@ -9,7 +9,7 @@ const OtherWrapper = styled.div`
 `;
 
 function CustomPrice(props) {
-  const { prices, selectedPrice, onChange, onBlur } = props;
+  const { prices, selectedPrice, onChange, onBlur, error } = props;
   return (
     <OtherWrapper>
       <Checkbox
@@ -29,6 +29,7 @@ function CustomPrice(props) {
         onChange={onChange}
         onFocus={onChange}
         onBlur={onBlur}
+        highlight={error}
         short
         smallBottomMargin
       />

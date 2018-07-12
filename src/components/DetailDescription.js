@@ -52,6 +52,10 @@ const Line = styled.div`
   }
 `;
 
+const BodyContent = P.extend`
+  white-space: pre-wrap;
+`;
+
 function DetailDescription(props) {
   const { detail, time } = props;
   return (
@@ -59,7 +63,7 @@ function DetailDescription(props) {
       <P proxima size="xlarge" bold>
         {detail.bodyTitle}
       </P>
-      <P>{detail.bodyContent}</P>
+      <BodyContent>{detail.bodyContent}</BodyContent>
       <Timeline>
         <SmallTime>
           <H6>pickup</H6>

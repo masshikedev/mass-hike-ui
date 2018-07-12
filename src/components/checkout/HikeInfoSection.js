@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
-import { setCurrentSection } from '../../actions/CheckoutActions';
-import { P, H2, H6, MediaQueries } from '../../style';
-import styled from 'styled-components';
+import {
+  setCurrentSection,
+  setCheckoutState,
+} from '../../actions/CheckoutActions';
+import { P, H2, H6 } from '../../style';
 import { validate } from 'validate.js';
 import { hikeConstraints } from '../../utils/validationConstraints';
 import PlaceAutocomplete from '../forms/PlaceAutocomplete';
@@ -14,18 +16,8 @@ import {
   NextButton,
   BackButton,
   ButtonSpacer,
+  CheckBoxWrapper,
 } from '../forms';
-
-const CheckBoxWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 5px;
-  ${MediaQueries.small} {
-    justify-content: space-between;
-  }
-`;
 
 const Caption = P.extend`
   max-width: 500px;
@@ -56,10 +48,15 @@ class HikeInfoSection extends BaseCheckoutSection {
     this.setState({ zipCode: '' });
   }
 
+  messages() {
+    const { trip } = this.props;
+    return validate(this.state, hikeConstraints(trip)) || 'valid';
+  }
+
   render() {
     const { trip } = this.props;
     const { tickets, kids, pickupLocation, edited } = this.state;
-    const messages = validate(this.state, hikeConstraints(trip)) || 'valid';
+    const messages = this.messages();
 
     return (
       <div>
@@ -132,6 +129,7 @@ class HikeInfoSection extends BaseCheckoutSection {
           <NextButton
             onClick={this.onCompleteSection}
             active={messages === 'valid'}
+            hideOnMobile={!this.onFurthestSection()}
           />
         </ButtonSpacer>
       </div>
@@ -145,12 +143,14 @@ const mapStateToProps = state => ({
   pickupLocation: state.checkout.pickupLocation,
   zipCode: state.checkout.zipCode,
   trip: state.currentTrip.trip,
+  highestCompletedSection: state.checkout.highestCompletedSection,
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setCurrentSection,
+      setCheckoutState,
     },
     dispatch
   );

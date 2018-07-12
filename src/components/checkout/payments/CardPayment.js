@@ -35,19 +35,27 @@ class CardPayment extends BaseCheckoutSection {
     setCheckoutState(this.state);
   }
 
-  allValid() {
+  messages() {
     const { cardNumber, cardExpiry, cardCvc, postalCode } = this.state;
-    return (
-      cardNumber['complete'] &&
-      cardExpiry['complete'] &&
-      cardCvc['complete'] &&
-      postalCode['complete']
-    );
+    const errors = [];
+    let complete = true;
+    [cardNumber, cardExpiry, cardCvc, postalCode].forEach(field => {
+      if (field.error) {
+        errors.push(field.error.message);
+      } else if (!field['complete']) {
+        complete = false;
+      }
+    });
+    if (errors.length > 0 || !complete) {
+      return errors;
+    }
+    return 'valid';
   }
 
   render() {
     const { show } = this.props;
     const { cardNumber, cardExpiry, cardCvc, postalCode } = this.state;
+    const messages = this.messages();
     return (
       <div style={show ? {} : { display: 'none' }}>
         <H2>Payment Info</H2>
@@ -104,12 +112,13 @@ class CardPayment extends BaseCheckoutSection {
 
         <ButtonSpacer>
           <BackButton
-            onClick={e => this.onBackSection(e, this.allValid())}
+            onClick={e => this.onBackSection(e, messages === 'valid')}
             active={true}
           />
           <NextButton
             onClick={this.onCompleteSection}
-            active={this.allValid()}
+            active={messages === 'valid'}
+            hideOnMobile={!this.onFurthestSection()}
           />
         </ButtonSpacer>
       </div>
@@ -121,6 +130,7 @@ const mapStateToProps = state => ({
   cardExpiry: state.checkout.cardExpiry,
   cardCvc: state.checkout.cardCvc,
   postalCode: state.checkout.postalCode,
+  highestCompletedSection: state.checkout.highestCompletedSection,
 });
 
 const mapDispatchToProps = dispatch =>

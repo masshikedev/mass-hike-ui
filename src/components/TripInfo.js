@@ -82,7 +82,7 @@ function TripInfo(props) {
           </P>
         ) : (
           <BookButton primary onClick={() => props.toCheckout(props.tripId)}>
-            Book Now
+            Book Trip
           </BookButton>
         )}
       </BorderWrapper>

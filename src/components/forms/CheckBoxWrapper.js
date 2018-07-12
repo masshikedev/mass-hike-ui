@@ -6,9 +6,10 @@ const CheckBoxWrapper = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  padding: 5px;
+  padding: 5px 0;
   ${MediaQueries.small} {
     justify-content: space-between;
+    margin-bottom: 15px;
   }
 `;
 

@@ -2,11 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BaseCheckoutSection from './BaseCheckoutSection';
-import { setCurrentSection } from '../../actions/CheckoutActions';
+import {
+  setCurrentSection,
+  setCheckoutState,
+} from '../../actions/CheckoutActions';
 import { P, H2, H6 } from '../../style';
 import { validate } from 'validate.js';
 import { paymentTypeConstraints } from '../../utils/validationConstraints';
 import getCurrentPricing from '../../utils/getCurrentPricing';
+import cashPaymentAvailable from '../../utils/cashPaymentAvailable';
 import {
   Checkbox,
   ValidatedTextInput,
@@ -57,12 +61,25 @@ class PaymentTypeSection extends BaseCheckoutSection {
     });
   }
 
-  render() {
+  messages() {
     const { trip } = this.props;
+    return (
+      validate(
+        this.state,
+        paymentTypeConstraints(trip, this.currentPricing())
+      ) || 'valid'
+    );
+  }
+
+  render() {
+    const { trip, availableTimes } = this.props;
     const { paymentType, selectedPrice } = this.state;
     const pricing = this.currentPricing();
-    const messages =
-      validate(this.state, paymentTypeConstraints(trip, pricing)) || 'valid';
+    const showCashPayment = cashPaymentAvailable(
+      availableTimes,
+      trip.time.pickupStart
+    );
+    const messages = this.messages();
     return (
       <div>
         <H2>Payment Options</H2>
@@ -89,6 +106,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
             selectedPrice={selectedPrice}
             onChange={e => this.setState({ selectedPrice: e.target.value })}
             onBlur={e => this.setState({ customPriceEditted: true })}
+            error={messages['selectedPrice'] ? true : false}
           />
         </CheckBoxWrapper>
         {this.state.customPriceEditted && (
@@ -104,13 +122,20 @@ class PaymentTypeSection extends BaseCheckoutSection {
             onChange={() => this.setState({ paymentType: 'card' })}
             text="Credit/Debit"
           />
-          <Checkbox
-            type="radio"
-            checked={paymentType !== 'card'}
-            onChange={() => this.setState({ paymentType: 'cash' })}
-            text="Cash"
-          />
+          {showCashPayment && (
+            <Checkbox
+              type="radio"
+              checked={paymentType !== 'card'}
+              onChange={() => this.setState({ paymentType: 'cash' })}
+              text="Cash"
+            />
+          )}
         </CheckBoxWrapper>
+        {!showCashPayment && (
+          <P proxima size="small">
+            Cash payment is not available for this trip.
+          </P>
+        )}
         <ButtonSpacer>
           <BackButton
             onClick={e => this.onBackSection(e, messages === 'valid')}
@@ -119,6 +144,7 @@ class PaymentTypeSection extends BaseCheckoutSection {
           <NextButton
             onClick={this.onCompleteSection}
             active={messages === 'valid'}
+            hideOnMobile={!this.onFurthestSection()}
           />
         </ButtonSpacer>
       </div>
@@ -131,12 +157,15 @@ const mapStateToProps = state => ({
   promoCode: state.checkout.promoCode,
   selectedPrice: state.checkout.selectedPrice,
   trip: state.currentTrip.trip,
+  availableTimes: state.availability.times,
+  highestCompletedSection: state.checkout.highestCompletedSection,
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setCurrentSection,
+      setCheckoutState,
     },
     dispatch
   );

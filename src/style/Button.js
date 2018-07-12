@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { constants } from './';
 
-function getBgColor(props) {
+const getBgColor = props => {
   if (props.disabled) {
     return '#999999';
   }
@@ -27,7 +27,35 @@ function getBgColor(props) {
     return constants.orange;
   }
   return constants.yellow;
-}
+};
+
+const getHoverColor = props => {
+  if (props.disabled) {
+    return '#999999';
+  }
+  if (props.color) {
+    switch (props.color) {
+      case 'yellow':
+        return constants.yellowHover;
+      case 'lightyellow':
+        return constants.lightyellow;
+      case 'orange':
+        return constants.orangeHover;
+      case 'blue':
+        return constants.blueHover;
+      case 'red':
+        return constants.redHover;
+      case 'transparent':
+        return 'transparent';
+      default:
+        return constants.yellowHover;
+    }
+  }
+  if (props.primary) {
+    return constants.orangeHover;
+  }
+  return constants.yellowHover;
+};
 
 const Button = styled.button`
   width: ${({ small }) => (small ? '40px' : 'auto')};
@@ -63,9 +91,18 @@ const Button = styled.button`
     padding: 0;
     color: white;
   }
-  cursor: ${({ active, small }) => (active || small ? 'pointer' : 'default')};
+  cursor: ${({ disabled, color }) =>
+    disabled || color === 'lightyellow' ? 'default' : 'pointer'};
   text-transform: ${props =>
     props.primary || props.color === 'transparent' ? 'uppercase' : 'auto'};
+
+  &:hover {
+    background-color: ${getHoverColor};
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default Button;

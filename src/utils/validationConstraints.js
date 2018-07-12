@@ -129,7 +129,16 @@ const paymentTypeConstraints = (trip, currentPricing) => {
   };
 };
 
-const cashPaymentContraints = availability => {
+const cashPaymentContraints = (availability, meetingLocation = null) => {
+  const allowNoIndex = !!meetingLocation;
+  const indexPresence = allowNoIndex
+    ? {}
+    : {
+        presence: {
+          allowEmpty: false,
+          message: '^Please select a location.',
+        },
+      };
   return {
     meetingDate: {
       presence: {
@@ -141,23 +150,25 @@ const cashPaymentContraints = availability => {
       },
     },
     selectedLocationIndex: {
-      presence: {
-        allowEmpty: false,
-        message: '^Please select a location.',
-      },
+      ...indexPresence,
       numericality: {
-        onlyInteger: true,
+        onlyInteger: !allowNoIndex,
         message: '^Location select error.',
       },
     },
   };
 };
 
-const constraints = (trip, priceData, order) => {
+const constraints = (trip, priceData, availability, order) => {
+  const paymentConstraints =
+    order.paymentType === 'cash'
+      ? cashPaymentContraints(availability, order.meetingLocation)
+      : {};
   return {
     ...contactConstraints(order),
     ...hikeConstraints(trip),
     ...paymentTypeConstraints(trip, priceData),
+    ...paymentConstraints,
   };
 };
 

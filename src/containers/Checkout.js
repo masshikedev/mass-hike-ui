@@ -50,9 +50,8 @@ class Checkout extends LoadableComponent {
   }
 
   completeSection = (fields, options) => {
-    const { nextCheckoutSection, setCheckoutState, match } = this.props;
+    const { nextCheckoutSection, match } = this.props;
     const { nextSectionPath } = options;
-    if (options.save !== false) setCheckoutState(fields);
     nextCheckoutSection(`${match.url}/${nextSectionPath}`);
   };
 
@@ -75,7 +74,6 @@ class Checkout extends LoadableComponent {
             completeSection={this.completeSection}
             index={0}
             next={next.path}
-            stripeCreateToken={this.stripeCreateToken}
           />
         )}
       />
@@ -137,7 +135,6 @@ class Checkout extends LoadableComponent {
                 {this.renderRemainingSections()}
               </Switch>
               <CardPayment
-                index={3}
                 next={SectionOrder[4].path}
                 prev={SectionOrder[2].path}
                 completeSection={this.completeSection}

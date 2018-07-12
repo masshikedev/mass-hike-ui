@@ -20,6 +20,7 @@ class ValidatedTextInput extends Component {
       onFocus,
       onBlur,
       error,
+      highlight,
       value,
       id,
       textarea,
@@ -51,7 +52,7 @@ class ValidatedTextInput extends Component {
               if (onFocus) onFocus(e);
               this.setState({ editing: true });
             }}
-            invalid={!editing && error}
+            invalid={!editing && (error || highlight)}
             short={short}
             medium={medium}
           />

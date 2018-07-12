@@ -3,10 +3,17 @@ import { Component } from 'react';
 export default class BaseCheckoutSection extends Component {
   componentDidMount() {
     const { setCurrentSection, index, mobile, afterMount } = this.props;
-    if (!mobile) {
+    if (!mobile && index !== null) {
       setCurrentSection(index);
     }
     if (afterMount) afterMount();
+  }
+
+  componentDidUpdate() {
+    const { mobile, setCheckoutState } = this.props;
+    if (setCheckoutState && (mobile || this.messages() === 'valid')) {
+      setCheckoutState(this.state);
+    }
   }
 
   onCompleteSection = e => {
@@ -33,4 +40,9 @@ export default class BaseCheckoutSection extends Component {
       : { nextSectionPath: prev, save: save };
     completeSection(this.state, options);
   };
+
+  onFurthestSection() {
+    const { index, highestCompletedSection } = this.props;
+    return index === highestCompletedSection;
+  }
 }

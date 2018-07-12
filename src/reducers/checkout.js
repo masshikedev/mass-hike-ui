@@ -33,6 +33,9 @@ const initialState = {
   currentSection: 0,
   highestCompletedSection: 0,
   initialized: false,
+
+  // errors
+  errors: false,
 };
 
 export default (state = initialState, action) => {

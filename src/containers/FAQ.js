@@ -4,7 +4,8 @@ import { fromJS } from 'immutable';
 import PrismicPage from '../prismic/PrismicPage';
 import {
   A,
-  Button as _Button,
+  Button,
+  P,
   H1,
   H2,
   H4,
@@ -31,8 +32,12 @@ const Main = styled.div`
   }
 `;
 
-const Button = _Button.extend`
+const TopClearButton = Button.extend`
   margin-left: 30px;
+`;
+
+const BottomClearButton = Button.extend`
+  margin-top: 10px;
 `;
 
 const TitleWrapper = GridParent.extend`
@@ -65,7 +70,13 @@ const FAQWrapper = styled.div`
   width: 100%;
   flex-grow: 0.5;
   :not(:first-child) {
-    margin: 30px 0;
+    margin: 30px inherit;
+  }
+
+  ${MediaQueries.small} {
+    align-items: left;
+    width: 80%;
+    margin: 10px auto;
   }
 `;
 
@@ -73,6 +84,21 @@ const FAQTitle = H2.extend`
   flex-shrink: 0;
   width: fit-content;
   margin: 0 50px;
+  padding-top: 0;
+
+  ${MediaQueries.small} {
+    margin: 0;
+  }
+`;
+
+const TitleLine = HR.extend`
+  ${MediaQueries.small} {
+    display: none;
+  }
+`;
+
+const Category = styled.div`
+  margin-bottom: 50px;
 `;
 
 const SideBar = styled.div`
@@ -86,7 +112,7 @@ const SideBar = styled.div`
     position: static;
     display: flex;
     flex-flow: row wrap;
-    grid-column: 2 / span 10;
+    grid-column: 2/ 12;
     order: 0;
     margin-bottom: 40px;
     justify-content: center;
@@ -115,11 +141,15 @@ const SideBar = styled.div`
 const Search = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: left;
   width: 100%:
 
   ${MediaQueries.small} {
     display: none;
+  }
+
+  label {
+    width: 450px;
   }
 `;
 
@@ -169,33 +199,44 @@ class FAQ extends Component {
                     onChange={this.updateSearch}
                   />
                 </label>
-                <Button onClick={this.clearSearch}>Clear</Button>
+                <TopClearButton onClick={this.clearSearch}>
+                  Clear
+                </TopClearButton>
               </Search>
             </TitleContent>
           </TitleWrapper>
           <Main>
-            {filteredFAQs.map((section, secId) => (
-              <React.Fragment>
-                <FAQWrapper key={secId}>
-                  <HR />
-                  <FAQTitle id={this.getSectionTitle(section)} proxima>
-                    {this.getSectionTitle(section)}
-                  </FAQTitle>
-                  <HR />
-                </FAQWrapper>
-                {section.get('items').map((question, faqId) => {
-                  return !this.state.search ||
-                    question
-                      .getIn(['faq', 0, 'text'])
-                      .includes(this.state.search) ||
-                    question
-                      .getIn(['faq_response', 0, 'text'])
-                      .includes(this.state.search) ? (
-                    <QuestionAnswer key={faqId} {...question.toJS()} />
-                  ) : null;
-                })}
-              </React.Fragment>
-            ))}
+            {filteredFAQs.size === 0 ? (
+              <div>
+                <P size="large">No results found.</P>
+                <BottomClearButton onClick={this.clearSearch}>
+                  Clear search
+                </BottomClearButton>
+              </div>
+            ) : (
+              filteredFAQs.map((section, secId) => (
+                <Category key={secId}>
+                  <FAQWrapper>
+                    <TitleLine />
+                    <FAQTitle id={this.getSectionTitle(section)} proxima>
+                      {this.getSectionTitle(section)}
+                    </FAQTitle>
+                    <TitleLine />
+                  </FAQWrapper>
+                  {section.get('items').map((question, faqId) => {
+                    return !this.state.search ||
+                      question
+                        .getIn(['faq', 0, 'text'])
+                        .includes(this.state.search) ||
+                      question
+                        .getIn(['faq_response', 0, 'text'])
+                        .includes(this.state.search) ? (
+                      <QuestionAnswer key={faqId} {...question.toJS()} />
+                    ) : null;
+                  })}
+                </Category>
+              ))
+            )}
           </Main>
           {!this.state.search && (
             <SideBar>
