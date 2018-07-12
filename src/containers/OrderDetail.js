@@ -7,7 +7,7 @@ import PickupMap from '../components/admin/tripDetail/PickupMap';
 import CancellationForm from '../components/admin/CancellationForm';
 import { getOrderById, adminEditOrder } from '../actions/OrderActions';
 import moment from 'moment';
-import { MONTH_DATE_YEAR } from '../utils/dateFormats';
+import { MONTH_DATE_YEAR, TIME } from '../utils/dateFormats';
 import { RequestStatus } from '../constants';
 import {
   AdminContainer,
@@ -106,8 +106,8 @@ class OrderDetail extends LoadableComponent {
             <Tr>
               <Td>{order.meetingLocation.name}</Td>
               <Td>{order.meetingLocation.address}</Td>
-              <Td>Placeholder</Td>
-              <Td>Placeholder</Td>
+              <Td>{moment(order.meetingDate).format(MONTH_DATE_YEAR)}</Td>
+              <Td>{moment(order.meetingDate).format(TIME)}</Td>
             </Tr>
           </tbody>
         </AppointmentTable>
