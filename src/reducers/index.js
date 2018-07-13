@@ -7,6 +7,7 @@ import auth from './auth';
 import members from './members';
 import availability from './availability';
 import donations from './donations';
+import contact from './contact';
 import { routerReducer } from 'react-router-redux';
 
 export default combineReducers({
@@ -18,5 +19,6 @@ export default combineReducers({
   auth,
   availability,
   donations,
+  contact,
   routing: routerReducer,
 });
