@@ -16,7 +16,11 @@ class CheckoutConfirmation extends BaseCheckoutSection {
   handleConfirmOrder = e => {
     const { order, confirmOrder, status, stripeCreateToken } = this.props;
     e.preventDefault();
-    if (status === RequestStatus.UNITIALIZED) {
+    console.log('clicked. status: ', status);
+    if (
+      status === RequestStatus.UNITIALIZED ||
+      status === RequestStatus.ERROR
+    ) {
       order.paymentType === 'card'
         ? stripeCreateToken(token =>
             confirmOrder({ ...order, stripeToken: token })
