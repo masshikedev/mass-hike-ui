@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'proxima-nova';
+  font-weight: 400;
+  src: url('../fonts/proxima_nova_regular.ttf');
+}
+
+@font-face {
+  font-family: 'proxima-nova';
+  font-weight: 500;
+  src: url('../fonts/proxima_nova_medium.ttf');
+}
+
+@font-face {
+  font-family: 'proxima-nova';
+  font-weight: 700;
+  src: url('../fonts/proxima_nova_bold.ttf');
+}
+
+@font-face {
+  font-family: 'proxima-nova';
+  font-weight: 700;
+  font-style: italic;
+  src: url('../fonts/proxima_nova_bold_italic.ttf');
+}
+
+@font-face {
+  font-family: 'proxima-nova';
+  font-weight: 800;
+  src: url('../fonts/proxima_nova_extrabold.ttf');
+}
+
+@font-face {
+  font-family: 'proxima-soft';
+  font-weight: 700;
+  src: url('../fonts/proxima_soft_bold.ttf');
+}
