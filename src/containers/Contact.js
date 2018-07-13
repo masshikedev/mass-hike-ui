@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { RichText } from 'prismic-reactjs';
 import PrismicPage from '../prismic/PrismicPage';
+import { submitMessage, reset } from '../actions/ContactActions';
+import { RequestStatus } from '../constants';
 import {
   H1,
   H6,
   P,
   Input,
+  TextArea,
   GridParent,
   constants,
   Container,
@@ -15,7 +20,7 @@ import styled from 'styled-components';
 
 const Column = styled.div`
   grid-column: span 12;
-  padding: 20px;
+  padding: 0 20px;
 `;
 
 const ColumnFlex = Column.extend`
@@ -24,12 +29,8 @@ const ColumnFlex = Column.extend`
   margin: 50px;
 `;
 
-const ExtendInput = Input.extend`
-  height: 300px;
-`;
-
 const Title = H1.extend`
-  margin: 80px auto;
+  margin: 40px auto;
 `;
 
 const BGContainer = Container.extend`
@@ -41,10 +42,71 @@ const WidthContainer = Container.extend`
   background: none;
 `;
 
+const SectionTitle = H6.extend`
+  margin-top: 15px;
+`;
+
 class Contact extends Component {
   static pageType = 'contact';
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      body: '',
+    };
+  }
+
+  componentWillMount() {
+    this.props.reset();
+  }
+
+  buttonDisabled() {
+    const { status } = this.props;
+    const { name, email, body } = this.state;
+    return (
+      status === RequestStatus.PENDING ||
+      name === '' ||
+      email === '' ||
+      body === ''
+    );
+  }
+
+  handleSubmit = e => {
+    const { submitMessage } = this.props;
+    e.preventDefault();
+    if (!this.buttonDisabled()) {
+      submitMessage(this.state);
+    }
+  };
+
+  renderSuccess() {
+    return (
+      <BGContainer>
+        <WidthContainer>
+          <P proxima bold color="green" size="large">
+            Your message has been sent
+          </P>
+        </WidthContainer>
+      </BGContainer>
+    );
+  }
+
+  renderError() {
+    return (
+      <P proxima bold color="error" size="large">
+        An error has occured
+      </P>
+    );
+  }
+
   render() {
+    const { name, email, body } = this.state;
+    const { status } = this.props;
+    if (status === RequestStatus.SUCCESS) {
+      return this.renderSuccess();
+    }
     return (
       <BGContainer>
         <WidthContainer>
@@ -52,7 +114,7 @@ class Contact extends Component {
             <Column>
               <Title>{RichText.asText(this.props.doc.data.title)}</Title>
               <P proxima bold color="green" size="large">
-                {RichText.render(this.props.doc.data.contact_content)}
+                {RichText.asText(this.props.doc.data.contact_content)}
               </P>
               <br />
             </Column>
@@ -60,20 +122,44 @@ class Contact extends Component {
           <GridParent>
             <Column>
               <label>
-                <H6>{RichText.asText(this.props.doc.data.field1)}</H6>
-                <Input type="text" />
+                <SectionTitle>
+                  {RichText.asText(this.props.doc.data.field1)}
+                </SectionTitle>
+                <Input
+                  type="text"
+                  value={name}
+                  onChange={e => this.setState({ name: e.target.value })}
+                />
               </label>
               <label>
-                <H6>{RichText.asText(this.props.doc.data.field2)}</H6>
-                <Input type="text" />
+                <SectionTitle>
+                  {RichText.asText(this.props.doc.data.field2)}
+                </SectionTitle>
+                <Input
+                  type="text"
+                  value={email}
+                  onChange={e => this.setState({ email: e.target.value })}
+                />
               </label>
               <label>
-                <H6>{RichText.asText(this.props.doc.data.field3)}</H6>
-                <ExtendInput type="text" />
+                <SectionTitle>
+                  {RichText.asText(this.props.doc.data.field3)}
+                </SectionTitle>
+                <TextArea
+                  type="text"
+                  value={body}
+                  onChange={e => this.setState({ body: e.target.value })}
+                />
               </label>
             </Column>
             <ColumnFlex>
-              <Button primary large>
+              {status === RequestStatus.ERROR && this.renderError()}
+              <Button
+                primary
+                large
+                onClick={this.handleSubmit}
+                disabled={this.buttonDisabled()}
+              >
                 Submit
               </Button>
             </ColumnFlex>
@@ -84,4 +170,19 @@ class Contact extends Component {
   }
 }
 
-export default PrismicPage(Contact);
+const mapStateToProps = state => ({
+  status: state.contact.status,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      submitMessage,
+      reset,
+    },
+    dispatch
+  );
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(Contact);
+
+export default PrismicPage(connected);

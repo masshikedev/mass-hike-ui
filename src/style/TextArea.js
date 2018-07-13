@@ -7,9 +7,10 @@ const TextArea = styled.textarea`
   padding: 5px;
   width: 100%;
   height: 300px;
-  max-width: 400px;
+  max-width: 500px;
+  border-radius: 4px;
   resize: none;
-  border: 3px solid ${props => (props.invalid ? 'red' : 'black')};
+  border: 2px solid ${props => (props.invalid ? 'red' : 'black')};
 `;
 
 export default TextArea;
