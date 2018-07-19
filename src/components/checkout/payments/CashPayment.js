@@ -216,6 +216,10 @@ class CashPayment extends BaseCheckoutSection {
             font-family: 'proxima-nova';
             font-weight: 700;
           }
+          .DayPicker-Caption > div {
+            text-align: center;
+            color: white;
+          }
           .DayPicker-NavButton--next {
             background-image: url(/images/white-arrow.png);
             transform: rotate(90deg) scale(2);
