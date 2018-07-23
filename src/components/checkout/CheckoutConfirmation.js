@@ -6,7 +6,7 @@ import { Button } from '../../style';
 import { setCurrentSection } from '../../actions/CheckoutActions';
 import { confirmOrder } from '../../actions/OrderActions';
 import { bindActionCreators } from 'redux';
-import { P, H2, H3 } from '../../style';
+import { P, H2 } from '../../style';
 import { RequestStatus } from '../../constants';
 import { validate } from 'validate.js';
 import { constraints } from '../../utils/validationConstraints';
@@ -16,7 +16,6 @@ class CheckoutConfirmation extends BaseCheckoutSection {
   handleConfirmOrder = e => {
     const { order, confirmOrder, status, stripeCreateToken } = this.props;
     e.preventDefault();
-    console.log('clicked. status: ', status);
     if (
       status === RequestStatus.UNITIALIZED ||
       status === RequestStatus.ERROR
@@ -70,7 +69,12 @@ class CheckoutConfirmation extends BaseCheckoutSection {
       'valid';
     return (
       <div>
-        {status === RequestStatus.ERROR && <H3>Error placing order</H3>}
+        {status === RequestStatus.ERROR && (
+          <P proxima bold color="error">
+            Error placing order. Please check that your credit card details have
+            been entered correctly.
+          </P>
+        )}
         <H2>Order Summary</H2>
         <OrderSummary
           order={order}
