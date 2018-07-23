@@ -72,7 +72,7 @@ class CheckoutConfirmation extends BaseCheckoutSection {
         {status === RequestStatus.ERROR && (
           <P proxima bold color="error">
             Error placing order. Please check that your credit card details have
-            been entered correctly.
+            been entered correctly and try again.
           </P>
         )}
         <H2>Order Summary</H2>
