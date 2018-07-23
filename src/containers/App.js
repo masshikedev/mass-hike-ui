@@ -19,7 +19,7 @@ const App = props => {
       <NavBar prismicCtx={props.prismicCtx} uid="nav" />
       <AdminBar />
       <Main>
-        <StripeProvider apiKey="pk_test_gdoocVed0AjapcCEvNtTQqt5">
+        <StripeProvider apiKey="pk_live_SERz3pidRlXxZYu8LR7oCu26">
           <Elements>
             <Routes prismicCtx={props.prismicCtx} />
           </Elements>

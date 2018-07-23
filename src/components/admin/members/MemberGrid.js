@@ -41,9 +41,11 @@ class MemberGrid extends Component {
     if (members.length === 0) {
       return (
         <Table>
-          <Tr>
-            <Td>No results found</Td>
-          </Tr>
+          <tbody>
+            <Tr>
+              <Td>No results found</Td>
+            </Tr>
+          </tbody>
         </Table>
       );
     }

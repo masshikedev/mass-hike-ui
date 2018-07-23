@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Th, Tr, Td, H5 } from '../../style';
+import { Table, Th, Tr, Td, H5, P } from '../../style';
 import moment from 'moment';
 import { MONTH_DATE_YEAR } from '../../utils/dateFormats';
 
@@ -42,6 +42,16 @@ class TripGrid extends Component {
   render() {
     const { showTickets, title } = this.props;
     const trips = this.filteredTrips();
+    if (trips.length === 0 && title) {
+      return (
+        <div>
+          <H5>{title}</H5>
+          <P>No {title.toLowerCase()} found</P>
+        </div>
+      );
+    } else if (trips.length === 0) {
+      return <P>No trips are currently scheduled</P>;
+    }
     return (
       <div>
         {title && <H5>{title}</H5>}
