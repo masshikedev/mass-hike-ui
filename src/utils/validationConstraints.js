@@ -314,27 +314,6 @@ const tripConstraints = trip => {
         allowEmpty: false,
       },
     },
-    'stats.hikeDistance': {
-      numericality: true,
-    },
-    'stats.elevation': {
-      numericality: true,
-    },
-    'detail.subheader': {
-      presence: {
-        allowEmpty: false,
-      },
-    },
-    'detail.bodyTitle': {
-      presence: {
-        allowEmpty: false,
-      },
-    },
-    'detail.bodyContent': {
-      presence: {
-        allowEmpty: false,
-      },
-    },
     'detail.imageUrl': {
       presence: {
         allowEmpty: false,

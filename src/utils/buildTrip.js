@@ -28,8 +28,8 @@ const buildTrip = attributes => {
     },
     promoCodes: buildPromoCodes(attributes.promoCodes),
     stats: {
-      hikeDistance: +attributes.stats.hikeDistance,
-      elevation: +attributes.stats.elevation,
+      hikeDistance: attributes.stats.hikeDistance,
+      elevation: attributes.stats.elevation,
     },
     cashLocations: attributes.cashLocations,
     cashAvailability: attributes.cashAvailability,

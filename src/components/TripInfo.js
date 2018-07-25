@@ -60,12 +60,6 @@ function TripInfo(props) {
         </P>
         <P proxima>{props.location}</P>
         <P proxima bold uppercase color="green">
-          difficulty
-        </P>
-        <P proxima capitalize>
-          {props.difficulty}
-        </P>
-        <P proxima bold uppercase color="green">
           price
         </P>
         <P proxima>${props.pricing.min} per person</P>
@@ -82,7 +76,7 @@ function TripInfo(props) {
           </P>
         ) : (
           <BookButton primary onClick={() => props.toCheckout(props.tripId)}>
-            Book Trip
+            Book Hike
           </BookButton>
         )}
       </BorderWrapper>

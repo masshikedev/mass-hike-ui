@@ -181,12 +181,12 @@ class TripDetailList extends Component {
           </H5>
           <GridParent>
             <ContentColumn>
-              <Subheading>Title</Subheading>
-              <P>{trip.detail.title}</P>
-              <Subheading>Subtitle</Subheading>
-              <P>{trip.detail.subtitle}</P>
-              <Subheading>Body</Subheading>
-              <P>{trip.detail.body}</P>
+              <Subheading>Subheader</Subheading>
+              <P>{trip.detail.subheader}</P>
+              <Subheading>Body Title</Subheading>
+              <P>{trip.detail.bodyTitle}</P>
+              <Subheading>Body Content</Subheading>
+              <P>{trip.detail.bodyContent}</P>
               <Subheading>Image</Subheading>
               <Img src={trip.detail.imageUrl} />
             </ContentColumn>

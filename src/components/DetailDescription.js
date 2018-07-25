@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 const Timeline = styled.div`
   display: flex;
   text-align: center;
-  padding: 40px 0;
+  padding: 60px 0;
 `;
 
 const SmallTime = styled.div`
@@ -56,17 +56,41 @@ const BodyContent = P.extend`
   white-space: pre-wrap;
 `;
 
+const StatsSection = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 20px;
+`;
+
+const Stat = styled.div`
+  grid-column: span 1;
+`;
+
 function DetailDescription(props) {
-  const { detail, time } = props;
+  const { detail, time, stats, difficulty } = props;
   return (
     <Wrapper>
       <P proxima size="xlarge" bold>
         {detail.bodyTitle}
       </P>
       <BodyContent>{detail.bodyContent}</BodyContent>
+      <StatsSection>
+        <Stat>
+          <H6>Difficulty</H6>
+          <P>{difficulty}</P>
+        </Stat>
+        <Stat>
+          <H6>Distance</H6>
+          <P>{stats.hikeDistance}</P>
+        </Stat>
+        <Stat>
+          <H6>Elevation</H6>
+          <P>{stats.elevation}</P>
+        </Stat>
+      </StatsSection>
       <Timeline>
         <SmallTime>
-          <H6>pickup</H6>
+          <H6>Pickup</H6>
           <Line>
             <Graphic />
           </Line>
@@ -75,7 +99,7 @@ function DetailDescription(props) {
             .format(TIME)}`}</P>
         </SmallTime>
         <LargeTime>
-          <H6>hike time</H6>
+          <H6>Hike Time</H6>
           <Line>
             <Graphic primary />
           </Line>
@@ -84,7 +108,7 @@ function DetailDescription(props) {
             .format(TIME)}`}</P>
         </LargeTime>
         <SmallTime>
-          <H6>dropoff</H6>
+          <H6>Dropoff</H6>
           <Line>
             <Graphic />
           </Line>

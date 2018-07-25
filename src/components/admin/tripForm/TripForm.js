@@ -185,15 +185,10 @@ class TripForm extends Component {
           {this.fieldFor('difficulty', 'Difficulty', messages)}
           <GridParent>
             <Column>
-              {this.fieldFor(
-                'hikeDistance',
-                'Distance (mi)',
-                messages,
-                'stats'
-              )}
+              {this.fieldFor('hikeDistance', 'Distance', messages, 'stats')}
             </Column>
             <Column>
-              {this.fieldFor('elevation', 'Elevation (ft)', messages, 'stats')}
+              {this.fieldFor('elevation', 'Elevation', messages, 'stats')}
             </Column>
           </GridParent>
         </TripFormSection>
