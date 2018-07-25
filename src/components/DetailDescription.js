@@ -79,14 +79,18 @@ function DetailDescription(props) {
           <H6>Difficulty</H6>
           <P>{difficulty}</P>
         </Stat>
-        <Stat>
-          <H6>Distance</H6>
-          <P>{stats.hikeDistance}</P>
-        </Stat>
-        <Stat>
-          <H6>Elevation</H6>
-          <P>{stats.elevation}</P>
-        </Stat>
+        {stats.hikeDistance && (
+          <Stat>
+            <H6>Distance</H6>
+            <P>{stats.hikeDistance}</P>
+          </Stat>
+        )}
+        {stats.elevation && (
+          <Stat>
+            <H6>Elevation</H6>
+            <P>{stats.elevation}</P>
+          </Stat>
+        )}
       </StatsSection>
       <Timeline>
         <SmallTime>
