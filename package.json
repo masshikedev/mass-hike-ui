@@ -2,7 +2,7 @@
   "name": "mass-hike-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://masshikedev.github.io/mass-hike-ui",
+  "homepage": "http://masshike.org",
   "dependencies": {
     "@nuscout/eslint-config": "^0.2.0",
     "eslint": "^4.16.0",
