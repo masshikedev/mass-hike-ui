@@ -64,7 +64,7 @@ function TripInfo(props) {
         </P>
         <P proxima>${props.pricing.min} per person</P>
         <P proxima bold uppercase color="green">
-          availibility
+          availability
         </P>
         <P proxima>
           {props.capacity - props.ticketsSold}/{props.capacity} Tickets

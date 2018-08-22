@@ -18,6 +18,10 @@ const Text = styled.div`
     padding-left: 40px;
     padding-right: 40px;
   }
+
+  p {
+    font-family: 'Source Serif Pro', serif;
+  }
 `;
 
 const Title = styled.div`
