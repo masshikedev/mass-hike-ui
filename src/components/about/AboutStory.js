@@ -21,6 +21,7 @@ const Text = styled.div`
 
   p {
     font-family: 'Source Serif Pro', serif;
+    margin-bottom: 14px;
   }
 `;
 
