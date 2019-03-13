@@ -157,16 +157,18 @@ class Footer extends Component {
         <P proxima size="medium" color="white">
           Join the Mass Hike membership list
         </P>
-        <label>
+        <label for="footer-name">
           <MemberInput
+            id="footer-name"
             type="text"
             value={name}
             placeholder="Name"
             onChange={e => this.setState({ name: e.target.value })}
           />
         </label>
-        <label>
+        <label for="footer-email">
           <MemberInput
+            id="footer-email"
             type="text"
             value={email}
             placeholder="Email Address"
