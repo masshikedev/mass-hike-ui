@@ -164,6 +164,8 @@ class Footer extends Component {
             placeholder="Name"
             onChange={e => this.setState({ name: e.target.value })}
           />
+        </label>
+        <label>
           <MemberInput
             type="text"
             value={email}
